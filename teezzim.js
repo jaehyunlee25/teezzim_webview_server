@@ -4,15 +4,23 @@ const fs = require("fs");
 
 const connection = mysql.createConnection(JSON.parse(fs.readFileSync("db.json")));
 const golfClubEngNames = [];
+const golfClubLoginUrl = {};
 
 connection.connect();
-connection.query("select * from golf_club_eng;", (err, rows, fields) => {
+connection.query("select * from golf_club_eng;", getClubNames);
+connection.query(fs.readFileSync("getLoginUrl.sql", "utf-8"), getLoginUrl);
+connection.end();
+function getClubNames(err, rows, fields) {
     rows.forEach(row => {
         golfClubEngNames.push(row.eng_id);
     });
-});
-connection.end();
-
+};
+function getLoginUrl(err, rows, fields) {
+    rows.forEach(row => {
+        golfClubLoginUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;
+    });
+    console.log(golfClubLoginUrl);
+};
 const server = http.createServer((request, response) => {
     console.log('http request', request.method);
     if(request.method === "OPTION") {
@@ -33,7 +41,7 @@ const server = http.createServer((request, response) => {
         let url;
         let script;
         let objResp;
-        if (request.url == "/island") {
+        /* if (request.url == "/island") {
             url = "https://www.islandresort.co.kr/html/member/login.asp?gopath=/html/reserve/reserve01.asp&b_idx=";
             script = "javascript:" + fs.readFileSync("island.js", "utf-8");
             objResp = {
@@ -47,14 +55,17 @@ const server = http.createServer((request, response) => {
                 url,
                 script,
             };
-        } else if(request.url == "/clubs") {
+        } else  */if(request.url == "/clubs") {
             objResp = {
                 clubs: golfClubEngNames,
             };
         } else {
+            const engName = request.url.substring(1);
+            url = golfClubLoginUrl[engName];
+            script = "javascript:" + fs.readFileSync("script/" + engName + ".js", "utf-8");
             objResp = {
-                url: "",
-                script: "",
+                url,
+                script,
             };
         }
         console.log(objResp);
