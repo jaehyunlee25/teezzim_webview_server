@@ -17,7 +17,7 @@ function getClubNames(err, rows, fields) {
 };
 function getLoginUrl(err, rows, fields) {
     rows.forEach(row => {
-        golfClubLoginUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;
+        golfClubLoginUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;        
     });
     console.log(golfClubLoginUrl);
 };
