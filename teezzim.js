@@ -1,5 +1,24 @@
 const http = require('http');
+const mysql = require('mysql');
 const fs = require("fs");
+
+const connection = mysql.createConnection({
+    host: 'dev.mnemosyne.co.kr',
+    user: 'root',
+    port: '23306',
+    password: 'mnemosyne!2#4',
+    database: 'golf'
+});
+const golfClubEngNames = [];
+
+connection.connect();
+connection.query("select * from golf_club_eng;", (err, rows, fields) => {
+    rows.forEach(row => {
+        golfClubEngNames.push(row.eng_id);
+    });
+});
+connection.end();
+
 const server = http.createServer((request, response) => {
     console.log('http request', request.method);
     if(request.method === "OPTION") {
@@ -19,17 +38,31 @@ const server = http.createServer((request, response) => {
         response.writeHead(200, {'Content-Type': 'application/json'});
         let url;
         let script;
+        let objResp;
         if (request.url == "/island") {
             url = "https://www.islandresort.co.kr/html/member/login.asp?gopath=/html/reserve/reserve01.asp&b_idx=";
             script = "javascript:" + fs.readFileSync("island.js", "utf-8");
+            objResp = {
+                url,
+                script,
+            };
         } else if(request.url == "/jinyang") {
             url = "http://m.chinyangvalley.co.kr/member/login.asp";
             script = "javascript:" + fs.readFileSync("jinyang.js", "utf-8");
+            objResp = {
+                url,
+                script,
+            };
+        } else if(request.url == "/clubs") {
+            objResp = {
+                clubs: golfClubEngNames,
+            };
+        } else {
+            objResp = {
+                url: "",
+                script: "",
+            };
         }
-        const objResp = {
-            url,
-            script,
-        };
         console.log(objResp);
         response.write(JSON.stringify(objResp));
         response.end();
