@@ -2,13 +2,7 @@ const http = require('http');
 const mysql = require('mysql');
 const fs = require("fs");
 
-const connection = mysql.createConnection({
-    host: 'dev.mnemosyne.co.kr',
-    user: 'root',
-    port: '23306',
-    password: 'mnemosyne!2#4',
-    database: 'golf'
-});
+const connection = mysql.createConnection(JSON.parse(fs.readFileSync("db.json")));
 const golfClubEngNames = [];
 
 connection.connect();
