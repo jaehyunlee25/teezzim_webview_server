@@ -1,5 +1,5 @@
 (() => {
-    memberId.value = '${login_id}';
-    memberPw.value = '${login_password}';
-    login();
+    memberID.value = '${login_id}';
+    memberPassword.value = '${login_password}';
+    document.getElementsByClassName("btn")[0].children[0].click();
 })()
