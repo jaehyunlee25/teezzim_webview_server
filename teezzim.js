@@ -5,11 +5,22 @@ const fs = require("fs");
 const connection = mysql.createConnection(JSON.parse(fs.readFileSync("db.json")));
 const golfClubEngNames = [];
 const golfClubLoginUrl = {};
+const golfClubAccounts = {};
 
 connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
 connection.query(fs.readFileSync("getLoginUrl.sql", "utf-8"), getLoginUrl);
+connection.query(fs.readFileSync("getAccount.sql", "utf-8"), getAccounts);
 connection.end();
+function getAccounts(err, rows, fields) {
+    rows.forEach(row => {
+        golfClubAccounts[row.golf_club_english_name] = {
+            id: row.golf_club_login_url_admin_id,
+            pw: row.golf_club_login_url_admin_pw,
+        };
+    });
+    // console.log(golfClubAccounts);
+};
 function getClubNames(err, rows, fields) {
     rows.forEach(row => {
         golfClubEngNames.push(row.eng_id);
@@ -19,71 +30,79 @@ function getLoginUrl(err, rows, fields) {
     rows.forEach(row => {
         golfClubLoginUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;        
     });
-    console.log(golfClubLoginUrl);
+    // console.log(golfClubLoginUrl);
 };
 const server = http.createServer((request, response) => {
-    console.log('http request', request.method);
-    if(request.method === "OPTION") {
-        const defaultCorsHeader = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Accept',
-            'Access-Control-Max-Age': 10
-        };
-    }
-    if(request.method === "GET") {
-        response.writeHead(200, {'Content-Type': 'application/json'});
-        response.write('hello, world!');
-        response.end();
-    }
-    if(request.method === "POST") {
-        response.writeHead(200, {'Content-Type': 'application/json'});
-        let url;
-        let script;
-        let objResp;
-        /* if (request.url == "/island") {
-            url = "https://www.islandresort.co.kr/html/member/login.asp?gopath=/html/reserve/reserve01.asp&b_idx=";
-            script = "javascript:" + fs.readFileSync("island.js", "utf-8");
-            objResp = {
-                url,
-                script,
-            };
-        } else if(request.url == "/jinyang") {
-            url = "http://m.chinyangvalley.co.kr/member/login.asp";
-            script = "javascript:" + fs.readFileSync("jinyang.js", "utf-8");
-            objResp = {
-                url,
-                script,
-            };
-        } else  */if(request.url == "/clubs") {
-            objResp = {
-                clubs: golfClubEngNames,
-            };
-        } else {
-            const engName = request.url.substring(1);
-            url = golfClubLoginUrl[engName];
-            script = "javascript:" + fs.readFileSync("script/" + engName + ".js", "utf-8");
-            objResp = {
-                url,
-                script,
-            };
-        }
-        console.log(objResp);
-        response.write(JSON.stringify(objResp));
-        response.end();
+    console.log('http request', request.method);    
+    let body = [];
+    try{
+        request.on('data', (chunk) => {
+            console.log("test", chunk.toString());
+            body.push(chunk.toString());
+        }).on('end', () => {
+            let data;
+            try{
+                data = JSON.parse(body.join(""));
+                console.log(data);
+                if(request.method === "OPTION") {
+                    const defaultCorsHeader = {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                        'Access-Control-Allow-Headers': 'Content-Type, Accept',
+                        'Access-Control-Max-Age': 10
+                    };
+                }
+                if(request.method === "GET") {
+                    response.writeHead(200, {'Content-Type': 'application/json'});
+                    response.write('hello, world!');
+                    response.end();
+                }
+                if(request.method === "POST") {
+                    procPost(request, response, data);        
+                }
+            }catch(e){
+                console.log(e);
+            }
+        });
+    } catch (e) {
+        console.log(e);
     }
     
-    let body = [];
-    request.on('data', (chunk) => {
-        console.log(chunk);
-        body.push(chunk.toString());
-    }).on('end', () => {
-        let data;
-        try{
-            data = JSON.parse(body.join(""));
-        }catch(e){
-            console.log(e);
-        }
-        console.log(data);
-    });
 }).listen(8080);
+function procPost(request, response, data) {
+    console.log("data", data);
+    let url;
+    let script;
+    let objResp;
+    if(request.url == "/clubs") {
+        objResp = {
+            clubs: golfClubEngNames,
+        };
+    } else if (request.url == "/account") {
+        objResp = {
+            accounts: golfClubAccounts,
+        };
+    } else if (request.url == "/search") {
+        const engName = data.club;
+        const common = fs.readFileSync("script/search/common.js", "utf-8");
+        const clubscript = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
+        const script = "javascript:(() => {\r\n" + clubscript + "\r\n})()";
+        const url = "";
+        objResp = {
+            url,
+            script,
+        };
+    } else {
+        const engName = request.url.substring(1);
+        url = golfClubLoginUrl[engName];
+        script = "javascript:" + fs.readFileSync("script/login/" + engName + ".js", "utf-8");
+        objResp = {
+            url: "https://www.ilcc.co.kr/reservation/reservation.asp",
+            script,
+        };
+    }
+    console.log("obj", objResp);
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.write(JSON.stringify(objResp));
+    response.end();
+};
