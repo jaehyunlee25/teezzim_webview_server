@@ -86,8 +86,8 @@ function procPost(request, response, data) {
         const engName = data.club;
         const common = fs.readFileSync("script/search/common.js", "utf-8");
         const clubscript = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
-        const script = "javascript:(() => {\r\n" + clubscript + "\r\n})()";
-        const url = "";
+        const script = "javascript:(() => {" + clubscript + common + "})()";
+        const url = "https://www.ilcc.co.kr/mobile/reservation/reservation.asp";
         objResp = {
             url,
             script,
@@ -97,7 +97,7 @@ function procPost(request, response, data) {
         url = golfClubLoginUrl[engName];
         script = "javascript:" + fs.readFileSync("script/login/" + engName + ".js", "utf-8");
         objResp = {
-            url: "https://www.ilcc.co.kr/reservation/reservation.asp",
+            url,
             script,
         };
     }

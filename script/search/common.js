@@ -41,15 +41,11 @@ function post(addr, param, header, callback) {
       j.xmlHttp.send(null);
     };
     this.post = function (addr, prm, header) {
-      // dateListId1.innerHTML = "";
-  
       j.xmlHttp = new XMLHttpRequest();
       j.xmlHttp.onreadystatechange = on_ReadyStateChange;
       j.xmlHttp.onerror = onError;
       j.xmlHttp.open('POST', addr, true);
   
-      //header :: cors에 결정적
-      //j.xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
       if (header) {
         if (header['Content-Type'])
           Object.keys(header).forEach((key) => {
@@ -72,7 +68,6 @@ function post(addr, param, header, callback) {
       PARAM = prm;
       HEADER = JSON.stringify(header);
   
-      //console.log(prm);
       j.xmlHttp.send(prm);
     };
     this.file = function (addr, prm) {
@@ -82,19 +77,13 @@ function post(addr, param, header, callback) {
       j.xmlHttp.send(prm);
     };
     function onError() {
-      /* dateListId1.innerHTML += "address :: " + ADDR + "\r\n";
-          dateListId1.innerHTML += "header :: " + HEADER + "\r\n";
-          dateListId1.innerHTML += "param :: " + PARAM + "\r\n"; */
     }
     function on_ReadyStateChange() {
-      /* dateListId1.innerHTML += "<div>" + j.xmlHttp.readyState + " :: " + j.xmlHttp.status + "</div>\r\n"; */
-  
       if (j.xmlHttp.readyState == 4) {
         if (j.xmlHttp.status == 200) {
           var data = j.xmlHttp.responseText;
           j.ajaxcallback(data);
         } else {
-          // dateListId1.innerHTML += "<div>" + j.xmlHttp.readyState + " :: " + j.xmlHttp.status + "</div>\r\n";
         }
       }
     }
@@ -106,19 +95,15 @@ function post(addr, param, header, callback) {
     }
   };
   String.prototype.gt = function (num) {
-    //get tail
     return this.substring(this.length - num, this.length);
   };
   String.prototype.gh = function (num) {
-    //get head
     return this.substring(0, num);
   };
   String.prototype.ct = function (num) {
-    //get tail
     return this.substring(0, this.length - num);
   };
   String.prototype.ch = function (num) {
-    //cut head
     return this.substring(num, this.length);
   };
   String.prototype.addzero = function () {
