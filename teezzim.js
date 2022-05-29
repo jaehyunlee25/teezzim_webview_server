@@ -5,11 +5,13 @@ const fs = require("fs");
 const connection = mysql.createConnection(JSON.parse(fs.readFileSync("db.json")));
 const golfClubEngNames = [];
 const golfClubLoginUrl = {};
+const golfClubSearchUrl = {};
 const golfClubAccounts = {};
 
 connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
 connection.query(fs.readFileSync("getLoginUrl.sql", "utf-8"), getLoginUrl);
+connection.query(fs.readFileSync("getSearchUrl.sql", "utf-8"), getSearchUrl);
 connection.query(fs.readFileSync("getAccount.sql", "utf-8"), getAccounts);
 connection.end();
 function getAccounts(err, rows, fields) {
@@ -24,11 +26,19 @@ function getAccounts(err, rows, fields) {
 function getClubNames(err, rows, fields) {
     rows.forEach(row => {
         golfClubEngNames.push(row.eng_id);
+        // console.log(row.eng_id);
+        // if(row.eng_id != "allday") fs.writeFileSync("script/search/" + row.eng_id + ".js", "");
     });
 };
 function getLoginUrl(err, rows, fields) {
     rows.forEach(row => {
         golfClubLoginUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;        
+    });
+    // console.log(golfClubLoginUrl);
+};
+function getSearchUrl(err, rows, fields) {
+    rows.forEach(row => {
+        golfClubSearchUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;        
     });
     // console.log(golfClubLoginUrl);
 };
@@ -87,7 +97,7 @@ function procPost(request, response, data) {
         const common = fs.readFileSync("script/search/common.js", "utf-8");
         const clubscript = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
         const script = "javascript:(() => {" + clubscript + common + "})()";
-        const url = "https://www.ilcc.co.kr/mobile/reservation/reservation.asp";
+        const url = golfClubSearchUrl[engName];
         objResp = {
             url,
             script,
