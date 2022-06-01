@@ -38,9 +38,9 @@ function getLoginUrl(err, rows, fields) {
 };
 function getSearchUrl(err, rows, fields) {
     rows.forEach(row => {
-        golfClubSearchUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;        
+        golfClubSearchUrl[row.golf_club_english_name] = row.golf_club_search_url_mobile;        
     });
-    // console.log(golfClubLoginUrl);
+    // console.log(golfClubSearchUrl);
 };
 const server = http.createServer((request, response) => {
     console.log('http request', request.method);    
@@ -96,7 +96,7 @@ function procPost(request, response, data) {
         const engName = data.club;
         const common = fs.readFileSync("script/search/common.js", "utf-8");
         const clubscript = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
-        const script = "javascript:(() => {" + clubscript + common + "})()";
+        const script = "javascript:(() => {" + common + clubscript + "})()";
         const url = golfClubSearchUrl[engName];
         objResp = {
             url,
