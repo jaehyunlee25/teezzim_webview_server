@@ -63,7 +63,6 @@ function mneCallDetail(arrDate) {
 	param['ctl00$contents$htbArgs'] = strParam;
 	param['ctl00$contents$ScptManager'] = 'ctl00$Content$ScptManager|ctl00$Content$btnUp';
 	param['__EVENTTARGET'] = 'ctl00$Content$btnUp';
-    console.dir(param);
 	
 	post('Reservation', param, {}, data => {
     const ifr = document.createElement('div');
