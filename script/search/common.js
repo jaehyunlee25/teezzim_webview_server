@@ -110,3 +110,5 @@ String.prototype.addzero = function () {
   if(this.length == 1) return '0' + this;
   return this;
 };
+const log = console.log;
+const dir = console.dir;

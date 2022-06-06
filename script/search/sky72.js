@@ -77,8 +77,7 @@ function mneCallDetail(arrDate) {
 				others: '9홀',
 			});
 		});
-
-        procDate()
+        procDate();
     });
 };
 function mneCall(callback) {

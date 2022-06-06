@@ -11,6 +11,7 @@ const thisyear = now.getFullYear() + "";
 const thismonth = ("0" + (1 + now.getMonth())).slice(-2);
 const thisdate = thisyear + thismonth;
 
+now.setDate(28);
 now.setMonth(now.getMonth() + 1);
 const nextyear = now.getFullYear() + "";
 const nextmonth = ("0" + (1 + now.getMonth())).slice(-2);
