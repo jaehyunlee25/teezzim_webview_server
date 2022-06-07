@@ -56,7 +56,7 @@ const server = http.createServer((request, response) => {
         'Access-Control-Allow-Headers': 'Content-Type', // for application/json
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
     });
-    if(request.method === "OPTION") {        
+    if(request.method === "OPTIONS") {        
         response.end(JSON.stringify({}));
         return;
     }
@@ -81,7 +81,7 @@ const server = http.createServer((request, response) => {
                 }
             }catch(e){
                 console.log(e);
-                if(request.method === "OPTION") {        
+                if(request.method === "OPTIONS") {        
                     response.end(JSON.stringify({}));
                     return;
                 }
@@ -89,7 +89,7 @@ const server = http.createServer((request, response) => {
         });
     } catch (e) {
         console.log(e);
-        if(request.method === "OPTION") {        
+        if(request.method === "OPTIONS") {        
             response.end(JSON.stringify({}));
             return;
         }
