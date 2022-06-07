@@ -60,24 +60,24 @@ const server = http.createServer((request, response) => {
             try{
                 data = JSON.parse(body.join(""));
                 console.log(data);
-                if(request.method === "OPTION") {
-                    const defaultCorsHeader = {
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-                        'Access-Control-Allow-Headers': 'Content-Type, Accept',
-                        'Access-Control-Max-Age': 10
-                    };
-                }
-                if(request.method === "GET") {
-                    response.writeHead(200, {'Content-Type': 'application/json'});
-                    response.write('hello, world!');
-                    response.end();
-                }
-                if(request.method === "POST") {
-                    procPost(request, response, data);        
-                }
             }catch(e){
                 console.log(e);
+            }
+            if(request.method === "OPTION") {
+                const defaultCorsHeader = {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type, Accept',
+                    'Access-Control-Max-Age': 10
+                };
+            }
+            if(request.method === "GET") {
+                response.writeHead(200, {'Content-Type': 'application/json'});
+                response.write('hello, world!');
+                response.end();
+            }
+            if(request.method === "POST") {
+                procPost(request, response, data);        
             }
         });
     } catch (e) {
