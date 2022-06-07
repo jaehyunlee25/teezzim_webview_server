@@ -49,7 +49,17 @@ function getSearchUrl(err, rows, fields) {
     // console.log(golfClubSearchUrl);
 };
 const server = http.createServer((request, response) => {
-    console.log('http request', request.method);    
+    console.log('http request', request.method);
+    if(request.method === "OPTION") {
+        const defaultCorsHeader = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Accept',
+            'Access-Control-Max-Age': 10
+        };
+        response.end();
+        return;
+    }
     let body = [];
     try{
         request.on('data', (chunk) => {
@@ -60,14 +70,7 @@ const server = http.createServer((request, response) => {
             try{
                 console.log(data);
                 data = JSON.parse(body.join(""));
-                if(request.method === "OPTION") {
-                    const defaultCorsHeader = {
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-                        'Access-Control-Allow-Headers': 'Content-Type, Accept',
-                        'Access-Control-Max-Age': 10
-                    };
-                }
+                
                 if(request.method === "GET") {
                     response.writeHead(200, {'Content-Type': 'application/json'});
                     response.write('hello, world!');
