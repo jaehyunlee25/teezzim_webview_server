@@ -136,7 +136,6 @@ function procPost(request, response, data) {
         };
     }
     console.log("obj", objResp);
-    response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(objResp));
     response.end();
 };
