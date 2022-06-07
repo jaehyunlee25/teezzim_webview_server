@@ -1,7 +1,7 @@
 const clubId = '4c6747cf-774f-11ec-b15c-0242ac110005';
 const courses = {
-  IN: '566c55bb-775f-11ec-b15c-0242ac110005', // 'IN 코스',
-  OUT: '566c584a-775f-11ec-b15c-0242ac110005', // 'OUT 코스'
+  IN: '566c55bb-775f-11ec-b15c-0242ac110005',
+  OUT: '566c584a-775f-11ec-b15c-0242ac110005',
 };
 const OUTER_ADDR_HEADER = 'https://dev.mnemosyne.co.kr';
 const addrOuter = OUTER_ADDR_HEADER + '/api/reservation/golfSchedule';
@@ -30,13 +30,11 @@ function procDate() {
   const lmt = dates.length - 1;
   let cnt = 0;
   const timer = setInterval(() => {
-    // 마지막 수신 데이터까지 처리하기 위해 종료조건이 상단에 위치한다.
     if (cnt > lmt) {
       clearInterval(timer);
       procGolfSchedule();
       return;
     }
-    // 데이터 수집
 	  const [date] = dates[cnt];
 	  console.log('수집하기', cnt + '/' + lmt, date);
     mneCallDetail(date);
@@ -56,7 +54,7 @@ function procGolfSchedule() {
 function mneCallDetail(date) {
   const param = {
     golfrestype: 'real',
-    courseid: 0, // maybe 0: 전체, 1: IN, 2: OUT
+    courseid: 0,
     usrmemcd: 10,
     pointdate: date,
     openyn: 1,

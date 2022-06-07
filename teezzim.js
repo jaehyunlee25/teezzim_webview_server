@@ -1,6 +1,12 @@
 const http = require('http');
 const mysql = require('mysql');
 const fs = require("fs");
+const admin = require('firebase-admin');
+const serviceAccount = require('./teezzim-webview-test-firebase-adminsdk-i8hfk-ef88a22eeb.json');
+const token = "dojdZqaQRR-Xf-7sl05bY6:APA91bGNoMmJZZTERSqD311_6GTtAZoZH2ZTStXbrEZ6vCMTa50dkcD0xf64LfbOJHgtjtGeUcnI_VwgexrNbLY0bB30AbtW9jlImnkQDRF2jFyXqewSvQJ_yCFP22OcwUGa9MUCYRIp";
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 const connection = mysql.createConnection(JSON.parse(fs.readFileSync("db.json")));
 const golfClubEngNames = [];
@@ -102,6 +108,21 @@ function procPost(request, response, data) {
             url,
             script,
         };
+    } else if (request.url == "/control") {
+        const engName = data.club;
+        const message = {
+            data: {
+                command: 'search',
+                club: engName,
+            },
+            token,
+        };
+        admin.messaging().send(message).then(response => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     } else {
         const engName = request.url.substring(1);
         url = golfClubLoginUrl[engName];
