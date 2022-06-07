@@ -115,7 +115,7 @@ function procPost(request, response, data) {
                 command: 'search',
                 club: engName,
             },
-            token,
+            topic: 'search',
         };
         admin.messaging().send(message).then(response => {
             console.log(response);
