@@ -50,12 +50,7 @@ function getSearchUrl(err, rows, fields) {
 };
 const server = http.createServer((request, response) => {
     console.log('http request', request.method);
-    response.writeHead(200, {
-        'Access-Control-Allow-Origin': '*', // for same origin policy
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Headers': 'Content-Type', // for application/json
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    });
+    
     if(request.method === "OPTIONS") {        
         response.end(JSON.stringify({}));
         return;
@@ -76,23 +71,21 @@ const server = http.createServer((request, response) => {
                     response.write('hello, world!');
                     response.end();
                 }
+                response.writeHead(200, {
+                    'Access-Control-Allow-Origin': '*', // for same origin policy
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Headers': 'Content-Type', // for application/json
+                    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                });
                 if(request.method === "POST") {
                     procPost(request, response, data);        
                 }
             }catch(e){
                 console.log(e);
-                if(request.method === "OPTIONS") {        
-                    response.end(JSON.stringify({}));
-                    return;
-                }
             }
         });
     } catch (e) {
         console.log(e);
-        if(request.method === "OPTIONS") {        
-            response.end(JSON.stringify({}));
-            return;
-        }
     }
     
 }).listen(8080);
