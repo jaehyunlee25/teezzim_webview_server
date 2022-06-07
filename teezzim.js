@@ -81,6 +81,10 @@ const server = http.createServer((request, response) => {
                 }
             }catch(e){
                 console.log(e);
+                if(request.method === "OPTION") {        
+                    response.end(JSON.stringify({}));
+                    return;
+                }
             }
         });
     } catch (e) {
