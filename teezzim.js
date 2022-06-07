@@ -1,6 +1,12 @@
 const http = require('http');
 const mysql = require('mysql');
 const fs = require("fs");
+const admin = require('firebase-admin');
+const serviceAccount = require('./teezzim-webview-test-firebase-adminsdk-i8hfk-ef88a22eeb.json');
+const token = "dojdZqaQRR-Xf-7sl05bY6:APA91bGNoMmJZZTERSqD311_6GTtAZoZH2ZTStXbrEZ6vCMTa50dkcD0xf64LfbOJHgtjtGeUcnI_VwgexrNbLY0bB30AbtW9jlImnkQDRF2jFyXqewSvQJ_yCFP22OcwUGa9MUCYRIp";
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 const connection = mysql.createConnection(JSON.parse(fs.readFileSync("db.json")));
 const golfClubEngNames = [];
@@ -38,9 +44,9 @@ function getLoginUrl(err, rows, fields) {
 };
 function getSearchUrl(err, rows, fields) {
     rows.forEach(row => {
-        golfClubSearchUrl[row.golf_club_english_name] = row.golf_club_login_url_mobile;        
+        golfClubSearchUrl[row.golf_club_english_name] = row.golf_club_search_url_mobile;        
     });
-    // console.log(golfClubLoginUrl);
+    // console.log(golfClubSearchUrl);
 };
 const server = http.createServer((request, response) => {
     console.log('http request', request.method);    
@@ -96,12 +102,27 @@ function procPost(request, response, data) {
         const engName = data.club;
         const common = fs.readFileSync("script/search/common.js", "utf-8");
         const clubscript = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
-        const script = "javascript:(() => {" + clubscript + common + "})()";
+        const script = "javascript:(() => {" + common + clubscript + "})()";
         const url = golfClubSearchUrl[engName];
         objResp = {
             url,
             script,
         };
+    } else if (request.url == "/control") {
+        const engName = data.club;
+        const message = {
+            data: {
+                command: 'search',
+                club: engName,
+            },
+            token,
+        };
+        admin.messaging().send(message).then(response => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     } else {
         const engName = request.url.substring(1);
         url = golfClubLoginUrl[engName];
