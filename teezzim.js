@@ -126,6 +126,7 @@ function procPost(request, response, data) {
         .catch(err => {
             console.log(err);
         });
+        objResp = {};
     } else {
         const engName = request.url.substring(1);
         url = golfClubLoginUrl[engName];
