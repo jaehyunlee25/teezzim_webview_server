@@ -49,7 +49,17 @@ function getSearchUrl(err, rows, fields) {
     // console.log(golfClubSearchUrl);
 };
 const server = http.createServer((request, response) => {
-    console.log('http request', request.method);    
+    console.log('http request', request.method);
+    response.writeHead(200, {
+        'Access-Control-Allow-Origin': '*', // for same origin policy
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': 'Content-Type', // for application/json
+        'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
+    });
+    if(request.method === "OPTIONS") {        
+        response.end(JSON.stringify({}));
+        return;
+    }
     let body = [];
     try{
         request.on('data', (chunk) => {
@@ -58,26 +68,19 @@ const server = http.createServer((request, response) => {
         }).on('end', () => {
             let data;
             try{
-                data = JSON.parse(body.join(""));
                 console.log(data);
+                data = JSON.parse(body.join(""));
+                
+                if(request.method === "GET") {                    
+                    response.write('hello, world!');
+                    response.end();
+                }
+                
+                if(request.method === "POST") {
+                    procPost(request, response, data);        
+                }
             }catch(e){
                 console.log(e);
-            }
-            if(request.method === "OPTION") {
-                const defaultCorsHeader = {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-                    'Access-Control-Allow-Headers': 'Content-Type, Accept',
-                    'Access-Control-Max-Age': 10
-                };
-            }
-            if(request.method === "GET") {
-                response.writeHead(200, {'Content-Type': 'application/json'});
-                response.write('hello, world!');
-                response.end();
-            }
-            if(request.method === "POST") {
-                procPost(request, response, data);        
             }
         });
     } catch (e) {
@@ -123,6 +126,7 @@ function procPost(request, response, data) {
         .catch(err => {
             console.log(err);
         });
+        objResp = {};
     } else {
         const engName = request.url.substring(1);
         url = golfClubLoginUrl[engName];
@@ -133,7 +137,6 @@ function procPost(request, response, data) {
         };
     }
     console.log("obj", objResp);
-    response.writeHead(200, {'Content-Type': 'application/json'});
     response.write(JSON.stringify(objResp));
     response.end();
 };
