@@ -50,14 +50,14 @@ function getSearchUrl(err, rows, fields) {
 };
 const server = http.createServer((request, response) => {
     console.log('http request', request.method);
-    if(request.method === "OPTION") {
-        const defaultCorsHeader = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Accept',
-            'Access-Control-Max-Age': 10
-        };
-        response.end();
+    response.writeHead(200, {
+        'Access-Control-Allow-Origin': '*', // for same origin policy
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': 'Content-Type', // for application/json
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    });
+    if(request.method === "OPTION") {        
+        response.end(JSON.stringify({}));
         return;
     }
     let body = [];
