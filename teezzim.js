@@ -143,7 +143,7 @@ function procPost(request, response, data) {
                             searchScript,
                         });
         objResp = {
-            url,
+            url: loginUrl,
             script,
         };    
     } else {
