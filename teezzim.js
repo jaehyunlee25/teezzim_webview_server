@@ -142,6 +142,7 @@ function procPost(request, response, data) {
                             loginScript,
                             searchScript,
                         });
+        fs.writeFileSync("templateResult.js", script);
         objResp = {
             url: loginUrl,
             script,
