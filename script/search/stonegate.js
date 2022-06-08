@@ -69,7 +69,7 @@ function mneCallDetail(arrDate) {
         const tbody = table.getElementsByTagName("tbody")[0];
         const trs = tbody.children;
         Array.from(trs).forEach(tr => {
-            const course = tr.children[0].innerText;
+            const course = tr.children[0].innerText.ch(5);
             const time = tr.children[1].innerText.replace(/\s/g,"").split(":").join("");
             const fee_discount = tr.children[3].innerText.replace(/\s/g,"").ct(1).split(',').join('') * 1;
             const fee_normal = tr.children[4].innerText.replace(/\s/g,"").ct(1).split(',').join('') * 1;
