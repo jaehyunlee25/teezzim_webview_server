@@ -127,6 +127,25 @@ function procPost(request, response, data) {
             console.log(err);
         });
         objResp = {};
+    } else if (request.url == "/searchbot") {
+        const engName = data.club;
+        const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+        const loginUrl = golfClubSearchUrl[engName];
+        const searchUrl = golfClubSearchUrl[engName];
+        const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8"); 
+        const searchScript = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
+        const templateScript = fs.readFileSync("template.js", "utf-8");
+        const script = templateScript.dp({
+                            commonScript,
+                            loginUrl,
+                            searchUrl,
+                            loginScript,
+                            searchScript,
+                        });
+        objResp = {
+            url,
+            script,
+        };    
     } else {
         const engName = request.url.substring(1);
         url = golfClubLoginUrl[engName];
@@ -139,4 +158,14 @@ function procPost(request, response, data) {
     console.log("obj", objResp);
     response.write(JSON.stringify(objResp));
     response.end();
+};
+String.prototype.dp = function(param) {
+    let self = this;
+    const keys = Object.keys(param);
+    keys.forEach(key => {
+        const regex = new RegExp('\\$\\{'.add(key).add('\\}'), 'g');
+        const val = param[key];
+        self = self.replace(regex, val);
+    });
+    return self;
 };
