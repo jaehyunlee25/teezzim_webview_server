@@ -130,7 +130,7 @@ function procPost(request, response, data) {
     } else if (request.url == "/searchbot") {
         const engName = data.club;
         const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
-        const loginUrl = golfClubSearchUrl[engName];
+        const loginUrl = golfClubLoginUrl[engName];
         const searchUrl = golfClubSearchUrl[engName];
         const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8").dp({
             login_id: golfClubAccounts[engName].id,
