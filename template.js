@@ -1,4 +1,4 @@
-(() => {
+javascript:(() => {
     ${commonScript}
     const addr = location.href;
     if(addr == "${loginUrl}") {
