@@ -52,7 +52,10 @@ function procGolfSchedule() {
 	});
 	console.log(golf_schedule);
 	const param = { golf_schedule, golf_club_id: clubId };
-	post(addrOuter, param, header, () => {});
+	post(addrOuter, param, header, () => {
+		const ac = window.AndroidController;
+		if(ac) ac.message("end of procGolfSchedule!")
+	});
 };
 function mneCallDetail(arrDate) {
 	const [date, strParam] = arrDate;
