@@ -169,3 +169,6 @@ String.prototype.dp = function(param) {
     });
     return self;
 };
+String.prototype.add = function add(str) {
+    return [this, str].join('');
+};
