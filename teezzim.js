@@ -132,7 +132,10 @@ function procPost(request, response, data) {
         const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
         const loginUrl = golfClubSearchUrl[engName];
         const searchUrl = golfClubSearchUrl[engName];
-        const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8"); 
+        const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8").dp({
+            login_id: golfClubAccounts[engName].id,
+            login_password: golfClubAccounts[engName].pw,
+        }); 
         const searchScript = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
         const templateScript = fs.readFileSync("template.js", "utf-8");
         const script = templateScript.dp({
