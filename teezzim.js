@@ -157,8 +157,9 @@ function procPost(request, response, data) {
         const engName = request.url.substring(1);
         url = golfClubLoginUrl[engName];
         const template = fs.readFileSync("script/login/login.template", "utf-8");
+        const common = fs.readFileSync("script/search/common.js", "utf-8");
         const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8").split("\r\n").join("\r\n    ");
-        script = template.dp({ loginScript });
+        script = template.dp({ common, loginScript });
         objResp = {
             url,
             script,
