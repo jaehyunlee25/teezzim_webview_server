@@ -120,7 +120,10 @@ function procPost(request, response, data) {
             },
             topic: 'search',
         };
-        admin.messaging().send(message).then(response => {
+        admin
+        .messaging()
+        .send(message)
+        .then(response => {
             console.log(response);
         })
         .catch(err => {
@@ -153,7 +156,9 @@ function procPost(request, response, data) {
     } else {
         const engName = request.url.substring(1);
         url = golfClubLoginUrl[engName];
-        script = "javascript:" + fs.readFileSync("script/login/" + engName + ".js", "utf-8");
+        const template = fs.readFileSync("script/login/login_template.js", "utf-8");
+        const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8").split("\r\n").join("\r\n    ");
+        script = "javascript:(() => {" + loginScript + "})();";
         objResp = {
             url,
             script,
