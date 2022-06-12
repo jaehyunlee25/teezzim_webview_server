@@ -135,7 +135,7 @@ function procPost(request, response, data) {
         const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
         const loginUrl = golfClubLoginUrl[engName];
         const searchUrl = golfClubSearchUrl[engName];
-        const loginScript = getLoginScript.dp({
+        const loginScript = getLoginScript(engName).dp({
             login_id: golfClubAccounts[engName].id,
             login_password: golfClubAccounts[engName].pw,
         }); 
