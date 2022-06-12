@@ -135,7 +135,7 @@ function procPost(request, response, data) {
         const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
         const loginUrl = golfClubLoginUrl[engName];
         const searchUrl = golfClubSearchUrl[engName];
-        const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8").dp({
+        const loginScript = getLoginScript.dp({
             login_id: golfClubAccounts[engName].id,
             login_password: golfClubAccounts[engName].pw,
         }); 
@@ -155,11 +155,8 @@ function procPost(request, response, data) {
         };    
     } else {
         const engName = request.url.substring(1);
-        url = golfClubLoginUrl[engName];
-        const template = fs.readFileSync("script/login/login.template", "utf-8");
-        const common = fs.readFileSync("script/search/common.js", "utf-8");
-        const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8").split("\r\n").join("\r\n    ");
-        script = template.dp({ common, loginScript });
+        url = golfClubLoginUrl[engName];        
+        script = getLoginScript(engName);
         objResp = {
             url,
             script,
@@ -168,6 +165,12 @@ function procPost(request, response, data) {
     console.log("obj", objResp);
     response.write(JSON.stringify(objResp));
     response.end();
+};
+function getLoginScript(engName) {
+    const template = fs.readFileSync("script/login/login.template", "utf-8");
+    const common = fs.readFileSync("script/search/common.js", "utf-8");
+    const loginScript = fs.readFileSync("script/login/" + engName + ".js", "utf-8").split("\r\n").join("\r\n    ");
+    return template.dp({ common, loginScript });
 };
 String.prototype.dp = function(param) {
     let self = this;
