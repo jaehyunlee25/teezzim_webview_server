@@ -1,3 +1,10 @@
 javascript:(() => {
+    ${common}
+    const param = {
+        type: "login", 
+        sub_type: "",
+        device_id: "${deviceId}",
+        device_token: "${deviceToken}",
+    };
     ${loginScript}
 })();
