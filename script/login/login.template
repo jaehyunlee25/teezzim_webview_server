@@ -9,7 +9,8 @@ javascript:(() => {
         message: "",
         parameter: JSON.stringify({}),
     };
-    TZLOG(param, () => {
+    TZLOG(param, (data) => {
+        log(data);
         ${loginScript}
     });
     
