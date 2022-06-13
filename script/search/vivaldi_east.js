@@ -1,11 +1,11 @@
-const clubId = '5a2e3107-cd84-11ec-a93e-0242ac11000a';
-const courses = { 
-	OUT: '32b3a11d-cd86-11ec-a93e-0242ac11000a',
-	IN: '32b3a461-cd86-11ec-a93e-0242ac11000a',
+const clubId = "5a2e3107-cd84-11ec-a93e-0242ac11000a";
+const courses = {
+  OUT: "32b3a11d-cd86-11ec-a93e-0242ac11000a",
+  IN: "32b3a461-cd86-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = 'https://dev.mnemosyne.co.kr';
-const addrOuter = OUTER_ADDR_HEADER + '/api/reservation/golfSchedule';
-const header = { 'Content-Type': 'application/json' };
+const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
+const header = { "Content-Type": "application/json" };
 
 const now = new Date();
 const thisyear = now.getFullYear() + "";
@@ -31,69 +31,75 @@ function procDate() {
   const lmt = dates.length - 1;
   let cnt = 0;
   const timer = setInterval(() => {
-    if(cnt > lmt) {
+    if (cnt > lmt) {
       clearInterval(timer);
       procGolfSchedule();
       return;
     }
     const [date] = dates[cnt];
-	console.log('수집하기', cnt + '/' + lmt, date);
-	mneCallDetail(date);
+    console.log("수집하기", cnt + "/" + lmt, date);
+    mneCallDetail(date);
     cnt++;
   }, 300);
 }
 function procGolfSchedule() {
-	golf_schedule.forEach((obj) => {
-		obj.golf_course_id = courses[obj.golf_course_id];
-		obj.date = obj.date.gh(4) + '-' + obj.date.ch(4).gh(2) + '-' + obj.date.gt(2);
-	});
-	console.log(golf_schedule);
-	const param = { golf_schedule, golf_club_id: clubId };
-	post(addrOuter, param, header, () => {
-		const ac = window.AndroidController;
-		if(ac) ac.message("end of procGolfSchedule!")
-	});
-};
+  golf_schedule.forEach((obj) => {
+    obj.golf_course_id = courses[obj.golf_course_id];
+    obj.date =
+      obj.date.gh(4) + "-" + obj.date.ch(4).gh(2) + "-" + obj.date.gt(2);
+  });
+  console.log(golf_schedule);
+  const param = { golf_schedule, golf_club_id: clubId };
+  post(addrOuter, param, header, () => {
+    const ac = window.AndroidController;
+    if (ac) ac.message("end of procGolfSchedule!");
+  });
+}
 function mneCallDetail(date) {
-	const param = { 
-		fRsvD: date,
-		fJiyukCd: '60',
-        fStoreCd: 2180,
-	};
+  const param = {
+    fRsvD: date,
+    fJiyukCd: "60",
+    fStoreCd: 2180,
+  };
 
-  post('/m.rsv.selectMobileRsvStepOne.dp/dmparse.dm', param, {}, data => {
-    const ifr = document.createElement('div');
+  post("/m.rsv.selectMobileRsvStepOne.dp/dmparse.dm", param, {}, (data) => {
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const arrDiv = ifr.getElementsByClassName('grid-content-container');
-    Array.from(arrDiv).forEach(el => {
-			const course = el.children[1].innerText.replace(/\s/g,"");
-			const time = el.children[0].innerText.replace(/\s/g,"").ct(1).split("시").join("");
-			const fee_discount = el.children[2].innerText.replace(/\s/g,"").split(',').join('') * 1;
-			const fee_normal = el.children[2].innerText.replace(/\s/g,"").split(',').join('') * 1;
+    const arrDiv = ifr.getElementsByClassName("grid-content-container");
+    Array.from(arrDiv).forEach((el) => {
+      const course = el.children[1].innerText.replace(/\s/g, "");
+      const time = el.children[0].innerText
+        .replace(/\s/g, "")
+        .ct(1)
+        .split("시")
+        .join("");
+      const fee_discount =
+        el.children[2].innerText.replace(/\s/g, "").split(",").join("") * 1;
+      const fee_normal =
+        el.children[2].innerText.replace(/\s/g, "").split(",").join("") * 1;
 
-			golf_schedule.push({
-				golf_club_id: clubId,
-				golf_course_id: course,
-				date,
-				time,
-				in_out: '',
-				persons: '',
-				fee_normal,
-				fee_discount,
-				others: course,
-			});
-    });    
-	});
-};
+      golf_schedule.push({
+        golf_club_id: clubId,
+        golf_course_id: course,
+        date,
+        time,
+        in_out: "",
+        persons: "",
+        fee_normal,
+        fee_discount,
+        others: course,
+      });
+    });
+  });
+}
 function mneCall(date, callback) {
-  
-  Array.from(mabari.children).forEach(el => {
-    const date = el.children[0].getAttribute('data-date');
+  Array.from(mabari.children).forEach((el) => {
+    const date = el.children[0].getAttribute("data-date");
     const sign = el.children[1].innerText;
-    if(sign != "예약") return;
+    if (sign != "예약") return;
     dates.push([date, ""]);
   });
 
   callback();
-};
+}

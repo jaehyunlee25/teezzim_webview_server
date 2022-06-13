@@ -1,12 +1,12 @@
-const clubId = '54dc9b4b-ce15-11ec-a93e-0242ac11000a';
-const courses = { 
-	혼솔: '81bbcace-ce15-11ec-a93e-0242ac11000a', /* // '혼솔 코스',  */
-	미쁨: '81bbccb0-ce15-11ec-a93e-0242ac11000a', /* // '미쁨 코스',  */
-	바른: '81bbccea-ce15-11ec-a93e-0242ac11000a', /* // '바른 코스',  */
+const clubId = "54dc9b4b-ce15-11ec-a93e-0242ac11000a";
+const courses = {
+  혼솔: "81bbcace-ce15-11ec-a93e-0242ac11000a" /* // '혼솔 코스',  */,
+  미쁨: "81bbccb0-ce15-11ec-a93e-0242ac11000a" /* // '미쁨 코스',  */,
+  바른: "81bbccea-ce15-11ec-a93e-0242ac11000a" /* // '바른 코스',  */,
 };
-const OUTER_ADDR_HEADER = 'https://dev.mnemosyne.co.kr';
-const addrOuter = OUTER_ADDR_HEADER + '/api/reservation/golfSchedule';
-const header = { 'Content-Type': 'application/json' };
+const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
+const header = { "Content-Type": "application/json" };
 
 const now = new Date();
 const thisyear = now.getFullYear() + "";
@@ -33,32 +33,33 @@ function procDate() {
   let cnt = 0;
   const timer = setInterval(() => {
     /* // 마지막 수신 데이터까지 처리하기 위해 종료조건이 상단에 위치한다. */
-    if(cnt > lmt) {
+    if (cnt > lmt) {
       clearInterval(timer);
       procGolfSchedule();
       return;
     }
     /* // 데이터 수집 */
     const [date] = dates[cnt];
-	  console.log('수집하기', cnt + '/' + lmt, date);
+    console.log("수집하기", cnt + "/" + lmt, date);
     mneCallDetail(date);
     cnt++;
   }, 300);
-};
+}
 function procGolfSchedule() {
-	golf_schedule.forEach((obj) => {
-		obj.golf_course_id = courses[obj.golf_course_id];
-		obj.date = obj.date.gh(4) + '-' + obj.date.ch(4).gh(2) + '-' + obj.date.gt(2);
-	});
-	console.log(golf_schedule);
-	const param = { golf_schedule, golf_club_id: clubId };
-	post(addrOuter, param, header, () => {
-		const ac = window.AndroidController;
-		if(ac) ac.message("end of procGolfSchedule!")
-	});
-};
+  golf_schedule.forEach((obj) => {
+    obj.golf_course_id = courses[obj.golf_course_id];
+    obj.date =
+      obj.date.gh(4) + "-" + obj.date.ch(4).gh(2) + "-" + obj.date.gt(2);
+  });
+  console.log(golf_schedule);
+  const param = { golf_schedule, golf_club_id: clubId };
+  post(addrOuter, param, header, () => {
+    const ac = window.AndroidController;
+    if (ac) ac.message("end of procGolfSchedule!");
+  });
+}
 function mneCallDetail(date) {
-  const param = { 
+  const param = {
     golfrestype: "real",
     courseid: "0",
     usrmemcd: "11",
@@ -69,31 +70,31 @@ function mneCallDetail(date) {
     cssncourseum: "",
     inputtype: "I",
   };
-  post('real_timelist_ajax_list.asp', param, {}, (data) => {
-    const ifr = document.createElement('div');
+  post("real_timelist_ajax_list.asp", param, {}, (data) => {
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
-    const trs = ifr.getElementsByTagName('tbody')[0].getElementsByTagName("tr");
+    const trs = ifr.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
     const obTeams = {};
     Array.from(trs).forEach((tr, i) => {
       const course = tr.children[1].innerHTML;
       const time = tr.children[2].innerHTML;
-      const fee_normal = tr.children[4].innerHTML.replace(/\,/g,'') * 1;
-      const fee_discount = tr.children[4].innerHTML.replace(/\,/g,'') * 1;
+      const fee_normal = tr.children[4].innerHTML.replace(/\,/g, "") * 1;
+      const fee_discount = tr.children[4].innerHTML.replace(/\,/g, "") * 1;
 
       golf_schedule.push({
         golf_club_id: clubId,
         golf_course_id: course,
         date,
         time,
-        in_out: '',
-        persons: '',
+        in_out: "",
+        persons: "",
         fee_normal,
         fee_discount,
-        others: '18홀',
+        others: "18홀",
       });
     });
   });
-};
+}
 function mneCall(date, callback) {
   const param = {
     golfrestype: "real",
@@ -102,11 +103,11 @@ function mneCall(date, callback) {
     toDay: date + "01",
     calnum: "1",
   };
-  post('real_calendar_ajax_view.asp', param, {}, (data) => {
-    const ifr = document.createElement('div');
+  post("real_calendar_ajax_view.asp", param, {}, (data) => {
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
-    
-    const as = Array.from(ifr.getElementsByClassName('cal_live'));
+
+    const as = Array.from(ifr.getElementsByClassName("cal_live"));
     as.forEach((a) => {
       const str = a.getAttribute("href");
       const ob = procStr(str);
@@ -114,9 +115,9 @@ function mneCall(date, callback) {
     });
     callback();
   });
-};
+}
 function procStr(str) {
   const regex = /javascript:timefrom_change\((.+)\)/;
-  const values = regex.exec(str)[1].replace(/'/g, '').split(',');
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values[0] };
-};
+}
