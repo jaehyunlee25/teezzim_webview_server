@@ -186,13 +186,14 @@ function procPost(request, response, data) {
   response.end();
 }
 function getLoginScript(engName) {
+  const golfClubId = golfClubIds[engName];
   const template = fs.readFileSync("script/login/login.template", "utf-8");
   const common = fs.readFileSync("script/search/common.js", "utf-8");
   const loginScript = fs
     .readFileSync("script/login/" + engName + ".js", "utf-8")
     .split("\r\n")
     .join("\r\n    ");
-  return template.dp({ common, loginScript });
+  return template.dp({ common, loginScript, golfClubId });
 }
 String.prototype.dp = function (param) {
   let self = this;
