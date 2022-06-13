@@ -1,6 +1,6 @@
 function mneCall(date, callback) {
   const param = {
-    day: date,
+    day: date.gh(4) + "/" + date.gt(2) + "/01",
     type: "today",
     change_day: "",
   };
