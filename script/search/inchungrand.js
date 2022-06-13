@@ -1,20 +1,20 @@
-const clubId = '4c6747cf-774f-11ec-b15c-0242ac110005';
+const clubId = "4c6747cf-774f-11ec-b15c-0242ac110005";
 const courses = {
-  IN: '566c55bb-775f-11ec-b15c-0242ac110005',
-  OUT: '566c584a-775f-11ec-b15c-0242ac110005',
+  IN: "566c55bb-775f-11ec-b15c-0242ac110005",
+  OUT: "566c584a-775f-11ec-b15c-0242ac110005",
 };
-const OUTER_ADDR_HEADER = 'https://dev.mnemosyne.co.kr';
-const addrOuter = OUTER_ADDR_HEADER + '/api/reservation/golfSchedule';
-const header = { 'Content-Type': 'application/json' };
+const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
+const header = { "Content-Type": "application/json" };
 
 const now = new Date();
-const thisyear = now.getFullYear() + '';
-const thismonth = ('0' + (1 + now.getMonth())).slice(-2);
+const thisyear = now.getFullYear() + "";
+const thismonth = ("0" + (1 + now.getMonth())).slice(-2);
 const thisdate = thisyear + thismonth;
 
 now.setMonth(now.getMonth() + 1);
-const nextyear = now.getFullYear() + '';
-const nextmonth = ('0' + (1 + now.getMonth())).slice(-2);
+const nextyear = now.getFullYear() + "";
+const nextmonth = ("0" + (1 + now.getMonth())).slice(-2);
 const nextdate = nextyear + nextmonth;
 
 console.log(thisdate, nextdate);
@@ -35,42 +35,42 @@ function procDate() {
       procGolfSchedule();
       return;
     }
-	  const [date] = dates[cnt];
-	  console.log('수집하기', cnt + '/' + lmt, date);
+    const [date] = dates[cnt];
+    console.log("수집하기", cnt + "/" + lmt, date);
     mneCallDetail(date);
     cnt++;
   }, 300);
-};
+}
 function procGolfSchedule() {
   golf_schedule.forEach((obj) => {
     obj.golf_course_id = courses[obj.golf_course_id];
     obj.date =
-      obj.date.gh(4) + '-' + obj.date.ch(4).gh(2) + '-' + obj.date.gt(2);
+      obj.date.gh(4) + "-" + obj.date.ch(4).gh(2) + "-" + obj.date.gt(2);
   });
   console.log(golf_schedule);
   const param = { golf_schedule, golf_club_id: clubId };
   post(addrOuter, param, header, () => {
-		const ac = window.AndroidController;
-		if(ac) ac.message("end of procGolfSchedule!")
-	});
-};
+    const ac = window.AndroidController;
+    if (ac) ac.message("end of procGolfSchedule!");
+  });
+}
 function mneCallDetail(date) {
   const param = {
-    golfrestype: 'real',
+    golfrestype: "real",
     courseid: 0,
     usrmemcd: 10,
     pointdate: date,
     openyn: 1,
     dategbn: 6,
-    choice_time: '00',
-    cssncourseum: '',
+    choice_time: "00",
+    cssncourseum: "",
     inputtype: 1,
   };
-  post('real_timelist_ajax_list.asp', param, {}, (data) => {
-    const ifr = document.createElement('div');
+  post("real_timelist_ajax_list.asp", param, {}, (data) => {
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const as = ifr.getElementsByTagName('a');
+    const as = ifr.getElementsByTagName("a");
     const obTeams = {};
     Array.from(as).forEach((a) => {
       const ob = procHrefDetail(a.href);
@@ -85,56 +85,56 @@ function mneCallDetail(date) {
         golf_course_id: course,
         date,
         time,
-        in_out: '',
-        persons: '',
+        in_out: "",
+        persons: "",
         fee_normal,
         fee_discount,
-        others: '9홀',
+        others: "9홀",
       });
     });
   });
-};
+}
 function mneCall(date, callback) {
   const param = {
-    golfrestype: 'real',
+    golfrestype: "real",
     schDate: date,
     usrmemcd: 10,
-    toDay: date + '01',
+    toDay: date + "01",
     calnum: 2,
   };
-  post('real_calendar_ajax_view.asp', param, {}, (data) => {
-    const ifr = document.createElement('div');
+  post("real_calendar_ajax_view.asp", param, {}, (data) => {
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const as = ifr.getElementsByTagName('a');
+    const as = ifr.getElementsByTagName("a");
     Array.from(as).forEach((a) => {
       const ob = procHref(a.href);
       if (!ob) return;
-      if (ob.type !== 'T') return;
+      if (ob.type !== "T") return;
       dates.push([ob.date, 0]);
     });
     callback();
   });
-};
+}
 function procHrefDetail(str) {
-  const head = str.indexOf('subcmd');
+  const head = str.indexOf("subcmd");
   if (head === -1) return false;
   const regex = /\((.+)\)/;
-  const values = regex.exec(str)[1].replace(/'/g, '').split(',');
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return {
     time: addColon(values[2]),
     course: values[3],
     fee_normal: values[8] * 1,
     fee_discount: values[9] * 1,
   };
-};
+}
 function addColon(str) {
-  return str.gh(2) + ':' + str.gt(2);
-};
+  return str.gh(2) + ":" + str.gt(2);
+}
 function procHref(str) {
-  const head = str.indexOf('timefrom_change');
+  const head = str.indexOf("timefrom_change");
   if (head === -1) return false;
   const regex = /\((.+)\)/;
-  const values = regex.exec(str)[1].replace(/'/g, '').split(',');
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values[0], type: values[5] };
-};
+}

@@ -112,19 +112,34 @@ function procPost(request, response, data) {
     objResp = {
       accounts: golfClubAccounts,
     };
+  } else if (request.url == "/search_core") {
+    const engName = data.club;
+    getSearchScript(engName, (script) => {
+      const url = golfClubSearchUrl[engName];
+      objResp = {
+        url,
+        script,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (request.url == "/search") {
     const engName = data.club;
     const common = fs.readFileSync("script/search/common.js", "utf-8");
-    const clubscript = fs.readFileSync(
+    /* const clubscript = fs.readFileSync(
       "script/search/" + engName + ".js",
       "utf-8"
-    );
-    const script = "javascript:(() => {" + common + clubscript + "})()";
-    const url = golfClubSearchUrl[engName];
-    objResp = {
-      url,
-      script,
-    };
+    ); */
+    getSearchScript(engName, (clubscript) => {
+      const script = "javascript:(() => {" + common + clubscript + "})()";
+      const url = golfClubSearchUrl[engName];
+      objResp = {
+        url,
+        script,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (request.url == "/control") {
     const engName = data.club;
     const message = {
@@ -180,9 +195,69 @@ function procPost(request, response, data) {
       script,
     };
   }
-  console.log("obj", objResp);
-  response.write(JSON.stringify(objResp));
-  response.end();
+  if (objResp) {
+    console.log("obj", objResp);
+    response.write(JSON.stringify(objResp));
+    response.end();
+  }
+}
+function getSearchScript(engName, callback) {
+  const result = {};
+  const connection = mysql.createConnection(
+    JSON.parse(fs.readFileSync("db.json", "utf-8"))
+  );
+  connection.connect();
+  connection.query(
+    fs.readFileSync("golf_course.sql", "utf-8"),
+    (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      rows.forEach((row) => {
+        if (!result[row.golf_club_english_name])
+          result[row.golf_club_english_name] = [];
+        result[row.golf_club_english_name].push(row);
+      });
+      const param = {
+        golf_club_id: "",
+        golf_course: [],
+      };
+      result[engName].forEach((course, i) => {
+        if (i === 0) param.golf_club_id = course.golf_club_id;
+        param.golf_course.push(
+          [
+            "'" + course.golf_course_name + "'",
+            ": '",
+            course.golf_course_id,
+            "',",
+          ].join("")
+        );
+      });
+      param.golf_course = param.golf_course.join("\r\n\t");
+      const template = gf("search_template.js").dp(param);
+      const common = gf("search_template2.js").add(gf("search_template3.js"));
+      const core = fs.readFileSync(
+        "script/search_core/" + engName + ".js",
+        "utf-8"
+      );
+      let wrapper;
+      try {
+        wrapper = fs.readFileSync(
+          "script/search_wrapper/" + engName + ".js",
+          "utf-8"
+        );
+      } catch (e) {
+        console.log(e.toString());
+      }
+
+      let script;
+      if (wrapper)
+        script = wrapper.dp({ searchScript: template + common + core });
+      else script = template + common + core;
+      callback(script);
+    }
+  );
 }
 function getLoginScript(engName) {
   const golfClubId = golfClubIds[engName];
@@ -193,6 +268,13 @@ function getLoginScript(engName) {
     .split("\r\n")
     .join("\r\n    ");
   return template.dp({ common, loginScript, golfClubId });
+}
+function gf(file) {
+  //get file
+  return fs.readFileSync(file, "utf-8");
+}
+function jp(str) {
+  return JSON.parse(str);
 }
 String.prototype.dp = function (param) {
   let self = this;
