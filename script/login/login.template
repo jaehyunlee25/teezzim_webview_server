@@ -1,10 +1,14 @@
 javascript:(() => {
     ${common}
     const param = {
-        type: "login", 
-        sub_type: "",
+        type: "command", 
+        sub_type: "login",
         device_id: "${deviceId}",
         device_token: "${deviceToken}",
+        golf_club_id: "${golf_club_id}",
+        message: "",
+        parameter: JSON.stringify({}),
     };
+    TZLOG(param);
     ${loginScript}
 })();
