@@ -11,7 +11,7 @@ javascript:(() => {
     };
     TZLOG(param, (data) => {
         log(data);
+        ${loginScript}
     });
-    ${loginScript}
     
 })();
