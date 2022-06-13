@@ -6,7 +6,7 @@ javascript:(() => {
         device_id: "${deviceId}",
         device_token: "${deviceToken}",
         golf_club_id: "${golf_club_id}",
-        message: "",
+        message: "start login",
         parameter: JSON.stringify({}),
     };
     TZLOG(param, (data) => {
