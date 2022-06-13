@@ -35,7 +35,6 @@ function getAccounts(err, rows, fields) {
 }
 function getClubNames(err, rows, fields) {
   rows.forEach((row) => {
-    console.dir(row);
     golfClubEngNames.push(row.eng_id);
     golfClubIds[row.eng_id] = row.golf_club_id;
     // console.log(row.eng_id);
