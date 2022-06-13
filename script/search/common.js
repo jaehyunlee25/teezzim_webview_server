@@ -1,4 +1,4 @@
-function TZLOG(param) {
+function TZLOG(param, callback) {
   const addr = "https://dev.mnemosyne.co.kr:1006/api/reservation/newLog";
   post(addr, param, { "Content-Type": "application/json" }, () => {});
 }
