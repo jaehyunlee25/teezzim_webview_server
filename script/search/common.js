@@ -1,3 +1,7 @@
+function TZLOG(param) {
+  const addr = "https://dev.mnemosyne.co.kr:1006/reservation/newLog";
+  post(addr, param, { 'Content-Type': 'application/json' }, ()=>{});
+};
 function post(addr, param, header, callback) {
   var a = new ajaxcallforgeneral(),
     str = [];
