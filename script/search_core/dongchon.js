@@ -61,3 +61,7 @@ mneCall(thisdate, () => {
     mneCall(nextdate, procDate);
   }, 3000);
 });
+
+function addColon(str) {
+  return str.gh(2) + ":" + str.gt(2);
+}
