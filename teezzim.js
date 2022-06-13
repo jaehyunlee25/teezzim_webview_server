@@ -41,6 +41,7 @@ function getClubNames(err, rows, fields) {
     // console.log(row.eng_id);
     // if(row.eng_id != "allday") fs.writeFileSync("script/search/" + row.eng_id + ".js", "");
   });
+  console.log(golfClubIds);
 }
 function getLoginUrl(err, rows, fields) {
   rows.forEach((row) => {
