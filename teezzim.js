@@ -132,6 +132,7 @@ function procPost(request, response, data) {
       "utf-8"
     ); */
     getSearchScript(engName, (clubscript) => {
+      console.log(clubscript);
       const script = "javascript:(() => {" + common + clubscript + "})()";
       const url = golfClubSearchUrl[engName];
       objResp = {
