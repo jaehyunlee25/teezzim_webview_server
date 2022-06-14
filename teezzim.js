@@ -124,6 +124,7 @@ function procPost(request, response, data) {
       response.end();
     });
   } else if (request.url == "/search") {
+    console.log("url", request.url);
     const engName = data.club;
     const common = fs.readFileSync("script/search/common.js", "utf-8");
     /* const clubscript = fs.readFileSync(
