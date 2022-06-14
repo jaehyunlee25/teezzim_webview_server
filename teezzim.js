@@ -171,23 +171,20 @@ function procPost(request, response, data) {
       login_id: golfClubAccounts[engName].id,
       login_password: golfClubAccounts[engName].pw,
     });
-    const searchScript = fs.readFileSync(
-      "script/search/" + engName + ".js",
-      "utf-8"
-    );
     const templateScript = fs.readFileSync("template.js", "utf-8");
-    const script = templateScript.dp({
-      commonScript,
-      loginUrl,
-      searchUrl,
-      loginScript,
-      searchScript,
+    getSearchScript(engName, (searchScript) => {
+      const script = templateScript.dp({
+        commonScript,
+        loginUrl,
+        searchUrl,
+        loginScript,
+        searchScript,
+      });
+      objResp = {
+        url: loginUrl,
+        script,
+      };
     });
-    fs.writeFileSync("templateResult.js", script);
-    objResp = {
-      url: loginUrl,
-      script,
-    };
   } else {
     const engName = request.url.substring(1);
     url = golfClubLoginUrl[engName];
