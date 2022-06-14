@@ -204,6 +204,7 @@ function procPost(request, response, data) {
   }
 }
 function getSearchScript(engName, callback) {
+  const golfClubId = golfClubIds[engName];
   const result = {};
   const connection = mysql.createConnection(
     JSON.parse(fs.readFileSync("db.json", "utf-8"))
@@ -257,7 +258,7 @@ function getSearchScript(engName, callback) {
       if (wrapper)
         script = wrapper.dp({ searchScript: template + common + core });
       else script = template + common + core;
-      callback(script);
+      callback(script.dp({ golfClubId }));
     }
   );
 }
