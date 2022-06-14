@@ -4,6 +4,16 @@ function procDate() {
   const arrDate = dates.shift();
   if (arrDate) {
     console.log("수집하기", order + "/" + lmt, arrDate[0]);
+    const param = {
+      type: "command",
+      sub_type: "search",
+      device_id: "${deviceId}",
+      device_token: "${deviceToken}",
+      golf_club_id: "${golfClubId}",
+      message: "search",
+      parameter: JSON.stringify({ order, total: lmt, date: arrDate[0] }),
+    };
+    TZLOG(param, (data) => {});
     mneCallDetail(arrDate);
   } else {
     procGolfSchedule();

@@ -1,5 +1,8 @@
+const log = console.log;
+const dir = console.dir;
+const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
 function TZLOG(param, callback) {
-  const addr = "https://dev.mnemosyne.co.kr/api/reservation/newLog";
+  const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";
   post(addr, param, { "Content-Type": "application/json" }, (data) => {
     callback(data);
   });
@@ -115,5 +118,3 @@ String.prototype.addzero = function () {
   if (this.length == 1) return "0" + this;
   return this;
 };
-const log = console.log;
-const dir = console.dir;

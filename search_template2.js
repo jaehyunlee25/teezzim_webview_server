@@ -1,4 +1,3 @@
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 
