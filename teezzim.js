@@ -184,6 +184,8 @@ function procPost(request, response, data) {
         url: loginUrl,
         script,
       };
+      response.write(JSON.stringify(objResp));
+      response.end();
     });
   } else {
     const engName = request.url.substring(1);
