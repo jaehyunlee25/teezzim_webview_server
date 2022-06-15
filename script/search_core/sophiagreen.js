@@ -61,8 +61,8 @@ function mneCallDetail(arrDate) {
     ifr.innerHTML = data;
     const trs = ifr.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
     Array.from(trs).forEach((tr, i) => {
-      const course = tr.children[0].innerHTML;
-      const time = tr.children[1].innerHTML.split(":").join("");
+      const course = tr.children[1].innerHTML;
+      const time = tr.children[2].innerHTML.split(":").join("");
       const fee_normal = 240000;
       const fee_discount = 240000;
 
