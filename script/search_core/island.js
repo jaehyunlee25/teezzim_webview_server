@@ -48,4 +48,23 @@ function mneCallDetail(arrDate) {
   });
 }
 
+function procStrDetail(str) {
+  const regex = /Book_time\d*\((.+)\)/;
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
+  return {
+    time: addColon(values[3]),
+    course: values[2].replace(/\"/g, "").replace(" ", ""),
+    fee_normal: values[4] * 1,
+    fee_discount: values[4] * 1,
+  };
+}
+function addColon(str) {
+  return str.gh(2) + ":" + str.gt(2);
+}
+function procStr(str) {
+  const regex = /Date_Click\((.+)\)/;
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
+  return { date: values.join("") };
+}
+
 mneCall("", procDate);
