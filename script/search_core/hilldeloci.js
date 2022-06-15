@@ -87,6 +87,12 @@ function mneCallDetail(arrDate) {
   });
 }
 
+function procStr(str) {
+  const regex = /clickCal\((.+)\)/;
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
+  return { date: values[2] };
+}
+
 mneCall(thisdate, () => {
   workMonthNext();
   setTimeout(() => {
