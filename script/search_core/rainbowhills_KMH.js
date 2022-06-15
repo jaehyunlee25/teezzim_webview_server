@@ -67,6 +67,14 @@ function mneCallDetail(arrDate) {
   });
 }
 
+function procStr(str) {
+  const head = str.indexOf("quick_timefrom_change");
+  if (head === -1) return false;
+  const regex = /\((.+)\)/;
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
+  return { date: values[0], type: values[5] };
+}
+
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);
 });
