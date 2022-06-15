@@ -271,7 +271,7 @@ function getLoginScript(engName, noCover) {
     .split("\r\n")
     .join("\r\n    ");
   const loginContent = template.dp({ common, loginScript, golfClubId });
-  if (!noCover) loginContent.dp({ loginContent });
+  if (!noCover) loginContent = loginContent.dp({ loginContent });
   return loginContent;
 }
 function gf(file) {
