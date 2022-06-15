@@ -75,6 +75,12 @@ function mneCallDetail(arrDate) {
   });
 }
 
+function procStr(str) {
+  const regex = /javascript:timefrom_change\((.+)\)/;
+  const values = regex.exec(str)[1].replace(/'/g, "").split(",");
+  return { date: values[0], available: values[5] === "T" };
+}
+
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);
 });
