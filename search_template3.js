@@ -25,9 +25,10 @@ function procGolfSchedule() {
     obj.date =
       obj.date.gh(4) + "-" + obj.date.ch(4).gh(2) + "-" + obj.date.gt(2);
   });
-  console.log(golf_schedule);
+  // console.log(golf_schedule);
   const param = { golf_schedule, golf_club_id: clubId };
-  post(addrOuter, param, header, () => {
+  post(addrOuter, param, header, (data) => {
+    console.log(data);
     const ac = window.AndroidController;
     if (ac) ac.message("end of procGolfSchedule!");
   });
