@@ -23,7 +23,6 @@ function mneCallDetail(arrDate) {
     cos: "",
   };
   post("/controller/ReservationController.asp", param, {}, (data) => {
-    callbackNumber++;
     const arRes = JSON.parse(data).rows;
     arRes.forEach((ob) => {
       const course = ob.BK_COS_NM;
