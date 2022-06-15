@@ -272,7 +272,7 @@ function getLoginScript(engName, noCover) {
     .join("\r\n    ");
   let loginContent = template.dp({ common, loginScript, golfClubId });
   console.log("noCover", noCover);
-  if (noCover == undefined) loginContent = loginContent.dp({ loginContent });
+  if (noCover == undefined) loginContent = cover.dp({ loginContent });
   return loginContent;
 }
 function gf(file) {
