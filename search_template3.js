@@ -1,5 +1,5 @@
 function procDate() {
-  if (dates.length == 0) {
+  if (lmt === undefined && dates.length == 0) {
     const param = {
       type: "command",
       sub_type: "search",
