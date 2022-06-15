@@ -270,7 +270,7 @@ function getLoginScript(engName, noCover) {
     .readFileSync("script/login/" + engName + ".js", "utf-8")
     .split("\r\n")
     .join("\r\n    ");
-  const loginContent = template.dp({ common, loginScript, golfClubId });
+  let loginContent = template.dp({ common, loginScript, golfClubId });
   if (!noCover) loginContent = loginContent.dp({ loginContent });
   return loginContent;
 }
