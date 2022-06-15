@@ -1,7 +1,7 @@
 function mneCall(date, callback) {
   const opt = date == thisdate ? 0 : 1;
   const param = { cal_month: opt };
-  get("reservation_date.asp" + opt, param, {}, (data) => {
+  get("reservation_date.asp", param, {}, (data) => {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
