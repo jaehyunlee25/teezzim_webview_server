@@ -1,7 +1,26 @@
 function mneCall(date, callback) {
   const opt = date == thisdate ? 0 : 1;
-  const param = { cal_month: opt };
-  get("/reservation/golf", param, {}, (data) => {
+  const param = {
+    bookgAgree: "Y",
+    clickTdId: "",
+    clickTdClass: "",
+    workMonth: date,
+    workDate: "20220615",
+    bookgDate: "",
+    bookgTime: "",
+    bookgCourse: "",
+    searchTime: "",
+    selfTYn: "",
+    temp001: "",
+    bookgComment: "",
+    confirmGubun: "",
+    dcAmt: "",
+    macroChk: "",
+    timeHoleCd: "",
+    bookgHoleCd: "",
+    hole_choice: "2",
+  };
+  post("/reservation/ajax/golfCalendar", param, {}, (data) => {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
