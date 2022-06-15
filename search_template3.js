@@ -1,4 +1,18 @@
 function procDate() {
+  if (dates.length == 0) {
+    const param = {
+      type: "command",
+      sub_type: "search",
+      device_id: "${deviceId}",
+      device_token: "${deviceToken}",
+      golf_club_id: "${golfClubId}",
+      message: "no empty tees!!",
+      parameter: JSON.stringify({ order: 0, total: 0 }),
+    };
+    TZLOG(param, (data) => {});
+    return;
+  }
+
   if (lmt === undefined) lmt = dates.length - 1;
   const order = lmt - dates.length + 1;
   const arrDate = dates.shift();
