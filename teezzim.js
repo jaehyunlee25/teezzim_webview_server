@@ -17,6 +17,7 @@ const golfClubIds = {};
 const golfClubLoginUrl = {};
 const golfClubSearchUrl = {};
 const golfClubAccounts = {};
+const LINE_DIVISION = "/* <============line_div==========> */";
 
 connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
@@ -125,32 +126,39 @@ function procPost(request, response, data) {
     });
   } else if (request.url == "/get_pure_search_core") {
     const engName = data.club;
-    const core = fs.readFileSync(
-      "script/search_core/" + engName + ".js",
-      "utf-8"
-    );
-    const arr = core.split("\n");
+    let core = "";
+    try {
+      core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
+    } catch (e) {
+      fs.writeFileSync("script/search_core/" + engName + ".js", core);
+    }
     const part = {
       mneCall: [],
       mneCallDetail: [],
       function: [],
       command: [],
     };
-    let cursor;
-    arr.forEach((ln, i) => {
-      if (ln.indexOf("function mneCallDetail") != -1) {
-        cursor = part.mneCallDetail;
-      } else if (ln.indexOf("function mneCall") != -1) {
-        cursor = part.mneCall;
-      } else if (
-        part.mneCall.length > 0 &&
-        part.mneCallDetail.length > 0 &&
-        ln.indexOf("function ") == 0
-      )
-        cursor = part.function;
-      else if (ln.length > 1 && ln[0] != " ") cursor = part.command;
-      cursor.push(ln);
-    });
+    if (core.indexOf(LINE_DIVISION) == -1) {
+      const arr = core.split("\n");
+      let cursor;
+      arr.forEach((ln, i) => {
+        if (ln.indexOf("function mneCallDetail") != -1) {
+          cursor = part.mneCallDetail;
+        } else if (ln.indexOf("function mneCall") != -1) {
+          cursor = part.mneCall;
+        } else if (
+          part.mneCall.length > 0 &&
+          part.mneCallDetail.length > 0 &&
+          ln.indexOf("function ") == 0
+        )
+          cursor = part.function;
+        else if (ln.length > 1 && ln[0] != " ") cursor = part.command;
+        cursor.push(ln);
+      });
+    } else {
+      const parts = core.split(LINE_DIVISION);
+      [part.mneCall, part.mneCallDetail, part.function, part.command] = parts;
+    }
     response.write(JSON.stringify({ core, part }));
     response.end();
   } else if (request.url == "/search") {
