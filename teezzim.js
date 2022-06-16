@@ -127,17 +127,19 @@ function procPost(request, response, data) {
   } else if (request.url == "/get_pure_search_core") {
     const engName = data.club;
     let core = "";
-    try {
-      core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
-    } catch (e) {
-      fs.writeFileSync("script/search_core/" + engName + ".js", core);
-    }
     const part = {
       mneCall: [],
       mneCallDetail: [],
       function: [],
       command: [],
     };
+    try {
+      core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
+    } catch (e) {
+      fs.writeFileSync("script/search_core/" + engName + ".js", core);
+      response.write(JSON.stringify({ core, part }));
+      response.end();
+    }
     if (core.indexOf(LINE_DIVISION) == -1) {
       const arr = core.split("\n");
       let cursor;
