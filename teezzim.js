@@ -128,8 +128,10 @@ function procPost(request, response, data) {
     const { engName, part } = data;
     let core;
     try {
+        console.log("read file");
         core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
     } catch (e) {
+        console.log("error & read file");
         fs.writeFileSync(
             "script/search_core/" + engName + ".js",
             part.mneCall + LINE_DIVISION + 
@@ -142,6 +144,7 @@ function procPost(request, response, data) {
         return;
     }
 
+    console.log("backup");
     // backup first
     fs.writeFileSync(
         "script/backup/search_core_" + new Date().getTime() + "_" + engName + ".js",
