@@ -17,7 +17,7 @@ const golfClubIds = {};
 const golfClubLoginUrl = {};
 const golfClubSearchUrl = {};
 const golfClubAccounts = {};
-const LINE_DIVISION = "/* <============line_div==========> */";
+const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
@@ -124,6 +124,43 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+  } else if (request.url == "/set_pure_search_core") {
+    const { engName, part } = data;
+    let core;
+    try {
+        core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
+    } catch (e) {
+        fs.writeFileSync(
+            "script/search_core/" + engName + ".js",
+            part.mneCall + LINE_DIVISION + 
+            part.mneCallDetail + LINE_DIVISION + 
+            part.function + LINE_DIVISION +
+            part.command
+        );
+        response.write(JSON.stringify({ resultCode: 200, result: 'okay' }));
+        response.end();
+        return;
+    }
+
+    // backup first
+    fs.writeFileSync(
+        "script/backup/search_core_" + new Date().getTime() + "_" + engName + ".js",
+        core
+    );
+    
+    // file save
+    fs.writeFileSync(
+        "script/search_core/" + engName + ".js",
+        part.mneCall + LINE_DIVISION + 
+        part.mneCallDetail + LINE_DIVISION + 
+        part.function + LINE_DIVISION +
+        part.command
+    );
+
+    response.write(JSON.stringify({ resultCode: 200, result: 'okay' }));
+    response.end();
+
+
   } else if (request.url == "/get_pure_search_core") {
     const engName = data.club;
     let core = "";
