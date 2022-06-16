@@ -125,7 +125,7 @@ function procPost(request, response, data) {
     });
   } else if (request.url == "/get_pure_search_core") {
     const engName = data.club;
-    const core = fs.readFileSync("script/login/" + engName + ".js", "utf-8");
+    const core = fs.readFileSync("script/search/" + engName + ".js", "utf-8");
     response.write(JSON.stringify({ core }));
     response.end();
   } else if (request.url == "/search") {
