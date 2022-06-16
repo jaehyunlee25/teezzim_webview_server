@@ -136,7 +136,10 @@ function procPost(request, response, data) {
     try {
       core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
     } catch (e) {
-      fs.writeFileSync("script/search_core/" + engName + ".js", core);
+      fs.writeFileSync(
+        "script/search_core/" + engName + ".js",
+        LINE_DIVISION + LINE_DIVISION + LINE_DIVISION
+      );
       response.write(JSON.stringify({ core, part }));
       response.end();
       return;
