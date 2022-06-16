@@ -125,7 +125,8 @@ function procPost(request, response, data) {
       response.end();
     });
   } else if (request.url == "/set_pure_search_core") {
-    const { engName, part } = data;
+    const { club, part } = data;
+    const engName = club;
     let core;
     try {
         console.log("read file");
