@@ -161,6 +161,10 @@ function procPost(request, response, data) {
         else if (ln.length > 1 && ln[0] != " ") cursor = part.command;
         cursor.push(ln);
       });
+      part.mneCall = part.mneCall.join("\n");
+      part.mneCallDetail = part.mneCallDetail.join("\n");
+      part.function = part.function.join("\n");
+      part.command = part.command.join("\n");
     } else {
       const parts = core.split(LINE_DIVISION);
       [part.mneCall, part.mneCallDetail, part.function, part.command] = parts;
