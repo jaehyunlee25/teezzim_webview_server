@@ -123,6 +123,11 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+  } else if (request.url == "/get_pure_search_core") {
+    const engName = data.club;
+    const core = fs.readFileSync("script/login/" + engName + ".js", "utf-8");
+    response.write(JSON.stringify({ core }));
+    response.end();
   } else if (request.url == "/search") {
     console.log("url", request.url);
     const engName = data.club;
