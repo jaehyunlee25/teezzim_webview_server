@@ -282,6 +282,7 @@ function getSearchScript(engName, callback) {
       });
       param.golf_course = param.golf_course.join("\r\n\t");
       const template = gf("search_template.js").dp(param);
+      console.log(template);
       const common = gf("search_template2.js").add(gf("search_template3.js"));
       const core = fs.readFileSync(
         "script/search_core/" + engName + ".js",
