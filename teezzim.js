@@ -139,6 +139,7 @@ function procPost(request, response, data) {
       fs.writeFileSync("script/search_core/" + engName + ".js", core);
       response.write(JSON.stringify({ core, part }));
       response.end();
+      return;
     }
     if (core.indexOf(LINE_DIVISION) == -1) {
       const arr = core.split("\n");
