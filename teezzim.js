@@ -129,7 +129,29 @@ function procPost(request, response, data) {
       "script/search_core/" + engName + ".js",
       "utf-8"
     );
-    response.write(JSON.stringify({ core }));
+    const arr = core.split("\n");
+    const part = {
+      mneCall: [],
+      mneCallDetail: [],
+      function: [],
+      command: [],
+    };
+    let cursor;
+    arr.forEach((ln, i) => {
+      if (ln.indexOf("function mneCallDetail") != -1) {
+        cursor = part.mneCallDetail;
+      } else if (ln.indexOf("function mneCall") != -1) {
+        cursor = part.mneCall;
+      } else if (
+        part.mneCall.length > 0 &&
+        part.mneCallDetail.length > 0 &&
+        ln.indexOf("function ") == 0
+      )
+        cursor = part.function;
+      else if (ln.length > 1 && ln[0] != " ") cursor = obj.command;
+      cursor.push(ln);
+    });
+    response.write(JSON.stringify({ core, part }));
     response.end();
   } else if (request.url == "/search") {
     console.log("url", request.url);
