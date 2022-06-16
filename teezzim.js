@@ -148,7 +148,7 @@ function procPost(request, response, data) {
         ln.indexOf("function ") == 0
       )
         cursor = part.function;
-      else if (ln.length > 1 && ln[0] != " ") cursor = obj.command;
+      else if (ln.length > 1 && ln[0] != " ") cursor = part.command;
       cursor.push(ln);
     });
     response.write(JSON.stringify({ core, part }));
