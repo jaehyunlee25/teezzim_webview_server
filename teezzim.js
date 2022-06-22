@@ -19,7 +19,7 @@ const golfClubLoginUrl = {};
 const golfClubLoginUrlByUUID = {};
 const golfClubSearchUrl = {};
 const golfClubAccounts = {};
-const LINE_DIVISION = "/* <============line_div==========> */";
+const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
@@ -133,6 +133,47 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+  } else if (request.url == "/set_pure_search_core") {
+    const { club, part } = data;
+    const engName = club;
+    let core;
+    try {
+        console.log("read file");
+        core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
+    } catch (e) {
+        console.log("error & read file");
+        fs.writeFileSync(
+            "script/search_core/" + engName + ".js",
+            part.mneCall + LINE_DIVISION + 
+            part.mneCallDetail + LINE_DIVISION + 
+            part.function + LINE_DIVISION +
+            part.command
+        );
+        response.write(JSON.stringify({ resultCode: 200, result: 'okay' }));
+        response.end();
+        return;
+    }
+
+    console.log("backup");
+    // backup first
+    fs.writeFileSync(
+        "script/backup/search_core_" + new Date().getTime() + "_" + engName + ".js",
+        core
+    );
+    
+    // file save
+    fs.writeFileSync(
+        "script/search_core/" + engName + ".js",
+        part.mneCall + LINE_DIVISION + 
+        part.mneCallDetail + LINE_DIVISION + 
+        part.function + LINE_DIVISION +
+        part.command
+    );
+
+    response.write(JSON.stringify({ resultCode: 200, result: 'okay' }));
+    response.end();
+
+
   } else if (request.url == "/get_pure_search_core") {
     const engName = data.club;
     let core = "";
@@ -170,6 +211,10 @@ function procPost(request, response, data) {
         else if (ln.length > 1 && ln[0] != " ") cursor = part.command;
         cursor.push(ln);
       });
+      part.mneCall = part.mneCall.join("\n");
+      part.mneCallDetail = part.mneCallDetail.join("\n");
+      part.function = part.function.join("\n");
+      part.command = part.command.join("\n");
     } else {
       const parts = core.split(LINE_DIVISION);
       [part.mneCall, part.mneCallDetail, part.function, part.command] = parts;
@@ -300,6 +345,7 @@ function getSearchScript(engName, callback) {
       });
       param.golf_course = param.golf_course.join("\r\n\t");
       const template = gf("search_template.js").dp(param);
+      console.log(template);
       const common = gf("search_template2.js").add(gf("search_template3.js"));
       const core = fs.readFileSync(
         "script/search_core/" + engName + ".js",
