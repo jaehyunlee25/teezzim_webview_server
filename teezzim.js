@@ -13,8 +13,10 @@ const connection = mysql.createConnection(
   JSON.parse(fs.readFileSync("db.json"))
 );
 const golfClubEngNames = [];
+const golfClubIdToEng = {};
 const golfClubIds = {};
 const golfClubLoginUrl = {};
+const golfClubLoginUrlByUUID = {};
 const golfClubSearchUrl = {};
 const golfClubAccounts = {};
 const LINE_DIVISION = "/* <============line_div==========> */";
@@ -38,6 +40,7 @@ function getClubNames(err, rows, fields) {
   rows.forEach((row) => {
     golfClubEngNames.push(row.eng_id);
     golfClubIds[row.eng_id] = row.golf_club_id;
+    golfClubIdToEng[row.golf_club_id] = row.eng_id;
     // console.log(row.eng_id);
     // if(row.eng_id != "allday") fs.writeFileSync("script/search/" + row.eng_id + ".js", "");
   });
@@ -47,6 +50,7 @@ function getLoginUrl(err, rows, fields) {
   rows.forEach((row) => {
     golfClubLoginUrl[row.golf_club_english_name] =
       row.golf_club_login_url_mobile;
+    golfClubLoginUrlByUUID[row.golf_club_uuid] = row.golf_club_login_url_mobile;
   });
   // console.log(golfClubLoginUrl);
 }
@@ -80,8 +84,13 @@ const server = http
         .on("end", () => {
           let data;
           try {
-            console.log(data);
-            data = JSON.parse(body.join(""));
+            data = body.join("");
+            try {
+              data = JSON.parse(data);
+            } catch (e) {
+              console.log(data);
+              return;
+            }
 
             if (request.method === "GET") {
               response.write("hello, world!");
@@ -231,6 +240,15 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+  } else if (request.url == "/login") {
+    const uuid = data.clubId;
+    const engName = golfClubIdToEng[uuid];
+    url = golfClubLoginUrl[engName];
+    script = getLoginScript(engName);
+    objResp = {
+      url,
+      script,
+    };
   } else {
     const engName = request.url.substring(1);
     url = golfClubLoginUrl[engName];
