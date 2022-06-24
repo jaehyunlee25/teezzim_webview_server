@@ -138,42 +138,50 @@ function procPost(request, response, data) {
     const engName = club;
     let core;
     try {
-        console.log("read file");
-        core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
+      console.log("read file");
+      core = fs.readFileSync("script/search_core/" + engName + ".js", "utf-8");
     } catch (e) {
-        console.log("error & read file");
-        fs.writeFileSync(
-            "script/search_core/" + engName + ".js",
-            part.mneCall + LINE_DIVISION + 
-            part.mneCallDetail + LINE_DIVISION + 
-            part.function + LINE_DIVISION +
-            part.command
-        );
-        response.write(JSON.stringify({ resultCode: 200, result: 'okay' }));
-        response.end();
-        return;
+      console.log("error & read file");
+      fs.writeFileSync(
+        "script/search_core/" + engName + ".js",
+        part.mneCall +
+          LINE_DIVISION +
+          part.mneCallDetail +
+          LINE_DIVISION +
+          part.function +
+          LINE_DIVISION +
+          part.command
+      );
+      response.write(JSON.stringify({ resultCode: 200, result: "okay" }));
+      response.end();
+      return;
     }
 
     console.log("backup");
     // backup first
     fs.writeFileSync(
-        "script/backup/search_core_" + new Date().getTime() + "_" + engName + ".js",
-        core
+      "script/backup/search_core_" +
+        new Date().getTime() +
+        "_" +
+        engName +
+        ".js",
+      core
     );
-    
+
     // file save
     fs.writeFileSync(
-        "script/search_core/" + engName + ".js",
-        part.mneCall + LINE_DIVISION + 
-        part.mneCallDetail + LINE_DIVISION + 
-        part.function + LINE_DIVISION +
+      "script/search_core/" + engName + ".js",
+      part.mneCall +
+        LINE_DIVISION +
+        part.mneCallDetail +
+        LINE_DIVISION +
+        part.function +
+        LINE_DIVISION +
         part.command
     );
 
-    response.write(JSON.stringify({ resultCode: 200, result: 'okay' }));
+    response.write(JSON.stringify({ resultCode: 200, result: "okay" }));
     response.end();
-
-
   } else if (request.url == "/get_pure_search_core") {
     const engName = data.club;
     let core = "";
@@ -220,6 +228,28 @@ function procPost(request, response, data) {
       [part.mneCall, part.mneCallDetail, part.function, part.command] = parts;
     }
     response.write(JSON.stringify({ core, part }));
+    response.end();
+  } else if (request.url == "/get_pure_login") {
+    const engName = data.club;
+    let core = "";
+    try {
+      core = fs.readFileSync("script/login/" + engName + ".js", "utf-8");
+    } catch (e) {
+      fs.writeFileSync("script/login/" + engName + ".js", core);
+    }
+    response.write(JSON.stringify({ core }));
+    response.end();
+    return;
+  } else if (request.url == "/set_pure_login") {
+    const { engName, core } = data;
+    // backup first
+    fs.writeFileSync(
+      "script/backup/login_" + new Date().getTime() + "_" + engName + ".js",
+      core
+    );
+    // file save
+    fs.writeFileSync("script/login/" + engName + ".js", core);
+    response.write(JSON.stringify({ resultCode: 200, result: "okay" }));
     response.end();
   } else if (request.url == "/search") {
     console.log("url", request.url);
