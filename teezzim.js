@@ -276,17 +276,14 @@ function procPost(request, response, data) {
     sql.query((err, rows, fields) => {
       if (rows.length === 0) {
         controlForAdminDevice();
-        return;
+      } else {
+        const top = rows[0];
+        const std = new Date() - top.created_at;
+        const m5 = 1000 * 60 * 5;
+        if (std > m5) controlForAdminDevice();
+        else controlForUserDevice(top.token);
       }
-      const top = rows[0];
-      const std = new Date() - top.created_at;
-      const m5 = 1000 * 60 * 5;
-      if (std > m5) controlForAdminDevice();
-      else controlForUserDevice(top.token);
     });
-    /*
-    
-      */
     objResp = {};
   } else if (request.url == "/searchbot") {
     const engName = data.club;
