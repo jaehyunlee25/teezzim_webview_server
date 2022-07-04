@@ -3,8 +3,6 @@ const mysql = require("mysql");
 const fs = require("fs");
 const admin = require("firebase-admin");
 const serviceAccount = require("./teezzim-webview-test-firebase-adminsdk-i8hfk-ef88a22eeb.json");
-const token =
-  "dojdZqaQRR-Xf-7sl05bY6:APA91bGNoMmJZZTERSqD311_6GTtAZoZH2ZTStXbrEZ6vCMTa50dkcD0xf64LfbOJHgtjtGeUcnI_VwgexrNbLY0bB30AbtW9jlImnkQDRF2jFyXqewSvQJ_yCFP22OcwUGa9MUCYRIp";
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -12,6 +10,8 @@ admin.initializeApp({
 const connection = mysql.createConnection(
   JSON.parse(fs.readFileSync("db.json"))
 );
+const log = console.log;
+const dir = console.dir;
 const golfClubEngNames = [];
 const golfClubIdToEng = {};
 const golfClubIds = {};
@@ -272,23 +272,17 @@ function procPost(request, response, data) {
     });
   } else if (request.url == "/control") {
     const engName = data.club;
-    const message = {
-      data: {
-        command: "search",
-        club: engName,
-        club_id: golfClubIds[engName],
-      },
-      topic: "search",
-    };
-    admin
-      .messaging()
-      .send(message)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const sql = "getDeviceByClub.sql".gfdp({ engName });
+    sql.query((err, rows, fields) => {
+      const top = rows[0];
+      const std = new Date() - top.created_at;
+      const m5 = 1000 * 60 * 5;
+      if (std > m5) controlForAdminDevice();
+      else controlForUserDevice(top.token);
+    });
+    /*
+    
+      */
     objResp = {};
   } else if (request.url == "/searchbot") {
     const engName = data.club;
@@ -338,6 +332,46 @@ function procPost(request, response, data) {
     response.write(JSON.stringify(objResp));
     response.end();
   }
+}
+function controlForUserDevice(token) {
+  const message = {
+    data: {
+      command: "search",
+      club: engName,
+      club_id: golfClubIds[engName],
+    },
+    // topic: "search",
+    token,
+  };
+  admin
+    .messaging()
+    .send(message)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+function controlForAdminDevice() {
+  const message = {
+    data: {
+      command: "search",
+      club: engName,
+      club_id: golfClubIds[engName],
+    },
+    topic: "admin",
+    // token,
+  };
+  admin
+    .messaging()
+    .send(message)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 function getSearchScript(engName, callback) {
   const golfClubId = golfClubIds[engName];
@@ -417,9 +451,7 @@ function gf(file) {
   //get file
   return fs.readFileSync(file, "utf-8");
 }
-function jp(str) {
-  return JSON.parse(str);
-}
+
 String.prototype.dp = function (param) {
   let self = this;
   const keys = Object.keys(param);
@@ -432,4 +464,24 @@ String.prototype.dp = function (param) {
 };
 String.prototype.add = function add(str) {
   return [this, str].join("");
+};
+String.prototype.jp = function () {
+  return JSON.parse(this);
+};
+String.prototype.gf = function () {
+  const path = this.toString();
+  return fs.readFileSync(path, "utf-8");
+};
+String.prototype.gfjp = function () {
+  return this.toString().gf().jp();
+};
+String.prototype.gfdp = function (param) {
+  return this.toString().gf().dp(param);
+};
+String.prototype.query = function (callback) {
+  const sql = this.toString();
+  const dbconf = "db.json";
+  const connection = mysql.createConnection(dbconf.gfjp());
+  connection.connect();
+  connection.query(sql, callback);
 };
