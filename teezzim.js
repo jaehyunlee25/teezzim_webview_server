@@ -275,13 +275,13 @@ function procPost(request, response, data) {
     const sql = "getDeviceByClub.sql".gfdp({ engName });
     sql.query((err, rows, fields) => {
       if (rows.length === 0) {
-        controlForAdminDevice();
+        controlForAdminDevice(engName);
       } else {
         const top = rows[0];
         const std = new Date() - top.created_at;
         const m5 = 1000 * 60 * 5;
-        if (std > m5) controlForAdminDevice();
-        else controlForUserDevice(top.token);
+        if (std > m5) controlForAdminDevice(engName);
+        else controlForUserDevice(engName, top.token);
       }
     });
     objResp = {};
@@ -334,7 +334,7 @@ function procPost(request, response, data) {
     response.end();
   }
 }
-function controlForUserDevice(token) {
+function controlForUserDevice(engName, token) {
   const message = {
     data: {
       command: "search",
@@ -354,7 +354,7 @@ function controlForUserDevice(token) {
       console.log(err);
     });
 }
-function controlForAdminDevice() {
+function controlForAdminDevice(engName) {
   const message = {
     data: {
       command: "search",
