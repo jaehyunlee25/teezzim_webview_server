@@ -274,8 +274,8 @@ function procPost(request, response, data) {
     
     const engName = data.club;
     controlForUserDevice(engName, "");
-    return;
-
+    
+    /*
 
     const sql = "getDeviceByClub.sql".gfdp({ engName });
     sql.query((err, rows, fields) => {
@@ -289,6 +289,7 @@ function procPost(request, response, data) {
         else controlForUserDevice(engName, top.token);
       }
     });
+    */
     objResp = {};
   } else if (request.url == "/searchbot") {
     const engName = data.club;
@@ -341,6 +342,7 @@ function procPost(request, response, data) {
 }
 function controlForUserDevice(engName, token) {
   token = "dybWCsvWR1KXBSlgTU1ocg:APA91bGM8fzGQy3c9shE4ZKywouYAD-ZYRZDJjgA60U4tOV7HeQyNJW01nTUi5bIf2B_dkVXtRBv75HpTrg70UnX0DurwwvWckOLyZzrmt5Kk5MIiluUfDX0O1M1fo2CegVNlqzirWp8";
+  console.log(token);
   const message = {
     data: {
       command: "search",
