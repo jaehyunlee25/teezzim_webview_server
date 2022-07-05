@@ -350,6 +350,7 @@ function controlForUserDevice(engName, token) {
     // topic: "search",
     token,
   };
+  console.log(message);
   admin
     .messaging()
     .send(message)
