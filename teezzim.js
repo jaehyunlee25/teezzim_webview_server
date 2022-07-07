@@ -272,9 +272,9 @@ function procPost(request, response, data) {
     });
   } else if (request.url == "/control") {
     /*
-    const engName = data.club;
     controlForUserDevice(engName, "");
     */
+    const engName = data.club;
     const sql = "getDeviceByClub.sql".gfdp({ engName });
     sql.query((err, rows, fields) => {
       if (rows.length === 0) {
