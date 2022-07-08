@@ -448,16 +448,17 @@ function getLoginScript(engName, noCover) {
   const template = fs.readFileSync("script/login/login.template", "utf-8");
   const common = fs.readFileSync("script/search/common.js", "utf-8");
   let loginScript;
+  let loginContent;
   try {
     loginScript = fs
       .readFileSync("script/login/" + engName + ".js", "utf-8")
       .split("\r\n")
       .join("\r\n    ");
-    let loginContent = template.dp({ common, loginScript, golfClubId });
+    loginContent = template.dp({ common, loginScript, golfClubId });
     console.log("noCover", noCover);
     if (noCover == undefined) loginContent = cover.dp({ loginContent });
   } catch (e) {
-    loginScript = "no login script";
+    loginContent = "no login script";
   }
   return loginContent;
 }
