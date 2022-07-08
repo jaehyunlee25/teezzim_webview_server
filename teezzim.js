@@ -447,13 +447,18 @@ function getLoginScript(engName, noCover) {
   const cover = fs.readFileSync("script/login/cover.template", "utf-8");
   const template = fs.readFileSync("script/login/login.template", "utf-8");
   const common = fs.readFileSync("script/search/common.js", "utf-8");
-  const loginScript = fs
-    .readFileSync("script/login/" + engName + ".js", "utf-8")
-    .split("\r\n")
-    .join("\r\n    ");
-  let loginContent = template.dp({ common, loginScript, golfClubId });
-  console.log("noCover", noCover);
-  if (noCover == undefined) loginContent = cover.dp({ loginContent });
+  let loginScript;
+  try {
+    loginScript = fs
+      .readFileSync("script/login/" + engName + ".js", "utf-8")
+      .split("\r\n")
+      .join("\r\n    ");
+    let loginContent = template.dp({ common, loginScript, golfClubId });
+    console.log("noCover", noCover);
+    if (noCover == undefined) loginContent = cover.dp({ loginContent });
+  } catch (e) {
+    loginScript = "no login script";
+  }
   return loginContent;
 }
 function gf(file) {
