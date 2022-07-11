@@ -118,3 +118,8 @@ String.prototype.addzero = function () {
   if (this.length == 1) return "0" + this;
   return this;
 };
+String.prototype.inparen = function () {
+  const regex = /.+\((.+)\)/;
+  const str = this.toString();
+  return regex.exec(str)[1].split("'").join("").split(",");
+};
