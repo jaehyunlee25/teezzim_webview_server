@@ -123,3 +123,8 @@ String.prototype.inparen = function () {
   const str = this.toString();
   return regex.exec(str)[1].split("'").join("").split(",");
 };
+String.prototype.datify = function (sign) {
+  const str = this.toString();
+  if (!sign) sign = "-";
+  return [str.gh(4), str.ch(4).gh(2), str.gt(2)].join(sign);
+};
