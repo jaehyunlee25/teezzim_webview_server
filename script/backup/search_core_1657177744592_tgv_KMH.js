@@ -1,6 +1,6 @@
 function mneCall(date, callback) {
   const param = {};
-  const els = document.getElementsByClassName("can");
+  const els = document.getElementsByClassName("cal_live");
   Array.from(els).forEach((el) => {
     const href = el.getAttribute("href");
     if (href === "#") return;
@@ -53,7 +53,7 @@ function mneCallDetail(arrDate) {
 
 /* <============line_div==========> */
 mneCall(thisdate, () => {
-  Update("CALENDAR|" + nextyear + "-" + nextmonth + "|");
+  document.getElementsByClassName("right")[1].click();
   setTimeout(() => {
     mneCall(nextdate, procDate);
   }, 1000);

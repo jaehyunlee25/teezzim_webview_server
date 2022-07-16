@@ -1,4 +1,4 @@
-function mneCall(date, callback) {
+function mneCall(thisdate, callback) {
   const param = {};
   const els = document.getElementsByClassName("can");
   Array.from(els).forEach((el) => {
@@ -15,7 +15,7 @@ function mneCallDetail(arrDate) {
   const [date, strParam] = arrDate;
   const param = {
     strReserveDate: date.gh(4) + "-" + date.ch(4).gh(2) + "-" + date.gt(2),
-    strGolfLgubun: 160,
+    strGolfLgubun: 113,
   };
 
   get("/Mobile/Reservation/ReservationTimeList.aspx", param, {}, (data) => {
@@ -28,7 +28,7 @@ function mneCallDetail(arrDate) {
     const obTeams = {};
     Array.from(els).forEach((el, i) => {
       if (i === 0) return;
-      const course = el.children[0].innerText;
+      const course = "단일 코스";
       const time = el.children[1].children[0].innerText;
       const fee_discount = el.children[3].innerText.split(",").join("") * 1;
       const fee_normal = el.children[2].innerText.split(",").join("") * 1;
