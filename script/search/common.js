@@ -119,7 +119,7 @@ String.prototype.addzero = function () {
   return this;
 };
 String.prototype.inparen = function () {
-  const regex = /.+\((.+)\)/;
+  const regex = /.+?\((.+)\)/;
   const str = this.toString();
   return regex.exec(str)[1].split("'").join("").split(",");
 };
