@@ -128,3 +128,8 @@ String.prototype.datify = function (sign) {
   if (!sign) sign = "-";
   return [str.gh(4), str.ch(4).gh(2), str.gt(2)].join(sign);
 };
+String.prototype.getFee = function () {
+  let str = this.toString();
+  str = str.replace(/[^0-9]/g, "");
+  return str * 1;
+};
