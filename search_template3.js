@@ -36,10 +36,13 @@ function procDate() {
 function procGolfSchedule() {
   golf_schedule.forEach((obj) => {
     let course_id = courses[obj.golf_course_id];
-    if(!course_id && Object.keys(courses).length === 1)  course_id = courses[Object.keys(courses)[0]];
+    if (!course_id && Object.keys(courses).length === 1)
+      course_id = courses[Object.keys(courses)[0]];
     obj.golf_course_id = course_id;
     obj.date =
       obj.date.gh(4) + "-" + obj.date.ch(4).gh(2) + "-" + obj.date.gt(2);
+    if (obj.time.indexOf(":") == -1)
+      obj.time = obj.time.gh(2) + ":" + obj.time.gt(2);
   });
   /* console.log(golf_schedule); */
   const param = { golf_schedule, golf_club_id: clubId };
