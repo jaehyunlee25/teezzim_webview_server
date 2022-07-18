@@ -314,6 +314,31 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+  } else if (request.url == "/reservebot") {
+    const engName = data.club;
+    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+    const loginUrl = golfClubLoginUrl[engName];
+    const searchUrl = golfClubSearchUrl[engName];
+    const loginScript = getLoginScript(engName, true).dp({
+      login_id: golfClubAccounts[engName].id,
+      login_password: golfClubAccounts[engName].pw,
+    });
+    const templateScript = fs.readFileSync("template.js", "utf-8");
+    getReserveScript(engName, (reserveScript) => {
+      const script = templateScript.dp({
+        commonScript,
+        loginUrl,
+        searchUrl,
+        loginScript,
+        reserveScript,
+      });
+      objResp = {
+        url: loginUrl,
+        script,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (request.url == "/login") {
     const uuid = data.clubId;
     const engName = golfClubIdToEng[uuid];
@@ -441,6 +466,10 @@ function getSearchScript(engName, callback) {
       callback(script.dp({ golfClubId }));
     }
   );
+}
+function getReserveScript(engName, callback) {
+  const golfClubId = golfClubIds[engName];
+  callback("console.log('" + golfClubId + "')");
 }
 function getLoginScript(engName, noCover) {
   const golfClubId = golfClubIds[engName];
