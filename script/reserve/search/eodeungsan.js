@@ -13,7 +13,7 @@ javascript:(() => {
     };
     function funcGo() {
         location.href = "${reserveUrl}";
-    }
+    };
     function funcReserve() {
         const els = document.getElementsByClassName("btn btn-sm btn-gray");
         const result = [];

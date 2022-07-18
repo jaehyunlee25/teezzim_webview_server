@@ -18,7 +18,7 @@ javascript:(() => {
     };
     function funcGo() {
         location.href = "${reserveUrl}";
-    }
+    };
     function funcCancel() {
         const els = document.getElementsByClassName("btn btn-sm btn-gray");
         let target;
