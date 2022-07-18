@@ -25,6 +25,7 @@ connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
 connection.query(fs.readFileSync("getLoginUrl.sql", "utf-8"), getLoginUrl);
 connection.query(fs.readFileSync("getSearchUrl.sql", "utf-8"), getSearchUrl);
+connection.query(fs.readFileSync("getReserveUrl.sql", "utf-8"), getReserveUrl);
 connection.query(fs.readFileSync("getAccount.sql", "utf-8"), getAccounts);
 connection.end();
 function getAccounts(err, rows, fields) {
@@ -60,6 +61,12 @@ function getSearchUrl(err, rows, fields) {
       row.golf_club_search_url_mobile;
   });
   // console.log(golfClubSearchUrl);
+}
+function getReserveUrl(err, rows, fields) {
+  rows.forEach((row) => {
+    golfClubReserveUrl[row.golf_club_english_name] =
+      row.golf_club_search_url_mobile;
+  });
 }
 const server = http
   .createServer((request, response) => {
@@ -340,6 +347,36 @@ function procPost(request, response, data) {
       commonScript,
       loginUrl,
       searchUrl,
+      loginScript,
+    });
+    objResp = {
+      url: loginUrl,
+      script,
+    };
+  } else if (request.url == "/reserveSearchbot") {
+    const { club: engName, year, month, date, course, time } = data;
+    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+    const loginUrl = golfClubLoginUrl[engName];
+    const reserveUrl = golfClubReserveUrl[engName];
+    const loginScript = getPureLoginScript(engName).dp({
+      login_id: golfClubAccounts[engName].id,
+      login_password: golfClubAccounts[engName].pw,
+    });
+    let templateScript;
+    if (fs.existsSync("script/reserve/search/" + engName + ".js"))
+      templateScript = fs.readFileSync(
+        "script/reserve/search/" + engName + ".js",
+        "utf-8"
+      );
+    else
+      templateScript = fs.readFileSync(
+        "script/reserve/search/reserveSearchTemplate.js",
+        "utf-8"
+      );
+    const script = templateScript.dp({
+      commonScript,
+      loginUrl,
+      reserveUrl,
       loginScript,
     });
     objResp = {
