@@ -386,6 +386,38 @@ function procPost(request, response, data) {
       url: loginUrl,
       script,
     };
+  } else if (request.url == "/reserveCancelbot") {
+    const { club: engName, year, month, date, course, time } = data;
+    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+    const loginUrl = golfClubLoginUrl[engName];
+    const reserveUrl = golfClubReserveUrl[engName];
+    const loginScript = getPureLoginScript(engName).dp({
+      login_id: golfClubAccounts[engName].id,
+      login_password: golfClubAccounts[engName].pw,
+    });
+    let templateScript;
+    if (fs.existsSync("script/reserve/cancel/" + engName + ".js"))
+      templateScript = fs.readFileSync(
+        "script/reserve/cancel/" + engName + ".js",
+        "utf-8"
+      );
+    else
+      templateScript = fs.readFileSync(
+        "script/reserve/cancel/reserveCancelTemplate.js",
+        "utf-8"
+      );
+    const golfClubId = golfClubIds[engName];
+    const script = templateScript.dp({
+      golfClubId,
+      commonScript,
+      loginUrl,
+      reserveUrl,
+      loginScript,
+    });
+    objResp = {
+      url: loginUrl,
+      script,
+    };
   } else if (request.url == "/login") {
     const uuid = data.clubId;
     const engName = golfClubIdToEng[uuid];
