@@ -22,7 +22,7 @@ javascript:(() => {
     }
     function funcCancel() {
         const els = document.getElementsByClassName("btn btn-sm btn-gray");
-        const target;
+        let target;
         Array.from(els).forEach(el => {
             const [btnDate,,btnCourse,btnTime] = el.getAttribute("onclick").inparen();
             console.log("reserve cancel", course, date, time);
