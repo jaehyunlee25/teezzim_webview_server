@@ -19,7 +19,7 @@ javascript:(() => {
         ${loginScript}
     };
     function funcReserve() {
-        ${reserveScript}
+        Date_Click(year, month, date);
     };
     function funcTime() {
         ${reserveScript}
