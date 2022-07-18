@@ -320,7 +320,7 @@ function procPost(request, response, data) {
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const searchUrl = golfClubSearchUrl[engName];
-    const loginScript = getLoginScript(engName, true).dp({
+    const loginScript = getPureLoginScript(engName).dp({
       login_id: golfClubAccounts[engName].id,
       login_password: golfClubAccounts[engName].pw,
     });
@@ -472,6 +472,24 @@ function getSearchScript(engName, callback) {
 function getReserveScript(engName, callback) {
   const golfClubId = golfClubIds[engName];
   callback("console.log('" + golfClubId + "')");
+}
+function getPureLoginScript(engName) {
+  const golfClubId = golfClubIds[engName];
+  const cover = fs.readFileSync("script/login/cover.template", "utf-8");
+  const template = fs.readFileSync("script/login/login.template", "utf-8");
+  const common = "";
+  let loginScript;
+  let loginContent;
+  try {
+    loginScript = fs
+      .readFileSync("script/login/" + engName + ".js", "utf-8")
+      .split("\r\n")
+      .join("\r\n    ");
+    loginContent = template.dp({ common, loginScript, golfClubId });
+  } catch (e) {
+    loginContent = "no login script";
+  }
+  return loginContent;
 }
 function getLoginScript(engName, noCover) {
   const golfClubId = golfClubIds[engName];
