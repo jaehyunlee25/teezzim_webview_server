@@ -339,6 +339,7 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+    objResp = 0;
   } else if (request.url == "/login") {
     const uuid = data.clubId;
     const engName = golfClubIdToEng[uuid];
