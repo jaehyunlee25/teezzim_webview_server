@@ -324,7 +324,13 @@ function procPost(request, response, data) {
       login_id: golfClubAccounts[engName].id,
       login_password: golfClubAccounts[engName].pw,
     });
-    const templateScript = fs.readFileSync("reserveTemplate.js", "utf-8");
+    let templateScript;
+    if (fs.existsSync("script/reserve/reserve/" + engName + ".js"))
+      templateScript = fs.readFileSync(
+        "script/reserve/reserve/" + engName + ".js",
+        "utf-8"
+      );
+    else templateScript = fs.readFileSync("reserveTemplate.js", "utf-8");
     getReserveScript(engName, (reserveScript) => {
       const script = templateScript.dp({
         year,
