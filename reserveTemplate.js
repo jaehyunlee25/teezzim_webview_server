@@ -5,12 +5,13 @@ javascript:(() => {
         "${loginUrl}": funcLogin,
         "${searchUrl}": funcSearch,
     };
-    const func = dict[addr];
+    const func = dict[addr];    
+    if(!func) location.href = "${searchUrl}";
+    else func();
     function funcLogin() {
         ${loginScript}
     };
     function funcSearch() {
         ${reserveScript}
     };
-    if(!func) location.href = "${searchUrl}";
 })();
