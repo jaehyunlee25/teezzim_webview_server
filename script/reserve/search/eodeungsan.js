@@ -4,12 +4,16 @@ javascript:(() => {
     const dict = {
         "${loginUrl}": funcLogin,
         "${reserveUrl}": funcReserve,
+        "https://www.eodeungsancc.com/mobile/index.asp": funcGo,
     };
     const func = dict[addr];    
     if(func) func();
     function funcLogin() {
         ${loginScript}
     };
+    function funcGo() {
+        location.href = "${reserveUrl}";
+    }
     function funcReserve() {
         const els = document.getElementsByClassName("btn btn-sm btn-gray");
         const result = [];
