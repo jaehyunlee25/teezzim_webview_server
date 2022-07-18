@@ -29,7 +29,7 @@ javascript:(() => {
             const fulldate = [year, month, date].join("");
             if(btnDate == fulldate && btnCourse == course && btnTime == time) target = el;
         });
-        if(target) target.click();
+        // if(target) target.click();
         const ac = window.AndroidController;
         if (ac) ac.message("end of reserve/cancel");
     };
