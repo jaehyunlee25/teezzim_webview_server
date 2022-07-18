@@ -314,6 +314,7 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+    objResp = 0;
   } else if (request.url == "/reservebot") {
     const engName = data.club;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
