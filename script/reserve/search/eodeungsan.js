@@ -21,8 +21,19 @@ javascript:(() => {
         const result = [];
         Array.from(els).forEach(el => {
             const [date,,course,time] = el.getAttribute("onclick").inparen();
+            console.log("reserve search", course, date, time);
             result.push({ date, time, course });
         });
-        console.log(result);
+        const param = {
+            golf_club_id: "${golf_club_id}",
+            result,
+        };
+        const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
+            post(addr, param, { "Content-Type": "application/json" }, (data) => {
+            callback(data);
+        });
+        
+        const ac = window.AndroidController;
+        if (ac) ac.message("end of reserve/search");
     };
 })();

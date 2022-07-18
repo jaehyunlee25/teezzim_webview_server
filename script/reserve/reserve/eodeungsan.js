@@ -28,5 +28,7 @@ javascript:(() => {
     };
     function funcExec() {
         document.getElementsByClassName("btn_reserve")[0].children[0].click();
+        const ac = window.AndroidController;
+        if (ac) ac.message("end of reserve/reserve");
     };
 })();
