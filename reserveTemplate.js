@@ -1,11 +1,16 @@
 javascript:(() => {
     ${commonScript}
     const addr = location.href;
-    if(addr == "${loginUrl}") {
+    const dict = {
+        "${loginUrl}": funcLogin,
+        "${searchUrl}": funcSearch,
+    };
+    const func = dict[addr];
+    function funcLogin() {
         ${loginScript}
-    } else if (addr == "${searchUrl}") {
+    };
+    function funcSearch() {
         ${reserveScript}
-    } else {
-        location.href = "${searchUrl}";
-    }
+    };
+    if(!func) location.href = "${searchUrl}";
 })();
