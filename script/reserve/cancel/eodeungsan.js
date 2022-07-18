@@ -30,7 +30,7 @@ javascript:(() => {
             if(btnDate == fulldate && btnCourse == course && btnTime == time) target = el;
         });
         // if(target) target.click();
-        const ac = window.AndroidController;
-        if (ac) ac.message("end of reserve/cancel");
+        // const ac = window.AndroidController;
+        // if (ac) ac.message("end of reserve/cancel");
     };
 })();
