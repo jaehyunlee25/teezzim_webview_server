@@ -27,6 +27,6 @@ javascript:(() => {
         Book_Confirm(fulldate,'',dictCourse[course], course,time,'2');
     };
     function funcExec() {
-        // ${reserveScript}
+        document.getElementsByClassName("btn_reserve")[0].click();
     };
 })();
