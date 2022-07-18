@@ -408,6 +408,11 @@ function procPost(request, response, data) {
       );
     const golfClubId = golfClubIds[engName];
     const script = templateScript.dp({
+      year,
+      month,
+      date,
+      course,
+      time,
       golfClubId,
       commonScript,
       loginUrl,
