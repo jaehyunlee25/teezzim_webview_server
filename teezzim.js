@@ -316,7 +316,7 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (request.url == "/reservebot") {
-    const engName = data.club;
+    const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const searchUrl = golfClubSearchUrl[engName];
@@ -327,6 +327,11 @@ function procPost(request, response, data) {
     const templateScript = fs.readFileSync("reserveTemplate.js", "utf-8");
     getReserveScript(engName, (reserveScript) => {
       const script = templateScript.dp({
+        year,
+        month,
+        date,
+        course,
+        time,
         commonScript,
         loginUrl,
         searchUrl,
