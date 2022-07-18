@@ -22,9 +22,11 @@ javascript:(() => {
         Date_Click(year, month, date);
     };
     function funcTime() {
-        ${reserveScript}
+        const fulldate = [year, month, date].join("");
+        const dictCourse = {어등: "1", 송정: "2", "하남": "3"};
+        Book_Confirm(fulldate,'',dictCourse[course], course,time,'2');
     };
     function funcExec() {
-        ${reserveScript}
+        // ${reserveScript}
     };
 })();
