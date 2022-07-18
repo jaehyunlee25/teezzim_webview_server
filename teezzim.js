@@ -18,6 +18,7 @@ const golfClubIds = {};
 const golfClubLoginUrl = {};
 const golfClubLoginUrlByUUID = {};
 const golfClubSearchUrl = {};
+const golfClubReserveUrl = {};
 const golfClubAccounts = {};
 const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
