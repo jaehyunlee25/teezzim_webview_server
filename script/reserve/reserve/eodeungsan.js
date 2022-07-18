@@ -9,6 +9,8 @@ javascript:(() => {
     const dict = {
         "${loginUrl}": funcLogin,
         "${searchUrl}": funcReserve,
+        "https://www.eodeungsancc.com/mobile/reservation_02.asp": funcTime,
+        "https://www.eodeungsancc.com/mobile/reservation_03.asp": funcExec,
     };
     const func = dict[addr];    
     if(!func) location.href = "${searchUrl}";
@@ -18,5 +20,11 @@ javascript:(() => {
     };
     function funcReserve() {
         ${reserveScript}
-    };    
+    };
+    function funcTime() {
+        ${reserveScript}
+    };
+    function funcExec() {
+        ${reserveScript}
+    };
 })();

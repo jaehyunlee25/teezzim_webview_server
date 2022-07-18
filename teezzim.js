@@ -331,27 +331,21 @@ function procPost(request, response, data) {
         "utf-8"
       );
     else templateScript = fs.readFileSync("reserveTemplate.js", "utf-8");
-    getReserveScript(engName, (reserveScript) => {
-      const script = templateScript.dp({
-        year,
-        month,
-        date,
-        course,
-        time,
-        commonScript,
-        loginUrl,
-        searchUrl,
-        loginScript,
-        reserveScript,
-      });
-      objResp = {
-        url: loginUrl,
-        script,
-      };
-      response.write(JSON.stringify(objResp));
-      response.end();
+    const script = templateScript.dp({
+      year,
+      month,
+      date,
+      course,
+      time,
+      commonScript,
+      loginUrl,
+      searchUrl,
+      loginScript,
     });
-    objResp = 0;
+    objResp = {
+      url: loginUrl,
+      script,
+    };
   } else if (request.url == "/login") {
     const uuid = data.clubId;
     const engName = golfClubIdToEng[uuid];
@@ -479,10 +473,6 @@ function getSearchScript(engName, callback) {
       callback(script.dp({ golfClubId }));
     }
   );
-}
-function getReserveScript(engName, callback) {
-  const golfClubId = golfClubIds[engName];
-  callback("console.log('" + golfClubId + "')");
 }
 function getPureLoginScript(engName) {
   const golfClubId = golfClubIds[engName];
