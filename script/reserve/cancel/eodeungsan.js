@@ -21,6 +21,7 @@ javascript:(() => {
         location.href = "${reserveUrl}";
     }
     function funcCancel() {
+        return;
         const els = document.getElementsByClassName("btn btn-sm btn-gray");
         let target;
         Array.from(els).forEach(el => {
