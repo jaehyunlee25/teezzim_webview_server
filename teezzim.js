@@ -374,7 +374,9 @@ function procPost(request, response, data) {
         "script/reserve/search/reserveSearchTemplate.js",
         "utf-8"
       );
+    const golfClubId = golfClubIds[engName];
     const script = templateScript.dp({
+      golfClubId,
       commonScript,
       loginUrl,
       reserveUrl,

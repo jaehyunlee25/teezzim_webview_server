@@ -25,7 +25,7 @@ javascript:(() => {
             result.push({ date, time, course });
         });
         const param = {
-            golf_club_id: "${golf_club_id}",
+            golf_club_id: "${golfClubId}",
             result,
         };
         const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
