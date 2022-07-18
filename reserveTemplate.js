@@ -3,7 +3,7 @@ javascript:(() => {
     const addr = location.href;
     const dict = {
         "${loginUrl}": funcLogin,
-        "${searchUrl}": funcSearch,
+        "${searchUrl}": funcReserve,
     };
     const func = dict[addr];    
     if(!func) location.href = "${searchUrl}";
@@ -11,7 +11,7 @@ javascript:(() => {
     function funcLogin() {
         ${loginScript}
     };
-    function funcSearch() {
+    function funcReserve() {
         ${reserveScript}
     };
 })();
