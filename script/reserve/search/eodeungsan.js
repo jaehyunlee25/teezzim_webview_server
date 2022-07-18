@@ -30,7 +30,7 @@ javascript:(() => {
         };
         const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
             post(addr, param, { "Content-Type": "application/json" }, (data) => {
-            callback(data);
+            console.log(data);
         });
         
         const ac = window.AndroidController;
