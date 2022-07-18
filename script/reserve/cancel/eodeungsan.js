@@ -12,8 +12,7 @@ javascript:(() => {
         "https://www.eodeungsancc.com/mobile/index.asp": funcGo,
     };
     const func = dict[addr];    
-    if(!func) location.href = "${reserveUrl}";
-    else func();
+    if(func) func();
     function funcLogin() {
         ${loginScript}
     };
