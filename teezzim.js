@@ -323,7 +323,7 @@ function procPost(request, response, data) {
       login_id: golfClubAccounts[engName].id,
       login_password: golfClubAccounts[engName].pw,
     });
-    const templateScript = fs.readFileSync("template.js", "utf-8");
+    const templateScript = fs.readFileSync("reserveTemplate.js", "utf-8");
     getReserveScript(engName, (reserveScript) => {
       const script = templateScript.dp({
         commonScript,
