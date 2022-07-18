@@ -27,8 +27,9 @@ javascript:(() => {
         Book_Confirm(fulldate,'',dictCourse[course], course,time,'2');
     };
     function funcExec() {
-        document.getElementsByClassName("btn_reserve")[0].children[0].click();
-        const ac = window.AndroidController;
-        if (ac) ac.message("end of reserve/reserve");
+        setTimeout(() => {
+            const ac = window.AndroidController;
+            if (ac) ac.message("end of reserve/reserve");
+        }, 10000);
     };
 })();
