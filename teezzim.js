@@ -124,8 +124,8 @@ function procPost(request, response, data) {
   let objResp;
   if (request.url == "/clubs") {
     const result = [];
-    getClubs(rows => {
-      rows.forEach(row => {
+    getClubs((rows) => {
+      rows.forEach((row) => {
         result.push(row.eng_id);
       });
     });
@@ -462,6 +462,7 @@ function getClubs(callback) {
     fs.readFileSync("getSearchClubs.sql", "utf-8"),
     (err, rows, fields) => {
       callback(rows);
+    }
   );
 }
 function controlForUserDevice(engName, token) {
