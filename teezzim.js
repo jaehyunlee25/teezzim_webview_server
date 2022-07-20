@@ -131,7 +131,10 @@ function procPost(request, response, data) {
       objResp = {
         clubs: result,
       };
+      response.write(JSON.stringify(objResp));
+      response.end();
     });
+    objResp = 0;
   } else if (request.url == "/account") {
     objResp = {
       accounts: golfClubAccounts,
