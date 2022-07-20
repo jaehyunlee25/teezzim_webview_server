@@ -126,6 +126,7 @@ function procPost(request, response, data) {
     const result = [];
     getClubs((rows) => {
       rows.forEach((row) => {
+        log(row);
         result.push(row.eng_id);
       });
     });
