@@ -123,8 +123,14 @@ function procPost(request, response, data) {
   let script;
   let objResp;
   if (request.url == "/clubs") {
+    const result = [];
+    getClubs(rows => {
+      rows.forEach(row => {
+        result.push(row.eng_id);
+      });
+    });
     objResp = {
-      clubs: golfClubEngNames,
+      clubs: result,
     };
   } else if (request.url == "/account") {
     objResp = {
@@ -446,6 +452,17 @@ function procPost(request, response, data) {
     response.write(JSON.stringify(objResp));
     response.end();
   }
+}
+function getClubs(callback) {
+  const connection = mysql.createConnection(
+    JSON.parse(fs.readFileSync("db.json", "utf-8"))
+  );
+  connection.connect();
+  connection.query(
+    fs.readFileSync("getSearchClubs.sql", "utf-8"),
+    (err, rows, fields) => {
+      callback(rows);
+  );
 }
 function controlForUserDevice(engName, token) {
   token =
