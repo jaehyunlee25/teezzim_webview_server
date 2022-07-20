@@ -129,10 +129,10 @@ function procPost(request, response, data) {
         log(row);
         result.push(row.eng_id);
       });
+      objResp = {
+        clubs: result,
+      };
     });
-    objResp = {
-      clubs: result,
-    };
   } else if (request.url == "/account") {
     objResp = {
       accounts: golfClubAccounts,
