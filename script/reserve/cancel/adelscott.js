@@ -37,7 +37,7 @@ javascript: (() => {
       const [, , btnDate, btnTime, btnCourse] = el
         .getAttribute("onclick")
         .inparen();
-      console.log("reserve search", dictCourse[btnCourse], date, time);
+      console.log("reserve cancel", dictCourse[btnCourse], date, time);
       const fulldate = [year, month, date].join("");
       if (
         btnDate == fulldate &&
