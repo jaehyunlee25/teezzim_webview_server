@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const addr = location.href.split("?")[0];
   const year = "${year}";
   const month = "${month}";
@@ -14,7 +14,7 @@ javascript: (() => {
   if (!func) location.href = "${searchUrl}";
   else func();
   function funcLogin() {
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     if (window["tab0"]) {
