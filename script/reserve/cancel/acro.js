@@ -33,7 +33,9 @@ javascript: (() => {
       3: "스카이",
     };
     Array.from(els).forEach((el) => {
-      const [btnDate, , btnCourse, btnTime] = el.getAttribute("onclick").inparen();
+      const [btnDate, , btnCourse, btnTime] = el
+        .getAttribute("onclick")
+        .inparen();
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
       const param = {
@@ -45,28 +47,26 @@ javascript: (() => {
         btnDate == fulldate &&
         btnCourse == dictCourse[course] &&
         btnTime == time
-        )
+      )
         target = btn;
-      });
-      if (target) {
-        target.click();
-        reservation_cancel_ok();
-      }
-      const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
-      post(addr, param, { "Content-Type": "application/json" }, (data) => {
-        console.log(data);
-        const param = {
-          type: "command",
-          sub_type: "reserve/search",
-          device_id: "${deviceId}",
-          device_token: "${deviceToken}",
-          golf_club_id: "${golfClubId}",
-          message: "end of reserve/search",
-          parameter: JSON.stringify({}),
-        };
-        TZLOG(param, (data) => {
-          log(data);
-        });
+    });
+
+    if (target) target.click();
+
+    const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
+    post(addr, param, { "Content-Type": "application/json" }, (data) => {
+      console.log(data);
+      const param = {
+        type: "command",
+        sub_type: "reserve/search",
+        device_id: "${deviceId}",
+        device_token: "${deviceToken}",
+        golf_club_id: "${golfClubId}",
+        message: "end of reserve/search",
+        parameter: JSON.stringify({}),
+      };
+      TZLOG(param, (data) => {
+        log(data);
         location.href = "logout.asp";
       });
     });
