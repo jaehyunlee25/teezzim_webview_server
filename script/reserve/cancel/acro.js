@@ -43,8 +43,7 @@ javascript: (() => {
     .getElementsByClassName("typeA text-center")[0]
     .getElementsByTagName("tbody")[0]
     .getElementsByTagName("a");
-    log(els);
-    return;
+    
     const result = [];
     const dictCourse = {
       1: "챌린지",
@@ -54,8 +53,8 @@ javascript: (() => {
     let target;
     Array.from(els).forEach((el) => {
       const [btnDate, , btnCourse, btnTime] = el
-        .getAttribute("onclick")
-        .inparen();
+      .getAttribute("onclick")
+      .inparen();
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
       const param = {
@@ -67,10 +66,11 @@ javascript: (() => {
         btnDate == fulldate &&
         btnCourse == dictCourse[course] &&
         btnTime == time
-      )
+        )
         target = btn;
-    });
-
+      });
+      log("target", target);
+      return;
     if (target) target.click();
 
     location.href = "logout.asp";
