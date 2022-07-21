@@ -58,7 +58,7 @@ javascript: (() => {
   }
   function funcExec() {
     const fulldate = [year, month, date].join("");
-    const signCourse = { 챌린지: "1", 스카이: "2", 마스터: "3" };
+    const signCourse = { 챌린지: "1", 스카이: "3", 마스터: "2" };
     Book_Confirm(fulldate, signCourse, "", time, "", "");    
   }
 })();
