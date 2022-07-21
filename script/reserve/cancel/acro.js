@@ -17,10 +17,10 @@ javascript: (() => {
     ${loginScript}
   }
   function funcEnd() {
-    return;
     const el = document.getElementsByClassName("btn loginBtn btn-xs")[0];
     if (el.innerText == "로그아웃")
-      location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";
+    location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";
+    return;
 
     const param = {
       type: "command",
