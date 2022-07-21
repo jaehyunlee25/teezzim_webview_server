@@ -12,6 +12,7 @@ javascript: (() => {
   };
   const func = dict[addr];
   if (func) func();
+  if(!func) location.href = "${reserveUrl}";
   function funcLogin() {
     ${loginScript}
   }
