@@ -54,7 +54,6 @@ javascript: (() => {
         log(data);
         const fulldate = [year, month, date].join("");
         timefrom_change(fulldate, "2", "1", "", "00", "T");
-        funcTime();
       });
     }
   }  
