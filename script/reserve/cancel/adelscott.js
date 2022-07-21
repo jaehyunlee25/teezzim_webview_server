@@ -37,11 +37,11 @@ javascript: (() => {
       const [, , btnDate, btnTime, btnCourse] = el
         .getAttribute("onclick")
         .inparen();
-      console.log("reserve search", dictCourse[course], date, time);
+      console.log("reserve search", dictCourse[btnCourse], date, time);
       const fulldate = [year, month, date].join("");
       if (
         btnDate == fulldate &&
-        btnCourse == dictCourse[course] &&
+        dictCourse[btnCourse] == course &&
         btnTime == time
       )
         target = el;
