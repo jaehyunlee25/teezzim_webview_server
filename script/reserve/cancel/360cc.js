@@ -22,7 +22,8 @@ javascript: (() => {
       .getElementsByTagName("tr");
     let target;
     Array.from(els).forEach((el) => {
-      const [btnTime, , btnDate, , , btnCourse] = el.children[3].children[0]
+      const btn = el.children[3].children[0];
+      const [btnTime, , btnDate, , , btnCourse] = btn
         .getAttribute("onclick")
         .inparen();
       const dictCourse = { Out: "OUT", In: "IN" };
@@ -33,7 +34,7 @@ javascript: (() => {
         btnCourse == dictCourse[course] &&
         btnTime == time
       )
-        target = el;
+        target = btn;
     });
     if (target) target.click();
     const ac = window.AndroidController;
