@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const addr = location.href.split("#")[0];
   const dict = {
     "${loginUrl}": funcLogin,
@@ -9,7 +9,7 @@ javascript: (() => {
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     const els = document
