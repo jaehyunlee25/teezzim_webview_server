@@ -38,7 +38,7 @@ javascript: (() => {
       const [btnDate, , btnCourse, btnTime] = el
       .getAttribute("onclick")
       .inparen();
-      console.log("reserve search", dictCourse[btnCourse], date, time);
+      console.log("reserve search", course, date, time);
       const param = {
         golf_club_id: "df1fffae-ee44-11ec-a93e-0242ac11000a",
         result,
