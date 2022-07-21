@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/cancel",
@@ -23,44 +23,44 @@ javascript: (() => {
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
-    if (coName.innerText != "ALLDAY OXFIELD") {
-      changeCoDiv("77");
-    }    
     TZLOG(logParam, (data) => {
-      setTimeout(funcCancel, 3000);
+      setTimeout(funcCancel, 1000);
     });
   }
   function funcCancel() {
     const els = window["time-grid"].children;
     const dictCourse = {
-      OX: "OX",
-      FIELD: "Field",
+      ALPS: "ALPS",
+      ASIA: "ASIA",
     };
     let target;
     Array.from(els).forEach((el) => {
-      if (el.children.length < 2) return;
-      const elDate = "20" + el.children[0].innerText.split("/").join("");
-      const elTime = el.children[1].innerText.split(":").join("");
-      const elCourse = el.children[2].innerText;
-      console.log("reserve cancel", dictCourse[elCourse], date, time);
+      const button = el.getElementsByTagName("button")[2];
+      const param = button.getAttribute("onclick").inparen();
+      if (param[0] != "J51") return;
+
+      const elDate = param[1];
+      const elTime = param[5];
+      const elCourse = param[3];
+      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = button;
     });
     if (target) {
-      target.children[6].children[0].click();
+      target.click();
       logParam.message = "end of reserve/cancel";
       TZLOG(param, (data) => {
         const ac = window.AndroidController;
         if (ac) ac.message("end of reserve/cancel");
-        doLogout();
+        location.href = "/member/logout";
       });
     }
     /* 3초 후엔 무조건 닫는다 */

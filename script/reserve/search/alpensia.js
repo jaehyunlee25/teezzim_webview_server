@@ -22,7 +22,7 @@ javascript: (() => {
   }
   function funcReserve() {
     TZLOG(logParam, (data) => {
-      setTimeout(funcSearch, 3000);
+      setTimeout(funcSearch, 1000);
     });
   }
   function funcSearch() {
