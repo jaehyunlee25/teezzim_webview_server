@@ -32,14 +32,10 @@ javascript: (() => {
         if (param[2].trim() == time && dictCourse[signCourse] == course)
           target = el;
       });
-      if (target) {
-        target.click();
-      }
+      if (target) target.click();
     } else if (document.getElementsByClassName("cm_btn default")[0]){
       const btn = document.getElementsByClassName("cm_btn default")[0];
-      if (btn) {
-        btn.click();
-      }
+      if (btn) btn.click();
     } else {
       const param = {
         type: "command",
