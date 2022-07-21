@@ -36,6 +36,9 @@ javascript: (() => {
     } else if (document.getElementsByClassName("cm_btn default")[0]){
       const btn = document.getElementsByClassName("cm_btn default")[0];
       if (btn) btn.click();
+      const ac = window.AndroidController;
+      if (ac) ac.message("end of reserve/reserve");
+      location.href = "/login/logout.asp";
     } else {
       const param = {
         type: "command",

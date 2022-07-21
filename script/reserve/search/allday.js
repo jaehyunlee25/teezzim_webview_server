@@ -1,35 +1,45 @@
 javascript: (() => {
   ${commonScript}
+  const logParam = {
+    type: "command",
+    sub_type: "reserve/reserve",
+    device_id: "${deviceId}",
+    device_token: "${deviceToken}",
+    golf_club_id: "${golfClubId}",
+    message: "start reserve/search",
+    parameter: JSON.stringify({}),
+  };
   const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://www.360cc.co.kr/mobile/main/mainPage.do": funcEnd,
   };
   const func = dict[addr];
-  if (func) func();
   if (!func) location.href = "${reserveUrl}";
+  else func();
   function funcLogin() {
     ${loginScript}
   }
-  function funcEnd() {
-    const ac = window.AndroidController;
-    if (ac) ac.message("end of reserve/search");
-  }
   function funcReserve() {
-    const els = document
-      .getElementsByClassName("cm_time_list_tbl")[0]
-      .getElementsByTagName("tbody")[0]
-      .getElementsByTagName("tr");
+    if (coPlace.innerText != "앙성면") {
+      changeCoDiv("76");
+    }    
+    TZLOG(logParam, (data) => {
+      setTimeout(funcSearch, 3000);
+    });
+  }
+  function funcSearch() {
+    const els = window["time-grid"].children;
     const result = [];
     const dictCourse = {
-      OUT: "Out",
-      IN: "IN",
+      M: "Mountain",
+      V: "Valley",
+      L: "Lake",
     };
     Array.from(els).forEach((el) => {
-      const [time, , date, , , course] = el.children[3].children[0]
-        .getAttribute("onclick")
-        .inparen();
+      const date = "20" + el.children[0].innerText.split("/").join("");
+      const time = el.children[1].innerText.split(":").join("");
+      const course = el.children[2].innerText;
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -51,9 +61,10 @@ javascript: (() => {
       };
       TZLOG(param, (data) => {
         log(data);
+        doLogout();
+        const ac = window.AndroidController;
+        if (ac) ac.message("end of reserve/search");
       });
-
-      window["mm-m0-p0"].getElementsByTagName("a")[1].click();
     });
   }
 })();

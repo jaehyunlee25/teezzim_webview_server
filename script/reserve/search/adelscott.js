@@ -33,27 +33,27 @@ javascript: (() => {
       const [, , date, time, course] = el.getAttribute("onclick").inparen();
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
+    });
+    const param = {
+      golf_club_id: "${golfClubId}",
+      result,
+    };
+    const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
+    post(addr, param, { "Content-Type": "application/json" }, (data) => {
+      console.log(data);
       const param = {
+        type: "command",
+        sub_type: "reserve/search",
+        device_id: "${deviceId}",
+        device_token: "${deviceToken}",
         golf_club_id: "${golfClubId}",
-        result,
+        message: "end of reserve/search",
+        parameter: JSON.stringify({}),
       };
-      const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
-      post(addr, param, { "Content-Type": "application/json" }, (data) => {
-        console.log(data);
-        const param = {
-          type: "command",
-          sub_type: "reserve/search",
-          device_id: "${deviceId}",
-          device_token: "${deviceToken}",
-          golf_club_id: "${golfClubId}",
-          message: "end of reserve/search",
-          parameter: JSON.stringify({}),
-        };
-        TZLOG(param, (data) => {
-          log(data);
+      TZLOG(param, (data) => {
+        log(data);
 
-          location.href = "/login/logout.asp";
-        });
+        location.href = "/login/logout.asp";
       });
     });
   }
