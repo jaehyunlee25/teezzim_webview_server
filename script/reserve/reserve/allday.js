@@ -50,7 +50,7 @@ javascript: (() => {
       if (el.children.length < 2) return;
       const elCourse = el.children[0].innerText;
       const elTime = el.children[1].innerText.split(":").join("");
-      if (dictCourse[course] == course && time == elTime) target = el;
+      if (dictCourse[course] == elCourse && time == elTime) target = el;
     });
     if (target) log(target);
   }
