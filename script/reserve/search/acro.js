@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
@@ -10,7 +10,7 @@ javascript: (() => {
   if (func) func();
   if (!func) location.href = "${reserveUrl}";
   function funcLogin() {
-    //${loginScript}
+    ${loginScript}
   }
   function funcEnd() {
     const ac = window.AndroidController;
