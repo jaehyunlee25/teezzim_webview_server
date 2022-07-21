@@ -21,7 +21,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    if (coPlace.innerText != "앙성면") {
+    if (coName.innerText != "ALLDAY GOLFAND RESORT") {
       changeCoDiv("76");
     }    
     TZLOG(logParam, (data) => {
