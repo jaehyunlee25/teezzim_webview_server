@@ -17,7 +17,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    if (tab0) {
+    if (window["tab0"]) {
       const els = tab0.getElementsByTagName("button");
       const fulldate = [year, month, date].join("");
       let target;
