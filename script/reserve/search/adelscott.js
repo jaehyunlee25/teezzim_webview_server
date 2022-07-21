@@ -4,12 +4,20 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.adelscott.co.kr/index.asp": funcEnd,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
     ${loginScript}
+  }
+  function funcEnd() {
+    const el = document.getElementsByClassName("login_area")[0].children[0];
+    if (el.innerText == "로그아웃")
+      location.href = "${reserveUrl}";
+    const ac = window.AndroidController;
+    if (ac) ac.message("end of reserve/search");
   }
   function funcReserve() {
     const els = document
@@ -43,6 +51,7 @@ javascript: (() => {
         };
         TZLOG(param, (data) => {
           log(data);
+
           location.href = "/login/logout.asp";
         });
       });
