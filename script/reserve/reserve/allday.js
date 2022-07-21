@@ -52,6 +52,8 @@ javascript: (() => {
       const elTime = el.children[1].innerText.split(":").join("");
       if (dictCourse[course] == elCourse && time == elTime) target = el;
     });
-    if (target) log(target);
+    if (target) {
+      target.children[5].children[0].click();
+    }
   }
 })();
