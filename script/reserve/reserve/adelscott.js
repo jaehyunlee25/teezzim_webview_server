@@ -28,8 +28,43 @@ javascript: (() => {
     };
     TZLOG(param, (data) => {
       log(data);
+      const fulldate = [year, month, date].join("");
+      timefrom_change(fulldate, "2", "1", "", "00", "T");
+      funcTime();
     });
-    const fulldate = [year, month, date].join("");
-    timefrom_change(fulldate,'2','1','','00','T');
+  }
+  function funcTime() {
+    const t = setInterval(() => {
+      if (tab0) {
+        const els = tab0.getElementsByTagName("button");
+        const fulldate = [year, month, date].join("");
+        let target;
+        const dictCourse = {
+          1: "Mountain",
+          2: "Hill",
+          3: "Lake",
+        };
+        Array.from(els).forEach((el) => {
+          const param = el.getAttribute("onclick").inparen();
+          const signCourse = param[1].trim();
+          if (param[2].trim() == time && dictCourse[signCourse] == course)
+            target = el;
+        });
+        if (target) {
+          target.click();
+          clearInterval(t);
+          funcExec();
+        }
+      }
+    }, 1000);
+  }
+  function funcExec() {
+    const t = setInterval(() => {
+      const btn = document.getElementsByClassName("cm_btn default")[0];
+      if (btn) {
+        btn.click();
+        clearInterval(t);
+      }
+    }, 1000);
   }
 })();
