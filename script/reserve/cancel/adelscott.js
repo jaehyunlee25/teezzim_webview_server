@@ -47,9 +47,6 @@ javascript: (() => {
         target = el;
     });
 
-    log(target);
-    return;
-
     if (target) target.click();
 
     const param = {
