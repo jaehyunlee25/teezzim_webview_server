@@ -26,7 +26,7 @@ javascript: (() => {
       sub_type: "reserve/reserve",
       device_id: "${deviceId}",
       device_token: "${deviceToken}",
-      golf_club_id: "a7fe6b1d-f05e-11ec-a93e-0242ac11000a",
+      golf_club_id: "${golfClubId}",
       message: "start reserve/reserve",
       parameter: JSON.stringify({}),
     };
@@ -68,7 +68,7 @@ javascript: (() => {
           sub_type: "reserve/reserve",
           device_id: "${deviceId}",
           device_token: "${deviceToken}",
-          golf_club_id: "a7fe6b1d-f05e-11ec-a93e-0242ac11000a",
+          golf_club_id: "${golfClubId}",
           message: "end of reserve/reserve",
           parameter: JSON.stringify({}),
         };
