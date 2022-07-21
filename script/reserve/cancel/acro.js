@@ -39,6 +39,8 @@ javascript: (() => {
     });  
   }
   function funcReserve() {
+    log(document.body.innerHTML);
+    return;
     setInterval(() => {
       const els = document
         .getElementsByClassName("typeA text-center")[0]
