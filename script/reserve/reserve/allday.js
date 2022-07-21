@@ -19,7 +19,10 @@ javascript: (() => {
   function funcReserve() {
     if (coPlace.innerText != "앙성면") {
       changeCoDiv("76");
-      return;
+      setTimeout(()=>{
+        const fulldate = [year, month, date].join("");
+        onClickDay(fulldate);
+      }, 3000);
     }
     log("here we are!!");
     return;
