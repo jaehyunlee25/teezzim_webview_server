@@ -17,6 +17,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcEnd() {
+    return;
     const el = document.getElementsByClassName("btn loginBtn btn-xs")[0];
     if (el.innerText == "로그아웃")
       location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";
@@ -38,6 +39,7 @@ javascript: (() => {
     });  
   }
   function funcReserve() {
+    return;
     const els = document
       .getElementsByClassName("typeA text-center")[0]
       .getElementsByTagName("tbody")[0]
