@@ -53,7 +53,7 @@ javascript: (() => {
         TZLOG(param, (data) => {
           log(data);
         });
-        location.href = "logout.asp";
+        // location.href = "logout.asp";
       });
     });
   }
