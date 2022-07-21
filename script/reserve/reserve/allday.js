@@ -1,6 +1,6 @@
 javascript: (() => {
   ${commonScript}
-  const addr = location.href.split("?")[0];
+  const addr = location.href.split("#")[0];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -21,7 +21,11 @@ javascript: (() => {
       const els = tab0.getElementsByTagName("button");
       const fulldate = [year, month, date].join("");
       let target;
-      const dictCourse = {};
+      const dictCourse = {
+        1: "Mountain",
+        2: "Hill",
+        3: "Lake",
+      };
       Array.from(els).forEach((el) => {
         const param = el.getAttribute("onclick").inparen();
         const signCourse = param[1].trim();
@@ -29,7 +33,7 @@ javascript: (() => {
           target = el;
       });
       if (target) target.click();
-    } else if (document.getElementsByClassName("cm_btn default")[0]) {
+    } else if (document.getElementsByClassName("cm_btn default")[0]){
       const btn = document.getElementsByClassName("cm_btn default")[0];
       if (btn) btn.click();
     } else {
@@ -45,14 +49,8 @@ javascript: (() => {
       TZLOG(param, (data) => {
         log(data);
         const fulldate = [year, month, date].join("");
-        const els = document.getElementsByClassName("day-work");
-        let target;
-        Array.from(els).forEach((el) => {
-          const eldate = el.getAttribute("data-date");
-          if (eldate == fulldate) target = el;
-        });
-        if (target) target.click();
+        onClickDay(fulldate)
       });
     }
-  }
+  }  
 })();
