@@ -37,7 +37,7 @@ javascript: (() => {
   function funcTime() {
     const fulldate = [year, month, date].join("");
     const dictCourse = { 챌린지: "C코스", 스카이: "S코스", 마스터: "M코스" };
-    const signCourse = { 챌린지: "1", 스카이: "2", 마스터: "3" };
+    const signCourse = { 챌린지: "1", 스카이: "3", 마스터: "2" };
     Book_time(fulldate, signCourse[course], dictCourse[course], time, "", "");
   }
   function funcEnd() {
@@ -53,12 +53,12 @@ javascript: (() => {
     TZLOG(param, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
+      location.href = "logout.asp";
     });
   }
   function funcExec() {
     const fulldate = [year, month, date].join("");
     const signCourse = { 챌린지: "1", 스카이: "2", 마스터: "3" };
-    // Book_Confirm(fulldate, signCourse, "", time, "", "");
-    // location.href = "logout.asp";
+    Book_Confirm(fulldate, signCourse, "", time, "", "");    
   }
 })();
