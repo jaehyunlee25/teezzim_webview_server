@@ -18,6 +18,9 @@ javascript: (() => {
     ${loginScript}
   }
   function funcEnd() {
+    const el = document.getElementsByClassName("btn loginBtn btn-xs")[0];
+    if (el.innerText == "로그아웃")
+      location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";
     const ac = window.AndroidController;
     if (ac) ac.message("end of reserve/cancel");
   }
