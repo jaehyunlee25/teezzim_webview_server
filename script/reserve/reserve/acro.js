@@ -41,6 +41,10 @@ javascript: (() => {
     Book_time(fulldate, signCourse[course], dictCourse[course], time, "", "");
   }
   function funcEnd() {
+    const str = document.getElementsByClassName("btn loginBtn btn-xs")[0]
+      .innerText;
+    if (str == "로그아웃")
+      location.href = "http://www.acrogolf.co.kr/mobile/reserve.asp";
     const param = {
       type: "command",
       sub_type: "reserve/reserve",
