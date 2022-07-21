@@ -17,43 +17,25 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    changeCoDiv('76');
-    log(11);
-    return;
-    if (window["tab0"]) {
-      const els = tab0.getElementsByTagName("button");
-      const fulldate = [year, month, date].join("");
-      let target;
-      const dictCourse = {
-        1: "Mountain",
-        2: "Hill",
-        3: "Lake",
-      };
-      Array.from(els).forEach((el) => {
-        const param = el.getAttribute("onclick").inparen();
-        const signCourse = param[1].trim();
-        if (param[2].trim() == time && dictCourse[signCourse] == course)
-          target = el;
-      });
-      if (target) target.click();
-    } else if (document.getElementsByClassName("cm_btn default")[0]){
-      const btn = document.getElementsByClassName("cm_btn default")[0];
-      if (btn) btn.click();
-    } else {
-      const param = {
-        type: "command",
-        sub_type: "reserve/reserve",
-        device_id: "${deviceId}",
-        device_token: "${deviceToken}",
-        golf_club_id: "${golfClubId}",
-        message: "start reserve/reserve",
-        parameter: JSON.stringify({}),
-      };
-      TZLOG(param, (data) => {
-        log(data);
-        const fulldate = [year, month, date].join("");
-        onClickDay(fulldate)
-      });
+    if (coPlace.innerText != "양성면") {
+      changeCoDiv("76");
+      return;
     }
+    log("here we are!!");
+    return;
+    const param = {
+      type: "command",
+      sub_type: "reserve/reserve",
+      device_id: "${deviceId}",
+      device_token: "${deviceToken}",
+      golf_club_id: "${golfClubId}",
+      message: "start reserve/reserve",
+      parameter: JSON.stringify({}),
+    };
+    TZLOG(param, (data) => {
+      log(data);
+      const fulldate = [year, month, date].join("");
+      onClickDay(fulldate)
+    });
   }  
 })();
