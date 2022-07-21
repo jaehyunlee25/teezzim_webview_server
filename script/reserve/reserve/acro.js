@@ -11,7 +11,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "http://www.acrogolf.co.kr/mobile/reserve_step1.asp": funcTime,
     "http://www.acrogolf.co.kr/mobile/reserve_step2.asp": funcExec,
-    "http://www.acrogolf.co.kr/mobile/index.asp": funcEnd,
+    "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp": funcEnd,
   };
   const func = dict[addr];
   if (!func) location.href = "${searchUrl}";
@@ -41,10 +41,6 @@ javascript: (() => {
     Book_time(fulldate, signCourse[course], dictCourse[course], time, "", "");
   }
   function funcEnd() {
-    const str = document.getElementsByClassName("btn loginBtn btn-xs")[0]
-      .innerText;
-    if (str == "로그아웃")
-      location.href = "http://www.acrogolf.co.kr/mobile/reserve.asp";
     const param = {
       type: "command",
       sub_type: "reserve/reserve",
