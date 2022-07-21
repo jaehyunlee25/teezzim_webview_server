@@ -8,10 +8,10 @@ javascript: (() => {
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
-    "${reserveUrl}": funcReserve,
+    "${searchUrl}": funcReserve,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) location.href = "${searchUrl}";
   else func();
   function funcLogin() {
     ${loginScript}
