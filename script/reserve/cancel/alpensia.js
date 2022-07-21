@@ -31,7 +31,7 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = window["time-grid"].children;
+    const els = resHisListDiv.getElementsByTagName("li");
     const dictCourse = {
       ALPS: "ALPS",
       ASIA: "ASIA",
