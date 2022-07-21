@@ -20,6 +20,18 @@ javascript:(() => {
         const fulldate = [year, month, date].join("");
         const dictCourse = { Out: "OUT", In: "IN" };
         const signCourse = { Out: "1", In: "2" };
+        const param = {
+            type: "command",
+            sub_type: "reserve/reserve",
+            device_id: "${deviceId}",
+            device_token: "${deviceToken}",
+            golf_club_id: "a7fe6b1d-f05e-11ec-a93e-0242ac11000a",
+            message: "start reserve/reserve",
+            parameter: JSON.stringify({}),
+          };
+          TZLOG(param, (data) => {
+            log(data);
+          });
         timefrom_change(fulldate, "2", "1", "", "00", "T");
         const t = setInterval(() => {
           if (tab0) {
@@ -50,6 +62,18 @@ javascript:(() => {
             agree_chk.checked = true;
             golfsubcmd("R");
             clearInterval(t);
+            const param = {
+                type: "command",
+                sub_type: "reserve/reserve",
+                device_id: "${deviceId}",
+                device_token: "${deviceToken}",
+                golf_club_id: "a7fe6b1d-f05e-11ec-a93e-0242ac11000a",
+                message: "end of reserve/reserve",
+                parameter: JSON.stringify({}),
+              };
+              TZLOG(param, (data) => {
+                log(data);
+              });
           }
         });
       };
