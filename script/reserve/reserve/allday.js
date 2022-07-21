@@ -17,6 +17,9 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    changeCoDiv('76');
+    log(11);
+    return;
     if (window["tab0"]) {
       const els = tab0.getElementsByTagName("button");
       const fulldate = [year, month, date].join("");
