@@ -26,9 +26,9 @@ javascript: (() => {
       .getElementsByTagName("a");
     const result = [];
     const dictCourse = {
-      C: "챌린지",
-      M: "마스터",
-      S: "스카이",
+      1: "챌린지",
+      2: "마스터",
+      3: "스카이",
     };
     Array.from(els).forEach((el) => {
       const [date, , course, time] = el.getAttribute("onclick").inparen();
@@ -52,8 +52,8 @@ javascript: (() => {
         };
         TZLOG(param, (data) => {
           log(data);
+          location.href = "logout.asp";
         });
-        // location.href = "logout.asp";
       });
     });
   }
