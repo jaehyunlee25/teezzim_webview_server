@@ -39,11 +39,12 @@ javascript: (() => {
     });  
   }
   function funcReserve() {
-    return;
     const els = document
-      .getElementsByClassName("typeA text-center")[0]
-      .getElementsByTagName("tbody")[0]
-      .getElementsByTagName("a");
+    .getElementsByClassName("typeA text-center")[0]
+    .getElementsByTagName("tbody")[0]
+    .getElementsByTagName("a");
+    log(els);
+    return;
     const result = [];
     const dictCourse = {
       1: "챌린지",
