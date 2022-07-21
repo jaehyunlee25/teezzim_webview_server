@@ -21,7 +21,7 @@ javascript: (() => {
     const el = document.getElementsByClassName("login_area")[0].children[0];
     if (el.innerText == "로그아웃") location.href = "${reserveUrl}";
     const ac = window.AndroidController;
-    if (ac) ac.message("end of reserve/search");
+    if (ac) ac.message("end of reserve/cancel");
   }
   function funcReserve() {
     const els = document
