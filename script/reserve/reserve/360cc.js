@@ -9,6 +9,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "http://www.360cc.co.kr/mobile/main/mainPage.do": funcEnd,
   };
   const func = dict[addr];
   if (!func) location.href = "${searchUrl}";
