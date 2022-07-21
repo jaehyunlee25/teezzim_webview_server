@@ -17,7 +17,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    if (coPlace.innerText != "양성면") {
+    if (coPlace.innerText != "앙성면") {
       changeCoDiv("76");
       return;
     }
