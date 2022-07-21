@@ -26,8 +26,8 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    if (coName.innerText != "ALLDAY GOLFAND RESORT") {
-      changeCoDiv("76");
+    if (coName.innerText != "ALLDAY IMPERIALLAKE") {
+      changeCoDiv("71");
     }    
     TZLOG(logParam, (data) => {
       setTimeout(funcCancel, 3000);
@@ -36,9 +36,8 @@ javascript: (() => {
   function funcCancel() {
     const els = window["time-grid"].children;
     const dictCourse = {
-      M: "Mountain",
-      V: "Valley",
-      L: "Lake",
+      PINE: "Pine",
+      LAKE: "Lake",
     };
     let target;
     Array.from(els).forEach((el) => {
