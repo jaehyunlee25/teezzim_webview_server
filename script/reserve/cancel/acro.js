@@ -39,38 +39,40 @@ javascript: (() => {
     });  
   }
   function funcReserve() {
-    const els = document
-      .getElementsByClassName("typeA text-center")[0]
-      .getElementsByTagName("tbody")[0]
-      .getElementsByTagName("a");
-    const result = [];
-    const dictCourse = {
-      1: "챌린지",
-      2: "마스터",
-      3: "스카이",
-    };
-    let target;
-    Array.from(els).forEach((el) => {
-      const [btnDate, , btnCourse, btnTime] = el
-        .getAttribute("onclick")
-        .inparen();
-      console.log("reserve search", dictCourse[course], date, time);
-      result.push({ date, time, course: dictCourse[course] });
-      const param = {
-        golf_club_id: "${golfClubId}",
-        result,
+    setInterval(() => {
+      const els = document
+        .getElementsByClassName("typeA text-center")[0]
+        .getElementsByTagName("tbody")[0]
+        .getElementsByTagName("a");
+      const result = [];
+      const dictCourse = {
+        1: "챌린지",
+        2: "마스터",
+        3: "스카이",
       };
-      const fulldate = [year, month, date].join("");
-      if (
-        btnDate == fulldate &&
-        btnCourse == dictCourse[course] &&
-        btnTime == time
-      )
-        target = btn;
-    });
+      let target;
+      Array.from(els).forEach((el) => {
+        const [btnDate, , btnCourse, btnTime] = el
+          .getAttribute("onclick")
+          .inparen();
+        console.log("reserve search", dictCourse[course], date, time);
+        result.push({ date, time, course: dictCourse[course] });
+        const param = {
+          golf_club_id: "df1fffae-ee44-11ec-a93e-0242ac11000a",
+          result,
+        };
+        const fulldate = [year, month, date].join("");
+        if (
+          btnDate == fulldate &&
+          btnCourse == dictCourse[course] &&
+          btnTime == time
+        )
+          target = btn;
+      });
 
-    if (target) target.click();
+      if (target) target.click();
 
-    location.href = "logout.asp";    
+      location.href = "logout.asp";
+    }, 2000);  
   }
 })();
