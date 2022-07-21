@@ -47,7 +47,10 @@ javascript: (() => {
         target = el;
     });
 
-    if (target) target.click();
+    if (target) {
+      target.click();
+      realcmd1("R");
+    }
 
     const param = {
       type: "command",
