@@ -19,13 +19,7 @@ javascript: (() => {
   function funcReserve() {
     if (coPlace.innerText != "앙성면") {
       changeCoDiv("76");
-      setTimeout(()=>{
-        const fulldate = [year, month, date].join("");
-        onClickDay(fulldate);
-      }, 3000);
-    }
-    log("here we are!!");
-    return;
+    }    
     const param = {
       type: "command",
       sub_type: "reserve/reserve",
@@ -36,9 +30,28 @@ javascript: (() => {
       parameter: JSON.stringify({}),
     };
     TZLOG(param, (data) => {
-      log(data);
-      const fulldate = [year, month, date].join("");
-      onClickDay(fulldate)
+      setTimeout(()=>{
+        const fulldate = [year, month, date].join("");
+        onClickDay(fulldate);
+        funcTime();
+      }, 3000);
     });
-  }  
+  }
+  function funcTime() {
+    setTimeout(() => {
+      const els = window["time-grid"].children;
+      const dictCourse = {
+        Mountain: "M",
+        Valley: "V",
+        Lake: "L",
+      };
+      const target;
+      Array.from(els).forEach(el => {
+        const elCourse = el.children[0].innerText;
+        const elTime = el.children[1].innerText.split(":").join("");
+        if(dictCourse[course] == course && time == elTime) target = el;
+      });
+      if(target) log(target);
+    }, 3000);
+  }
 })();
