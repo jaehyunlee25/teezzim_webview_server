@@ -9,36 +9,34 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://www.acrogolf.co.kr/mobile/index.asp": funcEnd,
+    "https://www.adelscott.co.kr/index.asp": funcEnd,
   };
   const func = dict[addr];
-  if (func) func();
+  if (!func) location.href = "${reserveUrl}";
+  else func();
   function funcLogin() {
     ${loginScript}
   }
   function funcEnd() {
-    const el = document.getElementsByClassName("btn loginBtn btn-xs")[0];
+    const el = document.getElementsByClassName("login_area")[0].children[0];
     if (el.innerText == "로그아웃")
-    location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";    
+      location.href = "${reserveUrl}";
+    const ac = window.AndroidController;
+    if (ac) ac.message("end of reserve/search");
   }
   function funcReserve() {
     const els = document
-    .getElementsByClassName("typeA text-center")[0]
-    .getElementsByTagName("tbody")[0]
-    .getElementsByTagName("a");
-    
-    const result = [];
+      .getElementsByClassName("cm_time_list_tbl")[0]
+      .getElementsByClassName("cm_btn gray");
     const dictCourse = {
-      챌린지: 1,
-      마스터: 2,
-      스카이: 3,
+      1: "Mountain",
+      2: "Hill",
+      3: "Lake",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const [btnDate, , btnCourse, btnTime] = el
-      .getAttribute("onclick")
-      .inparen();
-      console.log("reserve search", course, date, time);
+      const [, , btnDate, btnTime, btnCourse] = el.getAttribute("onclick").inparen();
+      console.log("reserve search", dictCourse[course], date, time);
       const fulldate = [year, month, date].join("");
       if (
         btnDate == fulldate &&
@@ -47,9 +45,12 @@ javascript: (() => {
         )
         target = el;
       });
-    
-      if (target) target.click();    
-    
+
+      log(target);
+      return;
+
+      if (target) target.click();
+
       const param = {
         type: "command",
         sub_type: "reserve/cancel",
@@ -62,7 +63,8 @@ javascript: (() => {
       TZLOG(param, (data) => {
         const ac = window.AndroidController; 
         if (ac) ac.message("end of reserve/cancel");
-        location.href = "logout.asp";          
+        location.href = "/login/logout.asp";          
       });  
+    });
   }
 })();
