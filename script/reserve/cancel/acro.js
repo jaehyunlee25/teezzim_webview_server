@@ -40,7 +40,7 @@ javascript: (() => {
       .inparen();
       console.log("reserve search", course, date, time);
       const param = {
-        golf_club_id: "df1fffae-ee44-11ec-a93e-0242ac11000a",
+        golf_club_id: "${golfClubId}",
         result,
       };
       const fulldate = [year, month, date].join("");
