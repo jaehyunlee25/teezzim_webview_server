@@ -37,6 +37,7 @@ javascript: (() => {
       L: "Lake",
     };
     Array.from(els).forEach((el) => {
+      if (el.children.length < 2) return;
       const date = "20" + el.children[0].innerText.split("/").join("");
       const time = el.children[1].innerText.split(":").join("");
       const course = el.children[2].innerText;

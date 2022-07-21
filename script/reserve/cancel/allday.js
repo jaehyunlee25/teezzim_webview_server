@@ -42,6 +42,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).forEach((el) => {
+      if (el.children.length < 2) return;
       const elDate = "20" + el.children[0].innerText.split("/").join("");
       const elTime = el.children[1].innerText.split(":").join("");
       const elCourse = el.children[2].innerText;
