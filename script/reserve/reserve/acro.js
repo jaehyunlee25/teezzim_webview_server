@@ -57,8 +57,8 @@ javascript: (() => {
     });
   }
   function funcExec() {
-    const fulldate = [year, month, date].join("");
-    const signCourse = { 챌린지: "1", 스카이: "3", 마스터: "2" };
-    Book_Confirm(fulldate, signCourse, "", time, "", "");    
+    /* const fulldate = [year, month, date].join("");
+    const signCourse = { 챌린지: "1", 스카이: "3", 마스터: "2" }; */
+    document.getElementsByClassName("btn book mt10")[0].click();
   }
 })();
