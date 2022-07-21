@@ -36,7 +36,10 @@ javascript: (() => {
       )
         target = btn;
     });
-    if (target) target.click();
+    if (target) {
+      target.click();
+      reservation_cancel_ok();
+    }
     const ac = window.AndroidController;
     if (ac) ac.message("end of reserve/cancel");
   }
