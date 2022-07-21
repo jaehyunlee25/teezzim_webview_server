@@ -74,6 +74,7 @@ javascript: (() => {
         TZLOG(param, (data) => {
           const ac = window.AndroidController;
           if (ac) ac.message("end of reserve/reserve");
+          window["mm-m0-p0"].getElementsByTagName("a")[1].click();
         });
       }
     });
