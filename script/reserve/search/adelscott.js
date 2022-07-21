@@ -1,6 +1,6 @@
 javascript: (() => {
   ${commonScript}
-  const addr = location.href.split("#")[0];
+  const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
