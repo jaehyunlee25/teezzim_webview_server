@@ -25,9 +25,14 @@ javascript: (() => {
       const [btnTime, , btnDate, , , btnCourse] = el.children[3].children[0]
         .getAttribute("onclick")
         .inparen();
+      const dictCourse = { Out: "OUT", In: "IN" };
       console.log("reserve cancel", course, date, time);
       const fulldate = [year, month, date].join("");
-      if (btnDate == fulldate && btnCourse == course && btnTime == time)
+      if (
+        btnDate == fulldate &&
+        btnCourse == dictCourse[course] &&
+        btnTime == time
+      )
         target = el;
     });
     if (target) target.click();
