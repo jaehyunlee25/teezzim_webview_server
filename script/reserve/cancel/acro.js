@@ -35,6 +35,7 @@ javascript: (() => {
       2: "마스터",
       3: "스카이",
     };
+    let target;
     Array.from(els).forEach((el) => {
       const [btnDate, , btnCourse, btnTime] = el
         .getAttribute("onclick")
