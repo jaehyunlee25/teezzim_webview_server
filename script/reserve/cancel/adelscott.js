@@ -19,8 +19,7 @@ javascript: (() => {
   }
   function funcEnd() {
     const el = document.getElementsByClassName("login_area")[0].children[0];
-    if (el.innerText == "로그아웃")
-      location.href = "${reserveUrl}";
+    if (el.innerText == "로그아웃") location.href = "${reserveUrl}";
     const ac = window.AndroidController;
     if (ac) ac.message("end of reserve/search");
   }
@@ -35,36 +34,37 @@ javascript: (() => {
     };
     let target;
     Array.from(els).forEach((el) => {
-      const [, , btnDate, btnTime, btnCourse] = el.getAttribute("onclick").inparen();
+      const [, , btnDate, btnTime, btnCourse] = el
+        .getAttribute("onclick")
+        .inparen();
       console.log("reserve search", dictCourse[course], date, time);
       const fulldate = [year, month, date].join("");
       if (
         btnDate == fulldate &&
         btnCourse == dictCourse[course] &&
         btnTime == time
-        )
+      )
         target = el;
-      });
+    });
 
-      log(target);
-      return;
+    log(target);
+    return;
 
-      if (target) target.click();
+    if (target) target.click();
 
-      const param = {
-        type: "command",
-        sub_type: "reserve/cancel",
-        device_id: "${deviceId}",
-        device_token: "${deviceToken}",
-        golf_club_id: "${golfClubId}",
-        message: "end of reserve/cancel",
-        parameter: JSON.stringify({}),
-      };
-      TZLOG(param, (data) => {
-        const ac = window.AndroidController; 
-        if (ac) ac.message("end of reserve/cancel");
-        location.href = "/login/logout.asp";          
-      });  
+    const param = {
+      type: "command",
+      sub_type: "reserve/cancel",
+      device_id: "${deviceId}",
+      device_token: "${deviceToken}",
+      golf_club_id: "${golfClubId}",
+      message: "end of reserve/cancel",
+      parameter: JSON.stringify({}),
+    };
+    TZLOG(param, (data) => {
+      const ac = window.AndroidController;
+      if (ac) ac.message("end of reserve/cancel");
+      location.href = "/login/logout.asp";
     });
   }
 })();
