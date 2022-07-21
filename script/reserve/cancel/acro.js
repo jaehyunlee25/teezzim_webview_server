@@ -19,24 +19,7 @@ javascript: (() => {
   function funcEnd() {
     const el = document.getElementsByClassName("btn loginBtn btn-xs")[0];
     if (el.innerText == "로그아웃")
-    location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";
-    return;
-
-    const param = {
-      type: "command",
-      sub_type: "reserve/cancel",
-      device_id: "${deviceId}",
-      device_token: "${deviceToken}",
-      golf_club_id: "${golfClubId}",
-      message: "end of reserve/cancel",
-      parameter: JSON.stringify({}),
-    };
-    TZLOG(param, (data) => {
-      log(data);
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/cancel");
-      location.href = "logout.asp";
-    });  
+    location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";    
   }
   function funcReserve() {
     const els = document
@@ -46,9 +29,9 @@ javascript: (() => {
     
     const result = [];
     const dictCourse = {
-      1: "챌린지",
-      2: "마스터",
-      3: "스카이",
+      챌린지: 1,
+      마스터: 2,
+      스카이: 3,
     };
     let target;
     Array.from(els).forEach((el) => {
@@ -70,8 +53,20 @@ javascript: (() => {
       });
       log("target", target);
       return;
-    if (target) target.click();
-
-    location.href = "logout.asp";
+    if (target) target.click();    
+    const param = {
+      type: "command",
+      sub_type: "reserve/cancel",
+      device_id: "${deviceId}",
+      device_token: "${deviceToken}",
+      golf_club_id: "${golfClubId}",
+      message: "end of reserve/cancel",
+      parameter: JSON.stringify({}),
+    };
+    TZLOG(param, (data) => {
+      const ac = window.AndroidController; 
+      if (ac) ac.message("end of reserve/cancel");
+      location.href = "logout.asp";          
+    });  
   }
 })();
