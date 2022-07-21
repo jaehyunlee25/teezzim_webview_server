@@ -121,7 +121,16 @@ String.prototype.addzero = function () {
 String.prototype.inparen = function () {
   const regex = /.+?\((.+)\)/;
   const str = this.toString();
-  return regex.exec(str)[1].split("'").join("").split(",");
+  const result = [];
+  regex
+    .exec(str)[1]
+    .split("'")
+    .join("")
+    .split(",")
+    .forEach((str) => {
+      result.push(str.trim());
+    });
+  return result;
 };
 String.prototype.datify = function (sign) {
   const str = this.toString();
