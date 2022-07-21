@@ -50,20 +50,12 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      const param = {
-        type: "command",
-        sub_type: "reserve/search",
-        device_id: "${deviceId}",
-        device_token: "${deviceToken}",
-        golf_club_id: "${golfClubId}",
-        message: "end of reserve/search",
-        parameter: JSON.stringify({}),
-      };
-      TZLOG(param, (data) => {
+      logParam.message = "end of reserve/search";
+      TZLOG(logParam, (data) => {
         log(data);
-        doLogout();
         const ac = window.AndroidController;
         if (ac) ac.message("end of reserve/search");
+        doLogout();
       });
     });
   }

@@ -55,7 +55,13 @@ javascript: (() => {
         target = el;
     });
     if (target) {
-      log(target);
+      target.children[6].children[0].click();
+      logParam.message = "end of reserve/cancel";
+      TZLOG(param, (data) => {
+        const ac = window.AndroidController;
+        if (ac) ac.message("end of reserve/cancel");
+        doLogout();
+      });
     }
   }
 })();

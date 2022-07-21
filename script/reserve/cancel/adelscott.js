@@ -50,21 +50,21 @@ javascript: (() => {
     if (target) {
       target.click();
       realcmd1("R");
+      const param = {
+        type: "command",
+        sub_type: "reserve/cancel",
+        device_id: "${deviceId}",
+        device_token: "${deviceToken}",
+        golf_club_id: "${golfClubId}",
+        message: "end of reserve/cancel",
+        parameter: JSON.stringify({}),
+      };
+      TZLOG(param, (data) => {
+        const ac = window.AndroidController;
+        if (ac) ac.message("end of reserve/cancel");
+        location.href = "/login/logout.asp";
+      });
     }
 
-    const param = {
-      type: "command",
-      sub_type: "reserve/cancel",
-      device_id: "${deviceId}",
-      device_token: "${deviceToken}",
-      golf_club_id: "${golfClubId}",
-      message: "end of reserve/cancel",
-      parameter: JSON.stringify({}),
-    };
-    TZLOG(param, (data) => {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/cancel");
-      location.href = "/login/logout.asp";
-    });
   }
 })();
