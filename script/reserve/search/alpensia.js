@@ -21,25 +21,24 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    if (coName.innerText != "ALLDAY OXFIELD") {
-      changeCoDiv("77");
-    }    
     TZLOG(logParam, (data) => {
       setTimeout(funcSearch, 3000);
     });
   }
   function funcSearch() {
-    const els = window["time-grid"].children;
+    const els = resHisListDiv.getElementsByTagName("li");
     const result = [];
     const dictCourse = {
-      OX: "OX",
-      FIELD: "Field",
+      ALPS: "ALPS",
+      ASIA: "ASIA",
     };
     Array.from(els).forEach((el) => {
-      if (el.children.length < 2) return;
-      const date = "20" + el.children[0].innerText.split("/").join("");
-      const time = el.children[1].innerText.split(":").join("");
-      const course = el.children[2].innerText;
+      const param = el.getElementsByTagName("button")[2].getAttribute("onclick").inparen();
+      if(param[0] != "J51") return;
+
+      const date = param[1];
+      const time = param[5];
+      const course = param[3];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -55,7 +54,7 @@ javascript: (() => {
         log(data);
         const ac = window.AndroidController;
         if (ac) ac.message("end of reserve/search");
-        doLogout();
+        location.href = "/member/logout";
       });
     });
   }
