@@ -48,7 +48,7 @@ javascript: (() => {
         const els = document.getElementsByClassName("day-work");
         let target;
         Array.from(els).forEach((el) => {
-          const eldate = el.getAttribute("date-date");
+          const eldate = el.getAttribute("data-date");
           if (eldate == fulldate) target = el;
         });
         if (target) target.click();
