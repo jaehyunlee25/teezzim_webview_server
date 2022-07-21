@@ -47,7 +47,7 @@ javascript: (() => {
         const fulldate = [year, month, date].join("");
         const els = document.getElementsByClassName("day-work");
         let target;
-        els.forEach((el) => {
+        Array.from(els).forEach((el) => {
           const eldate = el.getAttribute("date-date");
           if (eldate == fulldate) target = el;
         });
