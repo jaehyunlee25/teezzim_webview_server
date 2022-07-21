@@ -48,6 +48,9 @@ javascript: (() => {
     });
     if (target) {
       target.children[6].children[0].click();
+      const cfNum = golfTimeDiv2CertNo.innerText;
+      certNoChk.value = cfNum;
+      golfSubmit();
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
       location.href = "/member/logout";
