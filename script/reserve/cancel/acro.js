@@ -49,7 +49,7 @@ javascript: (() => {
         btnCourse == dictCourse[course] &&
         btnTime == time
         )
-        target = btn;
+        target = el;
       });
       log("target", target);
       return;
