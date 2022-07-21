@@ -21,8 +21,22 @@ javascript: (() => {
     const el = document.getElementsByClassName("btn loginBtn btn-xs")[0];
     if (el.innerText == "로그아웃")
       location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";
-    const ac = window.AndroidController;
-    if (ac) ac.message("end of reserve/cancel");
+
+    const param = {
+      type: "command",
+      sub_type: "reserve/cancel",
+      device_id: "${deviceId}",
+      device_token: "${deviceToken}",
+      golf_club_id: "${golfClubId}",
+      message: "end of reserve/cancel",
+      parameter: JSON.stringify({}),
+    };
+    TZLOG(param, (data) => {
+      log(data);
+      const ac = window.AndroidController;
+      if (ac) ac.message("end of reserve/cancel");
+      location.href = "logout.asp";
+    });  
   }
   function funcReserve() {
     const els = document
@@ -57,8 +71,6 @@ javascript: (() => {
 
     if (target) target.click();
 
-    const ac = window.AndroidController;
-    if (ac) ac.message("end of reserve/cancel");
     location.href = "logout.asp";    
   }
 })();
