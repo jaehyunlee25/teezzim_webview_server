@@ -62,6 +62,10 @@ javascript: (() => {
         if (ac) ac.message("end of reserve/cancel");
         doLogout();
       });
+    }else{
+      const ac = window.AndroidController;
+      if (ac) ac.message("end of reserve/cancel");
+      doLogout();
     }
   }
 })();
