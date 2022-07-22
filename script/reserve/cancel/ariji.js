@@ -26,30 +26,27 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
-      return;
-    }
+    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       log(data);
       funcCancel();
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("reser_btn4");
-    const dictCourse = {
-      22: "In",
-      11: "Out",
-    };
+    const els = document.getElementsByClassName("btn btn-danger");
+    const dictCourse = {};
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
 
-      const elDate = param[0].split("-").join("");
-      const elTime = param[1];
-      const elCourse = param[2];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const elDate = param[2];
+      const elTime = param[3];
+      const elCourse = param[4];
+      console.log("reserve cancel", elCourse, elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
         elDate == fulldate &&
@@ -71,8 +68,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/member/LogOut.aspx";
+      location.href = "/login/logout.asp";
     });
   }
 })();
