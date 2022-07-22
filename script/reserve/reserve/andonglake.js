@@ -25,6 +25,7 @@ javascript: (() => {
   if (!func) location.href = "${searchUrl}";
   else func();
   function funcLogin() {
+    localStorage.removeItem("TZ_RESERVE");
     ${loginScript}
   }
   function funcReserve() {
