@@ -47,16 +47,20 @@ javascript: (() => {
 
     if(suffixParam["settype"] == "T") {
       log("calendar");
+      funcDate();
     }else if(suffixParam["settype"] == "R") {
       log("time");
+      funcTime();
     }
-
+  }
+  function funcDate() {
     TZLOG(logParam, (data) => {
-      //timefrom_change(fulldate,'2','1','','00','T')
+      timefrom_change(fulldate,'2','1','','00','T')
     });
   }
   function funcTime() {
-    subcmd('R','1','0500','OUT', '2022년 8월 14일 (일요일)', '18홀', 'I', 'UNABLE', '170000', '160000', '', '', 'N', 'N', '', 'N', 'N')
+    log("funcTime");
+    //subcmd('R','1','0500','OUT', '2022년 8월 14일 (일요일)', '18홀', 'I', 'UNABLE', '170000', '160000', '', '', 'N', 'N', '', 'N', 'N')
     return;
     /*
     const els = document.getElementsByClassName("reser_btn2");
