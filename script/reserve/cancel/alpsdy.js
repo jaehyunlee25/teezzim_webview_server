@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/cancel",
@@ -23,28 +23,32 @@ javascript: (() => {
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag == "true") {
+      localStorage.removeItem("TZ_LOGOUT");
+      return;
+    }
     TZLOG(logParam, (data) => {
-      setTimeout(funcCancel, 1000);
+      log(data);
+      funcCancel();
     });
   }
   function funcCancel() {
-    const els = resHisListDiv.getElementsByTagName("li");
+    const els = document.getElementsByClassName("reser_btn4");
     const dictCourse = {
-      IN: "In",
-      OUT: "Out",
+      22: "In",
+      11: "Out",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const button = el.getElementsByTagName("button")[2];
-      const param = button.getAttribute("onclick").inparen();
-      if (param[0] != "J51") return;
+      const param = el.getAttribute("href").inparen();
 
-      const elDate = param[1];
-      const elTime = param[5];
-      const elCourse = param[3];
+      const elDate = param[0].split("-").join("");
+      const elTime = param[1];
+      const elCourse = param[2];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -52,22 +56,23 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = button;
+        target = el;
     });
     if (target) {
       target.click();
-      logParam.message = "end of reserve/cancel";
-      TZLOG(param, (data) => {
-        const ac = window.AndroidController;
-        if (ac) ac.message("end of reserve/cancel");
-        location.href = "/member/logout";
-      });
+      setTimeout(funcEnd, 1000);
+    } else {
+      funcEnd();
     }
-    /* 3초 후엔 무조건 닫는다 */
-    setTimeout(() => {
+  }
+  function funcEnd() {
+    const strEnd = "end of reserve/cancel";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/cancel");
-      doLogout();
-    }, 3000);
+      if (ac) ac.message(strEnd);
+      localStorage.setItem("TZ_LOGOUT", "true");
+      location.href = "/Mobile/member/LogOut.aspx";
+    });
   }
 })();

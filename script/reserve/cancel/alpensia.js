@@ -57,7 +57,7 @@ javascript: (() => {
     if (target) {
       target.click();
       logParam.message = "end of reserve/cancel";
-      TZLOG(param, (data) => {
+      TZLOG(logParam, (data) => {
         const ac = window.AndroidController;
         if (ac) ac.message("end of reserve/cancel");
         location.href = "/member/logout";
