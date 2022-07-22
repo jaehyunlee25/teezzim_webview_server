@@ -37,11 +37,11 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("checkBtn colGray");
     const result = [];
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "누리",
+      22: "하늘",
     };
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
