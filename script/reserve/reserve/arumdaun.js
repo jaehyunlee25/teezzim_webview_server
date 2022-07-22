@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/cancel",
@@ -16,6 +16,8 @@ javascript: (() => {
   const date = "${date}";
   const course = "${course}";
   const time = "${time}";
+  const week = ["일", "월", "화", "수", "목", "금", "토"];
+  const day = week[new Date([year, month, date].join("/")).getDay()];
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
@@ -31,7 +33,7 @@ javascript: (() => {
   if (!func) location.href = "${searchUrl}";
   else func();
   function funcLogin() {
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -44,8 +46,6 @@ javascript: (() => {
   }
   function funcTime() {
     if (!suffix) {
-      const week = ["일", "월", "화", "수", "목", "금", "토"];
-      const day = week[new Date([year, month, date].join("/")).getDay()];
       Book_Confirm(
         fulldate,
         day,
@@ -84,14 +84,22 @@ javascript: (() => {
     */
   }
   function funcExec() {
-    /* const strEnd = "end of reserve/reserve";
-    Book_ok(fulldate, time, dictCourse[course], "");
+    const strEnd = "end of reserve/reserve";
+    const cfrmNo = document.getElementsByName("apply_no")[0].value;
+    document.getElementsByName("apply_no_re")[0].value = cfrmNo;
+    Book_Confirm_ok(
+      fulldate,
+      day,
+      dictCourse[course],
+      course.toUpperCase(),
+      time
+    );
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "logout.asp";
-    }, 1000); */
+      checkLogOut();
+    }, 1000);
   }
 })();
