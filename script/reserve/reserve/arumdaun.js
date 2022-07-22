@@ -20,10 +20,10 @@ javascript: (() => {
   const day = week[new Date([year, month, date].join("/")).getDay()];
   const dict = {
     "${loginUrl}": funcLogin,
-    "${searchUrl}": funcReserve,
+    /* "${searchUrl}": funcReserve,
     "http://m2.arumdaunresort.com/main.asp": funcMain,
     "http://m2.arumdaunresort.com/include/menu.asp": funcBasic,
-    "http://m2.arumdaunresort.com/reserve_02_Book.asp": funcTime,
+    "http://m2.arumdaunresort.com/reserve_02_Book.asp": funcTime, */
   };
   const func = dict[addr];
   const dictCourse = {
@@ -32,8 +32,8 @@ javascript: (() => {
     Rock: "3",
   };
   const fulldate = [year, month, date].join("");
-  //if (!func) location.href = "${searchUrl}";
   if(func) func();
+  // if (!func) location.href = "${searchUrl}";
   function funcLogin() {
     ${loginScript}
   }
