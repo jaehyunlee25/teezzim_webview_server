@@ -37,18 +37,17 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cm_btn default cm_btn_space01");
+    const els = document.getElementsByClassName("cancelBtn");
     const result = [];
     const dictCourse = {
-      1: "한성",
-      2: "웅진",
-      3: "사비",
+      11: "Out",
+      22: "In",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const date = param[2];
-      const time = param[3];
-      const course = param[4];
+      const param = el.getAttribute("href").inparen();
+      const date = param[0];
+      const time = param[1];
+      const course = param[2];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -65,7 +64,7 @@ javascript: (() => {
       });
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
-      location.href = "/_mobile/login/logout.asp";
+      location.href = "/Mobile/Member/LogOut.aspx";
     });
   }
 })();

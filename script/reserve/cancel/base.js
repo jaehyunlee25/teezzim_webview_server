@@ -44,17 +44,15 @@ javascript: (() => {
   function funcCancel() {
     const els = document.getElementsByClassName("cm_btn default cm_btn_space01");
     const dictCourse = {
-      1: "한성",
-      2: "웅진",
-      3: "사비",
+      11: "Out",
+      22: "In",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-
-      const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
+      const param = el.getAttribute("href").inparen();
+      const elDate = param[0];
+      const elTime = param[1];
+      const elCourse = param[2];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -62,11 +60,10 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[6].children[0];
+        target = el;
     });
     if (target) {
       target.click();
-      document.getElementsByClassName("cm_btn orange")[0].click();
       setTimeout(funcEnd, 1000);
     } else {
       funcEnd();

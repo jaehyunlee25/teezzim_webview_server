@@ -45,7 +45,7 @@ javascript: (() => {
     const fd = [year, month, date].join("");
     const sign = dictCourse[course];
     ReserveCheck(fd, sign, time, "00001", "1", "18", "1", "", "");
-    funcExec();
+    setTimeout(funcExec, 1000);
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
