@@ -32,17 +32,16 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("btn btn-sm btn-gray");
+    const els = document.getElementsByClassName("cm_cnlth");
     const result = [];
     const dictCourse = {
-      2: "Mountain",
-      1: "Lake",
+      단일: "단일",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const date = param[0];
-      const time = param[2];
-      const course = param[1];
+      const param = el.children[0].getAttribute("href").inparen();
+      const date = param[2];
+      const time = param[3];
+      const course = "단일";
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
