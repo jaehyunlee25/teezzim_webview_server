@@ -52,7 +52,7 @@ javascript: (() => {
       const time = param[2];
       const mCourse = param[1];
       console.log("reserve search", dictCourse[mCourse], date, time);
-      result.push({ date, time, course: dictCourse[course] });
+      result.push({ date, time, course: dictCourse[mCourse] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
