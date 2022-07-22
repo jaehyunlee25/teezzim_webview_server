@@ -18,7 +18,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.beachegolf.com/Mobile/Reservation/ReservationTimeList.aspx":
+    "http://www.beachegolf.com/Mobile/Reservation/ReservationTimeList.aspx":
       funcTime,
     "http://www.beachegolf.com/Mobile/Reservation/ReservationCheck.aspx":
       funcExec,
