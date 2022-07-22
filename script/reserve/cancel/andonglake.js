@@ -42,7 +42,7 @@ javascript: (() => {
       Out: "2",
     };
     const fd = [year.ch(2), month, date].join("");
-    const key = [fd, time, dictCourse[course]];
+    const key = [fd, time, dictCourse[course]].join("");
     log(key);
     let target = window[key];    
     log(target);
