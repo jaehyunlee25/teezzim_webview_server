@@ -59,8 +59,7 @@ javascript: (() => {
         "N",
         "18홀"
       );
-    } else {
-      setTimeout(funcExec, 1000);
+      delete dict["http://m2.arumdaunresort.com/reserve_02_Book.asp"];
     }
     return;
     /*
