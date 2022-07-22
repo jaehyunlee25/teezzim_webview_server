@@ -44,7 +44,7 @@ javascript: (() => {
   function funcTime() {
     Book_Confirm(fulldate, dictCourse[course], time, "");
     return;
-
+    /*
     const els = document.getElementsByClassName("reser_btn2");
     const dictCourse = {
       In: "22",
@@ -65,19 +65,17 @@ javascript: (() => {
       localStorage.setItem("TZ_LOGOUT", "true");
       location.href = "/Mobile/member/LogOut.aspx";
     }
+    */
   }
   function funcExec() {
-    Book_ok(fulldate, time, dictCourse[course], "");
-    return;
     const strEnd = "end of reserve/reserve";
-    ctl00_ContentPlaceHolder1_btnOk.click();
+    Book_ok(fulldate, time, dictCourse[course], "");
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/member/LogOut.aspx";
+      location.href = "logout.asp";
     }, 1000);
   }
 })();
