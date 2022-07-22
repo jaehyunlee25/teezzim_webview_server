@@ -28,12 +28,11 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    const tag = localStorage.getItem("TZ_RESERVE");
-    log("funcReserve", tag);
-    if(tag == "true") return;
+    const tag = localStorage.getItem("TZ_RESERVE") * 1;    
+    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
     
     TZLOG(logParam, (data) => {
-      localStorage.setItem("TZ_RESERVE", "true");
+      localStorage.setItem("TZ_RESERVE", new Date().getTime());
       location.href = "/BookingAdd.aspx?Date=" + fulldate;
     });
   }
