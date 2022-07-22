@@ -64,7 +64,7 @@ javascript: (() => {
       const param = el.children[0].getAttribute("href").inparen();
       const elCourse = "단일";
       const elTime = param[2];
-      if (course == elCourse && time == elTime) target = el;
+      if (course == elCourse && time == elTime) target = el.children[0];
     });
     if (target) {
       target.click();
