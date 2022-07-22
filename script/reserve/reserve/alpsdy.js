@@ -64,11 +64,13 @@ javascript: (() => {
   function funcExec() {
     const strEnd = "end of reserve/reserve";
     ctl00_ContentPlaceHolder1_btnOk.click();
-    logParam.message = strEnd;
-    TZLOG(logParam, (data) => {});
-    const ac = window.AndroidController;
-    if (ac) ac.message(strEnd);
-    localStorage.setItem("TZ_LOGOUT", "true");
-    location.href = "/Mobile/member/LogOut.aspx";
+    setTimeout(() => {
+      logParam.message = strEnd;
+      TZLOG(logParam, (data) => {});
+      const ac = window.AndroidController;
+      if (ac) ac.message(strEnd);
+      localStorage.setItem("TZ_LOGOUT", "true");
+      location.href = "/Mobile/member/LogOut.aspx";
+    }, 1000);
   }
 })();
