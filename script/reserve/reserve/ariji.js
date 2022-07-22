@@ -34,7 +34,7 @@ javascript: (() => {
       return;
     }
     TZLOG(logParam, (data) => {
-      now_calendar.goSend(frmSend, fulldate, "1", "2");
+      now_calendar.goSend(now_calendar.frmSend, fulldate, "1", "2");
     });
   }
   function funcTime() {
