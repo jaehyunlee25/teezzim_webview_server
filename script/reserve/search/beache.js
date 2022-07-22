@@ -40,8 +40,9 @@ javascript: (() => {
     const els = document.getElementsByClassName("cancelBtn");
     const result = [];
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "다산",
+      22: "베아채",
+      33: "장보고",
     };
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
@@ -64,7 +65,7 @@ javascript: (() => {
       });
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      ctl00_Top_aLogout.click();
     });
   }
 })();

@@ -44,8 +44,9 @@ javascript: (() => {
   function funcCancel() {
     const els = document.getElementsByClassName("cancelBtn");
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "다산",
+      22: "베아채",
+      33: "장보고",
     };
     let target;
     Array.from(els).forEach((el) => {
@@ -75,7 +76,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/Mobile/Member/LogOut.aspx";
+      ctl00_Top_aLogout.click();
     });
   }
 })();
