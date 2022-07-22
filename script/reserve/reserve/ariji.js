@@ -39,13 +39,13 @@ javascript: (() => {
   }
   function funcTime() {
     const strEnd = "end of reserve/reserve";
+    localStorage.setItem("TZ_LOGOUT", "true");
     goSend(frmSend, "1", time, course, "ABLE", "N", "210000");
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      localStorage.setItem("TZ_LOGOUT", "true");
       location.href = "/login/logout.asp";
     }, 1000);
   }
