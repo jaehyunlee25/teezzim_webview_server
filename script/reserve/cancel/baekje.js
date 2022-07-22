@@ -23,13 +23,18 @@ javascript: (() => {
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
+    
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
 
-    const tag = localStorage.getItem("TZ_LOGOUT");
+    const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
       log(data);
@@ -37,9 +42,11 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    const els = document.getElementsByClassName("cm_btn default cm_btn_space01");
     const dictCourse = {
-      단일: "단일",
+      1: "한성",
+      2: "웅진",
+      3: "사비",
     };
     let target;
     Array.from(els).forEach((el) => {
@@ -47,7 +54,7 @@ javascript: (() => {
 
       const elDate = param[2];
       const elTime = param[3];
-      const elCourse = "단일";
+      const elCourse = param[4];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -55,7 +62,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.children[0];
+        target = el.parentNode.parentNode.children[6].children[0];
     });
     if (target) {
       target.click();
