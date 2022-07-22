@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  const suffix = location.href.split("?")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -34,6 +35,7 @@ javascript: (() => {
       localStorage.removeItem("TZ_LOGOUT");
       return;
     }
+    if(!suffix) location.href = location.href + "?ThisDate=" + fulldate;
     TZLOG(logParam, (data) => {
       const els = document.getElementsByClassName("tbl02")[0].getElementsByClassName("r_choice");
       let target;
