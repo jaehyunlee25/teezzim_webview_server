@@ -32,17 +32,16 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("open_pop btn_type01 marL_5");
+    const els = document.getElementsByClassName("btn btn-sm btn-gray");
     const result = [];
     const dictCourse = {
-      1: "Hill",
-      2: "Lake",
-      3: "Rock",
+      2: "Mountain",
+      1: "Lake",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const date = param[0];
-      const time = param[3];
+      const time = param[2];
       const course = param[1];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
@@ -60,7 +59,7 @@ javascript: (() => {
       });
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
-      checkLogOut();
+      location.href = "logout.asp";
     });
   }
 })();
