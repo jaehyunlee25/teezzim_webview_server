@@ -42,8 +42,8 @@ javascript: (() => {
   function funcTime() {
     const els = document.getElementsByClassName("reser_btn2");
     const dictCourse = {
-      In: "11",
-      Out: "22",
+      In: "22",
+      Out: "11",
     };
     let target;
     Array.from(els).forEach((el) => {

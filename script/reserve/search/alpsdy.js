@@ -35,8 +35,8 @@ javascript: (() => {
     const els = document.getElementsByClassName("reser_btn4");
     const result = [];
     const dictCourse = {
-      11: "In",
-      22: "Out",
+      22: "In",
+      11: "Out",
     };
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("onclick").inparen();
