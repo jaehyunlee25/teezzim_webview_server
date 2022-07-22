@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  const suffix = location.href.split("?")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -41,9 +42,20 @@ javascript: (() => {
     location.href = "${searchUrl}";
   }
   function funcReserve() {
+
+    if(suffix == "coGubun=P")  funcDate();
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
+    location.href = "${searchUrl}?coGubun=P";
+  }
+  function funcDate() {
+
+    const tag = localStorage.getItem("TZ_Date");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_Date", new Date().getTime());
 
     TZLOG(logParam, (data) => {
       reservation(fulldate, "reserv");
