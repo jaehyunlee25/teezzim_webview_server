@@ -1,15 +1,14 @@
 const fs = require("fs");
 const log = console.log;
-String.prototype.dp = function (param) {
-  let self = this;
-  const keys = Object.keys(param);
-  keys.forEach((key) => {
-    const regex = new RegExp("\\$\\{".add(key).add("\\}"), "g");
-    const val = param[key];
-    self = self.replace(regex, val);
-  });
-  return self;
-};
-String.prototype.add = function add(str) {
-  return [this, str].join("");
-};
+
+const clubFrom = "alpsdy";
+const clubTo = "andonglake";
+
+["reserve", "search", "cancel"].forEach((folder) => {
+  const con = fs.readFileSync(
+    "./script/reserve/" + folder + "/" + clubFrom + ".js",
+    "utf-8"
+  );
+  fs.writeFileSync("./script/reserve/" + folder + "/" + clubTo + ".js", con);
+});
+log("file copy completed!!");
