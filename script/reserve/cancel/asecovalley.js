@@ -37,7 +37,7 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("btn btn-sm btn-gray");
+    const els = document.getElementsByClassName("cm_cnlth");
     const dictCourse = {
       단일: "단일",
     };
