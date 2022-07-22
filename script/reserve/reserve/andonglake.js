@@ -46,7 +46,7 @@ javascript: (() => {
       In: "1",
       Out: "2",
     };
-    const fd = [year, month, date].join("");
+    const fd = [year.ch(2), month, date].join("");
     const key = [fd, time, dictCourse[course]].join("");
     let target = window[key];
     if (target) {
