@@ -48,7 +48,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.parentNode.getAttribute("href").inparen();
       const elDate = param[0].split("-").join("");
       const elTime = param[1];
       const elCourse = param[2];
@@ -59,7 +59,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.parentNode;
     });
     if (target) {
       target.click();

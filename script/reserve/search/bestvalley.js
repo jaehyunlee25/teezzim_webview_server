@@ -43,7 +43,7 @@ javascript: (() => {
       11: "단일",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.parentNode.getAttribute("href").inparen();
       const date = param[0].split("-").join("");
       const time = param[1];
       const course = param[2];
