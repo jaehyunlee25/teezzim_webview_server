@@ -47,7 +47,7 @@ javascript: (() => {
       11: "Monti",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
+      const param = el.children[0].getAttribute("onclick").inparen();
       const date = param[0];
       const time = param[2];
       const course = param[1];
@@ -67,7 +67,7 @@ javascript: (() => {
       });
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      location.href = "/Mobile/Member/LogOut";
     });
   }
 })();
