@@ -49,7 +49,7 @@ javascript: (() => {
   }
   function funcTime() {
     if (!suffix) {
-      Book_Confirm(
+      /* Book_Confirm(
         fulldate,
         day,
         dictCourse[course],
@@ -58,7 +58,7 @@ javascript: (() => {
         "210000",
         "N",
         "18홀"
-      );
+      ); */
       delete dict["http://m2.arumdaunresort.com/reserve_02_Book.asp"];
     }
     return;
