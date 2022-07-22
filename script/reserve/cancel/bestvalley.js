@@ -42,10 +42,9 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("bt_cancel");
     const dictCourse = {
-      11: "스톤",
-      22: "벨라",
+      11: "단일",
     };
     let target;
     Array.from(els).forEach((el) => {

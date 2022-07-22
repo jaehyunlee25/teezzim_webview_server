@@ -37,11 +37,10 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("bt_cancel");
     const result = [];
     const dictCourse = {
-      11: "스톤",
-      22: "벨라",
+      11: "단일",
     };
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
