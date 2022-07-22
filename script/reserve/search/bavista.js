@@ -50,8 +50,8 @@ javascript: (() => {
       const param = el.children[0].getAttribute("onclick").inparen();
       const date = param[0];
       const time = param[2];
-      const course = param[1];
-      console.log("reserve search", dictCourse[course], date, time);
+      const mCourse = param[1];
+      console.log("reserve search", dictCourse[mCourse], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
     const param = {
