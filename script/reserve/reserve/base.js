@@ -49,7 +49,7 @@ javascript: (() => {
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
-    ctl00_ContentPlaceHolder1_lbtCancel.click();
+    ctl00_ContentPlaceHolder1_lbtOK.click();
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
