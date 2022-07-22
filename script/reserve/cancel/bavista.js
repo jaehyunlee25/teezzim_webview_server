@@ -42,7 +42,7 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("cm_qusrud");
     const dictCourse = {
       66: "Buona",
       77: "Hopark",
