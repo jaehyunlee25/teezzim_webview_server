@@ -21,6 +21,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "http://m2.arumdaunresort.com/include/menu.asp": funcBasic,
     "http://m2.arumdaunresort.com/reserve_02_Book.asp": funcTime,
   };
   const func = dict[addr];
@@ -34,6 +35,15 @@ javascript: (() => {
   if(func) func();
   function funcLogin() {
     ${loginScript}
+  }
+  function funcBasic() {
+    const tag = localStorage.getItem("TZ_BASIC");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      return;
+    }
+    localStorage.setItem("TZ_BASIC", new Date().getTime());
+
+    location.herf = "${searchUrl}";
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
