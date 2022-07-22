@@ -86,7 +86,7 @@ javascript: (() => {
   function funcExec() {
     const strEnd = "end of reserve/reserve";
     const cfrmNo = document.getElementsByName("apply_no")[0].value;
-    document.getElementsByName("apply_no_re")[0].value = cfrmNo;
+    /* document.getElementsByName("apply_no_re")[0].value = cfrmNo;
     document.getElementsByClassName("btn002")[0].click();
     setTimeout(() => {
       logParam.message = strEnd;
@@ -94,6 +94,6 @@ javascript: (() => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
       checkLogOut();
-    }, 1000);
+    }, 1000); */
   }
 })();
