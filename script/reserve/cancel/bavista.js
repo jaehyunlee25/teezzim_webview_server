@@ -52,7 +52,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
+      const param = el.children[0].getAttribute("onclick").inparen();
       const elDate = param[0];
       const elTime = param[2];
       const elCourse = param[1];
