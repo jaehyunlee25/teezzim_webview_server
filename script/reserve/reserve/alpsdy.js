@@ -6,7 +6,7 @@ javascript: (() => {
     device_id: "${deviceId}",
     device_token: "${deviceToken}",
     golf_club_id: "${golfClubId}",
-    message: "start reserve/cancel",
+    message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
@@ -56,9 +56,12 @@ javascript: (() => {
     }
   }
   function funcExec() {
+    const strEnd = "end of reserve/reserve";
     ctl00_ContentPlaceHolder1_btnOk.click();
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
-    if (ac) ac.message("end of reserve/reserve");
+    if (ac) ac.message(strEnd);
     location.href = "/Mobile/member/LogOut.aspx";
   }
 })();
