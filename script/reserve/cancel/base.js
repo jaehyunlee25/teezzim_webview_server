@@ -42,7 +42,7 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cm_btn default cm_btn_space01");
+    const els = document.getElementsByClassName("cancelBtn");
     const dictCourse = {
       11: "Out",
       22: "In",
@@ -75,7 +75,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/_mobile/login/logout.asp";
+      location.href = "/Mobile/Member/LogOut.aspx";
     });
   }
 })();
