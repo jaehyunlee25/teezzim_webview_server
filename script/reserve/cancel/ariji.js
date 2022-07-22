@@ -50,7 +50,7 @@ javascript: (() => {
       const fulldate = [year, month, date].join("");
       if (
         elDate == fulldate &&
-        dictCourse[elCourse] == course &&
+        elCourse == course &&
         elTime == time
       )
         target = el;
