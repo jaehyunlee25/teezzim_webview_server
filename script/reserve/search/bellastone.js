@@ -2,7 +2,7 @@ javascript: (() => {
   ${commonScript}
   const logParam = {
     type: "command",
-    sub_type: "reserve/reserve",
+    sub_type: "reserve/search",
     device_id: "${deviceId}",
     device_token: "${deviceToken}",
     golf_club_id: "${golfClubId}",
@@ -40,12 +40,12 @@ javascript: (() => {
     const els = document.getElementsByClassName("cancelBtn");
     const result = [];
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "스톤",
+      22: "벨라",
     };
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
-      const date = param[0];
+      const date = param[0].split("-").join("");
       const time = param[1];
       const course = param[2];
       console.log("reserve search", dictCourse[course], date, time);

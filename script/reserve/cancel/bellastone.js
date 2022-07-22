@@ -50,7 +50,7 @@ javascript: (() => {
     let target;
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
-      const elDate = param[0];
+      const elDate = param[0].split("-").join("");
       const elTime = param[1];
       const elCourse = param[2];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);

@@ -2,7 +2,7 @@ javascript: (() => {
   ${commonScript}
   const logParam = {
     type: "command",
-    sub_type: "reserve/reserve",
+    sub_type: "reserve/search",
     device_id: "${deviceId}",
     device_token: "${deviceToken}",
     golf_club_id: "${golfClubId}",
