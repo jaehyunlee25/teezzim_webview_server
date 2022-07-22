@@ -30,8 +30,8 @@ javascript: (() => {
     Rock: "3",
   };
   const fulldate = [year, month, date].join("");
-  if (!func) location.href = "${searchUrl}";
-  else func();
+  //if (!func) location.href = "${searchUrl}";
+  if(func) func();
   function funcLogin() {
     ${loginScript}
   }
