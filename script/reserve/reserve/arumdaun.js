@@ -87,13 +87,7 @@ javascript: (() => {
     const strEnd = "end of reserve/reserve";
     const cfrmNo = document.getElementsByName("apply_no")[0].value;
     document.getElementsByName("apply_no_re")[0].value = cfrmNo;
-    Book_Confirm_ok(
-      fulldate,
-      day,
-      dictCourse[course],
-      course.toUpperCase(),
-      time
-    );
+    document.getElementsByClassName("btn002")[0].click();
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
