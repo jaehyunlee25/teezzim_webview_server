@@ -29,8 +29,8 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
+    log("funcReserve", tag);
     if(tag == "true") return;
     
     TZLOG(logParam, (data) => {
