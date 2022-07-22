@@ -19,8 +19,6 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.aristacc.co.kr/mobile/reservation_02.asp": funcTime,
-    "http://www.aristacc.co.kr/mobile/reservation_03.asp": funcExec,
   };
   const func = dict[addr];
   const dictCourse = {};
@@ -58,42 +56,35 @@ javascript: (() => {
       timefrom_change(fulldate,'2','1','','00','T')
     });
   }
-  function funcTime() {
-    log("funcTime");
-    //subcmd('R','1','0500','OUT', '2022년 8월 14일 (일요일)', '18홀', 'I', 'UNABLE', '170000', '160000', '', '', 'N', 'N', '', 'N', 'N')
-    return;
-    /*
-    const els = document.getElementsByClassName("reser_btn2");
-    const dictCourse = {
-      In: "22",
-      Out: "11",
-    };
+  function funcTime() {    
+    const els = document.getElementsByClassName("cm_dPdir");
+    const dictCourse = {};
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const elCourse = param[2];
-      const elTime = param[1];
-      if (dictCourse[course] == elCourse && time == elTime) target = el;
+      const param = el.children[0].getAttribute("href").inparen();
+      const elCourse = "단일";
+      const elTime = param[2];
+      if (course == elCourse && time == elTime) target = el;
     });
     if (target) {
       target.click();
+      funcExec();
     } else {
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
-      localStorage.setItem("TZ_LOGOUT", "true");
       location.href = "/Mobile/member/LogOut.aspx";
-    }
-    */
+    }   
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
-    Book_ok(fulldate, time, dictCourse[course], "");
+    person_count2.click();
+    document.getElementsByClassName("cm_ok")[0].click();
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "logout.asp";
+      location.href = "/_mobile/login/logout.asp";
     }, 1000);
   }
 })();
