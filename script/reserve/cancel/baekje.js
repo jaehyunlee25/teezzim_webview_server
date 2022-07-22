@@ -66,6 +66,7 @@ javascript: (() => {
     });
     if (target) {
       target.click();
+      document.getElementsByClassName("cm_btn orange")[0].click();
       setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
