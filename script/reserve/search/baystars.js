@@ -37,17 +37,17 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("btn btn-sm btn-gray");
     const result = [];
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      1: "Bay",
+      2: "Stars",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const date = param[0];
-      const time = param[1];
-      const course = param[2];
+      const time = param[2];
+      const course = param[1];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -64,7 +64,7 @@ javascript: (() => {
       });
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      location.href = "logout.asp";
     });
   }
 })();

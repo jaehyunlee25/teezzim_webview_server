@@ -42,17 +42,17 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("btn btn-sm btn-gray");
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      1: "Bay",
+      2: "Stars",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const elDate = param[0];
-      const elTime = param[1];
-      const elCourse = param[2];
+      const elTime = param[2];
+      const elCourse = param[1];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -75,7 +75,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/Mobile/Member/LogOut.aspx";
+      location.href = "logout.asp";
     });
   }
 })();
