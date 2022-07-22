@@ -13,10 +13,19 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.baystars.co.kr/mobile/index.asp": funcMain,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
+
+  function funcMain() {
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");
