@@ -43,7 +43,7 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_BASIC", new Date().getTime());
 
-    location.herf = "${searchUrl}";
+    location.href = "${searchUrl}";
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
