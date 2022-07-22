@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/cancel",
@@ -33,7 +33,7 @@ javascript: (() => {
   if (!func) location.href = "${searchUrl}";
   else func();
   function funcLogin() {
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -45,7 +45,6 @@ javascript: (() => {
     });
   }
   function funcTime() {
-    //Reserve(fulldate, time,dictCourse[course],'1','00078','18','Y','True','1','135000');
     const sign = dictCourse[course];
     const els = document
       .getElementsByClassName("timeTbl")[0]
