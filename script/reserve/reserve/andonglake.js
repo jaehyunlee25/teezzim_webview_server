@@ -54,8 +54,6 @@ javascript: (() => {
     } else {
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
-      localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/member/LogOut.aspx";
     }
   }
   function funcExec() {
