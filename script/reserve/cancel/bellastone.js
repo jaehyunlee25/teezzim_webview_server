@@ -44,8 +44,8 @@ javascript: (() => {
   function funcCancel() {
     const els = document.getElementsByClassName("cancelBtn");
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "스톤",
+      22: "벨라",
     };
     let target;
     Array.from(els).forEach((el) => {
