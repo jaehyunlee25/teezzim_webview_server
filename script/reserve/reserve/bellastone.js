@@ -18,14 +18,15 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.beaconhills.co.kr/Mobile/Reservation/Reservation.aspx": funcTime,
-    "https://www.beaconhills.co.kr/Mobile/Reservation/ReservationCheck.aspx":
+    "http://www.bellastonecc.com/Mobile/Reservation/ReservationTimeList.aspx":
+      funcTime,
+    "http://www.bellastonecc.com/Mobile/Reservation/ReservationCheck.aspx":
       funcExec,
   };
   const func = dict[addr];
   const dictCourse = {
-    누리: "11",
-    하늘: "22",
+    스톤: "11",
+    벨라: "22",
   };
   const fulldate = [year, month, date].join("-");
   if (!func) location.href = "${searchUrl}";
@@ -39,13 +40,14 @@ javascript: (() => {
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {
-      location.href =
-        "/Mobile/Reservation/Reservation.aspx?SelDate=" + fulldate;
+      Reserve([year, month, "01"].join("-"), fulldate, "3", "1");
     });
   }
   function funcTime() {
     const sign = dictCourse[course];
-    const els = document.getElementsByClassName("revBtn");
+    const els = document
+      .getElementsByClassName("timeTbl")[0]
+      .getElementsByTagName("a");
     let target;
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
@@ -56,13 +58,13 @@ javascript: (() => {
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
-    ctl00_ContentPlaceHolder1_lbtOK.click();
+    ctl00_ContentPlaceHolder1_btnOk.click();
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      ctl00_ContentPlaceHolder1_lbtOK.click();
+      location.href = "/Mobile/Member/LogOut.aspx";
     }, 1000);
   }
 })();
