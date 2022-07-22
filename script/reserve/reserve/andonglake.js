@@ -38,7 +38,8 @@ javascript: (() => {
     });
   }
   function funcDiv() {
-    log("funcDic");
+    log("funcDiv");
+    localStorage.removeItem("TZ_RESERVE");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if(tag == "true") {
       localStorage.removeItem("TZ_LOGOUT");
@@ -49,6 +50,8 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
+    const tag = localStorage.getItem("TZ_TIME");
+    if(tag == "true") return;
     const dictCourse = {
       In: "1",
       Out: "2",
@@ -57,6 +60,7 @@ javascript: (() => {
     const key = [fd, time, dictCourse[course]].join("");
     let target = window[key];
     if (target) {
+      localStorage.setItem("TZ_TIME", "true");
       target.click();
     } else {
       const ac = window.AndroidController;
@@ -65,6 +69,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
+    localStorage.removeItem("TZ_TIME");
     const strEnd = "end of reserve/reserve";
     btn_Save.click();
     setTimeout(() => {
