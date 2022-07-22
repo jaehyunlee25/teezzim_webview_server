@@ -34,12 +34,12 @@ javascript: (() => {
       return;
     }
     TZLOG(logParam, (data) => {
-      JavaScript: goSend(frmSend, fulldate, "1", "2");
+      now_calendar.goSend(frmSend, fulldate, "1", "2");
     });
   }
   function funcTime() {
     const strEnd = "end of reserve/reserve";
-    JavaScript: goSend(frmSend, "1", time, course, "ABLE", "N", "210000");
+    goSend(frmSend, "1", time, course, "ABLE", "N", "210000");
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
