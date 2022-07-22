@@ -20,12 +20,12 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "http://m2.gtc.co.kr/BookingAdd.aspx": funcDiv,
   };
+  localStorage.removeItem("TZ_RESERVE");
   const func = dict[addr];
   const fulldate = [year, month, date].join("-");
   if (!func) location.href = "${searchUrl}";
   else func();
   function funcLogin() {
-    localStorage.removeItem("TZ_RESERVE");
     ${loginScript}
   }
   function funcReserve() {
