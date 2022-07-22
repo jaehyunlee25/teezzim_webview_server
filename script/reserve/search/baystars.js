@@ -20,6 +20,7 @@ javascript: (() => {
   else func();
 
   function funcMain() {
+    return;
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
@@ -27,7 +28,7 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
-    
+    return;
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -35,7 +36,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    
+    return;
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -46,6 +47,7 @@ javascript: (() => {
     });
   }
   function funcSearch() {
+    return;
     const els = document.getElementsByClassName("btn btn-sm btn-gray");
     const result = [];
     const dictCourse = {
