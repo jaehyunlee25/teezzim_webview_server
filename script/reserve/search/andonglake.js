@@ -38,7 +38,7 @@ javascript: (() => {
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("for");
       if(!param) return;
-      const date = "20" + param.gh(4);
+      const date = "20" + param.gh(6);
       const time = param.ch(6).gh(4);
       const course = param.gt(1);
       console.log("reserve search", dictCourse[course], date, time);
