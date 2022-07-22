@@ -21,30 +21,27 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if(tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
-      return;
-    }
+    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       log(data);
       funcSearch();
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("reser_btn4");
+    const els = document.getElementsByClassName("btn btn-danger");
     const result = [];
-    const dictCourse = {
-      22: "In",
-      11: "Out",
-    };
+    const dictCourse = {};
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const date = param[0].split("-").join("");
-      const time = param[1];
-      const course = param[2];
-      console.log("reserve search", dictCourse[course], date, time);
-      result.push({ date, time, course: dictCourse[course] });
+      const param = el.getAttribute("onclick").inparen();
+      const date = param[2];
+      const time = param[3];
+      const course = param[4];
+      console.log("reserve search", course, date, time);
+      result.push({ date, time, course });
     });
     const param = {
       golf_club_id: "${golfClubId}",
@@ -59,8 +56,7 @@ javascript: (() => {
       });
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
-      localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/member/LogOut.aspx";
+      location.href = "/login/logout.asp";
     });
   }
 })();

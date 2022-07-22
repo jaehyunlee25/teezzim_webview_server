@@ -28,18 +28,17 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
-      return;
-    }
+    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       now_calendar.goSend(now_calendar.frmSend, fulldate, "1", "2");
     });
   }
   function funcTime() {
     const strEnd = "end of reserve/reserve";
-    localStorage.setItem("TZ_LOGOUT", "true");
     goSend(frmSend, "1", time, course, "ABLE", "N", "210000");
     setTimeout(() => {
       logParam.message = strEnd;
