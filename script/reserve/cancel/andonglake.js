@@ -26,40 +26,29 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
-      return;
-    }
+    
+    const tag = localStorage.getItem("TZ_RESERVE") * 1;    
+    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       log(data);
       funcCancel();
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("reser_btn4");
     const dictCourse = {
-      22: "In",
-      11: "Out",
+      In: "1",
+      Out: "2",
     };
-    let target;
-    Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-
-      const elDate = param[0].split("-").join("");
-      const elTime = param[1];
-      const elCourse = param[2];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
-      const fulldate = [year, month, date].join("");
-      if (
-        elDate == fulldate &&
-        dictCourse[elCourse] == course &&
-        elTime == time
-      )
-        target = el;
-    });
+    const fd = [year.ch(2), month, date].join("");
+    const key = [fd, time, dictCourse[course]];
+    log(key);
+    let target = window[key];    
+    log(target);
     if (target) {
       target.click();
+      btn_delete.click();
       setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
@@ -72,7 +61,6 @@ javascript: (() => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
       localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/member/LogOut.aspx";
     });
   }
 })();
