@@ -22,6 +22,10 @@ javascript: (() => {
     "http://www.aristacc.co.kr/mobile/reservation_03.asp": funcExec,
   };
   const func = dict[addr];
+  const dictCourse = {
+    Lake: "1",
+    Mountain: "2",
+  };
   const fulldate = [year, month, date].join("");
   if (!func) location.href = "${searchUrl}";
   else func();
@@ -38,7 +42,7 @@ javascript: (() => {
     });
   }
   function funcTime() {
-    Book_Confirm(fulldate, "1", time, "");
+    Book_Confirm(fulldate, dictCourse[course], time, "");
     return;
 
     const els = document.getElementsByClassName("reser_btn2");
@@ -63,7 +67,7 @@ javascript: (() => {
     }
   }
   function funcExec() {
-    Book_ok(fulldate, time, "1", "");
+    Book_ok(fulldate, time, dictCourse[course], "");
     return;
     const strEnd = "end of reserve/reserve";
     ctl00_ContentPlaceHolder1_btnOk.click();
