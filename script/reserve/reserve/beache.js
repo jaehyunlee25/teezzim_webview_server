@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/cancel",
@@ -20,7 +20,8 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://www.beachegolf.com/Mobile/Reservation/ReservationTimeList.aspx":
       funcTime,
-    "http://www.beachegolf.com/Mobile/Reservation/ReservationCheck.aspx": funcExec,
+    "http://www.beachegolf.com/Mobile/Reservation/ReservationCheck.aspx":
+      funcExec,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -32,7 +33,7 @@ javascript: (() => {
   if (!func) location.href = "${searchUrl}";
   else func();
   function funcLogin() {
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -44,16 +45,25 @@ javascript: (() => {
     });
   }
   function funcTime() {
-    Reserve(fulldate, time,dictCourse[course],'1','00078','18','Y','True','1','135000');
-    /* const fd = [year, month, date].join("");
+    //Reserve(fulldate, time,dictCourse[course],'1','00078','18','Y','True','1','135000');
     const sign = dictCourse[course];
-    const els = document.getElementsByClassName("reserv_btn");
+    const els = document
+      .getElementsByClassName("timeTbl")[0]
+      .getElementsByTagName("tbody")[0]
+      .getElementsByTagName("tr");
     let target;
-    Array.from(els).forEach(el => {
-      const param = el.getAttribute("href").inparen();
-      if(param[0] == fd && param[1] == sign && param[2] == time) target = el;
+    Array.from(els).forEach((el) => {
+      const a = el.children[3].children[0];
+      const param = a.getAttribute("href").inparen();
+
+      if (
+        param[0] == fulldate &&
+        param[1] == time &&
+        param[2] == dictCourse[course]
+      )
+        target = a;
     });
-    if(target) target.click(); */
+    if (target) target.click();
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
