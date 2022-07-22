@@ -27,12 +27,14 @@ javascript: (() => {
   function funcLogin() {
     ${loginScript}
   }
-  function funcReserve() {    
+  function funcReserve() {
+    log("funcReserve");
     TZLOG(logParam, (data) => {
       location.href = "/BookingAdd.aspx?Date=" + fulldate;
     });
   }
   function funcDiv() {
+    log("funcDic");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if(tag == "true") {
       localStorage.removeItem("TZ_LOGOUT");
@@ -42,6 +44,7 @@ javascript: (() => {
     else if(Booking_Detail.style.display == "block") funcExec();
   }
   function funcTime() {
+    log("funcTime");
     const dictCourse = {
       In: "1",
       Out: "2",
@@ -57,6 +60,7 @@ javascript: (() => {
     }
   }
   function funcExec() {
+    log("funcExec");
     const strEnd = "end of reserve/reserve";
     btn_Save.click();
     setTimeout(() => {
