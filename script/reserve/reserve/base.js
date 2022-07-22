@@ -20,6 +20,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://basecc.co.kr/Mobile/Reservation/ReservationTimeList.aspx":
       funcTime,
+    "https://basecc.co.kr/Mobile/Reservation/ReservationCheck.aspx": funcExec,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -45,7 +46,6 @@ javascript: (() => {
     const fd = [year, month, date].join("");
     const sign = dictCourse[course];
     ReserveCheck(fd, sign, time, "00001", "1", "18", "1", "", "");
-    setTimeout(funcExec, 1000);
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
