@@ -20,6 +20,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://www.bavista.co.kr/Mobile/Booking/SelectTime": funcTime,
     "https://www.bavista.co.kr/Mobile/Booking/GolfProgress": funcExec,
+    "https://www.bavista.co.kr/Mobile": funcMain,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -31,6 +32,11 @@ javascript: (() => {
   else func();
   function funcLogin() {
     ${loginScript}
+  }
+  function funcMain() {
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
