@@ -37,17 +37,20 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("cm_qusrud");
     const result = [];
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      66: "Buona",
+      77: "Hopark",
+      33: "Lago",
+      22: "Bella",
+      11: "Monti",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const date = param[0];
-      const time = param[1];
-      const course = param[2];
+      const time = param[2];
+      const course = param[1];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });

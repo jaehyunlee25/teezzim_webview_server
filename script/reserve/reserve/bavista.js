@@ -27,6 +27,9 @@ javascript: (() => {
   const dictCourse = {
     Buona: "66",
     Hopark: "77",
+    Lago: "33",
+    Bella: "22",
+    Monti: "11",
   };
   const fulldate = [year, month, date].join("");
   if (!func) location.href = "${searchUrl}";
@@ -82,15 +85,13 @@ javascript: (() => {
     if (target) target.click();
   }
   function funcExec() {
-    return;
     const strEnd = "end of reserve/reserve";
-    ctl00_ContentPlaceHolder1_lbtOK.click();
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/_mobile/login/logout.asp";
+      location.href = "/Mobile/Member/Logout";
     }, 1000);
   }
 })();
