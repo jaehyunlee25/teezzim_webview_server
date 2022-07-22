@@ -30,6 +30,11 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if(tag == "true") {
+      localStorage.removeItem("TZ_LOGOUT");
+      return;
+    }
     TZLOG(logParam, (data) => {
       Reserve("", fulldate);
     });
@@ -52,6 +57,7 @@ javascript: (() => {
     } else {
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
+      localStorage.setItem("TZ_LOGOUT", "true");
       location.href = "/Mobile/member/LogOut.aspx";
     }
   }
@@ -62,6 +68,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
+    localStorage.setItem("TZ_LOGOUT", "true");
     location.href = "/Mobile/member/LogOut.aspx";
   }
 })();
