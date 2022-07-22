@@ -45,7 +45,13 @@ javascript: (() => {
   function funcTime() {
     const fd = [year, month, date].join("");
     const sign = dictCourse[course];
-    ReserveCheck(fd, sign, time, "00001", "1", "18", "1", "", "");
+    const els = document.getElementsByClassName("reserv_btn");
+    let target;
+    Array.from(els).forEach(el => {
+      const param = el.getAttribute("href").inparen();
+      if(param[0] == fd && param[1] == sign && param[2] == time) target = el;
+    });
+    if(target) target.click();
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
