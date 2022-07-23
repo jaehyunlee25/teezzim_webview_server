@@ -33,6 +33,7 @@ javascript: (() => {
   }
   function funcReserve() {
 
+    log(suffix);
     if(suffix) {
       funcTime();
       return;
