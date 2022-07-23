@@ -81,12 +81,12 @@ javascript: (() => {
         target = el.parentNode.children[4].children;
     });
     log(target);
-    /* if (target) {
+    if (target) {
       target.click();
       setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
-    } */
+    }
   }
   function funcEnd() {
     log("funcEnd");
@@ -95,7 +95,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/_mobile/login/logout.asp";
+      // location.href = "/_mobile/login/logout.asp";
     });
   }
 })();
