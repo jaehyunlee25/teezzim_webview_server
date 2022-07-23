@@ -18,7 +18,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.curocc.com/mobile/reservation_02.asp": funcTime,
+    "http://www.curocc.com/mobile/reservation_02.asp": funcTime,
     "http://www.curocc.com/mobile/reservation_03.asp": funcExec,
   };
   log("raw addr :: ", location.href);
