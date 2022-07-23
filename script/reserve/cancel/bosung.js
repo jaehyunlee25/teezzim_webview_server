@@ -42,7 +42,10 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("btn1 mt50");
+    const els = document
+    .getElementsByClassName("baseTB")[0]
+    .getElementsByTagName("tbody")[0]
+    .getElementsByTagName("tr");
     const dictCourse = {
       1: "Mountain",
       2: "Lake",
