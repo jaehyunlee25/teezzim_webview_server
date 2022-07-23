@@ -37,7 +37,10 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {
@@ -62,16 +65,17 @@ javascript: (() => {
     if (target) target.click(); */
   }
   function funcExec() {
-    const strEnd = "end of reserve/reserve";
     log("funcExec");
     const sign = dictCourse[course];
     Book_ok(fulldate, sign, time);
-    setTimeout(() => {
-      logParam.message = strEnd;
-      TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      location.href = "login_out.asp";
-    }, 1000);
+    setTimeout(funcEnd, 1000);
+  }
+  function funcEnd() {
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+    location.href = "login_out.asp";
   }
 })();
