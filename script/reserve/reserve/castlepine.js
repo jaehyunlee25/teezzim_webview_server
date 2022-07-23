@@ -9,6 +9,7 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
+  log("raw addr :: ", location.href);
   const addr = location.href.split("#")[0];
   const suffix = location.href.split("#")[1];
   const year = "${year}";
