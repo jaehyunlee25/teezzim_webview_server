@@ -47,7 +47,7 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      setTimeout(funcCancel, 1000);
+      setTimeout(funcCancel, 2000);
     });
   }
   function funcCancel() {
