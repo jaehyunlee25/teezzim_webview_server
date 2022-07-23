@@ -71,7 +71,7 @@ javascript: (() => {
     });
   }
   function funcEnd() {
-    const strEnd = "end of reserve/reserve";
+    const strEnd = "end of reserve/serch";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
