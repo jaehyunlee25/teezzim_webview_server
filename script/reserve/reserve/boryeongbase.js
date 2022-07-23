@@ -32,23 +32,23 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
-    
-    
-    log("enter addr", addr);
-    log("enter suffix", suffix);
-    if(suffix) {
+
+    if(localStorage.getItem("TZ_RESERVE") == "true") {
+      log("TZ_RESERVE");
+      localStorage.removeItem("TZ_RESERVE");
       funcTime();
       return;
     }
+    
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());    
 
 
     TZLOG(logParam, (data) => {
       const first = [year, month, "01"].join("-");
       Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL");
+      localStorage.setItem("TZ_RESERVE", "true");
     });
   }
   function funcTime() {
