@@ -20,6 +20,8 @@ javascript: (() => {
     "https://www.clubd.com/m_clubd/reservation/reservationCheck.do": funcReserve,
     "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
   };
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const func = dict[addr];
   if (!func) funcOther();
   else func();
@@ -65,9 +67,8 @@ javascript: (() => {
     log("funcCancel");
     const els = window["tbody-reservation"].getElementsByTagName("tr");
     const dictCourse = {
-      EAST: "EAST",
-      SOUTH: "SOUTH",
-      WEST: "WEST",
+      EAST: "East",
+      WEST: "West",
     };
     let target;
     Array.from(els).forEach((el) => {
