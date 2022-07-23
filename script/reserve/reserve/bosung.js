@@ -21,6 +21,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "http://www.bosungcc.co.kr/mobile/reserve01_step1.asp": funcTime,
     "http://www.bosungcc.co.kr/mobile/reserve01_step2.asp": funcExec,
+    "http://www.bosungcc.co.kr/mobile/index.asp": funcMain,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -31,6 +32,10 @@ javascript: (() => {
   log(addr);
   if (!func) location.href = "${searchUrl}";
   else func();
+
+  function funcMain() {
+    return;
+  }
   function funcLogin() {
     ${loginScript}
   }
