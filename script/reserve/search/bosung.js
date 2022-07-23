@@ -51,16 +51,15 @@ javascript: (() => {
         const newStr = regex.exec(str)[0];
         el.children[4].innerHTML = newStr;
       }
-      return;
+      const btn = el.children[4].children[0];
 
-      const param = el.getAttribute("onclick").inparen();
+      const param = btn.getAttribute("onclick").inparen();
       const date = param[0];
-      const time = param[1];
-      const course = param[2];
+      const time = param[3];
+      const course = param[1];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
-    return;
     const param = {
       golf_club_id: "${golfClubId}",
       result,
@@ -68,13 +67,15 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      funcEnd();
     });
+  }
+  function funcEnd() {
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+    location.href = "login_out.asp";
   }
 })();
