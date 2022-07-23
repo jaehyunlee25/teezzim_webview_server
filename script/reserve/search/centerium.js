@@ -9,15 +9,18 @@ javascript: (() => {
     message: "start reserve/search",
     parameter: JSON.stringify({}),
   };
+  log("raw addr :: ", location.href);
   const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
   };
+  log("addr", addr);
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
       location.href = "${reserveUrl}";
@@ -28,6 +31,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -38,6 +42,7 @@ javascript: (() => {
     });
   }
   function funcSearch() {
+    log("funcSearch");
     const els = tab1DataContainer.getElementsByClassName("courseTime");
     const result = [];
     const dictCourse = {
@@ -64,6 +69,7 @@ javascript: (() => {
     });
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});

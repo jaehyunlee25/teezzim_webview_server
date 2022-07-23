@@ -30,7 +30,7 @@ javascript: (() => {
     Scotland: "B",
   };
   const fulldate = [year, month, date].join("");
-  log(addr);
+  log("addr", addr);
   if (!func) funcMain();
   else func();
 
