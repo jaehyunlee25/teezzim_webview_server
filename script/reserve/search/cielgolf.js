@@ -46,7 +46,7 @@ javascript: (() => {
       const elTime = param[3];
       const elCourse = param[2];
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
-      result.push({ date: elDate, time: elTime, course: dictCourse[course] });
+      result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
