@@ -49,6 +49,7 @@ javascript: (() => {
     let target;
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("onclick").inparen();
+      log(param[0], fulldate, param[1], time, param[2], sign);
       if (param[0] == fulldate && param[1] == time && param[2] == sign)
         target = el;
     });
