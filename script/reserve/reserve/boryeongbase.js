@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  log(addr);
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -51,6 +52,7 @@ javascript: (() => {
       if (param[0] == fulldate && param[1] == time && param[2] == sign)
         target = el;
     });
+    log(target);
     if (target) target.click();
   }
   function funcExec() {
