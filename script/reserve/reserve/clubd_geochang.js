@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };  
   const addr = location.href.split("?")[0];
+  const suffix = location.href.split("?")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -18,6 +19,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://www.clubd.com/m_clubd/index.do": funcMain,
     "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
   };
   log("raw addr :: ", location.href);
@@ -29,17 +31,21 @@ javascript: (() => {
     West: "WEST",
   };
   const fulldate = [year, month, date].join("");
-  log(addr);
-  if (!func) funcMain();
+  
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
     return;
   }
   function funcMain() {
-    log("funcMain");
+    if(suffix == "iCoDiv=05") funcReserve();
+    else funcOther();
+  }
+  function funcOther() {
+    log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    if (tag && new Date().getTime() - tag < 1000 * 5) {      
       funcEnd();
       return;
     }
