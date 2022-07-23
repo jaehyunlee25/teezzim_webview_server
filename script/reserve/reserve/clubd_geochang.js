@@ -38,7 +38,7 @@ javascript: (() => {
     return;
   }
   function funcMain() {
-    if(suffix == "iCoDiv=05") funcReserve();
+    if(suffix == "iCoDiv=03") funcReserve();
     else funcOther();
   }
   function funcOther() {

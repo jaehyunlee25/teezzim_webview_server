@@ -56,6 +56,7 @@ javascript: (() => {
     });
     const param = {
       golf_club_id: "${golfClubId}",
+      device_id: "${deviceId}",
       result,
     };
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
