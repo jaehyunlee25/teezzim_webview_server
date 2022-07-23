@@ -43,28 +43,29 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    const els = document.getElementsByClassName("courseTime");
     const dictCourse = {
-      1: "Lake",
-      2: "Valley",
+      A: "England",
+      B: "Scotland",
+      C: "Wales",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("href").inparen();
-      const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const param = el.innerText;
+      const elDate = /[0-9]{2}\/[0-9]{2}/.exec(param)[0].split("/").join("");
+      const elTime = /[0-9]{2}\:[0-9]{2}/.exec(param)[0].split(":").join("");
+      const elCourse = /[A-Za-z]+/.exec(param)[0];
+      console.log("reserve search", elCourse, elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
         dictCourse[elCourse], course,
         elTime, time);
       if (
         elDate == fulldate &&
-        dictCourse[elCourse] == course &&
+        elCourse == course &&
         elTime == time
       )
-        target = el.children[0];
+        target = el.parentNode.children[4].children;
     });
     log(target);
     if (target) {
