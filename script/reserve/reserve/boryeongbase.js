@@ -47,7 +47,7 @@ javascript: (() => {
       const first = [year, month, "01"].join("-");
       Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL");
       localStorage.setItem("TZ_RESERVE", "true");
-      setTimeout(funcTime, 100);
+      setTimeout(funcTime, 1500);
     });
   }
   function funcTime() {
