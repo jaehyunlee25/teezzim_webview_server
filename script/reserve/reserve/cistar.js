@@ -18,14 +18,14 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.cielgolf.com/mobile/reserve01_step1.asp": funcTime,
-    "http://www.cielgolf.com/mobile/reserve01_step2.asp": funcExec,
+    "https://www.cistar.co.kr/view/golfRsvnStep2.do": funcTime,
+    "https://www.cistar.co.kr/view/golfRsvnStep3.do": funcExec,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
   const func = dict[addr];
   const dictCourse = {};
-  const fulldate = [year, month, date].join("");
+  const fulldate = [year, month, date].join("-");
   log(addr);
   if (!func) funcMain();
   else func();
@@ -59,25 +59,36 @@ javascript: (() => {
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {
-      log(data);
-      Date_Click(year, month, date);
+      const span = document.createElement("span");
+      span.className = "rsvn btnRsvn";
+      span.setAttribute("resv", "Y");
+      span.setAttribute("val", fulldate);
+      span.setAttribute("dateval", "2");
+      span.setAttribute("opendiv", "Y");
+      span.setAttribute("href", "#");
+      document.body.appendChild(span);
+      span.click();
     });
   }
   function funcTime() {
     log("funcTime");
-    const sign = dictCourse[course];
-    const week = ["", "일", "월", "화", "수", "목", "금", "토"];
-    const weekSign = week[fulldate.dayNum()];
-    Book_Confirm(fulldate, weekSign, '1', 'OUT', time, '1');
+    const span = document.createElement("span");
+    span.className = "default btnTimeSelect";
+    span.setAttribute("data-hour", time.gh(2));
+    span.setAttribute("data-val", time.gt(2));
+    span.setAttribute("data-stat", "R");
+    span.setAttribute("data-holediv", "1");
+    span.setAttribute("href", "#");
+    document.body.appendChild(span);
+    span.click();
   }
   function funcExec() {
     log("funcExec");
     const tag = localStorage.getItem("TZ_EXEC");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
-    people.value = "4";
-    change();
-    document.getElementsByClassName("btn_OK")[0].click();
+    
+    btnSubmit.click();
     setTimeout(funcEnd, 1000);
   }
   function funcEnd() {
