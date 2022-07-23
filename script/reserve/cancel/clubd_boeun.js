@@ -53,14 +53,15 @@ javascript: (() => {
     log("funcCancel");
     const els = window["tbody-reservation"].getElementsByTagName("tr");
     const dictCourse = {
-      OUT: "단일",
+      EAST: "East",
+      WEST: "West",
     };
     let target;
     Array.from(els).forEach((el) => {
       const param = el.children;
-      const elDate = "20" + param[0].innerText.split("/").join("");
-      const elTime = param[1].innerText.split(":").join("");
-      const elCourse = param[2];
+      const elDate = "20" + param[0].str().rm("/");
+      const elTime = param[1].str().rm(":");
+      const elCourse = param[2].str().regex(/[^A-Z]/g);
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
@@ -71,7 +72,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.children[7].children[0];
     });
     log(target);
     if (target) {
