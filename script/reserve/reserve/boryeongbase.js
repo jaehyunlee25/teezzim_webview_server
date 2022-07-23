@@ -34,7 +34,7 @@ javascript: (() => {
   function funcReserve() {
 
     if(localStorage.getItem("TZ_RESERVE") == "true") {
-      log("TZ_RESERVE");
+      log("enter TZ_RESERVE");
       localStorage.removeItem("TZ_RESERVE");
       funcTime();
       return;
@@ -61,7 +61,7 @@ javascript: (() => {
       if (param[0] == fulldate && param[1] == time && param[2] == sign)
         target = el;
     });
-    log(target);
+    log("target", target);
     if (target) target.click();
   }
   function funcExec() {
