@@ -38,9 +38,9 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       const first = [year, month, "01"].join("-");
-      const a = document.createElement("a");
+      /* const a = document.createElement("a");
       a.href = `Update("LIST|" + ${first} + "|" + ${fulldate} + "|N|1|NULL|NULL|NULL|NULL")`;
-      a.click();      
+      a.click();   */    
     });
   }
   function funcTime() {
