@@ -78,7 +78,7 @@ javascript: (() => {
         elCourse == course &&
         elTime == time
       )
-        target = el.parentNode.children[4].children;
+        target = el.parentNode.children[4].children[0];
     });
     log(target);
     if (target) {
