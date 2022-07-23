@@ -35,22 +35,18 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("btn btn-sm btn-gray");
+    const els = document.getElementsByClassName("cancel");
     const result = [];
     const dictCourse = {
-      1: "Pine",
-      2: "Lake",
-      3: "Field",
-      4: "Valley",
-      5: "Mountain",
+      OUT: "단일",
     };
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("onclick").inparen();
-      const date = param[2];
-      const time = param[4];
-      const course = param[0];
-      console.log("reserve search", dictCourse[course], date, time);
-      result.push({ date, time, course: dictCourse[course] });
+      const elDate = param[0];
+      const elTime = param[3];
+      const elCourse = param[2];
+      console.log("reserve search", dictCourse[elCourse], elDate, elTime);
+      result.push({ date: elDate, time: elTime, course: dictCourse[course] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
@@ -68,6 +64,6 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
-    location.href = "/_mobile/login/logout.asp";
+    location.href = "logout.asp";
   }
 })();

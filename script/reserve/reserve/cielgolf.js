@@ -24,13 +24,7 @@ javascript: (() => {
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
   const func = dict[addr];
-  const dictCourse = {
-    Pine: "1",
-    Lake: "2",
-    Field: "3",
-    Valley: "4",
-    Mountain: "5",
-  };
+  const dictCourse = {};
   const fulldate = [year, month, date].join("");
   log(addr);
   if (!func) funcMain();
@@ -39,7 +33,10 @@ javascript: (() => {
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${searchUrl}";
