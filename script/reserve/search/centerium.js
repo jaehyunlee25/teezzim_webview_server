@@ -27,11 +27,8 @@ javascript: (() => {
       return;
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
-    try{
-      ${loginScript}
-    } catch(e) {
-      location.href = "${reserveUrl}";
-    }
+    
+    ${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
@@ -41,7 +38,7 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      funcSearch();
+      setTimeout(funcSearch, 1000);
     });
   }
   function funcSearch() {
