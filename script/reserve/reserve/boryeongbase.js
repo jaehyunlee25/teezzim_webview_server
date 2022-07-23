@@ -17,7 +17,7 @@ javascript: (() => {
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
-    "${searchUrl}": funcReserve,
+    /* "${searchUrl}": funcReserve, */
     /* "https://www.boryeongbase.co.kr/Mobile/Booking/GolfProgress.aspx": funcExec, */
   };
   const func = dict[addr];
