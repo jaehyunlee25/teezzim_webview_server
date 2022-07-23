@@ -10,7 +10,6 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
-  const suffix = location.href.split("#")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -47,9 +46,9 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       const first = [year, month, "01"].join("-");
-      /* Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL"); */
-      /* localStorage.setItem("TZ_RESERVE", "true"); */
-      /* setTimeout(funcTime, 1000); */
+      Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL");
+      localStorage.setItem("TZ_RESERVE", "true");
+      setTimeout(funcTime, 500);
     });
   }
   function funcTime() {
