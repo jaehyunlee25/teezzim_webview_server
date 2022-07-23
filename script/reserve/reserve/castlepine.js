@@ -63,9 +63,11 @@ javascript: (() => {
     if (suffixParam["settype"] == "T") {
       log("calendar");
       funcDate();
-    } else if (suffixParam["settype"] == "P") {
+    } else if (suffixParam["settype"] == "R") {
       log("time");
       funcTime();
+    } else {
+      return;
     }
   }
   function funcDate() {
