@@ -52,7 +52,7 @@ javascript: (() => {
     };
     Array.from(els).forEach((el) => {
       const param = el.innerText;
-      const elDate = /[0-9]{2}\/[0-9]{2}/.exec(param)[0].split("/").join("");
+      const elDate = "20" + /[0-9]{2}\/[0-9]{2}/.exec(param)[0].split("/").join("");
       const elTime = /[0-9]{2}\:[0-9]{2}/.exec(param)[0].split(":").join("");
       const elCourse = /[A-Za-z]+/.exec(param)[0];
       console.log("reserve search", elCourse, elDate, elTime);
