@@ -15,14 +15,18 @@ javascript: (() => {
     "${reserveUrl}": funcReserve,
     "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
   };
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
 
   function funcOut() {
+    log("funcOut");
     return;
   }
   function funcLogin() {
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -30,6 +34,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -40,6 +45,7 @@ javascript: (() => {
     });
   }
   function funcSearch() {
+    log("funcSearch");
     const els = window["tbody-reservation"].getElementsByTagName("tr");
     const result = [];
     const dictCourse = {
@@ -65,6 +71,7 @@ javascript: (() => {
     });
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
