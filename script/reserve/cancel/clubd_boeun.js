@@ -51,15 +51,15 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.getElementsByClassName("cancel");
+    const els = window["tbody-reservation"].getElementsByTagName("tr");
     const dictCourse = {
       OUT: "단일",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[3];
+      const param = el.children;
+      const elDate = "20" + param[0].innerText.split("/").join("");
+      const elTime = param[1].innerText.split(":").join("");
       const elCourse = param[2];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -87,7 +87,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "logout.asp";
+      location.href = "/clubd/member/actionLogout.do";
     });
   }
 })();

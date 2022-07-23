@@ -156,3 +156,12 @@ String.prototype.dayNum = function () {
   const num = new Date(str.datify()).getDay();
   return (num + 1).toString();
 };
+String.prototype.rm = function (str) {
+  return this.split(str).join("");
+};
+String.prototype.regex = function (regex) {
+  return this.replace(regex, "");
+};
+HTMLElement.prototype.str = function () {
+  return this.innerText;
+};

@@ -40,16 +40,17 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancel");
+    const els = window["tbody-reservation"].getElementsByTagName("tr");
     const result = [];
     const dictCourse = {
-      OUT: "단일",
+      EAST: "East",
+      WEST: "West",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[3];
-      const elCourse = param[2];
+      const param = el.children;
+      const elDate = "20" + param[0].str().rm("/");
+      const elTime = param[1].str().rm(":");
+      const elCourse = param[2].regex(/[^A-Z]/g);
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
@@ -69,6 +70,6 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
-    location.href = "logout.asp";
+    location.href = "/clubd/member/actionLogout.do";
   }
 })();
