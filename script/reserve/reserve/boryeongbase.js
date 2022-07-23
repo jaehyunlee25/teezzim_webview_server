@@ -35,7 +35,6 @@ javascript: (() => {
     if(localStorage.getItem("TZ_RESERVE") == "true") {
       log("enter TZ_RESERVE");
       localStorage.removeItem("TZ_RESERVE");
-      /* setTimeout(funcTime, 1000); */
       return;
     }
     
@@ -48,7 +47,7 @@ javascript: (() => {
       const first = [year, month, "01"].join("-");
       Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL");
       localStorage.setItem("TZ_RESERVE", "true");
-      setTimeout(funcTime, 500);
+      setTimeout(funcTime, 100);
     });
   }
   function funcTime() {
