@@ -46,20 +46,16 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.getElementsByClassName("btn btn-sm btn-gray");
+    const els = document.getElementsByClassName("cancel");
     const dictCourse = {
-      1: "Pine",
-      2: "Lake",
-      3: "Field",
-      4: "Valley",
-      5: "Mountain",
+      OUT: "단일",
     };
     let target;
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("onclick").inparen();
-      const elDate = param[2];
-      const elTime = param[4];
-      const elCourse = param[0];
+      const elDate = param[0];
+      const elTime = param[3];
+      const elCourse = param[2];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
