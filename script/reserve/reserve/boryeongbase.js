@@ -32,22 +32,15 @@ javascript: (() => {
   }
   function funcReserve() {
 
-    if(localStorage.getItem("TZ_RESERVE") == "true") {
-      log("enter TZ_RESERVE");
-      localStorage.removeItem("TZ_RESERVE");
-      return;
-    }
-    
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());    
 
-
     TZLOG(logParam, (data) => {
       const first = [year, month, "01"].join("-");
-      Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL");
-      localStorage.setItem("TZ_RESERVE", "true");
-      setTimeout(funcTime, 1500);
+      const a = document.createElement("a");
+      a.href = `Update("LIST|" + ${first} + "|" + ${fulldate} + "|N|1|NULL|NULL|NULL|NULL")`;
+      a.click();      
     });
   }
   function funcTime() {
