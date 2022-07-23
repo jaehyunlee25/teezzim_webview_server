@@ -100,7 +100,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
 
-    poAction.click();
+    document.getElementsByClassName("btnBox4")[0].getElementsByClassName("motion")[0].click();
     setTimeout(funcEnd, 1000);
   }
   function funcEnd() {

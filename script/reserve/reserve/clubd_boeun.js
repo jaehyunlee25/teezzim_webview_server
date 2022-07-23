@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/reserve",
@@ -8,7 +8,7 @@ javascript: (() => {
     golf_club_id: "${golfClubId}",
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
-  };  
+  };
   const addr = location.href.split("?")[0];
   const year = "${year}";
   const month = "${month}";
@@ -18,6 +18,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://www.clubd.com/m_clubd/index.do": funcMain,
     "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
   };
   log("raw addr :: ", location.href);
@@ -29,14 +30,20 @@ javascript: (() => {
   };
   const fulldate = [year, month, date].join("");
   log(addr);
-  if (!func) funcMain();
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
+    log("funcOut");
     return;
   }
   function funcMain() {
     log("funcMain");
+    if (suffix == "iCoDiv=01") funcReserve();
+    else funcOther();
+  }
+  function funcOther() {
+    log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -52,7 +59,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
@@ -73,16 +80,17 @@ javascript: (() => {
     log("funcTime");
     const els = window["time-grid"].getElementsByTagName("tr");
     let target;
-    Array.from(els).forEach(el => {
+    Array.from(els).forEach((el) => {
       const strParam = el.children[0].innerText;
       const elTime = strParam.replace(/[^0-9]/g, "");
       const elCourse = strParam.replace(/[^A-Z]/g, "");
       log(time == elTime, dictCourse[course] == elCourse);
       log(time, elTime, dictCourse[course], elCourse);
-      if(time == elTime && dictCourse[course] == elCourse) target = el.children[0];
+      if (time == elTime && dictCourse[course] == elCourse)
+        target = el.children[0];
     });
     log("target", target);
-    if(target) {
+    if (target) {
       target.click();
       funcExec();
     }
@@ -93,7 +101,9 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
 
-    poAction.click();
+    document
+      .getElementsByClassName("btnBox4")[0]
+      .getElementsByClassName("motion")[0];
     setTimeout(funcEnd, 1000);
   }
   function funcEnd() {
