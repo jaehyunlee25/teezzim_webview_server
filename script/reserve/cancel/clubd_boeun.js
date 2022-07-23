@@ -25,6 +25,7 @@ javascript: (() => {
   else func();
 
   function funcOut() {
+    log("funcOut");
     return;
   }
   function funcLogin() {  
@@ -83,6 +84,7 @@ javascript: (() => {
     }
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
