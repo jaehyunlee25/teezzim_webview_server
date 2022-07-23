@@ -18,10 +18,15 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.cistar.co.kr/view/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
+
+  function funcOut() {
+    return;
+  }
   function funcLogin() {  
     log("funcLogin");  
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -41,21 +46,43 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      funcCancel();
+      funcCalendar();
     });
+  }
+  function funcCalendar() {
+    const year = new Date().getFullYear();
+    const month = (new Date().getMonth() + 1).toString().addzero();
+    const mDate = new Date(year, new Date().getMonth(), "15");
+    mDate.setMonth(mDate.getMonth() + 1);
+    const nextMonth = (mDate.getMonth() + 1).toString().addzero();
+    const yearNextMonth = mDate.getFullYear().toString();
+    const lastDateNextMonth = new Date(
+      yearNextMonth,
+      nextMonth,
+      "00"
+    ).getDate();
+    const fulldateLastDateNextMonth = [
+      yearNextMonth,
+      nextMonth,
+      lastDateNextMonth,
+    ].join("-");
+
+    $("#f_date_to").val(fulldateLastDateNextMonth);
+    btnSearchGolf.click();
+    setTimeout(funcCancel, 1000);
   }
   function funcCancel() {
     log("funcCancel");
     const els = document.getElementsByClassName("cancel");
     const dictCourse = {
-      OUT: "단일",
+      시스타18홀: "단일",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[3];
-      const elCourse = param[2];
+      const param = el.children;
+      const elDate = param[2].innerText.split("-").join("");
+      const elTime = param[3].innerText.split(":").join("");
+      const elCourse = param[1].innerText;
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
@@ -66,7 +93,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.children[6].getElementsByTagName("a")[0];
     });
     log(target);
     if (target) {
