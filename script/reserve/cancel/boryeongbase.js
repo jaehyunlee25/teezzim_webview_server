@@ -48,7 +48,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const elDate = param[0];
       const elTime = param[1];
       const elCourse = param[2];
