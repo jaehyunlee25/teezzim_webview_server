@@ -18,12 +18,23 @@ javascript: (() => {
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
     log("funcOut");
     return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {      
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
   }
   function funcLogin() {
     log("funcLogin");
