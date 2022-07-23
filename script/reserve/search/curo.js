@@ -18,6 +18,7 @@ javascript: (() => {
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -25,6 +26,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -35,16 +37,19 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancel");
+    log("funcSearch");
+    const els = document.getElementsByClassName("btn btn-sm btn-gray");
     const result = [];
     const dictCourse = {
-      OUT: "단일",
+      1: "파인힐",
+      2: "오크힐",
+      3: "로키힐",
     };
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("onclick").inparen();
       const elDate = param[0];
-      const elTime = param[3];
-      const elCourse = param[2];
+      const elTime = param[2];
+      const elCourse = param[1];
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
@@ -60,6 +65,7 @@ javascript: (() => {
     });
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
