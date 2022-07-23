@@ -17,7 +17,7 @@ javascript: (() => {
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
-    "${reserveUrl}": funcReserve,
+    "https://www.clubd.com/m_clubd/reservation/reservationCheck.do": funcReserve,
     "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
   };
   const func = dict[addr];

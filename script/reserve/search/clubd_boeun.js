@@ -12,7 +12,7 @@ javascript: (() => {
   const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
-    "${reserveUrl}": funcReserve,
+    "https://www.clubd.com/m_clubd/reservation/reservationCheck.do": funcReserve,
     "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
   };
   log("raw addr :: ", location.href);
