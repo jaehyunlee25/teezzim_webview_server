@@ -22,7 +22,8 @@ javascript: (() => {
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
-  function funcLogin() {    
+  function funcLogin() {  
+    log("funcLogin");  
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -30,6 +31,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -43,7 +45,8 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    log("funcCancel");
+    const els = document.getElementsByClassName("btn btn-sm btn-gray");
     const dictCourse = {
       1: "Pine",
       2: "Lake",
