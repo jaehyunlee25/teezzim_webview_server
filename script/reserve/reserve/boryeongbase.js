@@ -18,8 +18,6 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.bellastonecc.com/Mobile/Reservation/ReservationTimeList.aspx":
-      funcTime,
     "https://www.boryeongbase.co.kr/Mobile/Booking/GolfProgress.aspx": funcExec,
   };
   const func = dict[addr];
@@ -57,6 +55,7 @@ javascript: (() => {
   }
   function funcExec() {
     const strEnd = "end of reserve/reserve";
+    log("funcExec");
     contents_lnkBtnReserveOk.click();
     setTimeout(() => {
       logParam.message = strEnd;
