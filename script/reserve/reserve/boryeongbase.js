@@ -25,8 +25,9 @@ javascript: (() => {
     단일: "11",
   };
   const fulldate = [year, month, date].join("-");
-  if (!func) location.href = "${searchUrl}";
-  else func();
+  log(addr);
+  /* if (!func) location.href = "${searchUrl}";
+  else func(); */
   function funcLogin() {
     ${loginScript}
   }
