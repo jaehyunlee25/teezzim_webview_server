@@ -36,7 +36,7 @@ javascript: (() => {
     if(localStorage.getItem("TZ_RESERVE") == "true") {
       log("enter TZ_RESERVE");
       localStorage.removeItem("TZ_RESERVE");
-      funcTime();
+      setTimeout(funcTime, 1000);
       return;
     }
     
@@ -52,6 +52,7 @@ javascript: (() => {
     });
   }
   function funcTime() {
+    log("enter", "funcTime");
     const sign = dictCourse[course];
     const els = document.getElementsByClassName("reservBtn");
     let target;
