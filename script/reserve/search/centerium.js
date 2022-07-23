@@ -56,7 +56,7 @@ javascript: (() => {
       const elTime = /[0-9]{2}\:[0-9]{2}/.exec(param)[0].split(":").join("");
       const elCourse = /[A-Za-z]+/.exec(param)[0];
       console.log("reserve search", elCourse, elDate, elTime);
-      result.push({ date, time, course: elCourse });
+      result.push({ date: elDate, time: elTime, course: elCourse });
     });
     const param = {
       golf_club_id: "${golfClubId}",
