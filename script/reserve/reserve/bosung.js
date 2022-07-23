@@ -65,7 +65,7 @@ javascript: (() => {
     const strEnd = "end of reserve/reserve";
     log("funcExec");
     const sign = dictCourse[course];
-    Book_ok(fuldate, sign, time);
+    Book_ok(fulldate, sign, time);
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
