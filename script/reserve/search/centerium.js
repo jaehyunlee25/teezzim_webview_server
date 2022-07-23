@@ -35,19 +35,20 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    const els = tab1DataContainer.getElementsByClassName("courseTime");
     const result = [];
     const dictCourse = {
-      1: "Lake",
-      2: "Valley",
+      A: "England",
+      B: "Scotland",
+      C: "Wales",
     };
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("href").inparen();
-      const date = param[2];
-      const time = param[3];
-      const course = param[4];
-      console.log("reserve search", dictCourse[course], date, time);
-      result.push({ date, time, course: dictCourse[course] });
+      const param = el.innerText;
+      const elDate = /[0-9]{2}\/[0-9]{2}/.exec(param)[0].split("/").join("");
+      const elTime = /[0-9]{2}\:[0-9]{2}/.exec(param)[0].split(":").join("");
+      const elCourse = /[A-Za-z]+/.exec(param)[0];
+      console.log("reserve search", elCourse, elDate, elTime);
+      result.push({ elDate, elTime, course: elCourse });
     });
     const param = {
       golf_club_id: "${golfClubId}",
