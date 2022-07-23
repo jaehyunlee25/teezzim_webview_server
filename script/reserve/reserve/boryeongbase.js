@@ -18,7 +18,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.boryeongbase.co.kr/Mobile/Booking/GolfProgress.aspx": funcExec,
+    /* "https://www.boryeongbase.co.kr/Mobile/Booking/GolfProgress.aspx": funcExec, */
   };
   const func = dict[addr];
   const dictCourse = {
