@@ -42,7 +42,7 @@ javascript: (() => {
     const result = [];
     const dictCourse = {
       1: "Mountain",
-      1: "Lake",
+      2: "Lake",
     };
     Array.from(els).forEach((el) => {
       if (el.children[4].innerText == "취소불가(예약실문의)") {
