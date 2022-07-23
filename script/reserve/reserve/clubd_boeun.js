@@ -66,7 +66,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       log(data);
       onClickDay(fulldate);
-      setTimeout(funcTime, 1000);
+      setTimeout(funcTime, 2000);
     });
   }
   function funcTime() {
