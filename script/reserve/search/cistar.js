@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/search",
@@ -22,7 +22,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_RESERVE");
