@@ -311,6 +311,29 @@ function procPost(request, response, data) {
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const searchUrl = golfClubSearchUrl[engName];
+    const loginScript = getLoginScript(engName, true);
+    const templateScript = fs.readFileSync("template.js", "utf-8");
+    getSearchScript(engName, (searchScript) => {
+      const script = templateScript.dp({
+        commonScript,
+        loginUrl,
+        searchUrl,
+        loginScript,
+        searchScript,
+      });
+      objResp = {
+        url: loginUrl,
+        script,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+    objResp = 0;
+  } else if (request.url == "/searchbot_admin") {
+    const engName = data.club;
+    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+    const loginUrl = golfClubLoginUrl[engName];
+    const searchUrl = golfClubSearchUrl[engName];
     const loginScript = getLoginScript(engName, true).dp({
       login_id: golfClubAccounts[engName].id,
       login_password: golfClubAccounts[engName].pw,
@@ -333,6 +356,36 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (request.url == "/reservebot") {
+    const { club: engName, year, month, date, course, time } = data;
+    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+    const loginUrl = golfClubLoginUrl[engName];
+    const searchUrl = golfClubSearchUrl[engName];
+    const reserveUrl = golfClubReserveUrl[engName];
+    const loginScript = getPureLoginScript(engName);
+    let templateScript;
+    if (fs.existsSync("script/reserve/reserve/" + engName + ".js"))
+      templateScript = fs.readFileSync(
+        "script/reserve/reserve/" + engName + ".js",
+        "utf-8"
+      );
+    else templateScript = fs.readFileSync("reserveTemplate.js", "utf-8");
+    const script = templateScript.dp({
+      year,
+      month,
+      date,
+      course,
+      time,
+      commonScript,
+      loginUrl,
+      searchUrl,
+      reserveUrl,
+      loginScript,
+    });
+    objResp = {
+      url: loginUrl,
+      script,
+    };
+  } else if (request.url == "/reservebot_admin") {
     const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
@@ -427,6 +480,40 @@ function procPost(request, response, data) {
       script,
     };
   } else if (request.url == "/reserveCancelbot") {
+    const { club: engName, year, month, date, course, time } = data;
+    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+    const loginUrl = golfClubLoginUrl[engName];
+    const reserveUrl = golfClubReserveUrl[engName];
+    const loginScript = getPureLoginScript(engName);
+    let templateScript;
+    if (fs.existsSync("script/reserve/cancel/" + engName + ".js"))
+      templateScript = fs.readFileSync(
+        "script/reserve/cancel/" + engName + ".js",
+        "utf-8"
+      );
+    else
+      templateScript = fs.readFileSync(
+        "script/reserve/cancel/reserveCancelTemplate.js",
+        "utf-8"
+      );
+    const golfClubId = golfClubIds[engName];
+    const script = templateScript.dp({
+      year,
+      month,
+      date,
+      course,
+      time,
+      golfClubId,
+      commonScript,
+      loginUrl,
+      reserveUrl,
+      loginScript,
+    });
+    objResp = {
+      url: loginUrl,
+      script,
+    };
+  } else if (request.url == "/reserveCancelbot_admin") {
     const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
