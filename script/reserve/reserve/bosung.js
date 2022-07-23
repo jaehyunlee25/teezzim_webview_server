@@ -10,7 +10,6 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   let addr = location.href.split("?")[0];
-  if (addr.indexOf("#") != -1) addr = location.href.split("#")[0];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";

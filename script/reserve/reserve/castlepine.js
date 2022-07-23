@@ -19,22 +19,30 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "http://www.bosungcc.co.kr/mobile/reserve01_step1.asp": funcTime,
+    "http://www.bosungcc.co.kr/mobile/reserve01_step2.asp": funcExec,
+    "http://www.bosungcc.co.kr/mobile/index.asp": funcMain,
   };
   const func = dict[addr];
   const dictCourse = {
-    한성: "1",
-    웅진: "2",
-    사비: "3",
+    Valley: "2",
+    Lake: "1",
   };
   const fulldate = [year, month, date].join("");
+  log(addr);
   if (!func) location.href = "${searchUrl}";
   else func();
+
   function funcLogin() {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
     if (!suffix) return;
 
@@ -47,39 +55,41 @@ javascript: (() => {
       return result;
     })();
 
-    if (suffixParam["settype"] == "R") {
+    if (suffixParam["settype"] == "T") {
       log("calendar");
       funcDate();
-    } else if (suffixParam["settype"] == "T") {
+    } else if (suffixParam["settype"] == "R") {
       log("time");
       funcTime();
     }
   }
   function funcDate() {
     TZLOG(logParam, (data) => {
-      timefrom_change(fulldate, "1", "6", "", "00", "T");
+      const daySign = (new Date([year, month, date].join("/")).getDay() + 1).toString();
+      timefrom_change(fulldate, "2", daySign, "", "00", "T");
     });
   }
   function funcTime() {
     const target = window["timeresbtn_" + dictCourse[course] + "_" + time];
+    log("target", target);
     if (target) {
       target.click();
       funcExec();
     } else {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-      location.href = "/login/logout.asp";
+      funcEnd();
     }
   }
   function funcExec() {
+    log("funcExec");
+    document.getElementsByClassName("cm_ok")[0].children[0].click();
+    setTimeout(funcEnd, 1000);
+  }
+  function funcEnd() {
     const strEnd = "end of reserve/reserve";
-    document.getElementsByClassName("cm_btn default")[0].click();
-    setTimeout(() => {
-      logParam.message = strEnd;
-      TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      location.href = "/_mobile/login/logout.asp";
-    }, 1000);
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
