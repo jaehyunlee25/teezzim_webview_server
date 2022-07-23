@@ -70,7 +70,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.children[0];
+        target = el;
     });
     log(target);
     if (target) {
