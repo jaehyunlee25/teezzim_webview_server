@@ -39,6 +39,10 @@ javascript: (() => {
     location.href = "${searchUrl}";
   }
   function funcLogin() {
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
@@ -79,6 +83,7 @@ javascript: (() => {
     });
   }
   function funcTime() {
+    log("timeresbtn_" + dictCourse[course] + "_" + time);
     const target = window["timeresbtn_" + dictCourse[course] + "_" + time];
     log("target", target);
     if (target) {
@@ -94,6 +99,7 @@ javascript: (() => {
     setTimeout(funcEnd, 1000);
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/reserve";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
