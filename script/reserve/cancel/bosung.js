@@ -44,14 +44,23 @@ javascript: (() => {
   function funcCancel() {
     const els = document.getElementsByClassName("btn1 mt50");
     const dictCourse = {
-      11: "단일",
+      1: "Mountain",
+      2: "Lake",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
+      if (el.children[4].innerText == "취소불가(예약실문의)") {
+        const str = el.children[4].innerHTML;
+        const regex = /<button.*button>/g;
+        const newStr = regex.exec(str)[0];
+        el.children[4].innerHTML = newStr;
+      }
+      const btn = el.children[4].children[0];
+
+      const param = btn.getAttribute("onclick").inparen();
       const elDate = param[0];
-      const elTime = param[1];
-      const elCourse = param[2];
+      const elTime = param[3];
+      const elCourse = param[1];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
