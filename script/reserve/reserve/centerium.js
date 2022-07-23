@@ -95,8 +95,10 @@ javascript: (() => {
   function funcExec() {
     log("funcExec");
     document.getElementsByClassName("darkRedBtn")[0].children[0].click();
-    chkSubmit_bk1();
-    setTimeout(funcEnd, 1000);
+    setTimeout(()=> {
+      chkSubmit_bk1();
+      setTimeout(funcEnd, 1000);
+    }, 500);
   }
   function funcEnd() {
     log("funcEnd");
