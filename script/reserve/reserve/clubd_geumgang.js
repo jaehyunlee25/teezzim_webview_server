@@ -26,9 +26,8 @@ javascript: (() => {
   log("addr :: ", addr);
   const func = dict[addr];
   const dictCourse = {
-    EAST: "EAST",
-    SOUTH: "SOUTH",
-    WEST: "WEST",
+    East: "EAST",
+    West: "WEST",
   };
   const fulldate = [year, month, date].join("");
   

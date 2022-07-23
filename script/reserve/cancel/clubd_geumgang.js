@@ -67,9 +67,8 @@ javascript: (() => {
     log("funcCancel");
     const els = window["tbody-reservation"].getElementsByTagName("tr");
     const dictCourse = {
-      EAST: "EAST",
-      SOUTH: "SOUTH",
-      WEST: "WEST",
+      EAST: "East",
+      WEST: "West",
     };
     let target;
     Array.from(els).forEach((el) => {
