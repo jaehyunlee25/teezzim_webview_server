@@ -45,15 +45,18 @@ javascript: (() => {
   function funcCancel() {
     const els = document.getElementsByClassName("cm_cnlth");
     const dictCourse = {
-      1: "Lake",
-      2: "Valley",
+      1: "Pine",
+      2: "Lake",
+      3: "Field",
+      4: "Valley",
+      5: "Mountain",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
+      const elTime = param[4];
+      const elCourse = param[0];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
@@ -80,7 +83,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/_mobile/login/logout.asp";
+      location.href = "logout.asp";
     });
   }
 })();
