@@ -9,7 +9,7 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("?")[0];
+  let addr = location.href.split("?")[0];
   if(addr.indexOf("#") != -1) addr = location.href.split("#")[0];
   const year = "${year}";
   const month = "${month}";
