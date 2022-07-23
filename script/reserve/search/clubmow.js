@@ -9,9 +9,9 @@ javascript: (() => {
     message: "start reserve/search",
     parameter: JSON.stringify({}),
   };
+  const addr = location.href.split("?")[0];
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
-  const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
@@ -31,7 +31,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {
     const tag = localStorage.getItem("TZ_LOGOUT");
