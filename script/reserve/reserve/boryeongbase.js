@@ -10,7 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
-  log(addr);
+  const suffix = location.href.split("#")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -32,6 +32,12 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+
+    if(suffix) {
+      funcTime();
+      return;
+    }
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -39,7 +45,6 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const first = [year, month, "01"].join("-");
       Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL");
-      setTimeout(funcTime, 0);
     });
   }
   function funcTime() {
