@@ -49,7 +49,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("onclick").inparen();
+      const param = el.children[0].getAttribute("href").inparen();
       const elDate = param[2];
       const elTime = param[3];
       const elCourse = param[4];

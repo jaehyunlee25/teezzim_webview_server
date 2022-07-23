@@ -42,7 +42,7 @@ javascript: (() => {
       2: "Valley",
     };
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("onclick").inparen();
+      const param = el.children[0].getAttribute("href").inparen();
       const date = param[2];
       const time = param[3];
       const course = param[4];
