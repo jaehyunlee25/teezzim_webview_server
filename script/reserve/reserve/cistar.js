@@ -76,7 +76,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
     people.value = "4";
-    change(); 
+    change();
     document.getElementsByClassName("btn_OK")[0].click();
     setTimeout(funcEnd, 1000);
   }
