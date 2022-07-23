@@ -34,6 +34,7 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -41,6 +42,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -51,15 +53,17 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    log("funcSearch");
+    const els = document.getElementsByClassName("cm_confirm_list_list")[0].getElementsByTagName("tr");
     const result = [];
     const dictCourse = {
       1: "마운틴",
       2: "오아시스",
       3: "와일드",
     };
-    Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("href").inparen();
+    Array.from(els).forEach((el, i) => {
+      if(i == 0) return;
+      const param = el.children[5].children[0].getAttribute("href").inparen();
       const date = param[2];
       const time = param[3];
       const course = param[4];
