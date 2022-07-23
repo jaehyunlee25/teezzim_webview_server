@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/reserve",
@@ -46,7 +46,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
