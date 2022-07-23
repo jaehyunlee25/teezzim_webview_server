@@ -35,17 +35,20 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    const els = document.getElementsByClassName("btn btn-sm btn-gray");
     const result = [];
     const dictCourse = {
-      1: "Lake",
-      2: "Valley",
+      1: "Pine",
+      2: "Lake",
+      3: "Field",
+      4: "Valley",
+      5: "Mountain",
     };
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const date = param[2];
-      const time = param[3];
-      const course = param[4];
+      const time = param[4];
+      const course = param[0];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
