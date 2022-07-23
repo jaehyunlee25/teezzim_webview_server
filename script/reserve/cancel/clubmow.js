@@ -64,7 +64,8 @@ javascript: (() => {
       3: "와일드",
     };
     let target;
-    Array.from(els).forEach((el) => {
+    Array.from(els).forEach((el, i) => {
+      if(i == 0) return;
       const param = el.children[5].children[0].getAttribute("href").inparen();
       const elDate = param[2];
       const elTime = param[3];
