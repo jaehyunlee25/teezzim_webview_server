@@ -19,7 +19,10 @@ javascript: (() => {
   else func();
   function funcLogin() {
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      location.href = "${reserveUrl}";
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
