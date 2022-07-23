@@ -20,7 +20,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "http://www.bosungcc.co.kr/mobile/reserve01_step1.asp": funcTime,
-    "http://www.bosungcc.co.kr/mobile/reserve01_step1.asp": funcExec,
+    "http://www.bosungcc.co.kr/mobile/reserve01_step2.asp": funcExec,
   };
   const func = dict[addr];
   const dictCourse = {
