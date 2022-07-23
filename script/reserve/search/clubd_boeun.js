@@ -41,7 +41,7 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      funcSearch();
+      setTimeout(funcSearch, 1000);
     });
   }
   function funcSearch() {
@@ -56,7 +56,7 @@ javascript: (() => {
       const param = el.children;
       const elDate = "20" + param[0].str().rm("/");
       const elTime = param[1].str().rm(":");
-      const elCourse = param[2].regex(/[^A-Z]/g);
+      const elCourse = param[2].str().regex(/[^A-Z]/g);
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
