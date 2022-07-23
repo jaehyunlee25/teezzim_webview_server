@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/search",
@@ -18,15 +18,13 @@ javascript: (() => {
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
-    
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
-    
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -37,12 +35,24 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("btn1 mt50");
+    const els = document
+      .getElementsByClassName("baseTB")[0]
+      .getElementsByTagName("tbody")[0]
+      .getElementsByTagName("tr");
     const result = [];
     const dictCourse = {
-      11: "단일",
+      1: "Mountain",
+      1: "Lake",
     };
     Array.from(els).forEach((el) => {
+      if (el.children[4].innerText == "취소불가(예약실문의)") {
+        const str = el.children[4].innerHTML;
+        const regex = /<button.*button>/g;
+        const newStr = regex.exec(str)[0];
+        el.children[4].innerHTML = newStr;
+      }
+      return;
+
       const param = el.getAttribute("onclick").inparen();
       const date = param[0];
       const time = param[1];
@@ -50,6 +60,7 @@ javascript: (() => {
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
+    return;
     const param = {
       golf_club_id: "${golfClubId}",
       result,
