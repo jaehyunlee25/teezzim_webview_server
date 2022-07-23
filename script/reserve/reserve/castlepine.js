@@ -28,7 +28,7 @@ javascript: (() => {
   };
   const fulldate = [year, month, date].join("");
   log(addr);
-  if (!func) location.href = funcMain();
+  if (!func) funcMain();
   else func();
 
   function funcMain() {
@@ -36,7 +36,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    /* location.href = "${searchUrl}"; */
+    location.href = "${searchUrl}";
   }
   function funcLogin() {
     ${loginScript}
