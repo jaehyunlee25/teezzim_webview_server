@@ -43,12 +43,7 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    
     if (!suffix) return;
 
     const suffixParam = (() => {
@@ -70,6 +65,14 @@ javascript: (() => {
     }
   }
   function funcDate() {
+
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       const daySign = (new Date([year, month, date].join("/")).getDay() + 1).toString();
       timefrom_change(fulldate, "2", daySign, "", "00", "T");
