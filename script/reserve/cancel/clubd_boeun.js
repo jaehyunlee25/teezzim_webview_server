@@ -78,6 +78,7 @@ javascript: (() => {
     log(target);
     if (target) {
       target.click();
+      document.getElementsByClassName("btnBox1")[0].getElementsByTagName("a")[0].click();
       setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
