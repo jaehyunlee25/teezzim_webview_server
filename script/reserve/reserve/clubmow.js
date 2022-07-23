@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const addr = location.href.split("?")[0];
   const year = "${year}";
   const month = "${month}";
@@ -21,6 +22,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://castlepine.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
     "https://castlepine.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://www.clubmow.com/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -29,7 +31,7 @@ javascript: (() => {
     와일드: "3",
   };
   const fulldate = [year, month, date].join("");
-  log(addr);
+  
   if (!func) funcOther();
   else func();
 
@@ -38,6 +40,7 @@ javascript: (() => {
     return;
   }
   function funcOther() {
+    log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());

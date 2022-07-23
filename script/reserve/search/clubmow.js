@@ -9,14 +9,30 @@ javascript: (() => {
     message: "start reserve/search",
     parameter: JSON.stringify({}),
   };
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://castlepine.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
+
+  function funcOut() {
+    log("funcOut");
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
@@ -38,8 +54,9 @@ javascript: (() => {
     const els = document.getElementsByClassName("cm_cnlth");
     const result = [];
     const dictCourse = {
-      1: "Lake",
-      2: "Valley",
+      1: "마운틴",
+      2: "오아시스",
+      3: "와일드",
     };
     Array.from(els).forEach((el) => {
       const param = el.children[0].getAttribute("href").inparen();
