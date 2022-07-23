@@ -39,7 +39,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const first = [year, month, "01"].join("-");
       Update("LIST|" + first + "|" + fulldate + "|N|1|NULL|NULL|NULL|NULL");
-      setTimeout(funcTime, 1000);
+      setTimeout(funcTime, 2000);
     });
   }
   function funcTime() {
