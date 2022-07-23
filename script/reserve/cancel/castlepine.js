@@ -63,8 +63,9 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.children[0];
     });
+    log(target);
     if (target) {
       target.click();
       setTimeout(funcEnd, 1000);
