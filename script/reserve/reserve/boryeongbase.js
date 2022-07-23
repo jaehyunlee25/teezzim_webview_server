@@ -32,8 +32,8 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-
-    log(suffix);
+    log("enter", addr);
+    log("enter", suffix);
     if(suffix) {
       funcTime();
       return;
