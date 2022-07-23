@@ -73,7 +73,7 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.getElementsByClassName("cancel");
+    const els = data_list.getElementsByTagName("tr");
     const dictCourse = {
       시스타18홀: "단일",
     };
