@@ -27,8 +27,8 @@ javascript: (() => {
   };
   const fulldate = [year, month, date].join("-");
   log(addr);
-  /* if (!func) location.href = "${searchUrl}";
-  else func(); */
+  if (!func) location.href = "${searchUrl}";
+  else func();
   function funcLogin() {
     ${loginScript}
   }
@@ -42,9 +42,10 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       const first = [year, month, "01"].join("-");
-      /* const a = document.createElement("a");
-      a.href = `Update("LIST|" + ${first} + "|" + ${fulldate} + "|N|1|NULL|NULL|NULL|NULL")`;
-      a.click();   */    
+      const day = new Date([year, month, date].join("/")).getDay();
+      const sign = day < 5 ? 1 : day == 5 ? 2 : 3; 
+      Update("LIST|" + first + "|" + fulldate + "|N|" + sign + "|NULL|NULL|NULL|NULL");
+      setTimeout(funcTime, 1000);
     });
   }
   function funcTime() {
