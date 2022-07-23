@@ -49,7 +49,7 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      funcSearch();
+      setTimeout(funcSearch, 500);
     });
   }
   function funcSearch() {
