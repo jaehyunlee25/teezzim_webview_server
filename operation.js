@@ -2,7 +2,7 @@ const fs = require("fs");
 const log = console.log;
 
 const clubFrom = "clubd_geochang";
-const clubTo = "clubd_geumgang";
+const clubTo = "clubd_songnisan";
 
 ["reserve", "search", "cancel"].forEach((folder) => {
   const newName = "./script/reserve/" + folder + "/" + clubTo + ".js";
