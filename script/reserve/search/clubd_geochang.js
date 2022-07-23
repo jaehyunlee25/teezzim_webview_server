@@ -60,9 +60,9 @@ javascript: (() => {
     const els = window["tbody-reservation"].getElementsByTagName("tr");
     const result = [];
     const dictCourse = {
-      EAST: "East",
-      WEST: "West",
-      SOUTH: "South",
+      EAST: "EAST",
+      SOUTH: "SOUTH",
+      WEST: "WEST",
     };
     Array.from(els).forEach((el) => {
       const param = el.children;
