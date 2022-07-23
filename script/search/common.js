@@ -152,7 +152,7 @@ String.prototype.daySign = function () {
   return sign.toString();
 };
 String.prototype.dayNum = function () {
-  const str = this.getFee();
+  const str = this.getFee().toString();
   const num = new Date(str.datify()).getDay();
   return (num + 1).toString();
 };

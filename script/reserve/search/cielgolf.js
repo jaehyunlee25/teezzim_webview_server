@@ -68,6 +68,6 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
-    location.href = "logout.asp";
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
