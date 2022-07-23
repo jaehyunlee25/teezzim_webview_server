@@ -72,7 +72,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-    document.getElementsByClassName("cm_ok")[0].children[0].click();
+    document.getElementsByClassName("btn book")[0].click();
     setTimeout(funcEnd, 1000);
   }
   function funcEnd() {
