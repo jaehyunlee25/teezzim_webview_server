@@ -68,12 +68,12 @@ javascript: (() => {
         target = el.parentNode.children[4].children;
     });
     log(target);
-    if (target) {
+    /* if (target) {
       target.click();
       setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
-    }
+    } */
   }
   function funcEnd() {
     const strEnd = "end of reserve/cancel";
