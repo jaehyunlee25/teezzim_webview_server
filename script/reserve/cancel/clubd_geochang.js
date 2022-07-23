@@ -37,7 +37,7 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {  
     log("funcLogin");  
