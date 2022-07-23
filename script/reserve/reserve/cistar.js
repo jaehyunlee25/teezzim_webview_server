@@ -20,6 +20,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://www.cistar.co.kr/view/golfRsvnStep2.do": funcTime,
     "https://www.cistar.co.kr/view/golfRsvnStep3.do": funcExec,
+    "https://www.cistar.co.kr/view/logout.asp": funcOut,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
@@ -30,6 +31,9 @@ javascript: (() => {
   if (!func) funcMain();
   else func();
 
+  function funcOut() {
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
@@ -87,7 +91,7 @@ javascript: (() => {
     const tag = localStorage.getItem("TZ_EXEC");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
-    
+
     btnSubmit.click();
     setTimeout(funcEnd, 1000);
   }
