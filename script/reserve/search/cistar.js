@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/search",
@@ -22,7 +22,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_RESERVE");
@@ -31,20 +31,42 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      funcSearch();
+      funcCalendar();
     });
   }
+  function funcCalendar() {
+    const year = new Date().getFullYear();
+    const month = (new Date().getMonth() + 1).toString().addzero();
+    const mDate = new Date(year, new Date().getMonth(), "15");
+    mDate.setMonth(mDate.getMonth() + 1);
+    const nextMonth = (mDate.getMonth() + 1).toString().addzero();
+    const yearNextMonth = mDate.getFullYear().toString();
+    const lastDateNextMonth = new Date(
+      yearNextMonth,
+      nextMonth,
+      "00"
+    ).getDate();
+    const fulldateLastDateNextMonth = [
+      yearNextMonth,
+      nextMonth,
+      lastDateNextMonth,
+    ].join("-");
+
+    $("#f_date_to").val(fulldateLastDateNextMonth);
+    btnSearchGolf.click();
+    setTimeout(funcSearch, 1000);
+  }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancel");
+    const els = data_list.getElementsByTagName("tr");
     const result = [];
     const dictCourse = {
-      OUT: "단일",
+      시스타18홀: "단일",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[3];
-      const elCourse = param[2];
+      const param = el.children;
+      const elDate = param[2].innerText.split("-").join("");
+      const elTime = param[3].innerText.split(":").join("");
+      const elCourse = param[1].innerText;
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
