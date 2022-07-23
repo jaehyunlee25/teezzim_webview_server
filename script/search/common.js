@@ -142,3 +142,17 @@ String.prototype.getFee = function () {
   str = str.replace(/[^0-9]/g, "");
   return str * 1;
 };
+String.prototype.daySign = function () {
+  const str = this.getFee().toString();
+  const num = new Date(str.datify()).getDay();
+  let sign;
+  if (num == 0) sign = 3;
+  else if (num == 6) sign = 2;
+  else sign = 3;
+  return sign.toString();
+};
+String.prototype.dayNum = function () {
+  const str = this.getFee();
+  const num = new Date(str.datify()).getDay();
+  return (num + 1).toString();
+};
