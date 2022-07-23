@@ -20,6 +20,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://castlepine.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
   };
   const func = dict[addr];
   const dictCourse = {

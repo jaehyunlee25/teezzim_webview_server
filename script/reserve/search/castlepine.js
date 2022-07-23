@@ -35,28 +35,17 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document
-      .getElementsByClassName("baseTB")[0]
-      .getElementsByTagName("tbody")[0]
-      .getElementsByTagName("tr");
+    const els = document.getElementsByClassName("cm_cnlth");
     const result = [];
     const dictCourse = {
-      1: "Mountain",
-      2: "Lake",
+      1: "Lake",
+      2: "Valley",
     };
     Array.from(els).forEach((el) => {
-      if (el.children[4].innerText == "취소불가(예약실문의)") {
-        const str = el.children[4].innerHTML;
-        const regex = /<button.*button>/g;
-        const newStr = regex.exec(str)[0];
-        el.children[4].innerHTML = newStr;
-      }
-      const btn = el.children[4].children[0];
-
-      const param = btn.getAttribute("onclick").inparen();
-      const date = param[0];
+      const param = el.getAttribute("onclick").inparen();
+      const date = param[2];
       const time = param[3];
-      const course = param[1];
+      const course = param[4];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -76,6 +65,6 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
-    location.href = "login_out.asp";
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
