@@ -72,6 +72,9 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
+    const tag = localStorage.getItem("TZ_EXEC");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_EXEC", new Date().getTime());
     document.getElementsByClassName("btn book")[0].click();
     setTimeout(funcEnd, 1000);
   }
