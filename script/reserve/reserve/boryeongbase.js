@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  if(addr.indexOf("#") != -1) addr = location.href.split("#")[0];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -17,8 +18,8 @@ javascript: (() => {
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
-    /* "${searchUrl}": funcReserve, */
-    /* "https://www.boryeongbase.co.kr/Mobile/Booking/GolfProgress.aspx": funcExec, */
+    "${searchUrl}": funcReserve,
+    "https://www.boryeongbase.co.kr/Mobile/Booking/GolfProgress.aspx": funcExec,
   };
   const func = dict[addr];
   const dictCourse = {
