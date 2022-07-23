@@ -27,8 +27,11 @@ javascript: (() => {
       return;
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
-
-    ${loginScript}
+    try{
+      ${loginScript}
+    } catch(e) {
+      location.href = "${reserveUrl}";
+    }
   }
   function funcReserve() {
     log("funcReserve");
