@@ -10,6 +10,8 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -18,10 +20,24 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://castlepine.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
+
+  function funcOut() {
+    log("funcOut");
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {    
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
@@ -31,10 +47,7 @@ javascript: (() => {
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
@@ -43,14 +56,16 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    log("funcCancel");
+    const els = document.getElementsByClassName("cm_confirm_list_list")[0].getElementsByTagName("tr");
     const dictCourse = {
-      1: "Lake",
-      2: "Valley",
+      1: "마운틴",
+      2: "오아시스",
+      3: "와일드",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("href").inparen();
+      const param = el.children[5].children[0].getAttribute("href").inparen();
       const elDate = param[2];
       const elTime = param[3];
       const elCourse = param[4];
@@ -64,7 +79,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.children[0];
+        target = el.children[5].children[0];
     });
     log(target);
     if (target) {
