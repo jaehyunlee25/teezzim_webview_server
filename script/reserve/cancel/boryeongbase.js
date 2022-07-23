@@ -42,15 +42,14 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("btn1 mt50");
     const dictCourse = {
-      11: "스톤",
-      22: "벨라",
+      11: "단일",
     };
     let target;
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
-      const elDate = param[0].split("-").join("");
+      const elDate = param[0];
       const elTime = param[1];
       const elCourse = param[2];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);

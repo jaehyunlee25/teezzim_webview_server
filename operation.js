@@ -1,7 +1,7 @@
 const fs = require("fs");
 const log = console.log;
 
-const clubFrom = "bellastone";
+const clubFrom = "boryeongbase";
 const clubTo = "boryeongbase";
 
 ["reserve", "search", "cancel"].forEach((folder) => {

@@ -37,15 +37,14 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancelBtn");
+    const els = document.getElementsByClassName("btn1 mt50");
     const result = [];
     const dictCourse = {
-      11: "스톤",
-      22: "벨라",
+      11: "단일",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const date = param[0].split("-").join("");
+      const param = el.getAttribute("onclick").inparen();
+      const date = param[0];
       const time = param[1];
       const course = param[2];
       console.log("reserve search", dictCourse[course], date, time);
