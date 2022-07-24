@@ -83,10 +83,10 @@ javascript: (() => {
     const els = resHisListDiv.getElementsByTagName("li");
     const result = [];
     const dictCourse = {
-      West: "1",
-      East: "3",
-      North: "2",
-      South: "4",
+      1: "West",
+      2: "North",
+      3: "East",
+      4: "South",
     };
     Array.from(els).forEach((el) => {
       const param = el
