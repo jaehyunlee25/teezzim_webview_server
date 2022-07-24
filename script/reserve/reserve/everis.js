@@ -39,6 +39,7 @@ javascript: (() => {
 
   function funcList() {
     log("funcOut");
+    funcEnd();
     return;
   }
   function funcOut() {

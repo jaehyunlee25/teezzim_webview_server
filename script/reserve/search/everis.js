@@ -14,8 +14,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.cypress.co.kr/": funcMain,
-    "https://www.cypress.co.kr/member/logout": funcOut,
+    "https://www.shinangolf.com/": funcMain,
+    "https://www.shinangolf.com/member/logout": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -81,23 +81,24 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = resHisListDiv.getElementsByTagName("li");
-    const result = [];
+    const els = document
+      .gcn("reservation_table list_table")[0]
+      .gtn("tbody")[0]
+      .gtn("tr");
     const dictCourse = {
-      1: "West",
-      2: "North",
-      3: "East",
-      4: "South",
+      A: "Lake",
+      B: "Saebyul",
+      C: "Pine",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
-      const param = el
-        .getElementsByTagName("button")[1]
-        .getAttribute("onclick")
-        .inparen();
+      const param = el.attr("onclick").inparen();
+      const elCompany = param[1];
+      if(elCompany != "17") return;
 
-      const date = param[0];
-      const time = param[4];
-      const course = param[1];
+      const date = param[2];
+      const time = param[3];
+      const course = param[4];
       console.log("reserve search", course, dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
