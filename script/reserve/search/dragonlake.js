@@ -15,8 +15,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://www.dragonlake.co.kr/mobile/index.asp": funcMain,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -29,10 +28,6 @@ javascript: (() => {
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
-  }
-  function funcOut() {
-    log("funcOut");
-    return;
   }
   function funcOther() {
     log("funcOther");
@@ -63,17 +58,19 @@ javascript: (() => {
   }
   function funcSearch() {
     log("funcSearch");
-    const els = document.gcn("cm_btn default cm_btn_space01");
+    const els = document.gcn("cancel inputBtn");
     log("els", els, els.length);
     const result = [];
     const dictCourse = {
-      1: "단일",
+      레이크: "Lake",
+      드래곤: "Dragon",
+      스카이: "Sky",
     };
     els.forEach((el, i) => {
-      const param = el.attr("onclick").inparen();
-      const date = param[2];
-      const time = param[3];
-      const course = param[4];
+      const param = el.parentNode.parentNode.children;
+      const date = param[0].innerText.rm(".");
+      const time = param[1].innerText.rm(":");
+      const course = param[2].innerText;
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -101,6 +98,6 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "/_mobile/login/logout.asp";
+    doLogout();
   }
 })();
