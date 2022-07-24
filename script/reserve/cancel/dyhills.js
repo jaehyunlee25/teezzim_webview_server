@@ -77,7 +77,7 @@ javascript: (() => {
     });
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
+      setTimeout(LOGOUT, 1000);
     } else {
       funcEnd();
     }
@@ -87,8 +87,10 @@ javascript: (() => {
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      location.href = "/Mobile/Member/LogOut.aspx";
+      if (ac) ac.message(strEnd);      
     });
+  }
+  function LOGOUT() {
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();
