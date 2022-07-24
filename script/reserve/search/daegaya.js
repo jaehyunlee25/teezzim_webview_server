@@ -88,7 +88,7 @@ javascript: (() => {
       const elTime = param[1];
       const elCourse = param[2];
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
-      result.push({ date, time, course: dictCourse[elCourse] });
+      result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
