@@ -80,9 +80,9 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    log("funcReserve");
+    log("funcSearch");
 
-    const els = document.gcn("btn demo1 primary02");
+    const els = document.gcn("cm_time_list_tbl")[0].gtn("tbody")[0].gtn("tr");
     log("els", els, els.length);
 
     const result = [];
@@ -91,7 +91,7 @@ javascript: (() => {
       2: "Park",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
+      const param = el.children[9].children[0].getAttribute("onclick").inparen();
 
       const date = param[0];
       const time = param[4];
