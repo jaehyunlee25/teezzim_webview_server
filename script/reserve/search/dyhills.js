@@ -13,10 +13,22 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://dyhills.basecc.co.kr:6443/Mobile/Main/Main.aspx": funcMain,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
+
+  function funcMain() {
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -37,12 +49,13 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cancelBtn");
-    const result = [];
+    const els = document.gcn("cancelBtn");
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "力",
+      22: "靑",
+      33: "美",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
       const date = param[0];
@@ -59,13 +72,18 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      LOGOUT()
     });
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/search";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();
