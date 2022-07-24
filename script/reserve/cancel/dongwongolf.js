@@ -99,6 +99,7 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
+      document.gcn("pop_body")[0].gcn("cm_btn orange")[0].click();
       setTimeout(funcEnd, 1000);
     } else {
       LOGOUT();
