@@ -92,6 +92,7 @@ javascript: (() => {
     }
   }
   function funcDate() {
+    log("funcDate");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -130,7 +131,7 @@ javascript: (() => {
   function funcExec() {
     log("funcExec");
     document.gcn("cm_btn default")[0].click();
-    setTimeout(funcEnd, 1000);
+    setTimeout(LOGOUT, 1000);
   }
   function funcEnd() {
     log("funcEnd");
@@ -139,6 +140,8 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
     location.href = "/_mobile/login/logout.asp";
   }
 })();
