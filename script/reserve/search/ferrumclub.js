@@ -54,8 +54,10 @@ javascript: (() => {
   }
   function funcLogin() {
     log("funcLogin");
-    
-    if(suffix == "returnMsg=M") localStorage.removeItem("TZ_LOGIN");
+
+    if(!window["login_id"]) {
+      location.href = "${searchUrl}";
+    }
 
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
