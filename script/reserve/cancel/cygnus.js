@@ -72,9 +72,13 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
+      setTimeout(funcExec, 500);
     } else {
       funcEnd();
     }
+  }
+  function funcExec() {
+    document.getElementsByClassName("res_btn_ok")[0].click();
   }
   function funcEnd() {
     const strEnd = "end of reserve/cancel";
