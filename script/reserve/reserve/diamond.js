@@ -98,7 +98,7 @@ javascript: (() => {
 
     const sign = dictCourse[course];
     const els = document.getElementsByClassName("smallBtn");
-    log("els", els);
+    log("els", els, els.length);
     let target;
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
