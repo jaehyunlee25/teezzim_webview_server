@@ -15,8 +15,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://dongwonresort.co.kr/_mobile/index.asp": funcMain,
+    "https://dongwonresort.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -63,11 +63,12 @@ javascript: (() => {
   }
   function funcSearch() {
     log("funcSearch");
-    const els = document.gcn("cm_btn default cm_btn_space01");
+    const els = document.gcn("cm_qusrud");
     log("els", els, els.length);
     const result = [];
     const dictCourse = {
-      1: "단일",
+      1: "한려",
+      2: "미륵",
     };
     els.forEach((el, i) => {
       const param = el.attr("onclick").inparen();
