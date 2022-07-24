@@ -82,7 +82,7 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
 
-    const els = document.gcn("cm_time_list_tbl");
+    const els = document.getElementsByClassName("cm_time_list_tbl");
     log("els", els, els.length);
     return;
 
