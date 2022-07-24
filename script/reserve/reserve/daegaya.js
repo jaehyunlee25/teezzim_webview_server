@@ -22,7 +22,7 @@ javascript: (() => {
     "https://www.daegayacc.com/Mobile/Default.aspx": funcMain,
     "https://www.daegayacc.com/Mobile/Reservation/ReservationList.aspx":
       funcList,
-    "https://www.cypress.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.daegayacc.com/Mobile/Member/LogOut.aspx": funcOut,
   };
 
   log("raw addr :: ", location.href);

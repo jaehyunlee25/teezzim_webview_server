@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.daegayacc.com/Mobile/Default.aspx": funcMain,
-    "https://www.cypress.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.diamondcc.co.kr/Mobile/": funcMain,
+    "https://www.diamondcc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -81,9 +81,10 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.getElementsByClassName("col_d");
+    const els = document.getElementsByClassName("smallBtn");
     const dictCourse = {
-      11: "단일",
+      11: "North",
+      22: "South",
     };
     let target;
     Array.from(els).forEach((el) => {
