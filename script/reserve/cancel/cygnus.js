@@ -72,7 +72,6 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
     }
