@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  const suffix = location.href.split("?")[1];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
@@ -28,7 +29,6 @@ javascript: (() => {
     South: "4",
   };
 
-  const fulldate = [year, month, date].join("");
   if (!func) funcOther();
   else func();
 
@@ -60,6 +60,9 @@ javascript: (() => {
   }
   function funcLogin() {
     log("funcLogin");
+    
+    if(suffix == "returnMsg=M") localStorage.removeItem("TZ_LOGIN");
+
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
