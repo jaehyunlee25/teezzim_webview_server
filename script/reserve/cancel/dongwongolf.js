@@ -20,6 +20,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
     "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
@@ -62,16 +63,14 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.getElementsByClassName("cm_confirm_list_list")[0].getElementsByTagName("tr");
+    const els = document.gcn("cm_btn default cm_btn_space01");
     const dictCourse = {
-      1: "마운틴",
-      2: "오아시스",
-      3: "와일드",
+      1: "단일",
     };
     let target;
-    Array.from(els).forEach((el, i) => {
+    els.every((el, i) => {
       if(i == 0) return;
-      const param = el.children[5].children[0].getAttribute("href").inparen();
+      const param = el.attr("onclick").inparen();
       const elDate = param[2];
       const elTime = param[3];
       const elCourse = param[4];
@@ -86,22 +85,25 @@ javascript: (() => {
         elTime == time
       )
         target = el.children[5].children[0];
+
+      return !target;  
     });
-    log(target);
+    log("target", target);
     if (target) {
       target.click();
       setTimeout(funcEnd, 1000);
     } else {
-      funcEnd();
+      LOGOUT();
     }
   }
   function funcEnd() {
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
-    TZLOG(logParam, (data) => {
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      location.href = "/_mobile/login/logout.asp";
-    });
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
