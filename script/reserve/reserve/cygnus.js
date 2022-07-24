@@ -93,7 +93,6 @@ javascript: (() => {
 
       log(elCourse == dictCourse[course], elTime == time);
       log(elCourse, dictCourse[course], elTime, time);
-      let target;
       if (
         elCourse == dictCourse[course] &&
         elTime == time
