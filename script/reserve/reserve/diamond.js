@@ -24,7 +24,7 @@ javascript: (() => {
     "https://www.diamondcc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
     "https://www.diamondcc.co.kr/Mobile/Reservation/Reservation.aspx": funcTime,
     "https://www.diamondcc.co.kr/Mobile/Reservation/ReservationCheck.aspx":
-      funcTime,
+      funcExec,
   };
 
   log("raw addr :: ", location.href);
