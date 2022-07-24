@@ -9,7 +9,8 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("?")[0];
+  let addr = location.href.split("?")[0];
+  if (addr.indexOf("#") != -1) addr = location.href.split("#")[0];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -18,9 +19,10 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.cypress.co.kr/": funcMain,
-    "https://www.cypress.co.kr/reservation/resList": funcList,
-    "https://www.cypress.co.kr/member/logout": funcOut,
+    "https://www.daegayacc.com/Mobile/Default.aspx": funcMain,
+    "https://www.daegayacc.com/Mobile/Reservation/ReservationList.aspx":
+      funcList,
+    "https://www.cypress.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -28,13 +30,10 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    West: "1",
-    East: "3",
-    North: "2",
-    South: "4",
+    단일: "11",
   };
 
-  const fulldate = [year, month, date].join("");
+  const fulldate = [year, month, date].join("-");
   if (!func) funcOther();
   else func();
 
@@ -87,35 +86,46 @@ javascript: (() => {
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {
-      clickCal("", "A", fulldate, "OPEN");
+      const first = [year, month, "01"].join("-");
+      const day = new Date([year, month, date].join("/")).getDay();
+      const sign = day < 5 ? 1 : day == 5 ? 2 : 3;
+      Update(
+        "LIST|" +
+          (fulldate.ct(2) + "01") +
+          "|" +
+          fulldate +
+          "|Y|" +
+          fulldate.daySign() +
+          "||"
+      );
       setTimeout(funcTime, 500);
     });
   }
   function funcTime() {
     log("funcTime");
 
-    const els = document
-      .getElementsByClassName("tbl demo1")[0]
-      .getElementsByTagName("button");
-
+    const sign = dictCourse[course];
+    const els = document.getElementsByClassName("btn_reserve");
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elCourse = param[2];
-      const elTime = param[1];
-      log(elCourse == dictCourse[course], elTime == time);
-      log(elCourse, dictCourse[course], elTime, time);
-      if (dictCourse[course] == elCourse && time == elTime) target = el;
+      const param = el.getAttribute("href").inparen()[0].split("|");
+      const elDate = param[1];
+      const elTime = param[2];
+      const elCourse = param[3];
+      log(elDate, fulldate, elTime, time, elCourse, sign);
+      log(elDate == fulldate, elTime == time, elCourse == sign);
+      if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
     });
-
     log("target", target);
     if (target) {
       target.click();
-      const cfNum = golfTimeDiv2CertNo.innerText;
-      certNoChk.value = cfNum;
-      golfSubmit();
-      setTimeout(LOGOUT, 500);
+      setTimeout(funcExec, 500);
     }
+  }
+  function funcExec() {
+    log("funcExec");
+    contents_lbtOK.click();
+    setTimeout(LOGOUT, 1000);
   }
   function funcEnd() {
     log("funcEnd");
@@ -127,6 +137,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/member/logout";
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();
