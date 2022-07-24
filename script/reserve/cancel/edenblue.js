@@ -86,8 +86,10 @@ javascript: (() => {
       const elDate = param[2];
       const elTime = param[3];
       const elCourse = param[4];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
+
       log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       log(elDate == fulldate, dictCourse[elCourse] == course, elTime == time);
       if (
@@ -95,7 +97,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[5].children[0];
+        target = el.parentNode.parentNode.children[7].children[0];
 
       return !target;  
     });
