@@ -148,7 +148,7 @@ String.prototype.daySign = function () {
   let sign;
   if (num == 0) sign = 3;
   else if (num == 6) sign = 2;
-  else sign = 3;
+  else sign = 1;
   return sign.toString();
 };
 String.prototype.dayNum = function () {
