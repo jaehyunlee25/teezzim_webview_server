@@ -80,20 +80,16 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       log(data);
       btn_Search(fulldate, '0', fulldate.daySign());
-      setTimeout(funcTime, 500);
+      setTimeout(funcTime, 1000);
     });
   }
   function funcTime() {
     log("funcTime");
-    const sign = dictCourse[course];
-    const week = ["", "일", "월", "화", "수", "목", "금", "토"];
-    const weekSign = week[fulldate.dayNum()];
     const els = res_table.getElementsByTagName("button");
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute;
-      const elCourse = param("course");
-      const elTime = param("time").rm(":");
+      const elCourse = el.getAttribute("course");
+      const elTime = el.getAttribute("time").rm(":");
 
       log(elCourse == dictCourse[course], elTime == time);
       log(elCourse, dictCourse[course], elTime, time);
