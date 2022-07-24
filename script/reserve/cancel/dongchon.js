@@ -106,9 +106,12 @@ javascript: (() => {
     });
     if (target) {
       target.click();
-      setTimeout(LOGOUT, 500);
+      setTimeout(() => {
+        BTN592.getElementsByClassName("confirm")[0].click();
+        setTimeout(LOGOUT, 1000);
+      }, 500);
     } else {
-      funcEnd();
+      LOGOUT()
     }
   }
   function funcEnd() {
