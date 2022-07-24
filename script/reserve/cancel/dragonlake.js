@@ -101,6 +101,7 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
+      timer(1000, LOGOUT);
     } else {
       LOGOUT();
     }
