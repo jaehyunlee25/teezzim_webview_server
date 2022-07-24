@@ -82,9 +82,8 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
 
-    const els = document.getElementsByClassName("cm_time_list_tbl");
+    const els = resHisListDiv.gtn("li");
     log("els", els, els.length);
-    return;
 
     const result = [];
     const dictCourse = {
@@ -92,7 +91,7 @@ javascript: (() => {
       2: "Park",
     };
     Array.from(els).forEach((el) => {
-      const param = el.children[9].children[0].getAttribute("onclick").inparen();
+      const param = el.gtn("button")[1].attr("onclick").inparen();
 
       const date = param[0];
       const time = param[4];
