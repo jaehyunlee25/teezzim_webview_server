@@ -120,8 +120,10 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-    ctl00_contents_lbtOK.click();
-    setTimeout(LOGOUT, 1000);
+    setTimeout(() => {
+      ctl00_contents_lbtOK.click();
+      /* setTimeout(LOGOUT, 1000); */
+    }, 2000);
   }
   function funcEnd() {
     log("funcEnd");
