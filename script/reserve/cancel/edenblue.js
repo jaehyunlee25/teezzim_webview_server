@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://www.edenblue.co.kr/_mobile/index.asp": funcMain,
+    "http://www.edenblue.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -76,7 +76,9 @@ javascript: (() => {
     log("funcCancel");
     const els = document.gcn("cm_btn default cm_btn_space01");
     const dictCourse = {
-      1: "단일",
+      1: "Mountain",
+      2: "Valley",
+      3: "Lake",
     };
     let target;
     els.every((el, i) => {
