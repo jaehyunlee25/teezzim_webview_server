@@ -72,7 +72,7 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      setTimeout(funcEnd, 500);
+      setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
     }
