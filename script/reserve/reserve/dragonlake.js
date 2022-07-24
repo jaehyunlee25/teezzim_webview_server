@@ -95,15 +95,15 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      timer(1000, funcExec);
+      /* timer(1000, funcExec); */
     } else {
       funcEnd();
     }
   }
   function funcExec() {
     log("funcExec");
-    document.gcn("cm_btn default")[0].click();
-    setTimeout(LOGOUT, 1000);
+    /* document.gcn("cm_btn default")[0].click();
+    setTimeout(LOGOUT, 1000); */
   }
   function funcEnd() {
     log("funcEnd");
