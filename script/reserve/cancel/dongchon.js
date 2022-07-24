@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.diamondcc.co.kr/Mobile/": funcMain,
-    "https://www.diamondcc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.dongchongc.co.kr:442/Mobile": funcMain,
+    "https://www.dongchongc.co.kr:442/Mobile/Mobile/Member/Logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -81,17 +81,17 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.getElementsByClassName("smallBtn");
+    const els = document.getElementsByClassName("colBlue");
     const dictCourse = {
-      11: "North",
-      22: "South",
+      11: "EAST",
+      22: "WEST",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.getAttribute("onclick").inparen();
       const elDate = param[0];
-      const elTime = param[1];
-      const elCourse = param[2];
+      const elTime = param[2];
+      const elCourse = param[1];
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -102,7 +102,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.parentNode.parentNode.children[5].children[0];
     });
     if (target) {
       target.click();
