@@ -80,7 +80,6 @@ javascript: (() => {
     };
     let target;
     els.every((el, i) => {
-      if(i == 0) return;
       const param = el.attr("onclick").inparen();
       const elDate = param[2];
       const elTime = param[3];
