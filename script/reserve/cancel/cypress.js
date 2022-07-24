@@ -120,7 +120,7 @@ javascript: (() => {
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/search";
+    const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
