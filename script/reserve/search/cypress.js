@@ -21,13 +21,7 @@ javascript: (() => {
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
 
-  const func = dict[addr];
-  const dictCourse = {
-    West: "1",
-    East: "3",
-    North: "2",
-    South: "4",
-  };
+  const func = dict[addr];  
 
   if (!func) funcOther();
   else func();
@@ -89,8 +83,10 @@ javascript: (() => {
     const els = resHisListDiv.getElementsByTagName("li");
     const result = [];
     const dictCourse = {
-      ALPS: "ALPS",
-      ASIA: "ASIA",
+      West: "1",
+      East: "3",
+      North: "2",
+      South: "4",
     };
     Array.from(els).forEach((el) => {
       const param = el
@@ -117,7 +113,7 @@ javascript: (() => {
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/reserve";
+    const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
