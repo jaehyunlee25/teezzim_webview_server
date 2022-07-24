@@ -9,7 +9,10 @@ javascript: (() => {
     message: "start reserve/cancel",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("?")[0];
+  
+  let addr = location.href.split("?")[0];
+  if(addr.indexOf("#") != -1) addr = addr.split("#")[0];
+
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
   const year = "${year}";
@@ -21,7 +24,6 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -37,10 +39,6 @@ javascript: (() => {
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
-  }
-  function funcOut() {
-    log("funcOut");
-    return;
   }
   function funcOther() {
     log("funcOther");
@@ -74,16 +72,18 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.gcn("cm_btn default cm_btn_space01");
+    const els = document.gcn("cancel inputBtn");
     const dictCourse = {
-      1: "단일",
+      레이크: "Lake",
+      드래곤: "Dragon",
+      스카이: "Sky",
     };
     let target;
     els.every((el, i) => {
-      const param = el.attr("onclick").inparen();
-      const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
+      const param = el.parentNode.parentNode.children;
+      const elDate = param[0].innerText.rm(".");
+      const elTime = param[1].innerText.rm(":");
+      const elCourse = param[2].innerText;
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
@@ -94,15 +94,13 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[5].children[0];
+        target = el;
 
       return !target;  
     });
     log("target", target);
     if (target) {
       target.click();
-      document.gcn("pop_body")[0].gcn("cm_btn orange")[0].click();
-      setTimeout(funcEnd, 1000);
     } else {
       LOGOUT();
     }
@@ -115,6 +113,6 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "/_mobile/login/logout.asp";
+    doLogout();
   }
 })();

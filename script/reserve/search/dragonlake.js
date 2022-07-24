@@ -62,12 +62,12 @@ javascript: (() => {
     log("funcSearch");
     const els = document.gcn("cancel inputBtn");
     log("els", els, els.length);
-    const result = [];
     const dictCourse = {
       레이크: "Lake",
       드래곤: "Dragon",
       스카이: "Sky",
     };
+    const result = [];
     els.forEach((el, i) => {
       const param = el.parentNode.parentNode.children;
       const date = param[0].innerText.rm(".");
