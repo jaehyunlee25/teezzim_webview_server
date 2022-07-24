@@ -64,6 +64,7 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
     const els = document.gcn("cm_btn default cm_btn_space01");
+    log("els", els, els.length);
     const result = [];
     const dictCourse = {
       1: "단일",
@@ -77,6 +78,8 @@ javascript: (() => {
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
+    
+    if(result.length == 0) LOGOUT();
     const param = {
       golf_club_id: "${golfClubId}",
       device_id: "${deviceId}",
@@ -94,6 +97,8 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
     location.href = "/_mobile/login/logout.asp";
   }
 })();
