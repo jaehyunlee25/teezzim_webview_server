@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/reserve",
@@ -18,21 +18,30 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.cygnuscc.com/main.asp": funcMain,
-    "http://www.cygnuscc.com/booking/logout.asp": funcOut,
+    "https://www.cypress.co.kr/": funcMain,
+    "https://www.cypress.co.kr/reservation/resList": funcList,
+    "https://www.cypress.co.kr/member/logout": funcOut,
   };
+
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
-    실크: "SILK",
-    라미: "RAMIE",
-    코튼: "COTTON",
+    West: "1",
+    East: "3",
+    North: "2",
+    South: "4",
   };
-  const fulldate = [year, month, date].join("-");
+
+  const fulldate = [year, month, date].join("");
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcOut");
+    return;
+  }
   function funcOut() {
     log("funcOut");
     return;
@@ -65,10 +74,11 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -77,42 +87,33 @@ javascript: (() => {
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {
-      log(data);
-      btn_Search(fulldate, '0', fulldate.daySign());
-      setTimeout(funcTime, 1000);
+      clickCal("", "A", fulldate, "OPEN");
+      setTimeout(funcTime, 500);
     });
   }
   function funcTime() {
-    log("funcTime");
-    const els = res_table.getElementsByTagName("button");
+    const els = document
+      .getElementsByClassName("tbl demo1")[0]
+      .getElementsByTagName("button");
+
     let target;
     Array.from(els).forEach((el) => {
-      const elCourse = el.getAttribute("course");
-      const elTime = el.getAttribute("time").rm(":");
-
+      const param = el.getAttribute("onclick").inparen();
+      const elCourse = param[2];
+      const elTime = param[1];
       log(elCourse == dictCourse[course], elTime == time);
       log(elCourse, dictCourse[course], elTime, time);
-      if (
-        elCourse == dictCourse[course] &&
-        elTime == time
-      )
-        target = el;
+      if (dictCourse[course] == elCourse && time == elTime) target = el;
     });
-    
+
     log("target", target);
     if (target) {
       target.click();
-      setTimeout(funcExec, 500);
+      const cfNum = golfTimeDiv2CertNo.innerText;
+      certNoChk.value = cfNum;
+      golfSubmit();
+      setTimeout(funcEnd, 500);
     }
-  }
-  function funcExec() {
-    log("funcExec");
-    const tag = localStorage.getItem("TZ_EXEC");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_EXEC", new Date().getTime());
-
-    document.getElementsByClassName("res_btn_ok")[0].click();
-    setTimeout(funcEnd, 500);
   }
   function funcEnd() {
     log("funcEnd");
@@ -121,6 +122,6 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
-    location.href = "logout.asp";
+    location.href = "/member/logout";
   }
 })();
