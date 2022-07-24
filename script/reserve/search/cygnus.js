@@ -38,18 +38,17 @@ javascript: (() => {
   }
   function funcSearch() {
     log("funcSearch");
-    const els = document.getElementsByClassName("btn btn-sm btn-gray");
+    const els = document.getElementsByClassName("res_bts");
     const result = [];
     const dictCourse = {
-      1: "파인힐",
-      2: "오크힐",
-      3: "로키힐",
+      12: "실크",
+      21: "라미",
+      33: "코튼",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[2];
-      const elCourse = param[1];
+      const elDate = el.getAttribute("bookingdate").rm("-");
+      const elTime = el.getAttribute("bookingtime").rm(":");
+      const elCourse = el.getAttribute("course");
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
