@@ -82,11 +82,11 @@ javascript: (() => {
     log("funcReserve");
 
     const els = document.gcn("tbl02")[0].gtn("a");
-    const result = [];
     const dictCourse = {
       11: "Even",
       22: "Dale",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
       if(el.str() == "변경") return;
 

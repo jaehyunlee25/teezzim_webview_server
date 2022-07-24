@@ -19,8 +19,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.cypress.co.kr/": funcMain,
-    "https://www.cypress.co.kr/member/logout": funcOut,
+    "https://www.evendale.co.kr/Mobile/": funcMain,
+    "https://www.evendale.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -85,23 +85,20 @@ javascript: (() => {
   function funcCancel() {
     log("funcReserve");
 
-    const els = resHisListDiv.getElementsByTagName("li");
+    const els = document.gcn("tbl02")[0].gtn("a");
     const dictCourse = {
-      1: "West",
-      2: "North",
-      3: "East",
-      4: "South",
+      11: "Even",
+      22: "Dale",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      const param = el
-        .getElementsByTagName("button")[1]
-        .getAttribute("onclick")
-        .inparen();
+    Array.from(els).every((el) => {
+      if(el.str() == "변경") return;
 
-      const elDate = param[0];
-      const elTime = param[4];
-      const elCourse = param[1];
+      const param = el.attr("href").inparen();
+
+      const elDate = param[0].rm("-");
+      const elTime = param[1];
+      const elCourse = param[2];
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -109,13 +106,16 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.getElementsByTagName("button")[1];
+        target = el;
+
+      return !target;
     });
 
     log("target", target);
     if (target) {
       target.click();
-      setTimeout(LOGOUT, 500);
+    }else{
+      LOGOUT();
     }
   }
   function funcEnd() {
