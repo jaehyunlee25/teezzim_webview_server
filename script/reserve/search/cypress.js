@@ -13,19 +13,76 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.cypress.co.kr/": funcMain,
+    "https://www.cypress.co.kr/member/logout": funcOut,
   };
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  const dictCourse = {
+    West: "1",
+    East: "3",
+    North: "2",
+    South: "4",
+  };
+
+  const fulldate = [year, month, date].join("");
+  if (!func) funcOther();
   else func();
+
+  function funcOut() {
+    log("funcOut");
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_OTHER");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       setTimeout(funcSearch, 1000);
     });
   }
   function funcSearch() {
+    log("funcReserve");
+
     const els = resHisListDiv.getElementsByTagName("li");
     const result = [];
     const dictCourse = {
@@ -33,12 +90,14 @@ javascript: (() => {
       ASIA: "ASIA",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getElementsByTagName("button")[2].getAttribute("onclick").inparen();
-      if(param[0] != "J51") return;
+      const param = el
+        .getElementsByTagName("button")[1]
+        .getAttribute("onclick")
+        .inparen();
 
-      const date = param[1];
-      const time = param[5];
-      const course = param[3];
+      const date = param[0];
+      const time = param[4];
+      const course = param[1];
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -50,13 +109,16 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-        const ac = window.AndroidController;
-        if (ac) ac.message("end of reserve/search");
-        location.href = "/member/logout";
-      });
+      funcEnd();
     });
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+    location.href = "/member/logout";
   }
 })();
