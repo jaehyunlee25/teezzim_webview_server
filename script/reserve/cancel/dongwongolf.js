@@ -27,6 +27,14 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcOut() {
     log("funcOut");
     return;
