@@ -94,22 +94,24 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
+    setTimeout(() => {
+      const sign = dictCourse[course];
+      const els = document.getElementsByClassName("smallBtn");
+      log("els", els, els.length);
+      let target;
+      Array.from(els).forEach((el) => {
+        const param = el.getAttribute("href").inparen();
+        const elDate = param[1];
+        const elTime = param[2];
+        const elCourse = param[3];
+        log(elDate, fulldate, elTime, time, elCourse, sign);
+        log(elDate == fulldate, elTime == time, elCourse == sign);
+        if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
+      });
+      log("target", target);
+      if (target) target.click();
 
-    const sign = dictCourse[course];
-    const els = document.getElementsByClassName("smallBtn");
-    log("els", els, els.length);
-    let target;
-    Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const elDate = param[1];
-      const elTime = param[2];
-      const elCourse = param[3];
-      log(elDate, fulldate, elTime, time, elCourse, sign);
-      log(elDate == fulldate, elTime == time, elCourse == sign);
-      if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
-    });
-    log("target", target);
-    if (target) target.click();
+    }, 2000);
   }
   function funcExec() {
     log("funcExec");
