@@ -66,14 +66,15 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
-    const tag = localStorage.getItem("TZ_LOGOUT");
+    const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
       return;
     }
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
+      log(data);
       setTimeout(funcSearch, 1000);
     });
   }
@@ -107,7 +108,7 @@ javascript: (() => {
     };
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
-      console.log(data);
+      log(data);
       LOGOUT();
       funcEnd();
     });
