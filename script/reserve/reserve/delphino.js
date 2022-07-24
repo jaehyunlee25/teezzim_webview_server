@@ -100,7 +100,7 @@ javascript: (() => {
     const els = document.getElementsByClassName("reserve");
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen()[0];
+      const param = el.getAttribute("onclick").inparen();
       const elDate = param[0];
       const elTime = param[2];
       const elCourse = param[1];
