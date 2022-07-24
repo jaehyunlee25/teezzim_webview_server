@@ -15,12 +15,21 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
     "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
   else func();
 
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcOut() {
     log("funcOut");
     return;
@@ -54,16 +63,14 @@ javascript: (() => {
   }
   function funcSearch() {
     log("funcSearch");
-    const els = document.getElementsByClassName("cm_confirm_list_list")[0].getElementsByTagName("tr");
+    const els = document.gcn("cm_btn default cm_btn_space01");
     const result = [];
     const dictCourse = {
-      1: "마운틴",
-      2: "오아시스",
-      3: "와일드",
+      1: "단일",
     };
-    Array.from(els).forEach((el, i) => {
+    els.forEach((el, i) => {
       if(i == 0) return;
-      const param = el.children[5].children[0].getAttribute("href").inparen();
+      const param = el.attr("onclick").inparen();
       const date = param[2];
       const time = param[3];
       const course = param[4];
