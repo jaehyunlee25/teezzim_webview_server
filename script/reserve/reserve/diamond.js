@@ -101,9 +101,9 @@ javascript: (() => {
       let target;
       Array.from(els).forEach((el) => {
         const param = el.getAttribute("href").inparen();
-        const elDate = param[1];
-        const elTime = param[2];
-        const elCourse = param[3];
+        const elDate = param[0];
+        const elTime = param[1];
+        const elCourse = param[2];
         log(elDate, fulldate, elTime, time, elCourse, sign);
         log(elDate == fulldate, elTime == time, elCourse == sign);
         if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
