@@ -39,7 +39,8 @@ javascript: (() => {
   else func();
 
   function funcList() {
-    log("funcOut");
+    log("funcList");
+    LOGOUT();
     return;
   }
   function funcOut() {

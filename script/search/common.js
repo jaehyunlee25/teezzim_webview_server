@@ -181,6 +181,9 @@ HTMLElement.prototype.gtn = function (str) {
   const els = this.getElementsByTagName(str);
   return Array.from(els);
 };
+HTMLElement.prototype.str = function (str) {
+  return this.innerHTML;
+};
 document.gcn = function (str) {
   const els = this.getElementsByClassName(str);
   return Array.from(els);
