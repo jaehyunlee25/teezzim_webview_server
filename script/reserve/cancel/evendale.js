@@ -87,13 +87,14 @@ javascript: (() => {
 
     const els = document.gcn("tbl02")[0].gtn("a");
     log("els", els, els.length);
-    
+
     const dictCourse = {
       11: "Even",
       22: "Dale",
     };
     let target;
     Array.from(els).every((el) => {
+      log(el.str());
       if(el.str() == "변경") return;
 
       const param = el.attr("href").inparen();
