@@ -82,8 +82,9 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
 
-    const els = document.gcn("cm_time_list_tbl")[0].gtn("tbody")[0].gtn("tr");
+    const els = document.gcn("cm_time_list_tbl");
     log("els", els, els.length);
+    return;
 
     const result = [];
     const dictCourse = {
