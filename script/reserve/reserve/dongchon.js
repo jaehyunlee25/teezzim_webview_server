@@ -124,7 +124,7 @@ javascript: (() => {
       const elCourse = el.getAttribute("data-course");
       log(elDate, fulldate, elTime, time, elCourse, sign);
       log(elDate == fulldate, elTime == time, elCourse == sign);
-      if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
+      if (elDate == fulldate && elTime == time && elCourse == sign) target = el.children[0];
     });
     log("target", target);
     if (target) {
