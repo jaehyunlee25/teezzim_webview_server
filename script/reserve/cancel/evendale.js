@@ -98,6 +98,7 @@ javascript: (() => {
       if(el.str() == "변경") return;
 
       const param = el.attr("href").inparen();
+      log("param", param);
 
       const elDate = param[0].rm("-");
       const elTime = param[1];
