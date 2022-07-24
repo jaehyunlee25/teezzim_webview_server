@@ -89,7 +89,7 @@ javascript: (() => {
       2: "Park",
     };
     Array.from(els).forEach((el) => {
-      const param = el.attr("onclick").inparen();
+      const param = el.getAttribute("onclick").inparen();
 
       const date = param[0];
       const time = param[4];
