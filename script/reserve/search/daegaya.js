@@ -78,10 +78,10 @@ javascript: (() => {
     log("funcReserve");
 
     const els = document.getElementsByClassName("col_d");
-    const result = [];
     const dictCourse = {
       11: "단일",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("href").inparen();
       const elDate = param[0];
