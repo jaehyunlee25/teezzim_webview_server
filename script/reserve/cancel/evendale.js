@@ -94,8 +94,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).every((el) => {
-      log(el.str());
-      if(el.str() == "변경") return;
+      if(el.str() == "변경") return true;
 
       const param = el.attr("href").inparen();
       log("param", param);
