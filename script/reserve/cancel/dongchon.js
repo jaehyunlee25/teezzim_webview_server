@@ -109,7 +109,7 @@ javascript: (() => {
       setTimeout(() => {
         BTN592.getElementsByClassName("confirm")[0].click();
         setTimeout(LOGOUT, 1000);
-      }, 500);
+      }, 1000);
     } else {
       LOGOUT()
     }
