@@ -84,11 +84,11 @@ javascript: (() => {
     log("funcReserve");
 
     const els = document.gcn("default_2")[0].gtn("a");
-    const result = [];
     const dictCourse = {
       1: "동",
       2: "서",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
       const param = el.attr("href").inparen();
       const opt = param[0];

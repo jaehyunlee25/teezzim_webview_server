@@ -19,8 +19,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.cypress.co.kr/": funcMain,
-    "https://www.cypress.co.kr/member/logout": funcOut,
+    "http://www.ferrumclub.com/m/": funcMain,
+    "http://www.ferrumclub.com/m/lounge/logout.asp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -59,8 +59,10 @@ javascript: (() => {
   }
   function funcLogin() {
     log("funcLogin");
-    
-    if(suffix == "returnMsg=M") localStorage.removeItem("TZ_LOGIN");
+
+    if(!window["login_id"]) {
+      location.href = "${reserveUrl}";
+    }
 
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
@@ -85,23 +87,20 @@ javascript: (() => {
   function funcCancel() {
     log("funcReserve");
 
-    const els = resHisListDiv.getElementsByTagName("li");
+    const els = document.gcn("default_2")[0].gtn("a");
     const dictCourse = {
-      1: "West",
-      2: "North",
-      3: "East",
-      4: "South",
+      1: "동",
+      2: "서",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      const param = el
-        .getElementsByTagName("button")[1]
-        .getAttribute("onclick")
-        .inparen();
+    Array.from(els).every((el) => {
+      const param = el.attr("href").inparen();
+      const opt = param[0];
+      if(opt == "chg") return true;
 
-      const elDate = param[0];
-      const elTime = param[4];
-      const elCourse = param[1];
+      const elDate = param[2];
+      const elTime = param[3];
+      const elCourse = param[4];
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -109,13 +108,15 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.getElementsByTagName("button")[1];
+        target = el;
     });
 
     log("target", target);
     if (target) {
       target.click();
       setTimeout(LOGOUT, 500);
+    } else {
+      LOGOUT();
     }
   }
   function funcEnd() {
@@ -127,6 +128,6 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "/member/logout";
+    location.href = "/m/lounge/logout.asp";
   }
 })();
