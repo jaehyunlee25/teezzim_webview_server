@@ -107,7 +107,10 @@ javascript: (() => {
     if (target) {
       target.click();
       setTimeout(() => {
-        BTN592.getElementsByClassName("confirm")[0].click();
+        document
+          .getElementsByClassName("popup-btn")[0]
+          .getElementsByClassName("confirm")[0]
+          .click();
         setTimeout(LOGOUT, 1000);
       }, 1000);
     } else {
