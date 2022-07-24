@@ -13,8 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.daegayacc.com/Mobile/Default.aspx": funcMain,
-    "https://www.cypress.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.diamondcc.co.kr/Mobile/": funcMain,
+    "https://www.diamondcc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -77,12 +77,14 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.getElementsByClassName("col_d");
+    const els = document.getElementsByClassName("smallBtn");
     const dictCourse = {
-      11: "단일",
+      11: "North",
+      22: "South",
     };
     const result = [];
     Array.from(els).forEach((el) => {
+      if(el.innerText == "변경") return;
       const param = el.getAttribute("href").inparen();
       const elDate = param[0];
       const elTime = param[1];
