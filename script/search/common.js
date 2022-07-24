@@ -170,3 +170,26 @@ HTMLElement.prototype.add = function (tag) {
   this.appendChild(el);
   return el;
 };
+HTMLElement.prototype.attr = function (str) {
+  return this.getAttribute(str);
+};
+HTMLElement.prototype.gcn = function (str) {
+  const els = this.getElementsByClassName(str);
+  return Array.from(els);
+};
+HTMLElement.prototype.gtn = function (str) {
+  const els = this.getElementsByTagName(str);
+  return Array.from(els);
+};
+document.gcn = function (str) {
+  const els = this.getElementsByClassName(str);
+  return Array.from(els);
+};
+document.gtn = function (str) {
+  const els = this.getElementsByTagName(str);
+  return Array.from(els);
+};
+window.timer = function (time, callback) {
+  setTimeout(callback, time);
+};
+console.clear();

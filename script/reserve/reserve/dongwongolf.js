@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/reserve",
@@ -9,9 +9,8 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("?")[0];
-  log("raw addr :: ", location.href);
-  log("addr :: ", addr);
+  const addr = location.href.split("#")[0];
+  const suffix = location.href.split("#")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -20,21 +19,32 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.clubmow.com/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
-    "http://www.clubmow.com/_mobile/login/logout.asp": funcOut,
-    "http://www.clubmow.com/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
+    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
+    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://dongwongolf.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp":
+      funcEnd,
   };
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
-    마운틴: "1",
-    오아시스: "2",
-    와일드: "3",
+    단일: "1",
   };
   const fulldate = [year, month, date].join("");
-  
+
   if (!func) funcOther();
   else func();
 
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcOut() {
     log("funcOut");
     return;
@@ -48,15 +58,40 @@ javascript: (() => {
     location.href = "${searchUrl}";
   }
   function funcLogin() {
+    log("funcLogin");
+
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
 
+    if (!suffix) return;
+
+    const suffixParam = (() => {
+      const result = {};
+      suffix.split("&").forEach((item) => {
+        const dv = item.split("=");
+        result[dv[0]] = dv[1];
+      });
+      return result;
+    })();
+
+    log("settype", suffixParam["settype"]);
+    if (suffixParam["settype"] == "") {
+      log("calendar");
+      funcDate();
+    } else if (suffixParam["settype"] == "T") {
+      log("time");
+      funcTime();
+    } else {
+      return;
+    }
+  }
+  function funcDate() {
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -66,28 +101,35 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       let sign = fulldate.daySign();
-      if(sign == "0" || sign == "6") sign = "2";
-      else sign = "1";
-      timefrom_change(fulldate, sign, fulldate.dayNum(), '', '00', 'T');
-      setTimeout(funcTime, 2000);
+      if (sign != 1) sign = 2;
+      timefrom_change(fulldate, sign, fulldate.dayNum(), "", "00", "T");
     });
   }
-
   function funcTime() {
     log("funcTime");
-    log("timeresbtn_" + dictCourse[course] + "_" + time);
-    const target = window["timeresbtn_" + dictCourse[course] + "_" + time];
+    const els = document.gcn("pointer");
+    let target;
+    els.every((el) => {
+      const param = el.attr("onclick").inparen();
+      const elTime = param[2];
+      log(elTime, time);
+      log(elTime == time);
+      if (elTime == time) target = el;
+
+      return !target;
+    });
+
     log("target", target);
     if (target) {
       target.click();
-      funcExec();
+      timer(1000, funcExec);
     } else {
       funcEnd();
     }
   }
   function funcExec() {
     log("funcExec");
-    document.getElementsByClassName("cm_ok")[0].children[0].click();
+    document.gcn("cm_btn default")[0].click();
     setTimeout(funcEnd, 1000);
   }
   function funcEnd() {

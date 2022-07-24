@@ -20,7 +20,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://castlepine.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://www.clubmow.com/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();

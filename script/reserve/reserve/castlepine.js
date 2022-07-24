@@ -9,7 +9,7 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
-  log("raw addr :: ", location.href);
+  
   const addr = location.href.split("#")[0];
   const suffix = location.href.split("#")[1];
   const year = "${year}";
@@ -22,13 +22,17 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://castlepine.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
   };
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
     Valley: "2",
     Lake: "1",
   };
   const fulldate = [year, month, date].join("");
-  log(addr);
+  
   if (!func) funcMain();
   else func();
 
