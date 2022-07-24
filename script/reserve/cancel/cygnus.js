@@ -46,7 +46,7 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.getElementsByClassName("btn btn-sm btn-gray");
+    const els = document.getElementsByClassName("res_bts");
     const dictCourse = {
       12: "실크",
       21: "라미",
@@ -69,10 +69,10 @@ javascript: (() => {
       )
         target = el;
     });
-    log(target);
+    log("target", target);
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
+      setTimeout(funcEnd, 500);
     } else {
       funcEnd();
     }
