@@ -98,8 +98,8 @@ javascript: (() => {
     let target;
     Array.from(els).every((el) => {
       const param = el.getAttribute("href").inparen();
-      const elCourse = param[1];
-      const elTime = param[2];
+      const elCourse = param[2];
+      const elTime = param[1];
       log(elCourse == dictCourse[course], elTime == time);
       log(elCourse, dictCourse[course], elTime, time);
       if (dictCourse[course] == elCourse && time == elTime) target = el;
