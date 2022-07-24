@@ -88,9 +88,8 @@ javascript: (() => {
       const elCourse = param[4];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
-      log(elDate, fulldate,
-        dictCourse[elCourse], course,
-        elTime, time);
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
+      log(elDate == fulldate, dictCourse[elCourse] == course, elTime == time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
