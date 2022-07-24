@@ -90,7 +90,6 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       location.href =
         "/Mobile/Reservation/Reservation.aspx?SelectedDate=" + fulldate;
-      setTimeout(funcTime, 500);
     });
   }
   function funcTime() {
