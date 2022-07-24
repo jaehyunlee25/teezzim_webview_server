@@ -10,6 +10,7 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  const suffix = location.href.split("?")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
