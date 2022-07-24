@@ -70,7 +70,6 @@ javascript: (() => {
       1: "단일",
     };
     els.forEach((el, i) => {
-      if(i == 0) return;
       const param = el.attr("onclick").inparen();
       const date = param[2];
       const time = param[3];
@@ -79,7 +78,10 @@ javascript: (() => {
       result.push({ date, time, course: dictCourse[course] });
     });
     
-    if(result.length == 0) LOGOUT();
+    if(result.length == 0) {
+      LOGOUT();
+      return;
+    }
     const param = {
       golf_club_id: "${golfClubId}",
       device_id: "${deviceId}",
