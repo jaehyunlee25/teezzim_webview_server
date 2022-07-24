@@ -71,7 +71,7 @@ javascript: (() => {
       2: "미륵",
     };
     els.forEach((el, i) => {
-      const param = el.children[0].attr("onclick").inparen();
+      const param = el.children[0].attr("href").inparen();
       const date = param[2];
       const time = param[3];
       const course = param[4];
