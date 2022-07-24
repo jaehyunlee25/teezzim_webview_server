@@ -25,14 +25,17 @@ javascript: (() => {
       funcEnd();
       return;
     }
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
@@ -57,7 +60,7 @@ javascript: (() => {
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.attr("href").inparen();
       const date = param[0];
       const time = param[1];
       const course = param[2];
