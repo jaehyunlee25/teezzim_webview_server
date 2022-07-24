@@ -124,7 +124,9 @@ javascript: (() => {
     }
   }
   function funcExec() {
+    log("funcExec");
     showConfirm();
+    okConfirm();
   }
   function funcEnd() {
     log("funcEnd");
