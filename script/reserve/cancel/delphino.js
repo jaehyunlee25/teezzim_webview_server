@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/cancel",
@@ -67,7 +67,7 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
