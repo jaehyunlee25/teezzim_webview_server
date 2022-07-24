@@ -19,9 +19,9 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://dongwonroyalcc.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwonroyalcc.co.kr/_mobile/login/logout.asp": funcOut,
-    "https://dongwonroyalcc.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp":
+    "https://www.dongwonroyalcc.co.kr/_mobile/index.asp": funcMain,
+    "https://www.dongwonroyalcc.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.dongwonroyalcc.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp":
       funcEnd,
   };
 
