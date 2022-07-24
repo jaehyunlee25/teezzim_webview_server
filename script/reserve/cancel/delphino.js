@@ -1,5 +1,5 @@
 javascript: (() => {
-  ${commonScript}
+  //${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/cancel",
@@ -18,10 +18,11 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.daegayacc.com/Mobile/Default.aspx": funcMain,
-    "https://www.cypress.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.sonofelicecc.com/m.rsv.mainCal.dp/dmparse.dm": funcMain,
+    "https://www.sonofelicecc.com/m.logout.dp/dmparse.dm": funcOut,
+    "https://www.sonofelicecc.com/m.rsv.mGolfRsvModi.dp/dmparse.dm": funcExec,
   };
-  
+
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
 
@@ -31,6 +32,7 @@ javascript: (() => {
 
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
   }
   function funcMain() {
@@ -56,12 +58,16 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
-    
+    log("funcLogin");
+
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    ${loginScript}
+    //${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
@@ -81,16 +87,17 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.getElementsByClassName("col_d");
+    const els = document.getElementsByClassName("rsv-item");
     const dictCourse = {
-      11: "단일",
+      A: "OUT",
+      B: "IN",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const elDate = param[0];
-      const elTime = param[1];
-      const elCourse = param[2];
+      const param = el.getAttribute("onclick").inparen();
+      const elDate = param[1];
+      const elTime = param[2];
+      const elCourse = param[3];
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -105,10 +112,17 @@ javascript: (() => {
     });
     if (target) {
       target.click();
-      setTimeout(LOGOUT, 500);
     } else {
       funcEnd();
     }
+  }
+  function funcExec() {
+    cancelBtn.children[0].click();
+    cancelType.value = "01";
+    document
+      .getElementsByClassName("step-five")[0]
+      .getElementsByTagName("a")[0]
+      .click();
   }
   function funcEnd() {
     log("funcEnd");
@@ -120,6 +134,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut.aspx";
+    logout();
   }
 })();
