@@ -83,6 +83,8 @@ javascript: (() => {
     log("funcReserve");
 
     const els = document.gcn("btn demo1 primary02");
+    log("els", els, els.length);
+
     const result = [];
     const dictCourse = {
       1: "Mountain",
@@ -102,6 +104,8 @@ javascript: (() => {
       device_id: "${deviceId}",
       result,
     };
+
+    if(result.length == 0) LOGOUT();
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       log(data);
