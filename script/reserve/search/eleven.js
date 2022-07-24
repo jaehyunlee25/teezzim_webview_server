@@ -76,7 +76,7 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      setTimeout(funcSearch, 1000);
+      setTimeout(funcSearch, 2000);
     });
   }
   function funcSearch() {
