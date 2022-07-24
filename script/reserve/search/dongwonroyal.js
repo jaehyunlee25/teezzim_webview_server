@@ -67,7 +67,8 @@ javascript: (() => {
     log("els", els, els.length);
     const result = [];
     const dictCourse = {
-      1: "단일",
+      1: "Vista",
+      2: "Duke",
     };
     els.forEach((el, i) => {
       const param = el.attr("onclick").inparen();

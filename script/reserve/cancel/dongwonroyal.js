@@ -76,7 +76,8 @@ javascript: (() => {
     log("funcCancel");
     const els = document.gcn("cm_btn default cm_btn_space01");
     const dictCourse = {
-      1: "단일",
+      1: "Vista",
+      2: "Duke",
     };
     let target;
     els.every((el, i) => {
