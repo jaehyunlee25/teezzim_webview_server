@@ -13,8 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.daegayacc.com/Mobile/Default.aspx": funcMain,
-    "https://www.cypress.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.sonofelicecc.com/m.rsv.mainCal.dp/dmparse.dm": funcMain,
+    "https://www.sonofelicecc.com/m.logout.dp/dmparse.dm": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -26,6 +26,7 @@ javascript: (() => {
 
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
   }
   function funcMain() {
@@ -77,16 +78,17 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.getElementsByClassName("col_d");
+    const els = document.getElementsByClassName("rsv-item");
     const dictCourse = {
-      11: "단일",
+      A: "OUT",
+      B: "IN",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const elDate = param[0];
-      const elTime = param[1];
-      const elCourse = param[2];
+      const param = el.getAttribute("onclick").inparen();
+      const elDate = param[1];
+      const elTime = param[2];
+      const elCourse = param[3];
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
