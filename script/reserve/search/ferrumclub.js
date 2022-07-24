@@ -56,7 +56,7 @@ javascript: (() => {
     log("funcLogin");
 
     if(!window["login_id"]) {
-      location.href = "${searchUrl}";
+      location.href = "${reserveUrl}";
     }
 
     const tag = localStorage.getItem("TZ_LOGIN");
