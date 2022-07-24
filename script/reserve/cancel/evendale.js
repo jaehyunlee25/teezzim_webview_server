@@ -83,9 +83,11 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    log("funcReserve");
+    log("funcCancel");
 
     const els = document.gcn("tbl02")[0].gtn("a");
+    log("els", els, els.length);
+    
     const dictCourse = {
       11: "Even",
       22: "Dale",
