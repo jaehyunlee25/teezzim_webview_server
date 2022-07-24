@@ -14,8 +14,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.cypress.co.kr/": funcMain,
-    "https://www.cypress.co.kr/member/logout": funcOut,
+    "https://www.elevencc.co.kr/": funcMain,
+    "https://www.elevencc.co.kr/member/logout": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -28,6 +28,7 @@ javascript: (() => {
 
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
   }
   function funcMain() {
@@ -81,19 +82,14 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = resHisListDiv.getElementsByTagName("li");
+    const els = document.gcn("btn demo1 primary02");
     const result = [];
     const dictCourse = {
-      1: "West",
-      2: "North",
-      3: "East",
-      4: "South",
+      1: "Mountain",
+      2: "Park",
     };
     Array.from(els).forEach((el) => {
-      const param = el
-        .getElementsByTagName("button")[1]
-        .getAttribute("onclick")
-        .inparen();
+      const param = el.attr("onclick").inparen();
 
       const date = param[0];
       const time = param[4];
