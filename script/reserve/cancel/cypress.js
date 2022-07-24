@@ -18,56 +18,114 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.cypress.co.kr/": funcMain,
+    "https://www.cypress.co.kr/member/logout": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+
+  if (!func) funcOther();
   else func();
+
+  function funcOut() {
+    log("funcOut");
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_OTHER");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+    
+    if(suffix == "returnMsg=M") localStorage.removeItem("TZ_LOGIN");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       setTimeout(funcCancel, 1000);
     });
   }
   function funcCancel() {
+    log("funcReserve");
+
     const els = resHisListDiv.getElementsByTagName("li");
     const dictCourse = {
-      ALPS: "ALPS",
-      ASIA: "ASIA",
+      1: "West",
+      2: "North",
+      3: "East",
+      4: "South",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const button = el.getElementsByTagName("button")[2];
-      const param = button.getAttribute("onclick").inparen();
-      if (param[0] != "J51") return;
+      const param = el
+        .getElementsByTagName("button")[1]
+        .getAttribute("onclick")
+        .inparen();
 
       const elDate = param[1];
       const elTime = param[5];
       const elCourse = param[3];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = button;
+        target = el.getElementsByTagName("button")[1];
     });
+
+    log("target", target);
     if (target) {
       target.click();
-      logParam.message = "end of reserve/cancel";
-      TZLOG(logParam, (data) => {
-        const ac = window.AndroidController;
-        if (ac) ac.message("end of reserve/cancel");
-        location.href = "/member/logout";
-      });
+      setTimeout(LOGOUT, 500);
     }
-    /* 3초 후엔 무조건 닫는다 */
-    setTimeout(() => {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/cancel");
-      doLogout();
-    }, 3000);
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/search";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    location.href = "/member/logout";
   }
 })();
