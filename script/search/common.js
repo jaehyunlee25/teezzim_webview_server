@@ -165,3 +165,8 @@ String.prototype.regex = function (regex) {
 HTMLElement.prototype.str = function () {
   return this.innerText;
 };
+HTMLElement.prototype.add = function (tag) {
+  const el = document.createElement(tag);
+  this.appendChild(el);
+  return el;
+};
