@@ -99,9 +99,9 @@ javascript: (() => {
         .getAttribute("onclick")
         .inparen();
 
-      const elDate = param[1];
-      const elTime = param[5];
-      const elCourse = param[3];
+      const elDate = param[0];
+      const elTime = param[4];
+      const elCourse = param[1];
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
