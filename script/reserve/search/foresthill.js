@@ -10,94 +10,63 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
-  const suffix = location.href.split("?")[1];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://www.ferrumclub.com/m/": funcMain,
-    "http://www.ferrumclub.com/m/lounge/logout.asp": funcOut,
+    "https://m.foresthill.kr/index.asp": funcMain,
+    "https://m.foresthill.kr/logout.asp": funcOut,
   };
-
-  log("raw addr :: ", location.href);
-  log("addr :: ", addr);
-
-  const func = dict[addr];  
-
-  if (!func) funcOther();
+  const func = dict[addr];
+  if (!func) location.href = "${reserveUrl}";
   else func();
 
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
   }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
   }
-  function funcOther() {
-    log("funcOther");
-    const tag = localStorage.getItem("TZ_OTHER");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
-    localStorage.setItem("TZ_OTHER", new Date().getTime());
-
-    location.href = "${reserveUrl}";
-  }
   function funcLogin() {
-    log("funcLogin");
-
-    if(!window["login_id"]) {
-      location.href = "${reserveUrl}";
-    }
-
-    const tag = localStorage.getItem("TZ_LOGIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
   }
   function funcReserve() {
-    log("funcReserve");
-
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
       log(data);
-      setTimeout(funcSearch, 1000);
+      funcSearch();
     });
   }
   function funcSearch() {
-    log("funcReserve");
-
-    const els = document.gcn("default_2")[0].gtn("a");
-    const dictCourse = {
-      1: "동",
-      2: "서",
-    };
+    const els = document.gcn("btn btn-sm btn-gray");
     const result = [];
+    const dictCourse = {
+      1: "Rock",
+      2: "Hill",
+      3: "Forest",
+    };
     Array.from(els).forEach((el) => {
-      const param = el.attr("href").inparen();
-      const opt = param[0];
-      if(opt == "chg") return;
-
-      const date = param[2];
+      const param = el.attr("onclick").inparen();
+      const date = param[1];
       const time = param[3];
-      const course = param[4];
-      console.log("reserve search", course, dictCourse[course], date, time);
+      const course = param[2];
+      console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
     const param = {
@@ -107,13 +76,11 @@ javascript: (() => {
     };
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
-      log(data);
+      console.log(data);
       LOGOUT();
-      funcEnd();
     });
   }
   function funcEnd() {
-    log("funcEnd");
     const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
@@ -121,6 +88,6 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "/m/lounge/logout.asp";
+    location.href = "logout.asp";
   }
 })();

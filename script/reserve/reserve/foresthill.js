@@ -8,7 +8,7 @@ javascript: (() => {
     golf_club_id: "${golfClubId}",
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
-  };
+  };  
   const addr = location.href.split("?")[0];
   const year = "${year}";
   const month = "${month}";
@@ -18,22 +18,22 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.ferrumclub.com/m/": funcMain,
-    "http://www.ferrumclub.com/m/reservation/check.asp": funcList,
-    "http://www.ferrumclub.com/m/lounge/logout.asp": funcOut,
+    "https://m.foresthill.kr/index.asp": funcMain,
+    "https://m.foresthill.kr/logout.asp": funcOut,
+    "https://m.foresthill.kr/reservation_confirm.asp": funcList,
+    "https://m.foresthill.kr/reservation_02_re.asp": funcTime,
   };
-
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
-
   const func = dict[addr];
   const dictCourse = {
-    동: "1",
-    서: "2",
+    Rock: "1",
+    Hill: "2",
+    Forest: "3",
   };
-
   const fulldate = [year, month, date].join("");
-  if (!func) funcOther();
+  log(addr);
+  if (!func) funcMain();
   else func();
 
   function funcList() {
@@ -49,22 +49,8 @@ javascript: (() => {
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
-
-    location.href = "${searchUrl}";
-  }
-  function funcOther() {
-    log("funcOther");
-    const tag = localStorage.getItem("TZ_OTHER");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
-    localStorage.setItem("TZ_OTHER", new Date().getTime());
 
     location.href = "${searchUrl}";
   }
@@ -78,7 +64,6 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -86,25 +71,14 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    TZLOG(logParam, (data) => {});
-    let sign = fulldate.daySign();
-    if(sign != "1") sign = "2";
-    timefrom_change(fulldate, sign, fulldate.dayNum(), '', '00', 'T');
-    setTimeout(funcTime, 1000);
+    TZLOG(logParam, (data) => {      
+      Date_Click(year, month, date);
+    });
   }
   function funcTime() {
     log("funcTime");
-
-    log("timeresbtn_" + dictCourse[course] + "_" + time);
-    const target = window["timeresbtn_" + dictCourse[course] + "_" + time];
-
-    log("target", target);
-    if (target) {
-      target.click();
-      timer(500, () => { subcmd1('R') });
-    } else {
-      LOGOUT();
-    }
+    const sign = dictCourse[course];
+    goSend(frmSend, fulldate, sign, 'Rock', time);
   }
   function funcEnd() {
     log("funcEnd");
@@ -116,6 +90,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/m/lounge/logout.asp";
+    location.href = "logout.asp";
   }
 })();
