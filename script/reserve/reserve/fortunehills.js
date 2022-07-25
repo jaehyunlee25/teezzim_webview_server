@@ -108,7 +108,7 @@ javascript: (() => {
 
       log(elDate == fd, elCourse == sign, elTime == time);
       log(elDate, fd, elCourse, sign, elTime, time);
-      if (elDate == fd && elCourse == sign && elTime == time) target = el;
+      if (elDate == fd && elCourse == sign && elTime == time) target = el.children[0];
 
       return !target;
     });
