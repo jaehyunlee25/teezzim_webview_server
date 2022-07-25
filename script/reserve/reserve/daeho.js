@@ -122,7 +122,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-    document.gcn("cm_ok")[0].click();
+    document.gcn("cm_ok")[0].children[0].click();
   }
   function funcEnd() {
     log("funcEnd");
