@@ -21,7 +21,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://charmvalley.cc/mobile/reservation/reservation2.asp": LOGOUT,
+    "https://charmvalley.cc/mobile/reservation/reservation2.asp": funcList,
     "http://m.chinyangvalley.co.kr/info/reservation.asp": funcExec,
   };
 
@@ -38,16 +38,10 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
-  function funcMain() {
-    log("funcMain");
-    const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
-
-    location.href = "${searchUrl}";
+  function funcList() {
+    log("funcList");
+    funcEnd();
+    LOGOUT();
   }
   function funcOther() {
     log("funcOther");
