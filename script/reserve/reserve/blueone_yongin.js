@@ -118,7 +118,7 @@ javascript: (() => {
       log("target", target);
       if(target) {
         target.click();
-        setTimeout(funcTime, 500);
+        setTimeout(funcTime, 2000);
       }
     }
   }
@@ -132,14 +132,15 @@ javascript: (() => {
     const sign = dictCourse[course];
     const els = document.gcn("golf_time")[0].gtn("a");
     log("els", els, els.length);
+
     let target;
     Array.from(els).forEach((el) => {
-      const elDate = el.attr("data-date");
       const elTime = el.attr("data-time").rm(":");
       const elCourse = el.attr("data-cose");
-      log(elDate, fulldate, elTime, time, elCourse, sign);
-      log(elDate == fulldate, elTime == time, elCourse == sign);
-      if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
+
+      log(elTime, time, elCourse, sign);
+      log(elTime == time, elCourse == sign);
+      if (elTime == time && elCourse == sign) target = el;
     });
     log("target", target);
     if (target) {
