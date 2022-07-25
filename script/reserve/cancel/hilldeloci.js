@@ -19,8 +19,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.cypress.co.kr/": funcMain,
-    "https://www.cypress.co.kr/member/logout": funcOut,
+    "https://www.skyvalley.co.kr/hilldeloci/main": funcMain,
+    "https://www.skyvalley.co.kr/member/logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -87,21 +87,18 @@ javascript: (() => {
 
     const els = resHisListDiv.getElementsByTagName("li");
     const dictCourse = {
-      1: "West",
-      2: "North",
-      3: "East",
-      4: "South",
+      1: "Birch",
+      2: "Pine",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      const param = el
-        .getElementsByTagName("button")[1]
-        .getAttribute("onclick")
-        .inparen();
+    Array.from(els).every((el) => {
+      const param = el.gtn("button")[1].attr("onclick").inparen();
+      const elCompany = param[0];
+      if(elCompany != "J36") return true;
 
-      const elDate = param[0];
-      const elTime = param[4];
-      const elCourse = param[1];
+      const elDate = param[1];
+      const elTime = param[5];
+      const elCourse = param[2];
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -109,13 +106,16 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.getElementsByTagName("button")[1];
+        target = el.gtn("button")[1];
+
+       return !target; 
     });
 
     log("target", target);
     if (target) {
       target.click();
-      setTimeout(LOGOUT, 500);
+    } else {
+      LOGOUT();
     }
   }
   function funcEnd() {
