@@ -86,7 +86,7 @@ javascript: (() => {
       const param = el.attr("onclick").inparen();
       const elDate = param[1];
       const elTime = param[2];
-      console.log("reserve search", dictCourse[elCourse], elDate, elTime);
+      console.log("reserve search", elDate, elTime);
       result.push({ date: elDate, time: elTime, course: "East" });
     });
     const param = {
