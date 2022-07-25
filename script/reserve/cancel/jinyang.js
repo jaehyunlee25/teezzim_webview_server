@@ -9,7 +9,12 @@ javascript: (() => {
     message: "start reserve/cancel",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("?")[0];
+  
+  let addr = location.href.split("?")[0];
+  if(addr.indexOf("#") != -1) addr = addr.split("#")[0];
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -18,19 +23,14 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.fortunehills.co.kr/Mobile/": funcMain,
-    "https://www.fortunehills.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "http://m.chinyangvalley.co.kr/index.asp": funcMain,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
-  function funcOut() {
-    log("funcOut");
-    funcEnd();
-    return;
-  }
   function funcMain() {
+    log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -40,8 +40,16 @@ javascript: (() => {
 
     location.href = "${reserveUrl}";
   }
-  function funcLogin() {
-    
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcLogin() {   
+    log("funcLogin"); 
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -49,57 +57,62 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      LOGOUT();
+      funcEnd();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
       log(data);
-      funcCancel();
+      setTimeout(funcCancel, 1000);
     });
   }
   function funcCancel() {
-    const els = document.gcn("bt_reserved_off");
+    log("funcCancel");
+    const els = window["tbody-reservation"].gtn("tr");
     const dictCourse = {
-      11: "가든",
-      22: "팰리스",
-      33: "캐슬",
+      힐: "Hill",
+      크리크: "Creek",
+      밸리: "Valley",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      if(el.children[0].str() == "동반자") return;
-      const param = el.children[0].attr("href").inparen();
-      const elDate = param[0];
-      const elTime = param[1];
-      const elCourse = param[2];
+    els.every((el, i) => {
+      const param = el.children;
+      const elDate = param[0].innerText.rm(".");
+      const elTime = param[1].innerText.rm(":");
+      const elCourse = param[2].innerText;
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
+      log(elDate, fulldate,
+        dictCourse[elCourse], course,
+        elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.children[0];
+        target = el;
+
+      return !target;  
     });
+    log("target", target);
     if (target) {
       target.click();
     } else {
-      funcEnd();
+      LOGOUT();
     }
   }
   function funcEnd() {
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
-    TZLOG(logParam, (data) => {
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);      
-    });
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "/Mobile/Member/LogOut.aspx";
+    doLogout();
   }
 })();
