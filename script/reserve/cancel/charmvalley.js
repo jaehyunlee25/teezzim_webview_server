@@ -80,7 +80,7 @@ javascript: (() => {
     let target;
     els.every((el, i) => {
       const param = el.children;
-      const elDate = "20" + param[0].innerText.rm(".");
+      const elDate = "20" + param[0].innerText.rm("/");
       const elTime = param[1].innerText.rm(":");
       const elCourse = param[2].innerText;
 
