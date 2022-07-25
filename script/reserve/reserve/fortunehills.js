@@ -79,7 +79,8 @@ javascript: (() => {
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
-    let target;
+    Reserve('',fulldate, '');
+    /* let target;
     document.gcn("Tablersv")[0].gtn("a").every(el => {
       const href = el.attr("href");
       if(href == "#") return true;
@@ -91,7 +92,7 @@ javascript: (() => {
     });
 
     log("target", target);
-    if(target) target.click();
+    if(target) target.click(); */
   }
   function funcTime() {
     log("funcTime");
