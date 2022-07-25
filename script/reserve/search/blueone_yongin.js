@@ -13,8 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.dongchongc.co.kr:442/Mobile": funcMain,
-    "https://www.dongchongc.co.kr:442/Mobile/Mobile/Member/Logout": funcOut,
+    /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
+    "https://market.blueone.com/shop/common/file/logout.jsp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -77,19 +77,17 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.getElementsByClassName("colBlue");
+    const els = document.getElementsByClassName("bline_btn");
     const dictCourse = {
-      11: "EAST",
-      22: "WEST",
+      동코스: "East",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
+      const param = el.attr("onclick").inparen();
+      const elDate = param[1];
       const elTime = param[2];
-      const elCourse = param[1];
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
-      result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
+      result.push({ date: elDate, time: elTime, course: "East" });
     });
     const param = {
       golf_club_id: "${golfClubId}",
