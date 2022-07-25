@@ -69,7 +69,7 @@ javascript: (() => {
     const result = [];
     els.forEach((el, i) => {
       const param = el.children;
-      const date = param[0].str().rm("/");
+      const date = "20" + param[0].str().rm("/");
       const time = param[1].str().rm(":");
       const course = param[2].str();
       console.log("reserve search", dictCourse[course], date, time);

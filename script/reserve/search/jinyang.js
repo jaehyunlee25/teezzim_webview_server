@@ -70,7 +70,7 @@ javascript: (() => {
     const result = [];
     els.forEach((el, i) => {
       const param = el.children;
-      const date = param[0].innerText.rm(".");
+      const date = "20" + param[0].innerText.rm(".");
       const time = param[1].innerText.rm(":");
       const course = param[2].innerText;
       console.log("reserve search", dictCourse[course], date, time);

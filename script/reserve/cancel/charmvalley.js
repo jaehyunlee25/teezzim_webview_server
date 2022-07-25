@@ -23,7 +23,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://m.chinyangvalley.co.kr/index.asp": funcMain,
+    "https://charmvalley.cc/mobile/index.asp": funcMain,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -74,8 +74,7 @@ javascript: (() => {
     log("funcCancel");
     const els = window["tbody-reservation"].gtn("tr");
     const dictCourse = {
-      힐: "Hill",
-      크리크: "Creek",
+      퀸스: "Queens",
       밸리: "Valley",
     };
     let target;
