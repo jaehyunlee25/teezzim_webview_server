@@ -17,8 +17,9 @@ javascript: (() => {
   const course = "${course}";
   const time = "${time}";
   const dict = {
-    "${loginUrl}": funcLogin,
-    "${searchUrl}": funcReserve,
+    /* "${loginUrl}": funcLogin, */
+    "https://www.blueone.com/member/login.jsp": funcLogin,
+    /* "${searchUrl}": funcReserve, */
     "https://market.blueone.com/shop/golf/step1.jsp": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
     "https://market.blueone.com/shop/golf/list_reserve.jsp":
