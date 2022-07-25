@@ -66,6 +66,7 @@ javascript: (() => {
     };
     const result = [];
     Array.from(els).forEach((el) => {
+      if(el.children[0].str() == "동반자") return;
       const param = el.children[0].attr("href").inparen();
       const date = param[0];
       const time = param[1];
