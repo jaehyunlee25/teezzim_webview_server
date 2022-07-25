@@ -18,16 +18,22 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dyhills.basecc.co.kr:6443/Mobile/Main/Main.aspx": funcMain,
+    "https://www.fortunehills.co.kr/Mobile/": funcMain,
+    "https://www.fortunehills.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
 
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
   function funcMain() {
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
@@ -45,7 +51,10 @@ javascript: (() => {
   function funcReserve() {
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
+      return;
+    }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
@@ -54,15 +63,16 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.gcn("cancelBtn");
+    const els = document.gcn("bt_reserved_off");
     const dictCourse = {
-      11: "力",
-      22: "靑",
-      33: "美",
+      11: "가든",
+      22: "팰리스",
+      33: "캐슬",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.attr("href").inparen();
+      if(el.children[0].str() == "동반자") return;
+      const param = el.children[0].attr("href").inparen();
       const elDate = param[0];
       const elTime = param[1];
       const elCourse = param[2];
@@ -73,11 +83,10 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.children[0];
     });
     if (target) {
       target.click();
-      setTimeout(LOGOUT, 1000);
     } else {
       funcEnd();
     }
