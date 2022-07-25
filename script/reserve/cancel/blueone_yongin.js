@@ -92,7 +92,7 @@ javascript: (() => {
       if(elCompany != "02") return;
       const param = el.attr("onclick").inparen();
 
-      const elDate = param[0];
+      const elDate = param[1];
       const elTime = param[2];
       
 
