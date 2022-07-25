@@ -46,6 +46,10 @@ javascript: (() => {
   }
   function funcOther() {
     log("funcOther");
+    if(addr.split("#")[1] == "c") {
+      funcExec();
+      return;
+    }
     const tag = localStorage.getItem("TZ_OTHER");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -108,18 +112,20 @@ javascript: (() => {
 
       return !target;  
     });
+
+    log("target", target);
     if (target) {
       target.click();
-      setTimeout(() => {
-        document
-          .getElementsByClassName("popup-btn")[0]
-          .getElementsByClassName("confirm")[0]
-          .click();
-        setTimeout(LOGOUT, 1000);
-      }, 1000);
+      
     } else {
       LOGOUT()
     }
+  }
+  function funcExec() {
+    setTimeout(() => {
+      cancel_remark.value = "cancel";
+      fn_cancel_ok();
+    }, 1000);
   }
   function funcEnd() {
     log("funcEnd");
