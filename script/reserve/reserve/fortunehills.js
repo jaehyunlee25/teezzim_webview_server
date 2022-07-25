@@ -18,25 +18,32 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://dyhills.basecc.co.kr:6443/Mobile/Reservation/ReservationTimeList.aspx":
+    "https://www.fortunehills.co.kr/Mobile/Reservation/ReservationTimeList.aspx":
       funcTime,
-    "https://dyhills.basecc.co.kr:6443/Mobile/Reservation/ReservationCheck.aspx":
+    "https://www.fortunehills.co.kr/Mobile/Reservation/ReservationCheck.aspx":
       funcExec,
-    "https://dyhills.basecc.co.kr:6443/Mobile/Main/Main.aspx": funcMain,
-    "https://dyhills.basecc.co.kr:6443/Mobile/Reservation/ReservationList.aspx":
+    "https://www.fortunehills.co.kr/Mobile/": funcMain,
+    "https://www.fortunehills.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.fortunehills.co.kr/Mobile/Reservation/ReservationList.aspx":
       LOGOUT,
   };
   const func = dict[addr];
   const dictCourse = {
-    力: "11",
-    靑: "22",
-    美: "33",
+    가든: "11",
+    팰리스: "22",
+    캐슬: "33",
   };
   const fulldate = [year, month, date].join("-");
-  if (!func) location.href = "${searchUrl}";
+  if (!func) funcOther();
   else func();
 
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
   function funcMain() {
+    log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -46,7 +53,19 @@ javascript: (() => {
 
     location.href = "${searchUrl}";
   }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_OTHER");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
+      return;
+    }
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
@@ -54,21 +73,34 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      Reserve(fulldate, "1");
+    TZLOG(logParam, (data) => {});
+    let target;
+    document.gcn("Tablersv")[0].gtn("a").every(el => {
+      const href = el.attr("href");
+      if(href == "#") return true;
+      const param = href.inparen();
+      log(param[1], fulldate);
+      if(param[1] == fulldate) target = el;
+
+      return !target;
     });
+
+    log("target", target);
+    if(target) target.click();
   }
   function funcTime() {
+    log("funcTime");
     const fd = [year, month, date].join("");
     const sign = dictCourse[course];
-    const els = document.gcn("reserv_btn");
+    const els = document.gcn("bt_reserved");
     let target;
     els.every((el) => {
-      const param = el.attr("href").inparen();
+      const param = el.children[0].attr("href").inparen();
       const elDate = param[0];
       const elCourse = param[1];
       const elTime = param[2];
@@ -76,14 +108,17 @@ javascript: (() => {
       log(elDate == fd, elCourse == sign, elTime == time);
       log(elDate, fd, elCourse, sign, elTime, time);
       if (elDate == fd && elCourse == sign && elTime == time) target = el;
-    });
-    if (target) target.click();
 
-    return !target;
+      return !target;
+    });
+
+    log("target", target);
+    if (target) target.click();
   }
   function funcExec() {
+    log("funcExec");
+    ctl00_ContentPlaceHolder1_rdoInwon4.click();
     ctl00_ContentPlaceHolder1_lbtOK.click();
-    timer(1000, LOGOUT);
   }
   function funcEnd() {
     log("funcEnd");
@@ -94,6 +129,7 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
+    log("LOGOUT");
     location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();
