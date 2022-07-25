@@ -67,11 +67,9 @@ javascript: (() => {
     log("funcCancel");
     const els = document.gcn("btn btn-sm btn-gray");
     const dictCourse = {
-      1: "Pine",
-      2: "Lake",
-      3: "Field",
-      4: "Valley",
-      5: "Mountain",
+      1: "Rock",
+      2: "Hill",
+      3: "Forest",
     };
     let target;
     Array.from(els).forEach((el) => {
