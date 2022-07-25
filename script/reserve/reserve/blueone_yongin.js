@@ -134,13 +134,15 @@ javascript: (() => {
     log("els", els, els.length);
 
     let target;
-    Array.from(els).forEach((el) => {
+    Array.from(els).every((el) => {
       const elTime = el.attr("data-time").rm(":");
       const elCourse = el.attr("data-cose");
 
       log(elTime, time, elCourse, sign);
       log(elTime == time, elCourse == sign);
       if (elTime == time && elCourse == sign) target = el;
+
+      return !target;
     });
     log("target", target);
     if (target) {
