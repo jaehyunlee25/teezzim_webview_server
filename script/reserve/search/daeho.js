@@ -15,8 +15,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://www.edenblue.co.kr/_mobile/index.asp": funcMain,
-    "http://www.edenblue.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.daehocc.co.kr/_mobile/index.asp": funcMain,
+    "https://www.daehocc.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -63,16 +63,15 @@ javascript: (() => {
   }
   function funcSearch() {
     log("funcSearch");
-    const els = document.gcn("cm_btn default cm_btn_space01");
+    const els = document.gcn("cm_cnlth");
     log("els", els, els.length);
     const result = [];
     const dictCourse = {
-      1: "Mountain",
-      2: "Valley",
-      3: "Lake",
+      1: "마운틴",
+      2: "레이크",
     };
     els.forEach((el, i) => {
-      const param = el.attr("onclick").inparen();
+      const param = el.children[0].attr("href").inparen();
       const date = param[2];
       const time = param[3];
       const course = param[4];
