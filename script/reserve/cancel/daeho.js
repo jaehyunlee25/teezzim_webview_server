@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://www.edenblue.co.kr/_mobile/index.asp": funcMain,
-    "http://www.edenblue.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.daehocc.co.kr/_mobile/index.asp": funcMain,
+    "https://www.daehocc.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -40,6 +40,7 @@ javascript: (() => {
   }
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
   }
   function funcOther() {
@@ -74,15 +75,15 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.gcn("cm_btn default cm_btn_space01");
+    const els = document.gcn("cm_cnlth");
+    log("els", els, els.length);
     const dictCourse = {
-      1: "Mountain",
-      2: "Valley",
-      3: "Lake",
+      1: "마운틴",
+      2: "레이크",
     };
     let target;
     els.every((el, i) => {
-      const param = el.attr("onclick").inparen();
+      const param = el.children[0].attr("href").inparen();
       const elDate = param[2];
       const elTime = param[3];
       const elCourse = param[4];
@@ -104,8 +105,7 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      document.gcn("pop_body")[0].gcn("cm_btn orange")[0].click();
-      setTimeout(funcEnd, 1000);
+      timer(2000, LOGOUT);
     } else {
       LOGOUT();
     }
