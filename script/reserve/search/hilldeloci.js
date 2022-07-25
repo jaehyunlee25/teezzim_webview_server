@@ -14,8 +14,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.cypress.co.kr/": funcMain,
-    "https://www.cypress.co.kr/member/logout": funcOut,
+    "https://www.skyvalley.co.kr/hilldeloci/main": funcMain,
+    "https://www.skyvalley.co.kr/member/logout": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -84,20 +84,17 @@ javascript: (() => {
     const els = resHisListDiv.getElementsByTagName("li");
     const result = [];
     const dictCourse = {
-      1: "West",
-      2: "North",
-      3: "East",
-      4: "South",
+      1: "Birch",
+      2: "Pine",
     };
     Array.from(els).forEach((el) => {
-      const param = el
-        .getElementsByTagName("button")[1]
-        .getAttribute("onclick")
-        .inparen();
+      const param = el.gtn("button")[1].attr("onclick").inparen();
+      const elCompany = param[0];
+      if(elCompany != "J36") return;
 
-      const date = param[0];
-      const time = param[4];
-      const course = param[1];
+      const date = param[1];
+      const time = param[5];
+      const course = param[2];
       console.log("reserve search", course, dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
