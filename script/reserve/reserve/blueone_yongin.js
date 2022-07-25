@@ -19,6 +19,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://market.blueone.com/shop/golf/step1.jsp": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
     "https://market.blueone.com/shop/golf/list_reserve.jsp":
       funcList,
