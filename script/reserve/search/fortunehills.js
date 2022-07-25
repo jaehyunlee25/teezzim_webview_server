@@ -13,12 +13,18 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dyhills.basecc.co.kr:6443/Mobile/Main/Main.aspx": funcMain,
+    "https://www.fortunehills.co.kr/Mobile/": funcMain,
+    "https://www.fortunehills.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
 
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
   function funcMain() {
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
@@ -52,15 +58,15 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.gcn("cancelBtn");
+    const els = document.gcn("bt_reserved_off");
     const dictCourse = {
-      11: "力",
-      22: "靑",
-      33: "美",
+      11: "가든",
+      22: "팰리스",
+      33: "캐슬",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.attr("href").inparen();
+      const param = el.children[0].attr("href").inparen();
       const date = param[0];
       const time = param[1];
       const course = param[2];
