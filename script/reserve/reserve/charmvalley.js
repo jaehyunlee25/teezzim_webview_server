@@ -30,8 +30,8 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    Queens: "퀸스",
-    Valley: "밸리",
+    Queens: "2",
+    Valley: "1",
   };
   const fulldate = [year, month, date].join("");
 
