@@ -21,7 +21,6 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://charmvalley.cc/mobile/index.asp": funcMain,
     "https://charmvalley.cc/mobile/reservation/reservation2.asp": LOGOUT,
     "http://m.chinyangvalley.co.kr/info/reservation.asp": funcExec,
   };
