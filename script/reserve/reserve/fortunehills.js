@@ -79,7 +79,7 @@ javascript: (() => {
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
-    Reserve('',fulldate, '');
+    Reserve('',fulldate, '1');
     /* let target;
     document.gcn("Tablersv")[0].gtn("a").every(el => {
       const href = el.attr("href");
