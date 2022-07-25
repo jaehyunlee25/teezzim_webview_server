@@ -98,7 +98,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[7].children[0];
+        target = el.children[0];
 
       return !target;  
     });
