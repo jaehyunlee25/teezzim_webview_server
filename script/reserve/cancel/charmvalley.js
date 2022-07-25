@@ -9,8 +9,12 @@ javascript: (() => {
     message: "start reserve/cancel",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("?")[0];
-  const suffix = location.href.split("?")[1];
+  
+  let addr = location.href.split("?")[0];
+  if(addr.indexOf("#") != -1) addr = addr.split("#")[0];
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -19,22 +23,12 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.skyvalley.co.kr/hilldeloci/main": funcMain,
-    "https://www.skyvalley.co.kr/member/logout": funcOut,
+    "http://m.chinyangvalley.co.kr/index.asp": funcMain,
   };
-  
-  log("raw addr :: ", location.href);
-  log("addr :: ", addr);
-
   const func = dict[addr];
-
   if (!func) funcOther();
   else func();
 
-  function funcOut() {
-    log("funcOut");
-    return;
-  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
@@ -48,69 +42,62 @@ javascript: (() => {
   }
   function funcOther() {
     log("funcOther");
-    const tag = localStorage.getItem("TZ_OTHER");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
-    localStorage.setItem("TZ_OTHER", new Date().getTime());
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
   }
-  function funcLogin() {
-    log("funcLogin");
-    
-    if(suffix == "returnMsg=M") localStorage.removeItem("TZ_LOGIN");
-
-    const tag = localStorage.getItem("TZ_LOGIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+  function funcLogin() {   
+    log("funcLogin"); 
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
-
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
+      log(data);
       setTimeout(funcCancel, 1000);
     });
   }
   function funcCancel() {
-    log("funcReserve");
-
-    const els = resHisListDiv.getElementsByTagName("li");
+    log("funcCancel");
+    const els = window["tbody-reservation"].gtn("tr");
     const dictCourse = {
-      1: "Birch",
-      2: "Pine",
+      힐: "Hill",
+      크리크: "Creek",
+      밸리: "Valley",
     };
     let target;
-    Array.from(els).every((el) => {
-      const param = el.gtn("button")[1].attr("onclick").inparen();
-      const elCompany = param[0];
-      if(elCompany != "J36") return true;
+    els.every((el, i) => {
+      const param = el.children;
+      const elDate = "20" + param[0].innerText.rm(".");
+      const elTime = param[1].innerText.rm(":");
+      const elCourse = param[2].innerText;
 
-      const elDate = param[1];
-      const elTime = param[5];
-      const elCourse = param[2];
-      console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
+
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.gtn("button")[1];
+        target = el.children[5].children[0];
 
-       return !target; 
+      return !target;  
     });
-
     log("target", target);
     if (target) {
       target.click();
@@ -120,7 +107,6 @@ javascript: (() => {
     }
   }
   function funcEnd() {
-    log("funcEnd");
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
@@ -128,6 +114,6 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "/member/logout";
+    doLogout();
   }
 })();
