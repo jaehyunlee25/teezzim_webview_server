@@ -103,20 +103,23 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {log(data)});
 
-    const els = document.gcn("jsClickDay jsTipOn");
-    let target;
-    els.every(el => {
-      const elDate = el.attr("data-date");
-
-      log(elDate, fulldate);
-      if(elDate == fulldate) target = el;
-      return !target;
-    });
-
-    log("target", target);
-    if(target) {
-      target.click();
-      setTimeout(funcTime, 500);
+    timer(1000, exec);
+    function exec() {
+      const els = document.gcn("jsClickDay jsTipOn");
+      let target;
+      els.every(el => {
+        const elDate = el.attr("data-date");
+  
+        log(elDate, fulldate);
+        if(elDate == fulldate) target = el;
+        return !target;
+      });
+  
+      log("target", target);
+      if(target) {
+        target.click();
+        setTimeout(funcTime, 500);
+      }
     }
   }
   function funcTime() {
