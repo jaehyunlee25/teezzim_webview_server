@@ -17,7 +17,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://m.chinyangvalley.co.kr/index.asp": funcMain,
+    "https://charmvalley.cc/mobile/index.asp": funcMain,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -63,22 +63,22 @@ javascript: (() => {
     const els = window["tbody-reservation"].gtn("tr");
     log("els", els, els.length);
     const dictCourse = {
-      힐: "Hill",
-      크리크: "Creek",
+      퀸스: "Queens",
       밸리: "Valley",
     };
     const result = [];
     els.forEach((el, i) => {
       const param = el.children;
-      const date = param[0].innerText.rm(".");
-      const time = param[1].innerText.rm(":");
-      const course = param[2].innerText;
+      const date = param[0].str().rm("/");
+      const time = param[1].str().rm(":");
+      const course = param[2].str();
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
     
     if(result.length == 0) {
       LOGOUT();
+      funcEnd();
       return;
     }
     const param = {

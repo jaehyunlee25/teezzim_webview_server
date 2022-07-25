@@ -22,7 +22,6 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "https://charmvalley.cc/mobile/reservation/reservation2.asp": funcList,
-    "http://m.chinyangvalley.co.kr/info/reservation.asp": funcExec,
   };
 
   log("raw addr :: ", location.href);
