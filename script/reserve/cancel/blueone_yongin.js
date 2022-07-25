@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.dongchongc.co.kr:442/Mobile": funcMain,
-    "https://www.dongchongc.co.kr:442/Mobile/Mobile/Member/Logout": funcOut,
+    /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
+    "https://market.blueone.com/shop/common/file/logout.jsp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -81,28 +81,32 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.getElementsByClassName("colBlue");
+    const els = document.gcn("bline_btn");
     const dictCourse = {
-      11: "EAST",
-      22: "WEST",
+      동코스: "East",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
+    Array.from(els).every((el) => {
+      const param1 = el.parentNode.children[1];
+      const elCompany = param1.attr("data-corpcode");
+      if(elCompany != "02") return;
+      const param = el.attr("onclick").inparen();
+
       const elDate = param[0];
       const elTime = param[2];
-      const elCourse = param[1];
+      
 
-      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      log("reserve cancel", elDate, elTime);
       const fulldate = [year, month, date].join("");
 
-      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
+      log(elDate, fulldate, course, elTime, time);
       if (
         elDate == fulldate &&
-        dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[5].children[0];
+        target = param1;
+
+      return !target;  
     });
     if (target) {
       target.click();

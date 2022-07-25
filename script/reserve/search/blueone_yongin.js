@@ -77,12 +77,15 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.getElementsByClassName("bline_btn");
+    const els = document.gcn("bline_btn");
     const dictCourse = {
       동코스: "East",
     };
     const result = [];
     Array.from(els).forEach((el) => {
+      const elCompany = param1.attr("data-corpcode");
+      if(elCompany != "02") return;
+      
       const param = el.attr("onclick").inparen();
       const elDate = param[1];
       const elTime = param[2];
