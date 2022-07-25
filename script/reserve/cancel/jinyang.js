@@ -81,14 +81,14 @@ javascript: (() => {
     let target;
     els.every((el, i) => {
       const param = el.children;
-      const elDate = param[0].innerText.rm(".");
+      const elDate = "20" + param[0].innerText.rm(".");
       const elTime = param[1].innerText.rm(":");
       const elCourse = param[2].innerText;
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
-      log(elDate, fulldate,
-        dictCourse[elCourse], course,
-        elTime, time);
+
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
