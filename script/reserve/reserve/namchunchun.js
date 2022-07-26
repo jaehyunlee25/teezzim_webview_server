@@ -20,9 +20,9 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "http://m.namchuncheon.co.kr/mobile/index.asp": funcMain,
     "http://m.namchuncheon.co.kr/mobile/logout.asp": funcOut,
-    "http://m.namchuncheon.co.kr/mobile/reservation_confirm.asp": funcList,
-    "http://m.namchuncheon.co.kr/mobile/reservation_02.asp": funcTime,
-    "http://m.namchuncheon.co.kr/mobile/reservation_03.asp": funcExec,
+    "http://namchuncheon.co.kr/mobile/reservation_confirm.asp": funcList,
+    "http://namchuncheon.co.kr/mobile/reservation_02.asp": funcTime,
+    "http://namchuncheon.co.kr/mobile/reservation_03.asp": funcExec,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
@@ -33,12 +33,16 @@ javascript: (() => {
   };
   const fulldate = [year, month, date].join("");
   log(addr);
-  if (!func) funcMain();
+  if (!func) funcOther();
   else func();
 
   function funcList() {
     log("funcList");
     LOGOUT();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
     return;
   }
   function funcOut() {
