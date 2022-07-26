@@ -22,7 +22,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcEnd,
+    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcOut,
   };
   const func = dict[addr];
 
@@ -31,7 +31,6 @@ javascript: (() => {
 
   function funcOut() {
     log("funcOut");
-    funcEnd();
     return;
   }
   function funcMain() {
