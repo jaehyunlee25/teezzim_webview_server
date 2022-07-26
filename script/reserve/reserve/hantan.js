@@ -87,7 +87,12 @@ javascript: (() => {
     } else if (tag == "1") {
       localStorage.setItem("TZ_TIME", "2");
       return;
-    } 
+    } else if (tag == "2") {
+      localStorage.setItem("TZ_TIME", "3");
+    } else if (tag == "3") {
+      localStorage.setItem("TZ_TIME", "4");
+      return;
+    }
 
     const els = doc.gtn("a");
     log("els", els, els.length);
