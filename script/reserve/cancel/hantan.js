@@ -69,9 +69,13 @@ javascript: (() => {
     } else if (tag == "2") {
       log("tag", tag);
       localStorage.setItem("TZ_CANCEL_RESERVE", "3");
+      return;
     } else if (tag == "3") {
       log("tag", tag);
       localStorage.setItem("TZ_CANCEL_RESERVE", "4");
+    } else if (tag == "4") {
+      log("tag", tag);
+      localStorage.setItem("TZ_CANCEL_RESERVE", "5");
       return;
     } else {
       log("tag else", tag);
