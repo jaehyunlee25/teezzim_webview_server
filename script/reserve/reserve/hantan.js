@@ -58,7 +58,7 @@ javascript: (() => {
   function funcLogin() {
     log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGIN");
-    /* if (tag && new Date().getTime() - tag < 1000 * 5) return; */
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
     ${loginScript}
@@ -72,10 +72,10 @@ javascript: (() => {
     }
 
     const tag = localStorage.getItem("TZ_LOGOUT");
-    /* if (tag && new Date().getTime() - tag < 1000 * 5) {
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
       return;
-    } */
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {      
@@ -115,10 +115,9 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
 
-    /* timer(1000, () => {
+    timer(1000, () => {
       doc.gcn("btns")[0].gtn("button")[0].click();
-    }); */
-    log("stop");
+    });
     return;
   }
   function funcEnd() {
