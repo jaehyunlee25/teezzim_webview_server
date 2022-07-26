@@ -72,10 +72,10 @@ javascript: (() => {
     }
 
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    /* if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
       return;
-    }
+    } */
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {      
