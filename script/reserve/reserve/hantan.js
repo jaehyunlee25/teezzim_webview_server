@@ -67,7 +67,6 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    return;
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -75,9 +74,8 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    TZLOG(logParam, (data) => {      
-      Date_Click(fulldate, fulldate.ct(2));
-    });
+    TZLOG(logParam, (data) => {});
+    Date_Click(fulldate, fulldate.ct(2));
   }
   function funcTime() {
     log("funcTime");
