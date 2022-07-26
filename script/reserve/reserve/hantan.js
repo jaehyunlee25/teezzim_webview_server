@@ -9,7 +9,8 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };  
-  const addr = location.href.split("?")[0];
+  let addr = location.href.split("?")[0];
+  if(addr.indexOf("#") != -1) addr = addr.split("#")[0];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -67,7 +68,7 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    const suffix = addr.split("#")[1];
+    const suffix = location.href.split("#")[1];
     if(suffix && suffix == "go_focus") {
       funcTime();
       return;
@@ -93,7 +94,7 @@ javascript: (() => {
     let target;
     els.every(el => {
       const href = el.attr("href");
-      if(!herf || href.indexOf("JavaScript:Book_time(") != -1) return true;
+      if(!herf || href.indexOf("JavaScript:Book_time(") == -1) return true;
       
       const param = href.inparen();
       const [elDate, elTime, elCourse] = param;
