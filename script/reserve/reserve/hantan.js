@@ -79,6 +79,8 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
+    localStorage.removeItem("TZ_TIME");
+    return;
 
     const tag = localStorage.getItem("TZ_TIME");
     if (!tag) {
