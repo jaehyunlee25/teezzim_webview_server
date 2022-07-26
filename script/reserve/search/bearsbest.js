@@ -13,10 +13,26 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.bearsbestcheongnagc.com/Mobile": funcMain,
+    "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
+
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -25,8 +41,7 @@ javascript: (() => {
 
     ${loginScript}
   }
-  function funcReserve() {
-    
+  function funcReserve() {    
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -37,21 +52,21 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cm_qusrud");
-    const result = [];
+    const els = doc.gcn("wrap")[0].gtn("a");
     const dictCourse = {
-      66: "Buona",
-      77: "Hopark",
-      33: "Lago",
-      22: "Bella",
-      11: "Monti",
+      11: "Australasia",
+      22: "Europe",
+      33: "USA",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("onclick").inparen();
+      if(el.str() != "변경") return true;
+
+      const param = el.attr("onclick").inparen();
       const date = param[0];
       const time = param[2];
       const mCourse = param[1];
-      console.log("reserve search", dictCourse[mCourse], date, time);
+      log("reserve search", dictCourse[mCourse], date, time);
       result.push({ date, time, course: dictCourse[mCourse] });
     });
     const param = {
