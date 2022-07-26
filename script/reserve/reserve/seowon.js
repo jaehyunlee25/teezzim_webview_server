@@ -79,7 +79,7 @@ javascript: (() => {
     Array.from(els).forEach((el) => {
       const strParam = el.children[0].str();
       const elTime = strParam.regex(/[^0-9]/g);
-      const elCourse = strParam.regex(/[^가-힣]/g);
+      const elCourse = strParam.regex(/[^가-힣]/g).ch(2);
       log(time == elTime, dictCourse[course] == elCourse);
       log(time, elTime, dictCourse[course], elCourse);
       if (time == elTime && dictCourse[course] == elCourse)
