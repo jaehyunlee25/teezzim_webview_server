@@ -79,13 +79,15 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
-    return;
+
     const tag = localStorage.getItem("TZ_TIME");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+    if (!tag) {
+      localStorage.setItem("TZ_TIME", "1");
       return;
-    }
-    localStorage.setItem("TZ_TIME", new Date().getTime());
+    } else if (tag == "1") {
+      localStorage.setItem("TZ_TIME", "2");
+      return;
+    } 
 
     const els = doc.gtn("a");
     log("els", els, els.length);
