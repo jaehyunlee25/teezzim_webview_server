@@ -89,7 +89,7 @@ javascript: (() => {
 
     const els = document.getElementsByClassName("rsv-item");
     const dictCourse = {
-      B: "단일",
+      A: "단일",
     };
     let target;
     Array.from(els).forEach((el) => {
