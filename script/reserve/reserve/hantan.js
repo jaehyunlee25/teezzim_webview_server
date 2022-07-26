@@ -50,10 +50,7 @@ javascript: (() => {
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;    
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${searchUrl}";
@@ -117,7 +114,6 @@ javascript: (() => {
     const tag = localStorage.getItem("TZ_EXEC");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
-
 
     /* timer(1000, () => {
       doc.gcn("btns")[0].gtn("button")[0].click();
