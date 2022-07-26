@@ -23,9 +23,16 @@ javascript: (() => {
   if (!func) location.href = "${reserveUrl}";
   else func();
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
@@ -43,7 +50,8 @@ javascript: (() => {
     };
     const fd = [year.ch(2), month, date].join("");
     const key = [fd, time, dictCourse[course]].join("");
-    log(key);
+    
+    log("key", key);
     let target = window[key];    
     log(target);
     if (target) {

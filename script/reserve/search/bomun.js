@@ -32,17 +32,18 @@ javascript: (() => {
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
+
     TZLOG(logParam, (data) => {
       funcSearch();
     });
   }
   function funcSearch() {
     const els = doc.gcn("ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-left");
-    const result = [];
     const dictCourse = {
       1: "In",
       2: "Out",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("for");
       if(!param) return;
