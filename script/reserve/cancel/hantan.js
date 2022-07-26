@@ -20,6 +20,7 @@ javascript: (() => {
     "${reserveUrl}": funcReserve,
     "https://m.hantancc.co.kr/": funcMain,
     "https://m.hantancc.co.kr/m/logout.asp": funcOut,
+    "https://booking.hantancc.co.kr/m/reservation_05.asp": funcReserve,
   };
 
   log("raw addr :: ", location.href);
