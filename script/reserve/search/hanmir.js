@@ -14,7 +14,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
-    "https://www.midasgolf.co.kr/Member/Logout": funcOut,
+    "https://www.hanmircc.com/Member/Logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -77,11 +77,9 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.gcn("btn btn-outline-primary btn-sm");
+    const els = document.gcn("btn");
     const dictCourse = {
-      11: "올림푸스",
-      22: "타이탄",
-      33: "마이다스",
+      11: "단일",
     };
     const result = [];
     Array.from(els).forEach((el) => {
@@ -89,7 +87,7 @@ javascript: (() => {
 
       const param = el.attr("onclick").inparen();
       const elCompany = param[0];
-      if(elCompany != "113") return true;
+      if(elCompany != "160") return true;
       
       const elDate = param[1];
       const elTime = param[3];
