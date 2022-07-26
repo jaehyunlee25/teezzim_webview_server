@@ -90,7 +90,7 @@ javascript: (() => {
       log(elCourse, elTime);
       log(elCourse == mCourse, elTime == time);
       if (elCourse == mCourse && elTime == time)
-        target = el.getElementsByTagName("a")[0];
+        target = el;
     });
 
     log("target", target);
