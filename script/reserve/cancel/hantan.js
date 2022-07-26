@@ -58,20 +58,20 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
-    const tag = localStorage.getItem("TZ_RESERVE");
+    const tag = localStorage.getItem("TZ_CANCEL_RESERVE");
     if (!tag) {
-      localStorage.setItem("TZ_RESERVE", "1");
+      localStorage.setItem("TZ_CANCEL_RESERVE", "1");
       return;
     } else if (tag == "1") {
       log("tag", tag);
-      localStorage.setItem("TZ_RESERVE", "2");
+      localStorage.setItem("TZ_CANCEL_RESERVE", "2");
       return;
     } else if (tag == "2") {
       log("tag", tag);
-      localStorage.setItem("TZ_RESERVE", "3");
+      localStorage.setItem("TZ_CANCEL_RESERVE", "3");
     } else if (tag == "3") {
       log("tag", tag);
-      localStorage.setItem("TZ_RESERVE", "4");
+      localStorage.setItem("TZ_CANCEL_RESERVE", "4");
       return;
     } else {
       log("tag else", tag);
