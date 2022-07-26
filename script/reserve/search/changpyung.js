@@ -17,8 +17,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.bearsbestcheongnagc.com/Mobile": funcMain,
-    "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcOut,
+    "https://m.cppc.co.kr/_html/reserve_info.asp": funcMain,
+    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcEnd,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -64,20 +64,16 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = doc.gcn("wrap")[0].gtn("a");
+    const els = RTab.gtn("tbody")[0].gtn("tr");
     const dictCourse = {
-      11: "Australasia",
-      22: "Europe",
-      33: "USA",
+      11: "단일",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      if(el.str() != "변경") return true;
-
-      const param = el.attr("onclick").inparen();
-      const date = param[0];
-      const time = param[2];
-      const mCourse = param[1];
+      const param = el.children;
+      const date = param[1].str().rm("-");
+      const time = param[2].str().rm(":");
+      const mCourse = "11";
       log("reserve search", dictCourse[mCourse], date, time);
       result.push({ date, time, course: dictCourse[mCourse] });
     });
@@ -89,16 +85,19 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/search");
+      LOGOUT();
     });
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/Logout";
+    pagechange('/_html/member/logout_ok.asp','flip','');
   }
 })();
