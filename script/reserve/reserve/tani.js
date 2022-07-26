@@ -122,12 +122,13 @@ javascript: (() => {
       if(el.children[0].str().trim() != "예약") return true;
 
       const param = el.children[0].attr("href").inparen();
-      let [elDate, elCourse, elTime] = param;
-
-      elDate = elDate.regex(/[^0-9]/g);
+      const [elDate, elCourse, elTime] = param;
+      
       log(elDate, fulldate, elTime, time, elCourse, sign);
       log(elDate == fulldate, elTime == time, elCourse == sign);
       if (elDate == fulldate && elTime == time && elCourse == sign) target = el.children[0];
+
+      return !target;
     });
     log("target", target);
     if (target) {
