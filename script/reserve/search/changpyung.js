@@ -17,7 +17,6 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://m.cppc.co.kr/_html/reserve_info.asp": funcMain,
     "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcEnd,
   };
   const func = dict[addr];
