@@ -84,6 +84,7 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
+    return;
     const sign = dictCourse[course];
     const els = doc.gcn("tab-pane fade in active")[0].gtn("tbody")[0].gcn("btn btn-sm book2");
     let target;
