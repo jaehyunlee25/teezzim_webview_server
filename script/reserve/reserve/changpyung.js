@@ -23,7 +23,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://m.cppc.co.kr/index.asp": funcMain,
+    "https://m.cppc.co.kr/_html/reserve_info.asp": funcMain,
     "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcEnd,
     "https://m.cppc.co.kr/_html/reserve_time.part.asp": funcTime,
     "https://m.cppc.co.kr/_html/reserve_form.asp": funcExec,
