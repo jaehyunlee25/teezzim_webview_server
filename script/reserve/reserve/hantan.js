@@ -75,7 +75,7 @@ javascript: (() => {
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
-    Date_Click(fulldate, fulldate.ct(2));
+    /* Date_Click(fulldate, fulldate.ct(2)); */
   }
   function funcTime() {
     log("funcTime");
