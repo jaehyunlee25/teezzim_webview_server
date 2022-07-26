@@ -69,8 +69,8 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
+    TZLOG(logParam, (data) => {});
+    timer(1000, () => {
       onClickDay(fulldate);
       setTimeout(funcTime, 2000);
     });
