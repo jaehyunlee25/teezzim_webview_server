@@ -111,7 +111,7 @@ javascript: (() => {
     
     let target;
     Array.from(els).every((el) => {
-      const param = el.attr("href");
+      const param = el.attr("href").inparen();
       
       const elDate = param[0];
       const elTime = param[1];
