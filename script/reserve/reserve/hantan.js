@@ -78,7 +78,6 @@ javascript: (() => {
     Date_Click(fulldate, fulldate.ct(2));
   }
   function funcTime() {
-    localStorage.removeItem("TZ_TIME");
     log("funcTime");
 
     const tag = localStorage.getItem("TZ_TIME");
