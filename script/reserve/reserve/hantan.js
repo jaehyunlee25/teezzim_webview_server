@@ -78,6 +78,7 @@ javascript: (() => {
     Date_Click(fulldate, fulldate.ct(2));
   }
   function funcTime() {
+    localStorage.removeItem("TZ_TIME");
     log("funcTime");
 
     const tag = localStorage.getItem("TZ_TIME");
@@ -87,10 +88,10 @@ javascript: (() => {
     } else if (tag == "1") {
       log("tag", tag);
       localStorage.setItem("TZ_TIME", "2");
-      return;
     } else if (tag == "2") {
       log("tag", tag);
       localStorage.setItem("TZ_TIME", "3");
+      return;
     } else if (tag == "3") {
       log("tag", tag);
       localStorage.setItem("TZ_TIME", "4");
@@ -124,7 +125,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-    localStorage.setItem("TZ_TIME", "4");
+    localStorage.removeItem("TZ_TIME");
     return;
     const tag = localStorage.getItem("TZ_EXEC");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
