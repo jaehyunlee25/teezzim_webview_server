@@ -102,7 +102,8 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
 
-    document.gcn("btnBox4")[0].gcn("motion")[0];    
+    log("click")
+    document.gcn("btnBox4")[0].gcn("motion")[0].click();
   }
   function funcEnd() {
     log("funcEnd");
