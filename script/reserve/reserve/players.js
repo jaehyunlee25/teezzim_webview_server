@@ -126,7 +126,6 @@ javascript: (() => {
       log("target", target);
       if (target) {
         target.click();
-        setTimeout(funcTime, 2000);
       } else {
         LOGOUT();
       }
