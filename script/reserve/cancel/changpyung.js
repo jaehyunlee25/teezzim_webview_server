@@ -22,8 +22,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.bearsbestcheongnagc.com/Mobile": funcMain,
-    "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcOut,
+    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcEnd,
   };
   const func = dict[addr];
 
@@ -57,7 +56,10 @@ javascript: (() => {
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
@@ -65,32 +67,23 @@ javascript: (() => {
   function funcReserve() {
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      LOGOUT();
-      return;
-    }
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcCancel();
-    });
+    TZLOG(logParam, (data) => {});
+    timer(1000, funcCancel);
   }
   function funcCancel() {
-    const els = doc.gcn("wrap")[0].gtn("a");
+    const els = doc.gtn("tbody")[0].gtn("tr");
     const dictCourse = {
-      11: "Australasia",
-      22: "Europe",
-      33: "USA",
+      11: "단일",
     };
     let target;
     Array.from(els).every((el) => {
-      if(el.str() != "변경") return true;
-
-      const param = el.attr("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[2];
-      const elCourse = param[1];
+      const param = el.children;
+      const elDate = param[1].str().rm("-");
+      const elTime = param[2].str().rm(":");
+      const elCourse = "11";
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
 
       const fulldate = [year, month, date].join("");
@@ -100,7 +93,7 @@ javascript: (() => {
         dictCourse[elCourse] == mCourse &&
         elTime == time
       )
-        target = el.parentNode.children[0];
+        target = param[6].children[0];
       
       return !target;
     });
