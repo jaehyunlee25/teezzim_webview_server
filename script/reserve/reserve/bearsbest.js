@@ -88,7 +88,7 @@ javascript: (() => {
       const elCourse = param[0].str();
       const elTime = param[2].str().rm(":");
       log(elCourse, elTime);
-      log(elCourse, mCourse, elTime == time);
+      log(elCourse == mCourse, elTime == time);
       if (elCourse == mCourse && elTime == time)
         target = el.getElementsByTagName("a")[0];
     });
