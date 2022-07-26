@@ -79,7 +79,7 @@ javascript: (() => {
     let target;
     Array.from(els).forEach((el) => {
       const param = el.attr("onclick").inparen();
-      const elTime = param[3].str().rm(":");
+      const elTime = param[3].rm(":");
       log(elTime);
       log(elTime == time);
       if (elTime == time) target = el;
