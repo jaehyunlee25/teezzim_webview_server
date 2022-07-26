@@ -125,10 +125,12 @@ javascript: (() => {
   function funcExec() {
     log("funcExec");
     localStorage.removeItem("TZ_TIME");
-    return;
+
     const tag = localStorage.getItem("TZ_EXEC");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
+
+    doc.gcn("btns")[0].gtn("button")[0].click();
    
     return;
   }
