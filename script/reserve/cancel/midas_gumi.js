@@ -86,6 +86,7 @@ javascript: (() => {
     log("funcCancel");
 
     const els = document.gcn("btn btn-outline-primary btn-sm");
+    log("els", els, els.length);
     const dictCourse = {
       11: "구미",
     };
