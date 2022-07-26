@@ -44,6 +44,10 @@ javascript: (() => {
     funcEnd();
     return;
   }
+  function funcOther() {
+    log("funcOther");
+    return;
+  }
   function funcLogin() {
     log("funcLogin");
 
