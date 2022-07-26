@@ -43,16 +43,15 @@ javascript: (() => {
   }
   function funcList() {
     log("funcList");
-    LOGOUT();
     return;
   }
   function funcOut() {
     log("funcOut");
-    funcEnd();
     return;
   }
   function funcMain() {
     log("funcMain");
+    return;
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;    
     localStorage.setItem("TZ_MAIN", new Date().getTime());
@@ -61,6 +60,7 @@ javascript: (() => {
   }
   function funcLogin() {
     log("funcLogin");
+    return;
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
@@ -69,7 +69,7 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-
+    return;
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -83,7 +83,7 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
-
+    return;
     const tag = localStorage.getItem("TZ_TIME");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -115,7 +115,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-
+    return;
     const tag = localStorage.getItem("TZ_EXEC");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
@@ -124,11 +124,11 @@ javascript: (() => {
   }
   function funcLast() {
     log("funcLast");
-
     return;
   }
   function funcEnd() {
     log("funcEnd");
+    return;
     const strEnd = "end of reserve/reserve";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
@@ -136,6 +136,7 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
+    return;
     log("LOGOUT");
     location.href = "/m/logout.asp";
   }
