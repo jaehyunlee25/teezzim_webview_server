@@ -55,7 +55,7 @@ javascript: (() => {
   }
   function funcMain() {
     log("funcMain");
-    
+
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -97,20 +97,24 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    TZLOG(logParam, (data) => {log(data)});
+    TZLOG(logParam, (data) => {
+      log(data);
+    });
 
-    const els = document.gcn("booking-calendar table table-bordered date-info")[0].gtn("a");
+    const els = document
+      .gcn("booking-calendar table table-bordered date-info")[0]
+      .gtn("a");
     let target;
-    els.every(el => {
+    els.every((el) => {
       const elDate = el.attr("data-date");
 
-      log("elDate", elDate)
-      if(elDate == fulldate) target = el;
+      log("elDate", elDate);
+      if (elDate == fulldate) target = el;
       return !target;
     });
 
     log("target", target);
-    if(target) {
+    if (target) {
       target.click();
       setTimeout(funcTime, 2000);
     } else {
@@ -125,7 +129,10 @@ javascript: (() => {
     localStorage.setItem("TZ_TIME", new Date().getTime());
 
     const sign = dictCourse[course];
-    const els = document.gcn("booking-time-table table")[0].gtn("tbody")[0].gtn("tr");
+    const els = document
+      .gcn("booking-time-table table")[0]
+      .gtn("tbody")[0]
+      .gtn("tr");
     log("els", els, els.length);
 
     let target;
@@ -136,7 +143,8 @@ javascript: (() => {
       const elCourse = param.attr("data-cours");
       log(elDate, fulldate, elTime, time, elCourse, sign);
       log(elDate == fulldate, elTime == time, elCourse == sign);
-      if (elDate == fulldate && elTime == time && elCourse == sign) target = param;
+      if (elDate == fulldate && elTime == time && elCourse == sign)
+        target = param;
 
       return !target;
     });
@@ -165,6 +173,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    redirect('/auth/logout');
+    redirect("/auth/logout");
   }
 })();
