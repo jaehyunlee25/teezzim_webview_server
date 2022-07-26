@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.dongchongc.co.kr:442/Mobile": funcMain,
-    "https://www.dongchongc.co.kr:442/Mobile/Mobile/Member/Logout": funcOut,
+    "https://www.adoniscc.co.kr/": funcMain,
+    "https://www.adoniscc.co.kr/auth/logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -81,17 +81,15 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.getElementsByClassName("colBlue");
+    const els = document.gcn("btn btn-danger btn-booking-cancel");
     const dictCourse = {
-      11: "EAST",
-      22: "WEST",
+      A: "단일",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[2];
-      const elCourse = param[1];
+      const elDate = el.attr("data-date");
+      const elTime = el.attr("data-time");
+      const elCourse = el.attr("data-cours");
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -102,17 +100,10 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[5].children[0];
+        target = el;
     });
     if (target) {
-      target.click();
-      setTimeout(() => {
-        document
-          .getElementsByClassName("popup-btn")[0]
-          .getElementsByClassName("confirm")[0]
-          .click();
-        setTimeout(LOGOUT, 1000);
-      }, 1000);
+      target.click();      
     } else {
       LOGOUT()
     }

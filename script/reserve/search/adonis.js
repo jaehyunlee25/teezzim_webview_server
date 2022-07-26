@@ -77,12 +77,12 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.getElementsByClassName("btn btn-danger btn-booking-cancel");
+    const els = document.gcn("btn btn-danger btn-booking-cancel");
     const dictCourse = {
       A: "단일",
     };
     const result = [];
-    Array.from(els).forEach((el) => {      
+    Array.from(els).forEach((el) => {
       const elDate = el.attr("data-date");
       const elTime = el.attr("data-time");
       const elCourse = el.attr("data-cours");
