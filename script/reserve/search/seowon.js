@@ -30,7 +30,7 @@ javascript: (() => {
   function funcOther() {
     log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
       LOGOUT();
       return;
     }
@@ -49,7 +49,7 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
