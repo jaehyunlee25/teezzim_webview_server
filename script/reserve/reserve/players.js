@@ -138,28 +138,31 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_TIME", new Date().getTime());
 
-    const els = document.gcn("timelist_reservation_button");
-    log("els", els, els.length);
-    
-    let target;
-    Array.from(els).every((el) => {
-      const param = el.parentNode.parentNode.children[0];
-      const elTime = param.children[2].str();
-      const elCourse = param.children[0].str();
-      const sign = dictCourse[course];
-
-      log(elTime, time, elCourse, sign);
-      log(elTime == time, elCourse == sign);
-      if (elTime == time && elCourse == sign) target = el;
-
-      return !target;
-    });
-
-    log("target", target);
-    if (target) {
-      target.click();
-    } else {
-      LOGOUT();
+    timer(2000, exec);
+    function exec() {
+      const els = document.gcn("timelist_reservation_button");
+      log("els", els, els.length);
+      
+      let target;
+      Array.from(els).every((el) => {
+        const param = el.parentNode.parentNode.children[0];
+        const elTime = param.children[2].str();
+        const elCourse = param.children[0].str();
+        const sign = dictCourse[course];
+  
+        log(elTime, time, elCourse, sign);
+        log(elTime == time, elCourse == sign);
+        if (elTime == time && elCourse == sign) target = el;
+  
+        return !target;
+      });
+  
+      log("target", target);
+      if (target) {
+        target.click();
+      } else {
+        LOGOUT();
+      }
     }
   }
   function funcExec() {
