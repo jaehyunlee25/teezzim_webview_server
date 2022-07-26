@@ -10,6 +10,10 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,

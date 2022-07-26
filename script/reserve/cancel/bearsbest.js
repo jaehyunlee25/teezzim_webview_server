@@ -15,6 +15,10 @@ javascript: (() => {
   const date = "${date}";
   const mCourse = "${course}";
   const time = "${time}";
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+  
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
@@ -22,6 +26,7 @@ javascript: (() => {
     "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcOut,
   };
   const func = dict[addr];
+
   if (!func) location.href = "${reserveUrl}";
   else func();
 

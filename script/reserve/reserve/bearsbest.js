@@ -16,6 +16,10 @@ javascript: (() => {
   const date = "${date}";
   const mCourse = "${course}";
   const time = "${time}";
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
