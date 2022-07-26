@@ -92,6 +92,8 @@ javascript: (() => {
     } else if (tag == "3") {
       localStorage.setItem("TZ_TIME", "4");
       return;
+    } else {
+      return;
     }
 
     const els = doc.gtn("a");
