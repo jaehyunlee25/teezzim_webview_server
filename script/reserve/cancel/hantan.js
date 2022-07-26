@@ -64,10 +64,7 @@ javascript: (() => {
     log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      LOGOUT();
-      return;
-    }
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
