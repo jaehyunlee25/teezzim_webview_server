@@ -79,8 +79,6 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
-    localStorage.removeItem("TZ_TIME");
-    return;
 
     const tag = localStorage.getItem("TZ_TIME");
     if (!tag) {
@@ -99,7 +97,6 @@ javascript: (() => {
       return;
     } else {
       log("tag else", tag);
-      localStorage.removeItem("TZ_TIME");
       return;
     }
 
@@ -127,6 +124,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
+    localStorage.setItem("TZ_TIME", "4");
     return;
     const tag = localStorage.getItem("TZ_EXEC");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
