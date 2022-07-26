@@ -113,9 +113,11 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-    timer(1000, () => {
+    /* timer(1000, () => {
       doc.gcn("btns")[0].gtn("button")[0].click();
-    });
+    }); */
+    log("stop");
+    return;
   }
   function funcEnd() {
     log("funcEnd");
