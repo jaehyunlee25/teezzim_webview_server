@@ -73,7 +73,7 @@ javascript: (() => {
       const elDate = "20" + param[0].str().rm("/");
       const elTime = param[1].str().rm(":");
       const elCourse = param[2].str().regex(/[^가-힣]/g);
-      console.log("reserve search", dictCourse[elCourse], elDate, elTime);
+      log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {

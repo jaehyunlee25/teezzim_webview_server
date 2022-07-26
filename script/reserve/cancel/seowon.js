@@ -19,9 +19,10 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     "https://www.seowongolf.co.kr/member/actionLogout.do": funcOut,
+    "https://www.seowongolf.co.kr/m_intro.jsp": LOGOUT,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
@@ -31,7 +32,7 @@ javascript: (() => {
   function funcOther() {
     log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
       funcEnd();
       return;
     }
@@ -50,7 +51,7 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
       funcEnd();
       return;
     }
@@ -58,27 +59,26 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      setTimeout(funcCancel, 2000);
+      setTimeout(funcCancel, 5000);
     });
   }
   function funcCancel() {
     log("funcCancel");
-    const els = window["tbody-reservation"].getElementsByTagName("tr");
+    const els = window["tbody-reservation"].gtn("tr");
     const dictCourse = {
-      EAST: "East",
-      WEST: "West",
+      이스트: "EAST",
+      웨스트: "WEST",
+      사우스: "SOUTH",
     };
     let target;
     Array.from(els).forEach((el) => {
       const param = el.children;
       const elDate = "20" + param[0].str().rm("/");
       const elTime = param[1].str().rm(":");
-      const elCourse = param[2].str().regex(/[^A-Z]/g);
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const elCourse = param[2].str().regex(/[^가-힣]/g);
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
-      log(elDate, fulldate,
-        dictCourse[elCourse], course,
-        elTime, time);
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
@@ -86,10 +86,10 @@ javascript: (() => {
       )
         target = el.children[7].children[0];
     });
-    log(target);
+    log("target", target);
     if (target) {
       target.click();
-      document.getElementsByClassName("btnBox1")[0].getElementsByTagName("a")[0].click();
+      document.gcn("btnBox1")[0].gtn("a")[0].click();
       setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
