@@ -62,7 +62,7 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    return;
+
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       LOGOUT();
@@ -77,6 +77,8 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
+    return;
+
     const els = doc.gcn("tadiv");
     const dictCourse = {
       1: "VALLEY",
