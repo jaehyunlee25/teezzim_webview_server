@@ -14,7 +14,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
-    "https://market.blueone.com/shop/common/file/logout.jsp": funcOut,
+    "https://www.midasgolf.co.kr/Member/Logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -77,20 +77,23 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.gcn("bline_btn");
+    const els = document.gcn("btn btn-outline-primary btn-sm");
     const dictCourse = {
-      동코스: "East",
+      11: "구미",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const elCompany = param1.attr("data-corpcode");
-      if(elCompany != "02") return;
-      
+      if(el.str().trim() != "변경") return;
+
       const param = el.attr("onclick").inparen();
+      const elCompany = param[0];
+      if(elCompany != "160") return;
+      
       const elDate = param[1];
-      const elTime = param[2];
-      console.log("reserve search", elDate, elTime);
-      result.push({ date: elDate, time: elTime, course: "East" });
+      const elTime = param[3];
+      const elCourse = param[2];
+      console.log("reserve search", dictCourse[elCourse], elDate, elTime);
+      result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
