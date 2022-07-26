@@ -85,7 +85,7 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
     const sign = dictCourse[course];
-    Book_time(fulldate, sign, time, "");
+    Book_Confirm(fulldate, sign, time, "");
   }
   function funcExec() {
     log("funcExec");
