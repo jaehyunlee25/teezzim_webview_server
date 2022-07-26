@@ -81,17 +81,18 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.getElementsByClassName("colBlue");
+    const els = doc.gcn("re_cancel");
     const dictCourse = {
-      11: "EAST",
-      22: "WEST",
+      1: "청룡",
+      2: "백호",
+      3: "현무",
+      4: "주작",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[2];
-      const elCourse = param[1];
+      const param = el.attr("href").inparen();
+      let [elDate, elTime, elCourse] = param;
+      elDate = elDate.regex(/[^0-9]/g);
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -102,17 +103,10 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[5].children[0];
+        target = el;
     });
     if (target) {
       target.click();
-      setTimeout(() => {
-        document
-          .getElementsByClassName("popup-btn")[0]
-          .getElementsByClassName("confirm")[0]
-          .click();
-        setTimeout(LOGOUT, 1000);
-      }, 1000);
     } else {
       LOGOUT()
     }

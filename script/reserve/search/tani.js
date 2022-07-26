@@ -89,6 +89,7 @@ javascript: (() => {
       const param = el.attr("href").inparen();
       let [elDate, elTime, elCourse] = param;
       elDate = elDate.regex(/[^0-9]/g);
+      
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
