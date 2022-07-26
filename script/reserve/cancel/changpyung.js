@@ -106,6 +106,9 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
+      timer(500, () => {
+        doc.gcn("btn btn-info")[0].click();
+      });
     } else {
       funcEnd();
     }
