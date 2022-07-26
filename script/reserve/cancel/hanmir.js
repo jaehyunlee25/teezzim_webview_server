@@ -19,7 +19,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
-    "https://www.midasgolf.co.kr/Member/Logout": funcOut,
+    "https://www.hanmircc.com/Member/Logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -85,12 +85,10 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.gcn("btn btn-outline-primary btn-sm");
+    const els = document.gcn("btn");
     log("els", els, els.length);
     const dictCourse = {
-      11: "올림푸스",
-      22: "타이탄",
-      33: "마이다스",
+      11: "단일",
     };
     let target;
     Array.from(els).every((el) => {
@@ -98,7 +96,7 @@ javascript: (() => {
 
       const param = el.attr("onclick").inparen();
       const elCompany = param[0];
-      if(elCompany != "113") return true;
+      if(elCompany != "160") return true;
 
       const elDate = param[1];
       const elTime = param[3];
@@ -113,7 +111,7 @@ javascript: (() => {
         elTime == time &&
         dictCourse[elCourse] == course
       )
-        target = el.parentNode.parentNode.parentNode.children[6].children[1].children[0];
+        target = el.parentNode.parentNode.children[4].children[0];
 
       return !target;  
     });
