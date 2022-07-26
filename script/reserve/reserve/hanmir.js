@@ -98,9 +98,9 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {log(data)});
     timer(1000, () => {
-      reservation(fulldate, 'reserv');
+      change_calendar(fulldate, 'today');
+      timer(1000, funcTime);
     });
-    timer(1000, funcTime);
   }
   function funcTime() {
     log("funcTime");
