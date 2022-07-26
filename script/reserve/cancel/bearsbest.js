@@ -13,15 +13,34 @@ javascript: (() => {
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
-  const course = "${course}";
+  const mCourse = "${course}";
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.bearsbestcheongnagc.com/Mobile": funcMain,
+    "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
+
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -33,7 +52,10 @@ javascript: (() => {
   function funcReserve() {
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
+      return;
+    }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
@@ -42,43 +64,47 @@ javascript: (() => {
     });
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("cm_qusrud");
+    const els = doc.gcn("wrap")[0].gtn("a");
     const dictCourse = {
-      66: "Buona",
-      77: "Hopark",
-      33: "Lago",
-      22: "Bella",
-      11: "Monti",
+      11: "Australasia",
+      22: "Europe",
+      33: "USA",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("onclick").inparen();
+      if(el.str() != "변경") return true;
+
+      const param = el.attr("onclick").inparen();
       const elDate = param[0];
       const elTime = param[2];
       const elCourse = param[1];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+
       const fulldate = [year, month, date].join("");
+      log(elDate == fulldate, dictCourse[elCourse] == mCourse, elTime == time);
       if (
         elDate == fulldate &&
-        dictCourse[elCourse] == course &&
+        dictCourse[elCourse] == mCourse &&
         elTime == time
       )
-        target = el.parentNode.children[5].children[0];
+        target = el.parentNode.children[1];
     });
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
     }
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
-    TZLOG(logParam, (data) => {
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      location.href = "/Mobile/Member/LogOut";
-    });
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();

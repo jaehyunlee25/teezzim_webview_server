@@ -83,7 +83,10 @@ javascript: (() => {
       });
       const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut";
     });
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();
