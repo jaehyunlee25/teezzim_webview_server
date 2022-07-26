@@ -34,9 +34,13 @@ javascript: (() => {
   };
   const fulldate = [year, month, date].join("");
   log(addr);
-  if (!func) funcMain();
+  if (!func) funcOther();
   else func();
 
+  function funcOther() {
+    log("funcOther");
+    return;
+  }
   function funcList() {
     log("funcList");
     LOGOUT();
