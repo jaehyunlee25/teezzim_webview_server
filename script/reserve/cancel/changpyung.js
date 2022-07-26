@@ -23,6 +23,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcOut,
+    "https://m.cppc.co.kr/index.asp": funcMain,
   };
   const func = dict[addr];
 
