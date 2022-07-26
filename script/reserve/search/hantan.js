@@ -70,8 +70,8 @@ javascript: (() => {
       const param = el.children[0].attr("onclick").inparen();
       const [elDate, elCourse, elTime] = param;
 
-      log("reserve search", dictCourse[course], date, time);
-      result.push({ date, time, course: dictCourse[course] });
+      log("reserve search", dictCourse[elCourse], elDate, elTime);
+      result.push({ date, time, course: dictCourse[elCourse] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
