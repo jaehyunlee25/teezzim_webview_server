@@ -57,6 +57,8 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
+    localStorage.removeItem("TZ_CANCEL_RESERVE");
+    return;
 
     const tag = localStorage.getItem("TZ_CANCEL_RESERVE");
     if (!tag) {
@@ -69,10 +71,10 @@ javascript: (() => {
     } else if (tag == "2") {
       log("tag", tag);
       localStorage.setItem("TZ_CANCEL_RESERVE", "3");
-      return;
     } else if (tag == "3") {
       log("tag", tag);
       localStorage.setItem("TZ_CANCEL_RESERVE", "4");
+      return;
     } else if (tag == "4") {
       log("tag", tag);
       localStorage.setItem("TZ_CANCEL_RESERVE", "5");
@@ -120,6 +122,7 @@ javascript: (() => {
     }
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
@@ -128,6 +131,7 @@ javascript: (() => {
     });
   }
   function LOGOUT() {
+    log("LOGOUT");
     location.href = "/m/logout.asp";
   }
 })();
