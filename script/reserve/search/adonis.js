@@ -98,7 +98,6 @@ javascript: (() => {
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       log(data);
       LOGOUT();
-      funcEnd();
     });
   }
   function funcEnd() {
@@ -111,6 +110,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut.aspx";
+    redirect("/auth/logout");
   }
 })();
