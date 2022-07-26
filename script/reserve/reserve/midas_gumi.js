@@ -95,7 +95,7 @@ javascript: (() => {
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {log(data)});
-    change_time('20220802');
+    change_time(fulldate);
     timer(1000, funcTime);
   }
   function funcTime() {
