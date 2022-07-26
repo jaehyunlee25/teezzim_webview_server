@@ -96,7 +96,7 @@ javascript: (() => {
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("onclick").inparen();
       const elCompany = param[6];
-      if(elCompany != "2180") return true;
+      if(elCompany != "2500") return true;
 
       const elDate = param[1];
       const elTime = param[2];
