@@ -18,15 +18,15 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.clubd.com/m_clubd/index.do": funcMain,
     "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
   const func = dict[addr];
   const dictCourse = {
-    East: "EAST",
-    West: "WEST",
+    EAST: "이스트",
+    WEST: "웨스트",
+    SOUTH: "사우스",
   };
   const fulldate = [year, month, date].join("");
   log(addr);
@@ -35,12 +35,8 @@ javascript: (() => {
 
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
-  }
-  function funcMain() {
-    log("funcMain");
-    if (suffix == "iCoDiv=01") funcReserve();
-    else funcOther();
   }
   function funcOther() {
     log("funcOther");
@@ -81,9 +77,9 @@ javascript: (() => {
     const els = window["time-grid"].getElementsByTagName("tr");
     let target;
     Array.from(els).forEach((el) => {
-      const strParam = el.children[0].innerText;
-      const elTime = strParam.replace(/[^0-9]/g, "");
-      const elCourse = strParam.replace(/[^A-Z]/g, "");
+      const strParam = el.children[0].str();
+      const elTime = strParam.regex(/[^0-9]/g);
+      const elCourse = strParam.regex(/[^가-힣]/g);
       log(time == elTime, dictCourse[course] == elCourse);
       log(time, elTime, dictCourse[course], elCourse);
       if (time == elTime && dictCourse[course] == elCourse)
@@ -92,7 +88,7 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      funcExec();
+      timer(1000, funcExec);
     }
   }
   function funcExec() {
@@ -101,10 +97,8 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
 
-    document
-      .getElementsByClassName("btnBox4")[0]
-      .getElementsByClassName("motion")[0];
-    setTimeout(funcEnd, 1000);
+    document.gcn("btnBox4")[0].gcn("motion")[0];
+    setTimeout(LOGOUT, 1000);
   }
   function funcEnd() {
     log("funcEnd");
@@ -113,6 +107,8 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
-    location.href = "/clubd/member/actionLogout.do";
+  }
+  function LOGOUT() {
+    actionLogout();
   }
 })();
