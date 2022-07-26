@@ -54,9 +54,9 @@ javascript: (() => {
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
-    try{
-      ${loginScript}      
-    } catch(e) {
+    try {
+      ${loginScript}
+    } catch (e) {
       location.href = "${searchUrl}";
     }
   }
@@ -87,7 +87,7 @@ javascript: (() => {
       log(time, elTime, dictCourse[course], elCourse);
       if (time == elTime && dictCourse[course] == elCourse)
         target = el.children[4].children[0];
-      
+
       return !target;
     });
     log("target", target);
@@ -102,7 +102,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
 
-    log("click")
+    log("click");
     document.gcn("btnBox4")[0].gcn("motion")[0].click();
   }
   function funcEnd() {
