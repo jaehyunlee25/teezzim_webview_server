@@ -71,7 +71,7 @@ javascript: (() => {
       33: "USA",
     };
     let target;
-    Array.from(els).forEach((el) => {
+    Array.from(els).every((el) => {
       if(el.str() != "변경") return true;
 
       const param = el.attr("onclick").inparen();
@@ -88,7 +88,11 @@ javascript: (() => {
         elTime == time
       )
         target = el.parentNode.children[1];
+      
+      return !target;
     });
+
+    log("target", target);
     if (target) {
       target.click();
     } else {
