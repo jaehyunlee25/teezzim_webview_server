@@ -88,9 +88,8 @@ javascript: (() => {
     const els = document.gcn("btn btn-outline-primary btn-sm");
     log("els", els, els.length);
     const dictCourse = {
-      11: "올림푸스",
-      22: "타이탄",
-      33: "마이다스",
+      11: "밸리",
+      22: "마이다스",
     };
     let target;
     Array.from(els).every((el) => {
@@ -98,7 +97,7 @@ javascript: (() => {
 
       const param = el.attr("onclick").inparen();
       const elCompany = param[0];
-      if(elCompany != "113") return true;
+      if(elCompany != "109") return true;
 
       const elDate = param[1];
       const elTime = param[3];
