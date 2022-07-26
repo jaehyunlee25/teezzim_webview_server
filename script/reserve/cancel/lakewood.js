@@ -85,20 +85,20 @@ javascript: (() => {
   function funcCancel() {
     log("funcReserve");
 
-    const els = resHisListDiv.getElementsByTagName("li");
+    const els = resHisListDiv.gtn("li");
     const dictCourse = {
-      1: "Birch",
-      2: "Pine",
+      1: "물길",
+      2: "꽃길",
+      3: "산길",
+      4: "숲길",
     };
     let target;
     Array.from(els).every((el) => {
-      const param = el.gtn("button")[1].attr("onclick").inparen();
-      const elCompany = param[0];
-      if(elCompany != "J36") return true;
+      const param = el.gtn("button")[2].attr("onclick").inparen();
 
-      const elDate = param[1];
-      const elTime = param[5];
-      const elCourse = param[2];
+      const elDate = param[0];
+      const elTime = param[4];
+      const elCourse = param[1];
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -106,7 +106,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.gtn("button")[1];
+        target = el.gtn("button")[2];
 
        return !target; 
     });

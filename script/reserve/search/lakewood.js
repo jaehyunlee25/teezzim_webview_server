@@ -82,13 +82,13 @@ javascript: (() => {
     log("funcReserve");
 
     const els = resHisListDiv.gtn("li");
-    const result = [];
     const dictCourse = {
       1: "물길",
       2: "꽃길",
       3: "산길",
       4: "숲길",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
       const param = el.gtn("button")[2].attr("onclick").inparen();
 
