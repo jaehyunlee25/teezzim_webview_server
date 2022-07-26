@@ -32,10 +32,10 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    청룡: "11",
-    현무: "22",
-    주작: "33",
-    백호: "44",
+    청룡: "1",
+    백호: "2",
+    현무: "3",
+    주작: "4",
   };
 
   const fulldate = [year, month, date].join("-");
@@ -123,7 +123,7 @@ javascript: (() => {
 
       const param = el.children[0].attr("href").inparen();
       const [elDate, elCourse, elTime] = param;
-      
+
       log(elDate, fulldate, elTime, time, elCourse, sign);
       log(elDate == fulldate, elTime == time, elCourse == sign);
       if (elDate == fulldate && elTime == time && elCourse == sign) target = el.children[0];
