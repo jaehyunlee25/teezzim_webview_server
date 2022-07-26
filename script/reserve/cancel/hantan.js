@@ -49,9 +49,9 @@ javascript: (() => {
   }
   function funcLogin() {  
     log("funcLogin");
-    const tag = localStorage.getItem("TZ_LOGOUT");
+    /* const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime()); */
 
     ${loginScript}
   }
