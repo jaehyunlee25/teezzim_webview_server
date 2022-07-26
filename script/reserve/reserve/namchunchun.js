@@ -85,12 +85,27 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
     const sign = dictCourse[course];
-    Book_Confirm(fulldate, sign, time, "");
+    const els = doc.gcn("tab-pane fade in active")[0].gtn("tbody")[0].gcn("btn btn-sm book2");
+    let target;
+    els.every(el => {
+      const param = el.attr("onclick").inparen();
+      const [elDate, elCourse, elTime] = param;
+
+      log(elDate == fulldate, elCourse == sign, elTime == time);
+      log(elDate, fulldate, elCourse, sign, elTime, time);
+      if(elDate == fulldate && elCourse == sign && elTime == time) target = el;
+
+      return !target;
+    });
+
+    log("target", target);
+    if(target) target.click();
+    else LOGOUT();
   }
   function funcExec() {
     log("funcExec");
     const sign = dictCourse[course];
-    Book_ok(fulldate, time, sign, "");
+    Book_ok(fulldate, time, sign,'');
   }
   function funcEnd() {
     log("funcEnd");
