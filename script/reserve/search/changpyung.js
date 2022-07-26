@@ -61,7 +61,7 @@ javascript: (() => {
     timer(1000, funcSearch);
   }
   function funcSearch() {
-    const els = RTab.gtn("tbody")[0].gtn("tr");
+    const els = doc.gtn("tbody")[0].gtn("tr");
     const dictCourse = {
       11: "단일",
     };
