@@ -1,8 +1,8 @@
 const fs = require("fs");
 const log = console.log;
 
-const clubFrom = "dongchon";
-const clubTo = "adonis";
+const clubFrom = "adonis";
+const clubTo = "players";
 
 ["reserve", "search", "cancel"].forEach((folder) => {
   const newName = "./script/reserve/" + folder + "/" + clubTo + ".js";
