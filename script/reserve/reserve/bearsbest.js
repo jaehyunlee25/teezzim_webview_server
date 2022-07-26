@@ -36,7 +36,7 @@ javascript: (() => {
     USA: "33",
   };
   const fulldate = [year, month, date].join("");
-  if (!func) location.href = "${searchUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcList() {

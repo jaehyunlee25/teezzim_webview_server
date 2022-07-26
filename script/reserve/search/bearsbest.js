@@ -21,7 +21,7 @@ javascript: (() => {
     "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcOut,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
@@ -34,6 +34,14 @@ javascript: (() => {
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcOther() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_OTHER");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
 
     location.href = "${reserveUrl}";
   }

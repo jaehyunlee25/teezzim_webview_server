@@ -18,7 +18,7 @@ javascript: (() => {
   
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
-  
+
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
@@ -27,7 +27,7 @@ javascript: (() => {
   };
   const func = dict[addr];
 
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
@@ -43,6 +43,14 @@ javascript: (() => {
       return;
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcOther() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_OTHER");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
 
     location.href = "${reserveUrl}";
   }
