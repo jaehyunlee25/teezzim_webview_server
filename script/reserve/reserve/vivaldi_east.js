@@ -44,7 +44,7 @@ javascript: (() => {
     log("funcList");
     const tag = localStorage.getItem("TZ_LIST");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_LIST", new Date().getTime());
@@ -86,7 +86,7 @@ javascript: (() => {
 
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());

@@ -68,7 +68,7 @@ javascript: (() => {
     
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -91,7 +91,7 @@ javascript: (() => {
       const param = el.getAttribute("onclick").inparen();
       const elCompany = param[6];
       if(elCompany != "2180") return true;
-      
+
       const elDate = param[1];
       const elTime = param[2];
       const elCourse = param[3];
