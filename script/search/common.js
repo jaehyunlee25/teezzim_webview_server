@@ -151,6 +151,13 @@ String.prototype.dayNum = function () {
   const num = new Date(str.datify()).getDay();
   return (num + 1).toString();
 };
+String.prototype.dayKor = function () {
+  const str = this.getFee().toString();
+  const num = new Date(str.datify()).getDay();
+  const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+  return week[num];
+};
 String.prototype.rm = function (str) {
   return this.split(str).join("");
 };
