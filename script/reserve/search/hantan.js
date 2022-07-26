@@ -17,9 +17,13 @@ javascript: (() => {
     "https://m.hantancc.co.kr/m/logout.asp": funcOut,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
+  function funcOther() {
+    log("funcOther");
+    return;
+  }
   function funcOut() {
     log("funcOut");
     funcEnd();
