@@ -35,7 +35,10 @@ javascript: (() => {
     log("funcReserve");
     
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
-    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
+    if(tag && (new Date().getTime() - tag) < 1000 * 5) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
@@ -50,14 +53,13 @@ javascript: (() => {
     };
     const fd = [year.ch(2), month, date].join("");
     const key = [fd, time, dictCourse[course]].join("");
-    
+
     log("key", key);
     let target = window[key];    
     log(target);
     if (target) {
       target.click();
       btn_delete.click();
-      setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
     }
