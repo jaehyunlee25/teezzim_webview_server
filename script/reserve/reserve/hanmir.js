@@ -95,8 +95,11 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
+
     TZLOG(logParam, (data) => {log(data)});
-    reservation(fulldate, 'reserv');
+    timer(1000, () => {
+      reservation(fulldate, 'reserv');
+    });
     timer(1000, funcTime);
   }
   function funcTime() {
