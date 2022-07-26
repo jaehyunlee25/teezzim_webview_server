@@ -54,7 +54,7 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      setTimeout(funcSearch, 2000);
+      setTimeout(funcSearch, 5000);
     });
   }
   function funcSearch() {
