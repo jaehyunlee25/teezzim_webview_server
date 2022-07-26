@@ -12,18 +12,30 @@ javascript: (() => {
   const addr = location.href.split("?")[0];
   const dict = {
     "${loginUrl}": funcLogin,
-    "https://www.clubd.com/m_clubd/reservation/reservationCheck.do": funcReserve,
-    "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
+    "${reserveUrl}": funcReserve,
+    "https://www.seowongolf.co.kr/member/actionLogout.do": funcOut,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {
     log("funcLogin");
@@ -46,17 +58,18 @@ javascript: (() => {
   }
   function funcSearch() {
     log("funcSearch");
-    const els = window["tbody-reservation"].getElementsByTagName("tr");
+    const els = window["tbody-reservation"].gtn("tr");
     const result = [];
     const dictCourse = {
-      EAST: "East",
-      WEST: "West",
+      이스트: "EAST",
+      웨스트: "WEST",
+      사우스: "SOUTH",
     };
     Array.from(els).forEach((el) => {
       const param = el.children;
       const elDate = "20" + param[0].str().rm("/");
       const elTime = param[1].str().rm(":");
-      const elCourse = param[2].str().regex(/[^A-Z]/g);
+      const elCourse = param[2].str().regex(/[^가-힣]/g);
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });

@@ -17,8 +17,8 @@ javascript: (() => {
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
-    "https://www.clubd.com/m_clubd/reservation/reservationCheck.do": funcReserve,
-    "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
+    "${reserveUrl}": funcReserve,
+    "https://www.seowongolf.co.kr/member/actionLogout.do": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
@@ -27,6 +27,17 @@ javascript: (() => {
   function funcOut() {
     log("funcOut");
     return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {  
     log("funcLogin");  

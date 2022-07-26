@@ -94,6 +94,8 @@ javascript: (() => {
     if (target) {
       target.click();
       timer(1000, funcExec);
+    } else {
+      LOGOUT();
     }
   }
   function funcExec() {
