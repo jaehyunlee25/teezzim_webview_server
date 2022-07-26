@@ -19,7 +19,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
-    "https://market.blueone.com/shop/common/file/logout.jsp": funcOut,
+    "https://www.midasgolf.co.kr/Member/Logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -87,36 +87,37 @@ javascript: (() => {
 
     const els = document.gcn("bline_btn");
     const dictCourse = {
-      동코스: "East",
+      11: "구미",
     };
     let target;
     Array.from(els).every((el) => {
-      const param1 = el.parentNode.children[1];
-      const elCompany = param1.attr("data-corpcode");
-      if(elCompany != "02") return;
+      if(el.str().trim() != "변경") return;
+
       const param = el.attr("onclick").inparen();
+      const elCompany = param[0];
+      if(elCompany != "160") return;
 
       const elDate = param[1];
-      const elTime = param[2];
-      
+      const elTime = param[3];
+      const elCourse = param[2];      
 
-      log("reserve cancel", elDate, elTime);
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
 
       log(elDate, fulldate, course, elTime, time);
       if (
         elDate == fulldate &&
-        elTime == time
+        elTime == time &&
+        dictCourse[elCourse] == course
       )
-        target = param1;
+        target = el.parentNode.parentNode.parentNode.children[6].children[1].children[0];
 
       return !target;  
     });
 
     log("target", target);
     if (target) {
-      target.click();
-      
+      target.click();      
     } else {
       LOGOUT()
     }
