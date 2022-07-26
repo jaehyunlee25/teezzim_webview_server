@@ -74,9 +74,9 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
 
-    const tag = localStorage.getItem("TZ_MAIN");
+    const tag = localStorage.getItem("funcTime");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
+    localStorage.setItem("funcTime", new Date().getTime());
 
 
     const els = doc.gcn("reserve_btn");
