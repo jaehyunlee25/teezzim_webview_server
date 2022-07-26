@@ -2,7 +2,7 @@ const fs = require("fs");
 const log = console.log;
 
 const clubFrom = "vivaldi_east";
-const clubTo = "vivaldi_west";
+const clubTo = "vivaldi_mountain";
 
 ["reserve", "search", "cancel"].forEach((folder) => {
   const newName = "./script/reserve/" + folder + "/" + clubTo + ".js";

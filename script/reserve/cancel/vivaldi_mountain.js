@@ -2,15 +2,14 @@ javascript: (() => {
   ${commonScript}
   const logParam = {
     type: "command",
-    sub_type: "reserve/reserve",
+    sub_type: "reserve/cancel",
     device_id: "${deviceId}",
     device_token: "${deviceToken}",
     golf_club_id: "${golfClubId}",
-    message: "start reserve/reserve",
+    message: "start reserve/cancel",
     parameter: JSON.stringify({}),
   };
-  let addr = location.href.split("?")[0];
-  if (addr.indexOf("#") != -1) addr = location.href.split("#")[0];
+  const addr = location.href.split("?")[0];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -18,46 +17,35 @@ javascript: (() => {
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
-    "${searchUrl}": funcReserve,
-    "https://www.sonofelicecc.com/m.rsv.newInfoList.dp/dmparse.dm": funcList,
+    "${reserveUrl}": funcReserve,
+    "https://www.sonofelicecc.com/m.rsv.mainCal.dp/dmparse.dm": funcMain,
     "https://www.sonofelicecc.com/m.logout.dp/dmparse.dm": funcOut,
-    "https://www.sonofelicecc.com/m.rsv.selectMobileRsvStepOne.dp/dmparse.dm":
-      funcTime,
-    "https://www.sonofelicecc.com/m.rsv.selectMobileRsvStepTwo.dp/dmparse.dm":
-      funcExec,
+    "https://www.sonofelicecc.com/m.rsv.mGolfRsvModi.dp/dmparse.dm": funcExec,
   };
 
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
 
   const func = dict[addr];
-  const dictCourse = {
-    OUT: "A",
-    IN: "B",
-  };
-
-  const fulldate = [year, month, date].join("");
   if (!func) funcOther();
   else func();
 
-  function funcList() {
-    log("funcList");
-    const tag = localStorage.getItem("TZ_LIST");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
-      return;
-    }
-    localStorage.setItem("TZ_LIST", new Date().getTime());
-
-    LOGOUT();
-    return;
-  }
   function funcOut() {
     log("funcOut");
     funcEnd();
     return;
   }
-  function funcMain() {}
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcOther() {
     log("funcOther");
     const tag = localStorage.getItem("TZ_OTHER");
@@ -67,18 +55,17 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_OTHER", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {
     log("funcLogin");
 
-    const tag = localStorage.getItem("TZ_LOGIN");
-    if (tag) {
-      localStorage.setItem("TZ_LOGIN");
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
       funcEnd();
       return;
     }
-    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
   }
@@ -87,42 +74,61 @@ javascript: (() => {
 
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
-      let sign = fulldate.daySign();
-      if (sign != "1") sign = "2";
-      selectMobileRsvStepOne(fulldate, "2110", "8", sign, null);
+      log(data);
+      setTimeout(funcCancel, 1000);
     });
   }
-  function funcTime() {
-    log("funcTime");
+  function funcCancel() {
+    log("funcCancel");
 
-    const sign = dictCourse[course];
-    const els = document.getElementsByClassName("reserve");
+    const els = document.getElementsByClassName("rsv-item");
+    const dictCourse = {
+      B: "단일",
+    };
     let target;
     Array.from(els).forEach((el) => {
       const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
+      const elCompany = param[6];
+      if(elCompany != "2100") return true;
+
+      const elDate = param[1];
       const elTime = param[2];
-      const elCourse = param[1];
-      log(elDate, fulldate, elTime, time, elCourse, sign);
-      log(elDate == fulldate, elTime == time, elCourse == sign);
-      if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
+      const elCourse = param[3];
+
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const fulldate = [year, month, date].join("");
+
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
+      if (
+        elDate == fulldate &&
+        dictCourse[elCourse] == course &&
+        elTime == time
+      )
+        target = el;
     });
-    log("target", target);
-    if (target) target.click();
+    if (target) {
+      target.click();
+    } else {
+      funcEnd();
+    }
   }
   function funcExec() {
-    log("funcExec");
-    /* 사용자 입력구간 */
+    cancelBtn.children[0].click();
+    cancelType.value = "01";
+    document
+      .getElementsByClassName("step-five")[0]
+      .getElementsByTagName("a")[0]
+      .click();
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/reserve";
+    const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;

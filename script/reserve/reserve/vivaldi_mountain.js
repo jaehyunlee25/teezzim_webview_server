@@ -32,8 +32,7 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    OUT: "A",
-    IN: "B",
+    단일: "B",
   };
 
   const fulldate = [year, month, date].join("");
@@ -95,7 +94,7 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       let sign = fulldate.daySign();
       if (sign != "1") sign = "2";
-      selectMobileRsvStepOne(fulldate, "2180", "8", sign, null);
+      selectMobileRsvStepOne(fulldate, "2100", "8", sign, null);
     });
   }
   function funcTime() {
