@@ -57,6 +57,7 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
+    return;
     
     const tag = localStorage.getItem("TZ_CANCEL_RESERVE");
     if (!tag) {
