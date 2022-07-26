@@ -79,14 +79,16 @@ javascript: (() => {
     log("funcTime");
     const els = window["time-grid"].getElementsByTagName("tr");
     let target;
-    Array.from(els).forEach((el) => {
+    Array.from(els).every((el) => {
       const strParam = el.children[0].str();
       const elTime = strParam.regex(/[^0-9]/g);
       const elCourse = strParam.regex(/[^가-힣]/g).ch(2);
       log(time == elTime, dictCourse[course] == elCourse);
       log(time, elTime, dictCourse[course], elCourse);
       if (time == elTime && dictCourse[course] == elCourse)
-        target = el.children[0];
+        target = el.children[4].children[0];
+      
+      return !target;
     });
     log("target", target);
     if (target) {
