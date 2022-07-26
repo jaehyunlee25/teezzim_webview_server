@@ -97,6 +97,7 @@ javascript: (() => {
       return;
     } else {
       log("tag else", tag);
+      localStorage.removeItem("TZ_TIME");
       return;
     }
 
