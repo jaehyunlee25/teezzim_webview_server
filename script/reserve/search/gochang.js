@@ -69,7 +69,8 @@ javascript: (() => {
       const date = param[1];
       const time = param[3];
       const course = param[2];
-      console.log("reserve search", dictCourse[course], date, time);
+      
+      log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
     const param = {

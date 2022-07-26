@@ -65,31 +65,33 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.gcn("btn btn-sm btn-gray");
+    const els = doc.gcn("cancel");
     const dictCourse = {
-      1: "Rock",
-      2: "Hill",
-      3: "Forest",
+      1: "바다",
+      2: "푸른",
+      3: "하늘",
     };
     let target;
-    Array.from(els).forEach((el) => {
+    Array.from(els).every((el) => {
       const param = el.attr("onclick").inparen();
       const elDate = param[1];
       const elTime = param[3];
       const elCourse = param[2];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
-      log(elDate, fulldate,
-        dictCourse[elCourse], course,
-        elTime, time);
+
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
         target = el;
+      
+      return !target;
     });
-    log(target);
+    log("target", target);
     if (target) {
       target.click();
     } else {
