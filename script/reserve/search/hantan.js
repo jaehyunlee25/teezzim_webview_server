@@ -37,6 +37,7 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
       funcEnd();
@@ -47,6 +48,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       LOGOUT();
@@ -60,6 +62,7 @@ javascript: (() => {
     });
   }
   function funcSearch() {
+    log("funcSearch");
     const els = doc.gcn("tadiv");
     const dictCourse = {
       1: "VALLEY",
@@ -85,6 +88,7 @@ javascript: (() => {
     });
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
@@ -92,6 +96,7 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
+    log("LOGOUT");
     location.href = "/m/logout.asp";
   }
 })();
