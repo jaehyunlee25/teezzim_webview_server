@@ -58,42 +58,21 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    return;
-    
-    const tag = localStorage.getItem("TZ_CANCEL_RESERVE");
-    if (!tag) {
-      localStorage.setItem("TZ_CANCEL_RESERVE", "1");
-      return;
-    } else if (tag == "1") {
-      log("tag", tag);
-      localStorage.setItem("TZ_CANCEL_RESERVE", "2");
-      return;
-    } else if (tag == "2") {
-      log("tag", tag);
-      localStorage.setItem("TZ_CANCEL_RESERVE", "3");
-    } else if (tag == "3") {
-      log("tag", tag);
-      localStorage.setItem("TZ_CANCEL_RESERVE", "4");
-      return;
-    } else if (tag == "4") {
-      log("tag", tag);
-      localStorage.setItem("TZ_CANCEL_RESERVE", "5");
-      return;
-    } else {
-      log("tag else", tag);
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
       return;
     }
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
     funcCancel();
   }
   function funcCancel() {
     log("funcCancel");
-    localStorage.removeItem("TZ_CANCEL_RESERVE");
     
     const els = doc.gcn("tadiv");
     log("els", els, els.length);
-    return;
 
     const dictCourse = {
       1: "VALLEY",
