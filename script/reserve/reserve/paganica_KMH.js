@@ -121,7 +121,7 @@ javascript: (() => {
       log(elDate, fulldate, elTime, time, elCourse, sign);
       log(elDate == fulldate, elTime == time, elCourse == sign);
       if (elDate == fulldate && elTime == time && elCourse == sign) 
-        target = el.children[4].children[0];
+        target = el;
 
       return !target;
     });
