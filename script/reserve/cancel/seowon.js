@@ -102,7 +102,9 @@ javascript: (() => {
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/clubd/member/actionLogout.do";
     });
+  }
+  function LOGOUT() {
+    actionLogout();
   }
 })();
