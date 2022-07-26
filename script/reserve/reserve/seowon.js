@@ -63,7 +63,7 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
       funcEnd();
       return;
     }
@@ -102,8 +102,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
 
-    document.gcn("btnBox4")[0].gcn("motion")[0];
-    setTimeout(LOGOUT, 1000);
+    document.gcn("btnBox4")[0].gcn("motion")[0];    
   }
   function funcEnd() {
     log("funcEnd");
