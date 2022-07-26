@@ -13,8 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.dongchongc.co.kr:442/Mobile": funcMain,
-    "https://www.dongchongc.co.kr:442/Mobile/Mobile/Member/Logout": funcOut,
+    "https://www.tanicc.co.kr/Mobile/index.asp": funcMain,
+    "https://www.tanicc.co.kr/Mobile/member/LogOut.asp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -77,17 +77,18 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.getElementsByClassName("colBlue");
+    const els = doc.gcn("re_cancel");
     const dictCourse = {
-      11: "EAST",
-      22: "WEST",
+      1: "청룡",
+      2: "백호",
+      3: "현무",
+      4: "주작",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[2];
-      const elCourse = param[1];
+      const param = el.attr("href").inparen();
+      let [elDate, elTime, elCourse] = param;
+      elDate = elDate.regex(/[^0-9]/g);
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
