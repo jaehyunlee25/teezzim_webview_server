@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://m.namchuncheon.co.kr/mobile/index.asp": funcMain,
-    "http://m.namchuncheon.co.kr/mobile/logout.asp": funcOut,
+    "http://namchuncheon.co.kr/mobile/index.asp": funcMain,
+    "http://namchuncheon.co.kr/mobile/logout.asp": funcOut,
     "http://namchuncheon.co.kr/mobile/reservation_confirm.asp": funcList,
     "http://namchuncheon.co.kr/mobile/reservation_02.asp": funcTime,
     "http://namchuncheon.co.kr/mobile/reservation_03.asp": funcExec,
