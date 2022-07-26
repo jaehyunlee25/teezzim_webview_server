@@ -57,6 +57,8 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
+    localStorage.removeItem("TZ_CANCEL_RESERVE");
+    return;
 
     const tag = localStorage.getItem("TZ_CANCEL_RESERVE");
     if (!tag) {
@@ -87,7 +89,7 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    localStorage.removeItem("TZ_RESERVE");
+    localStorage.removeItem("TZ_CANCEL_RESERVE");
 
     const els = doc.gcn("tadiv");
     const dictCourse = {
