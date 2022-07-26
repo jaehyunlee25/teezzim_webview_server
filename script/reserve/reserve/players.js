@@ -92,6 +92,11 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
+    const suffix = location.href.split("#")[1];
+    if(!suffix) {
+      location.href = addr + "#layout=3&membership=&year=" + year + "&month=" + (month * 1) + "&timezone=&course=&date=";
+      return;
+    }    
 
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
