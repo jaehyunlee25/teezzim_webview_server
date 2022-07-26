@@ -14,8 +14,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.skyvalley.co.kr/hilldeloci/main": funcMain,
-    "https://www.skyvalley.co.kr/member/logout": funcOut,
+    "https://lakewood.co.kr/": funcMain,
+    "https://lakewood.co.kr/member/logout": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -81,20 +81,20 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = resHisListDiv.getElementsByTagName("li");
+    const els = resHisListDiv.gtn("li");
     const result = [];
     const dictCourse = {
-      1: "Birch",
-      2: "Pine",
+      1: "물길",
+      2: "꽃길",
+      3: "산길",
+      4: "숲길",
     };
     Array.from(els).forEach((el) => {
-      const param = el.gtn("button")[1].attr("onclick").inparen();
-      const elCompany = param[0];
-      if(elCompany != "J36") return;
+      const param = el.gtn("button")[2].attr("onclick").inparen();
 
-      const date = param[1];
-      const time = param[5];
-      const course = param[2];
+      const date = param[0];
+      const time = param[4];
+      const course = param[1];
       console.log("reserve search", course, dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
