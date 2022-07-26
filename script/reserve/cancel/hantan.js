@@ -88,10 +88,10 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
     localStorage.removeItem("TZ_CANCEL_RESERVE");
-    return;
-
+    
     const els = doc.gcn("tadiv");
     log("els", els, els.length);
+    return;
 
     const dictCourse = {
       1: "VALLEY",
