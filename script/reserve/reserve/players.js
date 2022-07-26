@@ -109,24 +109,27 @@ javascript: (() => {
       log(data);
     });
 
-    const els = document.gcn("reservation_request_button");
-    log("els", els, els.length);
-
-    let target;
-    els.every((el) => {
-      const elDate = el.attr("date");
-
-      log("elDate", elDate);
-      if (elDate == fulldate) target = el;
-      return !target;
-    });
-
-    log("target", target);
-    if (target) {
-      target.click();
-      setTimeout(funcTime, 2000);
-    } else {
-      LOGOUT();
+    timer(1000, exec);
+    function exec() {
+      const els = document.gcn("reservation_request_button");
+      log("els", els, els.length);
+  
+      let target;
+      els.every((el) => {
+        const elDate = el.attr("date");
+  
+        log("elDate", elDate);
+        if (elDate == fulldate) target = el;
+        return !target;
+      });
+  
+      log("target", target);
+      if (target) {
+        target.click();
+        setTimeout(funcTime, 2000);
+      } else {
+        LOGOUT();
+      }
     }
   }
   function funcTime() {
