@@ -18,7 +18,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.clubd.com/clubd/member/actionLogout.do": funcOut,
+    "https://www.seowongolf.co.kr/clubd/member/actionLogout.do": funcOut,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
