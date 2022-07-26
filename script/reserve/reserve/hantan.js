@@ -85,14 +85,18 @@ javascript: (() => {
       localStorage.setItem("TZ_TIME", "1");
       return;
     } else if (tag == "1") {
+      log("tag", tag);
       localStorage.setItem("TZ_TIME", "2");
       return;
     } else if (tag == "2") {
+      log("tag", tag);
       localStorage.setItem("TZ_TIME", "3");
     } else if (tag == "3") {
+      log("tag", tag);
       localStorage.setItem("TZ_TIME", "4");
       return;
     } else {
+      log("tag else", tag);
       return;
     }
 
