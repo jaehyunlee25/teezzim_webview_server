@@ -74,7 +74,7 @@ javascript: (() => {
     let target;
     Array.from(els).every((el) => {
       const param = el.attr("onclick").inparen();
-      const elDate = param[1];
+      const elDate = param[0];
       const elTime = param[3];
       const elCourse = param[2];
 

@@ -66,10 +66,10 @@ javascript: (() => {
     const result = [];
     Array.from(els).forEach((el) => {
       const param = el.attr("onclick").inparen();
-      const date = param[1];
+      const date = param[0];
       const time = param[3];
       const course = param[2];
-      
+
       log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
