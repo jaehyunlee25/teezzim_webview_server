@@ -142,7 +142,7 @@ javascript: (() => {
   function funcEnd() {
     log("funcEnd");
     localStorage.removeItem("TZ_TIME");
-    
+
     const strEnd = "end of reserve/reserve";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
@@ -153,6 +153,6 @@ javascript: (() => {
     log("LOGOUT");
     localStorage.removeItem("TZ_TIME");
 
-    location.href = "/m/logout.asp";
+    location.href = "/member/logout_ok.php";
   }
 })();

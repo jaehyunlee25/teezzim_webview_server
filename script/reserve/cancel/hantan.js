@@ -19,7 +19,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     "https://m.hantancc.co.kr/": funcMain,
-    "https://m.hantancc.co.kr/m/logout.asp": funcOut,
+    "https://m.hantancc.co.kr/member/logout_ok.php": funcOut,
     "https://booking.hantancc.co.kr/m/reservation_05.asp": funcReserve,
   };
 
@@ -114,6 +114,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/m/logout.asp";
+    location.href = "/member/logout_ok.php";
   }
 })();
