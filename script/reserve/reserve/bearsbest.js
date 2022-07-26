@@ -115,6 +115,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut";
+    location.href = "/Mobile/Member/Logout";
   }
 })();
