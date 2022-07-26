@@ -146,7 +146,7 @@ javascript: (() => {
       let target;
       Array.from(els).every((el) => {
         const param = el.parentNode.parentNode.children[0];
-        const elTime = param.children[2].str();
+        const elTime = param.children[3].str();
         const elCourse = param.children[0].str();
         const sign = dictCourse[course];
   
