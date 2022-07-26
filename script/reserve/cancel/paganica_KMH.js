@@ -19,7 +19,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
-    "https://www.midasgolf.co.kr/Member/Logout": funcOut,
+    "https://paganica.kmhleisure.com/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -85,24 +85,23 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.gcn("btn btn-outline-primary btn-sm");
+    const els = document.gcn("reserveList")[0].gtn("a");
     log("els", els, els.length);
     const dictCourse = {
-      11: "올림푸스",
-      22: "타이탄",
-      33: "마이다스",
+      11: "힐",
+      22: "포레스트",
     };
     let target;
     Array.from(els).every((el) => {
-      if(el.str().trim() != "변경") return true;
+      if(el.str() != "취소") return true;
 
       const param = el.attr("onclick").inparen();
-      const elCompany = param[0];
-      if(elCompany != "113") return true;
+      const elCompany = param[9];
+      if(elCompany != "120") return true;
 
-      const elDate = param[1];
-      const elTime = param[3];
-      const elCourse = param[2];      
+      const elDate = param[0];
+      const elTime = param[1];
+      const elCourse = param[2];  
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -113,22 +112,23 @@ javascript: (() => {
         elTime == time &&
         dictCourse[elCourse] == course
       )
-        target = el.parentNode.parentNode.parentNode.children[6].children[1].children[0];
+        target = el;
 
       return !target;  
     });
 
     log("target", target);
     if (target) {
-      target.click();      
+      target.click();
+      timer(500, funcExec);
     } else {
       LOGOUT()
     }
   }
   function funcExec() {
     setTimeout(() => {
-      cancel_remark.value = "cancel";
-      fn_cancel_ok();
+      strCancelMsg.value = "cancel";
+      btnResveCancel.click();
     }, 1000);
   }
   function funcEnd() {
