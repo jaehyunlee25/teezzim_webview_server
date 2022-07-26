@@ -57,10 +57,8 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcSearch();
-    });
+    TZLOG(logParam, (data) => {});
+    timer(1000, funcSearch);
   }
   function funcSearch() {
     const els = RTab.gtn("tbody")[0].gtn("tr");
