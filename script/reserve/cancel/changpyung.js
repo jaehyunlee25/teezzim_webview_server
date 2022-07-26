@@ -46,7 +46,7 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcOther() {
-    log("funcMain");
+    log("funcOther");
     const tag = localStorage.getItem("TZ_OTHER");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_OTHER", new Date().getTime());
@@ -54,6 +54,7 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
+    log("funcLogin");
     
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
@@ -65,6 +66,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
@@ -74,7 +76,11 @@ javascript: (() => {
     timer(1000, funcCancel);
   }
   function funcCancel() {
+    log("funcCancel");
+
     const els = doc.gtn("tbody")[0].gtn("tr");
+    log("els", els, els.length);
+
     const dictCourse = {
       11: "단일",
     };
