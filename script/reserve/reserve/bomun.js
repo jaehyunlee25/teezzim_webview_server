@@ -72,6 +72,8 @@ javascript: (() => {
     log("key", key);
 
     let target = window[key];
+
+    log("target", target);
     if (target) {
       localStorage.setItem("TZ_TIME", "true");
       target.click();
