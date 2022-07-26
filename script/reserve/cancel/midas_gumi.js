@@ -92,7 +92,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).every((el) => {
-      if(el.str().trim() != "변경") return;
+      if(el.str().trim() != "변경") return true;
 
       const param = el.attr("onclick").inparen();
       const elCompany = param[0];
