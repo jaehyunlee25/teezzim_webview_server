@@ -73,7 +73,7 @@ javascript: (() => {
 
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag) {
-      localStorage.setItem("TZ_LOGIN");
+      localStorage.removeItem("TZ_LOGIN");
       funcEnd();
       return;
     }
