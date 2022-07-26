@@ -23,7 +23,7 @@ javascript: (() => {
     "https://m.hantancc.co.kr/m/logout.asp": funcOut,
     "https://booking.hantancc.co.kr/m/reservation_05.asp": funcList,
     "https://booking.hantancc.co.kr/m/reservation_01_2.asp": funcExec,
-    "https://booking.hantancc.co.kr/m/reservation_01_3.asp": LOGOUT,
+    "https://booking.hantancc.co.kr/m/reservation_01_3.asp": funcLast,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
@@ -120,7 +120,6 @@ javascript: (() => {
 
     log("target", target);
     if(target) target.click();
-    else LOGOUT();
   }
   function funcExec() {
     log("funcExec");
@@ -129,6 +128,11 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_EXEC", new Date().getTime());
    
+    return;
+  }
+  function funcLast() {
+    log("funcLast");
+
     return;
   }
   function funcEnd() {
