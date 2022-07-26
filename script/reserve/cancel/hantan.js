@@ -100,7 +100,7 @@ javascript: (() => {
     if (target) {
       target.click();
     } else {
-      LOGOUT();
+      funcEnd();
     }
   }
   function funcEnd() {
