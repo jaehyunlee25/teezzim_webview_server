@@ -67,6 +67,13 @@ javascript: (() => {
     log("funcReserve");
     const suffix = location.href.split("#")[1];
     if(suffix && suffix == "go_focus") {
+      const tag = localStorage.getItem("TZ_FOCUS");
+      if (tag && new Date().getTime() - tag < 1000 * 5) {
+        funcEnd();
+        return;
+      }
+      localStorage.setItem("TZ_FOCUS", new Date().getTime());
+
       funcTime();
       return;
     }
@@ -84,6 +91,13 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
+
+    const tag = localStorage.getItem("TZ_TIME");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_TIME", new Date().getTime());
 
     const els = doc.gtn("a");
     log("els", els, els.length);
