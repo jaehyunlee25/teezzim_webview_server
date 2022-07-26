@@ -14,7 +14,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
-    "https://www.midasgolf.co.kr/Member/Logout": funcOut,
+    "https://paganica.kmhleisure.com/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -77,22 +77,21 @@ javascript: (() => {
   function funcSearch() {
     log("funcReserve");
 
-    const els = document.gcn("btn btn-outline-primary btn-sm");
+    const els = document.gcn("reserveList")[0].gtn("a");
     const dictCourse = {
-      11: "올림푸스",
-      22: "타이탄",
-      33: "마이다스",
+      11: "힐",
+      22: "포레스트",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      if(el.str().trim() != "변경") return true;
+      if(el.str() != "취소") return true;
 
-      const param = el.attr("onclick").inparen();
-      const elCompany = param[0];
-      if(elCompany != "113") return true;
+      const param = el.attr("href").inparen();
+      const elCompany = param[9];
+      if(elCompany != "120") return true;
       
-      const elDate = param[1];
-      const elTime = param[3];
+      const elDate = param[0];
+      const elTime = param[1];
       const elCourse = param[2];
       
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
