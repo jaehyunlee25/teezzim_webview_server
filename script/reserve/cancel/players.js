@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.adoniscc.co.kr/": funcMain,
-    "https://www.adoniscc.co.kr/auth/logout": funcOut,
+    "https://m.playersgc.com/_mobile/index.asp": funcMain,
+    "https://m.playersgc.com/_mobile/login/logout.asp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -81,15 +81,19 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = document.gcn("btn btn-danger btn-booking-cancel");
+    const els = doc.gtn("tbody")[7].gtn("tr");
     const dictCourse = {
-      A: "단일",
+      VALLEY: "VALLEY",
+      LAKE: "LAKE",
+      MOUNTAIN: "MOUNTAIN",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const elDate = el.attr("data-date");
-      const elTime = el.attr("data-time");
-      const elCourse = el.attr("data-cours");
+      if(el.children.length < 5) return true;
+
+      const elDate = el.children[0].str().fillzero("-");
+      const elTime = el.children[1].str().rm(":");
+      const elCourse = el.children[2].str();
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -100,7 +104,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.children[4].children[0];
     });
     if (target) {
       target.click();      
@@ -118,6 +122,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    redirect("/auth/logout");
+    location.href = "/auth/logout";
   }
 })();

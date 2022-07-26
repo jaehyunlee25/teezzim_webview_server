@@ -90,7 +90,8 @@ javascript: (() => {
       const elDate = el.children[0].str().fillzero("-");
       const elTime = el.children[1].str().rm(":");
       const elCourse = el.children[2].str();
-      console.log("reserve search", dictCourse[elCourse], elDate, elTime);
+      
+      log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {
@@ -114,6 +115,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    redirect("/auth/logout");
+    location.href = "/auth/logout";
   }
 })();
