@@ -94,7 +94,7 @@ javascript: (() => {
     let target;
     els.every(el => {
       const href = el.attr("href");
-      if(!herf || href.indexOf("JavaScript:Book_time(") == -1) return true;
+      if(!href || href.indexOf("JavaScript:Book_time(") == -1) return true;
       
       const param = href.inparen();
       const [elDate, elTime, elCourse] = param;
