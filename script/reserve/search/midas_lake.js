@@ -79,21 +79,23 @@ javascript: (() => {
 
     const els = document.gcn("btn btn-outline-primary btn-sm");
     const dictCourse = {
-      11: "구미",
+      11: "올림푸스",
+      22: "타이탄",
+      33: "마이다스",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      if(el.str().trim() != "변경") return;
+      if(el.str().trim() != "변경") return true;
 
       const param = el.attr("onclick").inparen();
       const elCompany = param[0];
-      if(elCompany != "160") return;
+      if(elCompany != "113") return;
       
       const elDate = param[1];
       const elTime = param[3];
       const elCourse = param[2];
-
-      log("reserve search", dictCourse[elCourse], elDate, elTime);
+      
+      console.log("reserve search", dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {

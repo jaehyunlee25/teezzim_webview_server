@@ -2,14 +2,19 @@ javascript: (() => {
   ${commonScript}
   const logParam = {
     type: "command",
-    sub_type: "reserve/search",
+    sub_type: "reserve/cancel",
     device_id: "${deviceId}",
     device_token: "${deviceToken}",
     golf_club_id: "${golfClubId}",
-    message: "start reserve/search",
+    message: "start reserve/cancel",
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  const year = "${year}";
+  const month = "${month}";
+  const date = "${date}";
+  const course = "${course}";
+  const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
@@ -41,6 +46,10 @@ javascript: (() => {
   }
   function funcOther() {
     log("funcOther");
+    if(addr.split("#")[1] == "c") {
+      funcExec();
+      return;
+    }
     const tag = localStorage.getItem("TZ_OTHER");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -51,7 +60,6 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
-    log("funcLogin");
     
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
@@ -61,7 +69,7 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    
+
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
@@ -71,46 +79,61 @@ javascript: (() => {
 
     TZLOG(logParam, (data) => {
       log(data);
-      setTimeout(funcSearch, 1000);
+      setTimeout(funcCancel, 1000);
     });
   }
-  function funcSearch() {
-    log("funcReserve");
+  function funcCancel() {
+    log("funcCancel");
 
     const els = document.gcn("btn btn-outline-primary btn-sm");
+    log("els", els, els.length);
     const dictCourse = {
-      11: "구미",
+      11: "올림푸스",
+      22: "타이탄",
+      33: "마이다스",
     };
-    const result = [];
-    Array.from(els).forEach((el) => {
-      if(el.str().trim() != "변경") return;
+    let target;
+    Array.from(els).every((el) => {
+      if(el.str().trim() != "변경") return true;
 
       const param = el.attr("onclick").inparen();
       const elCompany = param[0];
-      if(elCompany != "160") return;
-      
+      if(elCompany != "113") return;
+
       const elDate = param[1];
       const elTime = param[3];
-      const elCourse = param[2];
+      const elCourse = param[2];      
 
-      log("reserve search", dictCourse[elCourse], elDate, elTime);
-      result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const fulldate = [year, month, date].join("");
+
+      log(elDate, fulldate, course, elTime, time);
+      if (
+        elDate == fulldate &&
+        elTime == time &&
+        dictCourse[elCourse] == course
+      )
+        target = el.parentNode.parentNode.parentNode.children[6].children[1].children[0];
+
+      return !target;  
     });
-    const param = {
-      golf_club_id: "${golfClubId}",
-      device_id: "${deviceId}",
-      result,
-    };
-    const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
-    post(addr, param, { "Content-Type": "application/json" }, (data) => {
-      log(data);
-      LOGOUT();
-      funcEnd();
-    });
+
+    log("target", target);
+    if (target) {
+      target.click();      
+    } else {
+      LOGOUT()
+    }
+  }
+  function funcExec() {
+    setTimeout(() => {
+      cancel_remark.value = "cancel";
+      fn_cancel_ok();
+    }, 1000);
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/search";
+    const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
