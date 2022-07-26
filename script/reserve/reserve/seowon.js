@@ -54,8 +54,11 @@ javascript: (() => {
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
-
-    ${loginScript}
+    try{
+      ${loginScript}      
+    } catch(e) {
+      location.href = "${searchUrl}";
+    }
   }
   function funcReserve() {
     log("funcReserve");
