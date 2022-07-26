@@ -17,7 +17,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcEnd,
+    "https://m.cppc.co.kr/index.asp": funcMain,
+    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -37,7 +38,7 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcOther() {
-    log("funcMain");
+    log("funcOther");
     const tag = localStorage.getItem("TZ_OTHER");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_OTHER", new Date().getTime());
@@ -90,7 +91,7 @@ javascript: (() => {
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/reserve";
+    const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;

@@ -123,6 +123,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/Logout";
+    pagechange('/_html/member/logout_ok.asp','flip','');
   }
 })();
