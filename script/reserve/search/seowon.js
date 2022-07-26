@@ -14,6 +14,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     "https://www.seowongolf.co.kr/member/actionLogout.do": funcOut,
+    "https://www.seowongolf.co.kr/m_intro.jsp": LOGOUT,
   };
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
@@ -30,7 +31,7 @@ javascript: (() => {
     log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
@@ -59,6 +60,8 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
     const els = window["tbody-reservation"].gtn("tr");
+    log("els", els, els.length);
+
     const result = [];
     const dictCourse = {
       이스트: "EAST",
