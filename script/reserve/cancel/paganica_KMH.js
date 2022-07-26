@@ -95,7 +95,7 @@ javascript: (() => {
     Array.from(els).every((el) => {
       if(el.str() != "취소") return true;
 
-      const param = el.attr("onclick").inparen();
+      const param = el.attr("href").inparen();
       const elCompany = param[9];
       if(elCompany != "120") return true;
 
