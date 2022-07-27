@@ -124,7 +124,7 @@ javascript: (() => {
     log("funcExec");
     const num = golfTimeDiv2CertNo.str();
     certNoChk.value = num;
-    agree_chk.click();
+    window["agree_chk"][0].click();
 
     doc.gcn("cm_btn default")[0].click();
   }
