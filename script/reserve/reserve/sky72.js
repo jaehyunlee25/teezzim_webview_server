@@ -36,7 +36,7 @@ javascript: (() => {
     클래식: "2",
     오션: "3",
   };
-  const fulldate = [year, month, date].join("-");
+  const fulldate = [year, month, date].join("");
   
   if (!func) funcOther();
   else func();
@@ -102,7 +102,7 @@ javascript: (() => {
         const [elDate, elCourse] = param;
         const sign = dictCourse[course];
   
-        log(elDate, date, elCourse, sign);
+        log(elDate, fulldate, elCourse, sign);
         log(fulldate == elDate, elCourse == sign);
         if(fulldate == elDate && elCourse == sign) target = el;
   
