@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://kugolf.co.kr/_mobile/index.asp": funcMain,
-    "https://kugolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://kugolf.co.kr/_mobile/index.asp": funcMain,
+    "http://kugolf.co.kr/_mobile/login/logout.asp": funcOut,
     "http://kugolf.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp":
       LOGOUT,
   };
@@ -128,10 +128,7 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
-
+    
     const els = doc.gcn("cm_btn default");
     let target;
     els.every((el) => {
