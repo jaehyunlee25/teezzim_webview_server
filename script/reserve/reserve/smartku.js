@@ -67,7 +67,8 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    log(addr);
+    /* location.href = "${searchUrl}"; */
   }
   function funcLogin() {
     log("funcLogin");
@@ -138,7 +139,6 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      timer(1000, funcExec);
     } else {
       funcEnd();
     }
