@@ -15,8 +15,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.daehocc.co.kr/_mobile/index.asp": funcMain,
-    "https://www.daehocc.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://incheongrand.cc/_mobile/index.asp": funcMain,
+    "https://incheongrand.cc/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -65,16 +65,14 @@ javascript: (() => {
     log("funcSearch");
     const els = document.gcn("cm_cnlth");
     log("els", els, els.length);
-    const result = [];
     const dictCourse = {
-      1: "마운틴",
-      2: "레이크",
+      1: "OUT",
+      2: "IN",
     };
+    const result = [];
     els.forEach((el, i) => {
       const param = el.children[0].attr("href").inparen();
-      const date = param[2];
-      const time = param[3];
-      const course = param[4];
+      const [ , , date, time, course] = param;
       
       log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
