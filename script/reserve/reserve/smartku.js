@@ -45,7 +45,8 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    if(doc.gcn("hi_ment").length == 0) location.href = "${loginUrl}";
+    else location.href = "${searchUrl}";
   }
   function funcOut() {
     log("funcOut");
