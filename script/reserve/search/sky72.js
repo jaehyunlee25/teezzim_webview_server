@@ -70,21 +70,21 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
 
-    const els = doc.gcn("table_reserv")[0].gtn("a");
+    const els = container.gtn("a").filter(el => el.attr("title") == "정상취소하기");
     const dictCourse = {
-      0: "하늘",
-      1: "레이크",
-      2: "클래식",
-      3: "오션",
+      1: "하늘",
+      2: "하늘",
+      3: "레이크",
+      4: "레이크",
+      5: "클래식",
+      6: "클래식",
+      7: "오션",
+      8: "오션",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      if(el.str() != "취소") return true;
-
       const param = el.attr("href").inparen();
-      const date = param[0].split("-").join("");
-      const time = param[1];
-      const course = param[2];
+      const [date, time, course] = param;
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
