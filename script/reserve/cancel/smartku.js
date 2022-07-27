@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://kugolf.co.kr/_mobile/index.asp": funcMain,
+    "https://kugolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -76,28 +76,29 @@ javascript: (() => {
     log("funcCancel");
     const els = document.gcn("cm_btn default cm_btn_space01");
     const dictCourse = {
-      1: "단일",
+      1: "바른",
+      2: "미쁨",
+      3: "혼솔",
     };
     let target;
     els.every((el, i) => {
       const param = el.attr("onclick").inparen();
-      const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const [ , , elDate, elTime, elCourse] = param;
+
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
-      log(elDate, fulldate,
-        dictCourse[elCourse], course,
-        elTime, time);
+
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[5].children[0];
+        target = el.parentNode.parentNode.children[6].children[0];
 
       return !target;  
     });
+    
     log("target", target);
     if (target) {
       target.click();

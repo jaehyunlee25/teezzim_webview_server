@@ -74,7 +74,8 @@ javascript: (() => {
     els.forEach((el, i) => {
       const param = el.attr("onclick").inparen();
       const [ , , date, time, course] = param;
-      console.log("reserve search", dictCourse[course], date, time);
+      
+      log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
     
