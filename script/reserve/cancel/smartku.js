@@ -94,11 +94,11 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[6].children[0];
+        target = el.parentNode.parentNode.children[5].children[0];
 
       return !target;  
     });
-    
+
     log("target", target);
     if (target) {
       target.click();
