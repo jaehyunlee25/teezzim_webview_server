@@ -119,7 +119,7 @@ const server = http
   .listen(8080);
 function procPost(request, response, data) {
   console.log("data", data);
-  if (!golfClubAccounts[data.club]) {
+  if (data.club && !golfClubAccounts[data.club]) {
     response.write(
       JSON.stringify({
         url: "",
