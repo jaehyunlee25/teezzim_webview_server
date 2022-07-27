@@ -21,9 +21,9 @@ javascript: (() => {
     "https://www.blackcc.co.kr/Mobile/": funcMain,
     "https://www.blackcc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
     "https://www.blackcc.co.kr/Mobile/Reservation/ReservationList.aspx": funcList,
-    "https://www.blackcc.co.kr/Mobile/reservation/ReservationTimeList.aspx":
+    "https://www.blackcc.co.kr/Mobile/Reservation/ReservationTimeList.aspx":
       funcTime,
-    "https://www.blackcc.co.kr/Mobile/reservation/ReservationCheck.aspx": funcExec,
+    "https://www.blackcc.co.kr/Mobile/Reservation/ReservationCheck.aspx": funcExec,
   };
   
   log("raw addr :: ", location.href);
