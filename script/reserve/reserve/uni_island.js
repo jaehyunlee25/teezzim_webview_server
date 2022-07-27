@@ -30,8 +30,8 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    IN: "11",
-    OUT: "22",
+    IN: "22",
+    OUT: "11",
   };
   const fulldate = [year, month, date].join("-");
   log(addr);
