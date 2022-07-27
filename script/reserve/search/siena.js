@@ -16,8 +16,12 @@ javascript: (() => {
     "http://www.sienacountryclub.com/index.asp": funcMain,
     "http://www.sienacountryclub.com/html/member/mem_logout.asp": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+  
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
@@ -35,6 +39,10 @@ javascript: (() => {
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
+  }
+  function funcOther() {
+    log("funcOther");
+    return;
   }
   function funcLogin() {
     const tag = localStorage.getItem("TZ_LOGOUT");
