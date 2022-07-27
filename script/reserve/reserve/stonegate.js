@@ -101,7 +101,7 @@ javascript: (() => {
       log(dictCourse[course] == elCourse, time == elTime);
       log(dictCourse[course], elCourse, time, elTime);
       
-      if (dictCourse[course] == elCourse && time == elTime) target = el;
+      if (dictCourse[course] == elCourse && time == elTime) target = el.children[0].children[0];
     });
 
     log("target", target);
