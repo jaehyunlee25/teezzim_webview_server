@@ -18,11 +18,15 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://namchuncheon.co.kr/mobile/index.asp": funcMain,
-    "http://namchuncheon.co.kr/mobile/logout.asp": funcOut,
+    "http://www.sienacountryclub.com/index.asp": funcMain,
+    "http://www.sienacountryclub.com/html/member/mem_logout.asp": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+  
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcOut() {
@@ -40,6 +44,10 @@ javascript: (() => {
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
+  }
+  function funcOther() {
+    log("funcOther");
+    return;
   }
   function funcLogin() {  
     log("funcLogin");  
@@ -61,24 +69,20 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcCancel();
-    });
+    TZLOG(logParam, (data) => {});
+    funcCancel();
   }
   function funcCancel() {
     log("funcCancel");
-    const els = doc.gcn("negative");
+    const els = doc.gcn("reser_cancel");
     const dictCourse = {
-      1: "Victory",
-      2: "Challenge",
+      1: "서",
+      2: "동",
     };
     let target;
     Array.from(els).every((el) => {
       const param = el.attr("onclick").inparen();
-      const elDate = param[0];
-      const elTime = param[2];
-      const elCourse = param[1];
+      const [elDate, elCourse, elTime] = param;
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");

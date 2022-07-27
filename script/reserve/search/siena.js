@@ -62,10 +62,8 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcSearch();
-    });
+    TZLOG(logParam, (data) => {});
+    funcSearch();
   }
   function funcSearch() {
     const els = doc.gcn("reser_cancel");
