@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.jayurocc.com/Mobile/Member/Login": funcLogin,
-    "https://www.jayurocc.com/Mobile/Member/Logout": funcOut,
+    "https://parkvalley.co.kr/Mobile/": funcMain,
+    "https://parkvalley.co.kr/Mobile/Member/Logout.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -66,15 +66,12 @@ javascript: (() => {
     log("funcCancel");
     const els = doc.gcn("table_reserv02")[0].gcn("smallBtn");
     const dictCourse = {
-      11: "대한",
-      22: "민국",
-      33: "통일",
+      11: "파크",
+      22: "밸리",
     };
     let target;
     Array.from(els).forEach((el) => {
-      if(el.str() != "취소") return true;
-
-      const param = el.attr("href").inparen();
+      const param = el.attr("onclick").inparen();
       const [elDate, elTime, elCourse] = param;
 
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
