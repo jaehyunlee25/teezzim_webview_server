@@ -19,10 +19,10 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://incheongrand.cc/_mobile/index.asp": funcMain,
-    "https://incheongrand.cc/_mobile/login/logout.asp": funcOut,
-    "https://incheongrand.cc/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
-    "https://incheongrand.cc/Mobile/Reservation/ReservationCheck.aspx": funcExec,
+    "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
+    "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.kyongjugolf.co.kr/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
+    "https://www.kyongjugolf.co.kr/Mobile/Reservation/ReservationCheck.aspx": funcExec,
   };
   
   log("raw addr :: ", location.href);
