@@ -1,6 +1,7 @@
 const log = console.log;
 const dir = console.dir;
 const doc = document;
+const ls = localStorage;
 const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
 function TZLOG(param, callback) {
   const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";
@@ -96,6 +97,18 @@ function ajaxcallforgeneral() {
       }
     }
   }
+}
+function lsg(str) {
+  return localStorage.getItem(str);
+}
+function lss(key, val) {
+  return localStorage.setItem(key, val);
+}
+function lsr(str) {
+  return localStorage.removeItem(str);
+}
+function lsc() {
+  return localStorage.clear();
 }
 String.prototype.gt = function (num) {
   return this.substring(this.length - num, this.length);

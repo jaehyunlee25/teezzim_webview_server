@@ -41,15 +41,19 @@ javascript: (() => {
 
   function funcMain() {
     log("funcMain");
-    const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
+    if(lsg("TZ_ABSOLUTE_LOGOUT") == "true") {
 
-    log("hi_ment", doc.gcn("hi_ment").length);
-    if(doc.gcn("hi_ment").length == 0) {
-      location.href = "${loginUrl}";
+      location.href = "${searchUrl}";
+      lsr("TZ_ABSOLUTE_LOGOUT");
+
     } else {
+
+      const tag = lsg("TZ_MAIN");
+      if (tag && new Date().getTime() - tag < 1000 * 5) return;
+      lss("TZ_MAIN", new Date().getTime());
+
       log(doc.gcn("hi_ment")[0].str());
+      lss("TZ_ABSOLUTE_LOGOUT", "true");
       LOGOUT();
     }
   }
