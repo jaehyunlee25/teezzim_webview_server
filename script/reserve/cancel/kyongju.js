@@ -67,7 +67,10 @@ javascript: (() => {
     log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      LOGOUT();
+      return;
+    }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
@@ -103,7 +106,7 @@ javascript: (() => {
       target.click();
       setTimeout(funcEnd, 1000);
     } else {
-      funcEnd();
+      LOGOUT();
     }
   }
   function funcEnd() {
