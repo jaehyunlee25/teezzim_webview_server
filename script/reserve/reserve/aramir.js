@@ -25,6 +25,10 @@ javascript: (() => {
     "https://m.ara-mir.com/Mobile/Reservation/ReservationCheck.aspx": funcExec,
     "https://m.ara-mir.com/Mobile/Reservation/ReservationList.aspx": funcList,
   };
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const fulldate = [year, month, date].join("-");
   if (!func) funcOther();
