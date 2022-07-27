@@ -144,8 +144,9 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
+      timer(1000, funcExec);
     } else {
-      funcEnd();
+      LOGOUT();
     }
   }
   function funcExec() {
