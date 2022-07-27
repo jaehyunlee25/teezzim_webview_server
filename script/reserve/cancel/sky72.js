@@ -20,6 +20,7 @@ javascript: (() => {
     "${reserveUrl}": funcReserve,
     "https://m.sky72.com/index.jsp": funcMain,
     "https://m.sky72.com/login/action/logout.jsp": funcOut,
+    "https://m.sky72.com/reservation/cbooking_02.jsp": funcExec,
   };
   
   log("raw addr :: ", location.href);
@@ -109,10 +110,14 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      timer(1000, goNext);
     } else {
       LOGOUT();
     }
+  }
+  function funcExec() {
+    log("funcEnd");
+    goNext();
+    return;
   }
   function funcEnd() {
     log("funcEnd");
