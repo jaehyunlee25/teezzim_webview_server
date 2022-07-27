@@ -73,10 +73,8 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      setTimeout(funcSearch, 1000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcSearch, 1000);
   }
   function funcSearch() {
     log("funcReserve");

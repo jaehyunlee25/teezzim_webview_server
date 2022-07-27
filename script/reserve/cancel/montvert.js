@@ -19,8 +19,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.skyvalley.co.kr/hilldeloci/main": funcMain,
-    "https://www.skyvalley.co.kr/member/logout": funcOut,
+    "https://www.montvertcc.com/": funcMain,
+    "https://www.montvertcc.com/member/logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -78,27 +78,24 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      setTimeout(funcCancel, 1000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcCancel, 1000);
   }
   function funcCancel() {
     log("funcReserve");
 
     const els = resHisListDiv.gtn("li");
     const dictCourse = {
-      1: "물길",
-      2: "꽃길",
-      3: "산길",
-      4: "숲길",
+      1: "AUTOMNE",
+      2: "HIVER",
+      3: "PRINTEMPS",
+      4: "ETE",
     };
     let target;
     Array.from(els).every((el) => {
       const param = el.gtn("button")[2].attr("onclick").inparen();
 
-      const elDate = param[0];
-      const elTime = param[4];
-      const elCourse = param[1];
+      const [elDate, elCourse, , , elTime] = param;
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
