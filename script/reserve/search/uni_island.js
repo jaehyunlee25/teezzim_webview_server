@@ -69,7 +69,7 @@ javascript: (() => {
   }
   function funcSearch() {
     log("funcReserve");
-    const els = doc.gcn("table_reserv").gtn("a");
+    const els = doc.gcn("table_reserv")[0].gtn("a");
     const result = [];
     const dictCourse = {
       11: "OUT",
@@ -80,7 +80,7 @@ javascript: (() => {
 
       const param = el.attr("href").inparen();
       const [date, time, course] = param;
-      
+
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
