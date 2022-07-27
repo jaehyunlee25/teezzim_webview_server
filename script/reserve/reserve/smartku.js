@@ -42,21 +42,12 @@ javascript: (() => {
 
   function funcMain() {
     log("funcMain");
-    if(lsg("TZ_ABSOLUTE_LOGOUT") == "true") {
 
-      location.href = "${loginUrl}";
-      lsr("TZ_ABSOLUTE_LOGOUT");
+    const tag = lsg("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    lss("TZ_MAIN", new Date().getTime());
 
-    } else {
-
-      const tag = lsg("TZ_MAIN");
-      if (tag && new Date().getTime() - tag < 1000 * 5) return;
-      lss("TZ_MAIN", new Date().getTime());
-
-      log(doc.gcn("hi_ment")[0].str());
-      lss("TZ_ABSOLUTE_LOGOUT", "true");
-      LOGOUT();
-    }
+    location.href = "${searchUrl}";
   }
   function funcOut() {
     log("funcOut");
