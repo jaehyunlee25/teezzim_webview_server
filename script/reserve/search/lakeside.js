@@ -15,8 +15,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwonresort.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwonresort.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.lakeside.kr/mobile/main/mainPage.do": funcMain,
+    "https://www.lakeside.kr/mobile/user/sign/Logout.do": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -56,25 +56,29 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      setTimeout(funcSearch, 2000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcSearch, 1000);
   }
   function funcSearch() {
     log("funcSearch");
-    const els = document.gcn("cm_qusrud");
+    const els = doc
+        .gcn("cm_time_list_tbl real_table")[0]
+        .gtn("tbody")[0]
+        .gcn("cm_btn gray");
     log("els", els, els.length);
-    const result = [];
+
     const dictCourse = {
-      1: "한려",
-      2: "미륵",
+      1: "남Out",
+      2: "남In",
+      3: "동Out",
+      4: "동In",
+      5: "서Out",
+      6: "서In",
     };
+    const result = [];
     els.forEach((el, i) => {
-      const param = el.children[0].attr("href").inparen();
-      const date = param[2];
-      const time = param[3];
-      const course = param[4];
+      const param = el.attr("onclick").inparen();
+      const [time, course, date] = param;
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
@@ -102,6 +106,6 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "/_mobile/login/logout.asp";
+    location.href = "/mobile/user/sign/Logout.do";
   }
 })();
