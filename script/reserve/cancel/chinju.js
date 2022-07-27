@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.yongincc.com/Mobile/": funcMain,
-    "https://www.yongincc.com/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.chinjucc.co.kr/Mobile/": funcMain,
+    "https://www.chinjucc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -78,15 +78,18 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = doc.gcn("cancelBtn");
+    const els = doc.gcn("tbl02")[0].gtn("a");
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "Front",
+      22: "Back",
     };
     let target;
     Array.from(els).forEach((el) => {
+      if(el.str() != "취소") return;
+
       const param = el.attr("href").inparen();
-      const [elDate, elTime, elCourse] = param;
+      const elDate = param[0].regex(/[^0-9]/g);
+      const [ , , , elTime, , , , elCourse] = param;
       
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
