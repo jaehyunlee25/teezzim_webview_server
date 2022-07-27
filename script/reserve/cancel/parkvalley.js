@@ -42,6 +42,17 @@ javascript: (() => {
 
     location.href = "${reserveUrl}";
   }
+  function funcMain() {
+    log("funcMain");
+    const tag = lsg("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    lss("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
     log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
