@@ -62,19 +62,17 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcSearch();
-    });
+    TZLOG(logParam, (data) => {});
+    funcSearch();
   }
   function funcSearch() {
     log("funcReserve");
     const els = doc.gcn("table_reserv")[0].gtn("a");
-    const result = [];
     const dictCourse = {
       11: "OUT",
       22: "IN",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
       if(el.str() != "취소") return true;
 
@@ -92,18 +90,12 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/Logout";
+      LOGOUT();
     });
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/reserve";
+    const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
