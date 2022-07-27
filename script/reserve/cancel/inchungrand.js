@@ -78,15 +78,13 @@ javascript: (() => {
     const els = document.gcn("cm_cnlth");
     log("els", els, els.length);
     const dictCourse = {
-      1: "마운틴",
-      2: "레이크",
+      1: "OUT",
+      2: "IN",
     };
     let target;
     els.every((el, i) => {
       const param = el.children[0].attr("href").inparen();
-      const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
+      const [ , , elDate, elTime, elCourse] = param;
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
