@@ -23,6 +23,7 @@ javascript: (() => {
     "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
     "https://www.kyongjugolf.co.kr/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
     "https://www.kyongjugolf.co.kr/Mobile/Reservation/ReservationCheck.aspx": funcExec,
+    "https://www.kyongjugolf.co.kr/Mobile/Reservation/ReservationList.aspx": funcList,
   };
   
   log("raw addr :: ", location.href);
@@ -39,6 +40,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
