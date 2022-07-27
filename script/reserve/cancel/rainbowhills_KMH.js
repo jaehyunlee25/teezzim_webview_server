@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.rainbowhills.co.kr/_mobile/index.asp": funcMain,
+    "https://www.rainbowhills.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -67,23 +67,22 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      setTimeout(funcCancel, 1000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcCancel, 1000);
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.gcn("cm_btn default cm_btn_space01");
+    const els = document.gcn("cm_btn gray cm_btn_space01");
     const dictCourse = {
-      1: "단일",
+      1: "EAST",
+      2: "SOUTH",
+      3: "WEST",
     };
     let target;
     els.every((el, i) => {
       const param = el.attr("onclick").inparen();
-      const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
+      const [ , , elDate, elTime, elCourse] = param;
+
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       log(elDate, fulldate,
@@ -94,7 +93,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.parentNode.children[5].children[0];
+        target = el;
 
       return !target;  
     });
