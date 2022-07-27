@@ -113,7 +113,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-    // ctl00_ContentPlaceHolder1_lbtOK.click();
+    /* ctl00_ContentPlaceHolder1_lbtOK.click(); */
   }
   function funcEnd() {
     log("funcEnd");
