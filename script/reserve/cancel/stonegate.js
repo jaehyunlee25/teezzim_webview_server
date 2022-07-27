@@ -18,9 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
-    "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
-    "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.stonegatecc.co.kr/Mobile/": funcMain,
+    "https://www.stonegatecc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -81,19 +80,15 @@ javascript: (() => {
 
     const els = doc.gcn("table_reserv")[0].gtn("a");
     const dictCourse = {
-      11: "Sun",
-      22: "Sea",
-      33: "Moon",
+      11: "스톤",
+      22: "게이트",
     };
     let target;
     Array.from(els).forEach((el) => {
-      if(el.str() != "취소") return true;
-      
       const param = el.attr("href").inparen();
-      const elDate = param[0].split("-").join("");
-      const elTime = param[1];
-      const elCourse = param[2];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const [elDate, elTime, elCourse] = param;
+      
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
         elDate == fulldate &&
@@ -104,7 +99,6 @@ javascript: (() => {
     });
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
     } else {
       LOGOUT();
     }
