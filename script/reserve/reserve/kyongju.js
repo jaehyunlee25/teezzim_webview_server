@@ -9,8 +9,8 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("#")[0];
-  const suffix = location.href.split("#")[1];
+  const addr = location.href.split("?")[0];
+  const suffix = location.href.split("?")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -21,20 +21,21 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://incheongrand.cc/_mobile/index.asp": funcMain,
     "https://incheongrand.cc/_mobile/login/logout.asp": funcOut,
-    "https://incheongrand.cc/_mobile/GolfRes/onepage/my_golfreslist.asp":
-      LOGOUT,
+    "https://m.ara-mir.com/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
+    "https://m.ara-mir.com/Mobile/Reservation/ReservationCheck.aspx": funcExec,
   };
-
+  
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
 
   const func = dict[addr];
   const dictCourse = {
-    OUT: "1",
-    IN: "2",
+    Sun: "11",
+    Sea: "22",
+    Moon: "33",
   };
-  const fulldate = [year, month, date].join("");
-
+  const fulldate = [year, month, date].join("-");
+  
   if (!func) funcOther();
   else func();
 
@@ -74,55 +75,62 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
-    if (!suffix) return;
-
-    const suffixParam = (() => {
-      const result = {};
-      suffix.split("&").forEach((item) => {
-        const dv = item.split("=");
-        result[dv[0]] = dv[1];
-      });
-      return result;
-    })();
-
-    log("settype", suffixParam["settype"]);
-    if (suffixParam["settype"] == "T") {
-      log("calendar");
-      funcDate();
-    } else if (suffixParam["settype"] == "R") {
-      log("time");
-      funcTime();
-    } else {
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if(tag == "true") {
+      localStorage.removeItem("TZ_LOGOUT");
       return;
     }
-  }
-  function funcDate() {
-    log("funcDate");
-
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    if(!suffix) location.href = location.href + "?ThisDate=" + fulldate;
 
     TZLOG(logParam, (data) => {});
-    let sign = fulldate.daySign();
-    if (sign != 1) sign = 2;
-    timefrom_change(fulldate, sign, fulldate.dayNum(), "", "00", "T");
+    const els = doc.gcn("calendar")[0].gcn("reserved");
+    log("els", els, els.length);
+
+    let target;
+    Array.from(els).every(el => {
+      if(!el.attr("href")) return true;
+
+      const param = el.attr("href");
+      const elDate = param[1];
+
+      log("elDate", elDate);
+      log(fulldate == elDate);
+      if(fulldate == elDate) target = el;
+
+      return !target;
+    });
+
+    log("target", target);
+    if(target) target.click();
   }
   function funcTime() {
     log("funcTime");
-    const target = window["timeresbtn_" + dictCourse[course] + "_" + time];
+
+    const els = doc.gcn("timeTbl")[0].gtn("a");
+    
+    let target;
+    Array.from(els).forEach((el) => {
+      const param = el.attr("href").inparen();
+      const [elDate, elTime, elCourse] = param;
+
+      log(dictCourse[course] == elCourse, time == elTime);
+      log(dictCourse[course], elCourse, time, elTime);
+      
+      if (dictCourse[course] == elCourse && time == elTime) target = el;
+    });
 
     log("target", target);
     if (target) {
       target.click();
-      timer(1000, funcExec);
     } else {
-      funcEnd();
+      localStorage.setItem("TZ_LOGOUT", "true");
+      LOGOUT();
     }
   }
   function funcExec() {
     log("funcExec");
-    document.gcn("cm_ok")[0].children[0].click();
+
+    ctl00_ContentPlaceHolder1_lbtOK.clic();
   }
   function funcEnd() {
     log("funcEnd");
