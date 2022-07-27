@@ -75,7 +75,7 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
-    const els = doc.gcn("table_reserv02")[0].gcn("smallBtn");
+    const els = doc.gcn("cancelBtn");
     const dictCourse = {
       11: "파크",
       22: "밸리",
