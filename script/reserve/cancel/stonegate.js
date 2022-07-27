@@ -78,7 +78,7 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = doc.gcn("table_reserv")[0].gtn("a");
+    const els = doc.gcn("cancelBtn");
     const dictCourse = {
       11: "스톤",
       22: "게이트",
