@@ -18,9 +18,9 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://lakewood.co.kr/": funcMain,
-    "https://lakewood.co.kr/reservation/resList": funcList,
-    "https://lakewood.co.kr/member/logout": funcOut,
+    "https://www.montvertcc.com/": funcMain,
+    "https://www.montvertcc.com/reservation/resList": funcList,
+    "https://www.montvertcc.com/member/logout": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -28,10 +28,10 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    물길: "1",
-    꽃길: "2",
-    산길: "3",
-    숲길: "4",
+    AUTOMNE: "1",
+    HIVER: "2",
+    PRINTEMPS: "3",
+    ETE: "4",
   };
 
   const fulldate = [year, month, date].join("");
@@ -93,7 +93,7 @@ javascript: (() => {
     let str = "";
     if(sign == 0) str = "hol";
     if(sign == 6) str = "sat";
-    clickCal("", "A", fulldate, "OPEN");
+    clickCal(str, "A", fulldate, "OPEN");
     setTimeout(funcTime, 500);
   }
   function funcTime() {
@@ -104,8 +104,7 @@ javascript: (() => {
     let target;
     Array.from(els).every((el) => {
       const param = el.attr("onclick").inparen();
-      const elCourse = param[2];
-      const elTime = param[1];
+      const [elDate, elTime, elCourse] = param;
       log(elCourse == dictCourse[course], elTime == time);
       log(elCourse, dictCourse[course], elTime, time);
       if (dictCourse[course] == elCourse && time == elTime) target = el;

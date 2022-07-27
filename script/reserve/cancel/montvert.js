@@ -2,14 +2,15 @@ javascript: (() => {
   ${commonScript}
   const logParam = {
     type: "command",
-    sub_type: "reserve/reserve",
+    sub_type: "reserve/cancel",
     device_id: "${deviceId}",
     device_token: "${deviceToken}",
     golf_club_id: "${golfClubId}",
-    message: "start reserve/reserve",
+    message: "start reserve/cancel",
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  const suffix = location.href.split("?")[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -17,35 +18,21 @@ javascript: (() => {
   const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
-    "${searchUrl}": funcReserve,
-    "https://lakewood.co.kr/": funcMain,
-    "https://lakewood.co.kr/reservation/resList": funcList,
-    "https://lakewood.co.kr/member/logout": funcOut,
+    "${reserveUrl}": funcReserve,
+    "https://www.skyvalley.co.kr/hilldeloci/main": funcMain,
+    "https://www.skyvalley.co.kr/member/logout": funcOut,
   };
-
+  
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
 
   const func = dict[addr];
-  const dictCourse = {
-    물길: "1",
-    꽃길: "2",
-    산길: "3",
-    숲길: "4",
-  };
 
-  const fulldate = [year, month, date].join("");
   if (!func) funcOther();
   else func();
 
-  function funcList() {
-    log("funcList");
-    LOGOUT();
-    return;
-  }
   function funcOut() {
     log("funcOut");
-    funcEnd();
     return;
   }
   function funcMain() {
@@ -57,7 +44,7 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcOther() {
     log("funcOther");
@@ -68,10 +55,13 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_OTHER", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {
     log("funcLogin");
+    
+    if(suffix == "returnMsg=M") localStorage.removeItem("TZ_LOGIN");
+
     const tag = localStorage.getItem("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
@@ -81,56 +71,63 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
-    const tag = localStorage.getItem("TZ_LOGOUT");
+    const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
       return;
     }
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {});
-    const sign = fulldate.daySign();
-    let str = "";
-    if(sign == 0) str = "hol";
-    if(sign == 6) str = "sat";
-    clickCal("", "A", fulldate, "OPEN");
-    setTimeout(funcTime, 500);
+    TZLOG(logParam, (data) => {
+      setTimeout(funcCancel, 1000);
+    });
   }
-  function funcTime() {
-    log("funcTime");
+  function funcCancel() {
+    log("funcReserve");
 
-    const els = document.gcn("btn btn-res");
-
+    const els = resHisListDiv.gtn("li");
+    const dictCourse = {
+      1: "물길",
+      2: "꽃길",
+      3: "산길",
+      4: "숲길",
+    };
     let target;
     Array.from(els).every((el) => {
-      const param = el.attr("onclick").inparen();
-      const elCourse = param[2];
-      const elTime = param[1];
-      log(elCourse == dictCourse[course], elTime == time);
-      log(elCourse, dictCourse[course], elTime, time);
-      if (dictCourse[course] == elCourse && time == elTime) target = el;
+      const param = el.gtn("button")[2].attr("onclick").inparen();
 
-      return !target;
+      const elDate = param[0];
+      const elTime = param[4];
+      const elCourse = param[1];
+      console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
+      const fulldate = [year, month, date].join("");
+      if (
+        elDate == fulldate &&
+        dictCourse[elCourse] == course &&
+        elTime == time
+      )
+        target = el.gtn("button")[2];
+
+       return !target; 
     });
 
     log("target", target);
     if (target) {
       target.click();
-      golfSubmit();
+      timer(2000, LOGOUT);
     } else {
       LOGOUT();
     }
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/reserve";
+    const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    log("LOGOUT");
     location.href = "/member/logout";
   }
 })();
