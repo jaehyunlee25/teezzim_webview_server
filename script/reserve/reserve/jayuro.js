@@ -38,10 +38,12 @@ javascript: (() => {
 
   function funcList() {
     log("funcList");
+    LOGOUT();
     return;
   };
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
   };
   function funcOther() {

@@ -13,10 +13,26 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.jayurocc.com/Mobile/Member/Login": funcLogin,
+    "https://www.jayurocc.com/Mobile/Member/Logout": funcOut,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
+
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  };
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");
@@ -31,24 +47,25 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcSearch();
-    });
+    TZLOG(logParam, (data) => {});
+    funcSearch();
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("btn1 mt50");
-    const result = [];
+    const els = doc.gcn("table_reserv02")[0].gcn("smallBtn");
     const dictCourse = {
-      11: "단일",
+      11: "대한",
+      22: "민국",
+      33: "통일",
     };
+    const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const date = param[0];
-      const time = param[1];
-      const course = param[2];
-      console.log("reserve search", dictCourse[course], date, time);
-      result.push({ date, time, course: dictCourse[course] });
+      if(el.str() != "취소") return true;
+
+      const param = el.getAttribute("href").inparen();
+      const [elDate, elTime, elCourse] = param;
+
+      console.log("reserve search", dictCourse[elCourse], elDate, elTime);
+      result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
