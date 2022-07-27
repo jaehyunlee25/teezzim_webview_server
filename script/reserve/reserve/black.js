@@ -25,11 +25,15 @@ javascript: (() => {
       funcTime,
     "https://www.blackcc.co.kr/Mobile/reservation/ReservationCheck.aspx": funcExec,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
+  const func = dict[addr];
   const dictCourse = {
     Black: "11",
     Valley: "22",
   };
-  const func = dict[addr];
   const fulldate = [year, month, date].join("-");
   if (!func) funcOther();
   else func();
