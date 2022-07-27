@@ -109,7 +109,7 @@ javascript: (() => {
     if (target) {
       target.click();
       reason_1.click();
-      doc.gcn("cm_btn orange")[0]();
+      doc.gcn("cm_btn orange")[0].click();
     } else {
       LOGOUT();
     }
