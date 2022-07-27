@@ -1,8 +1,8 @@
 const fs = require("fs");
 const log = console.log;
 
-const clubFrom = "boryeongbase";
-const clubTo = "uni_island";
+const clubFrom = "namchunchun";
+const clubTo = "siena";
 
 ["reserve", "search", "cancel"].forEach((folder) => {
   const newName = "./script/reserve/" + folder + "/" + clubTo + ".js";

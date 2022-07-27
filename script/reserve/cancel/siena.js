@@ -18,21 +18,22 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.uniisland.com/Mobile/Moonos": funcMain,
-    "https://www.uniisland.com/Mobile/Mobile/Member/Logout": funcOut,
+    "http://namchuncheon.co.kr/mobile/index.asp": funcMain,
+    "http://namchuncheon.co.kr/mobile/logout.asp": funcOut,
   };
-  
-  log("raw addr :: ", location.href);
-  log("addr :: ", addr);
-
   const func = dict[addr];
-  if (!func) funcOther();
+  if (!func) location.href = "${reserveUrl}";
   else func();
 
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 10) {
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
       return;
     }
@@ -40,23 +41,13 @@ javascript: (() => {
 
     location.href = "${reserveUrl}";
   }
-  function funcOut() {
-    log("funcOut");
-    funcEnd();
-    return;
-  }
-  function funcOther() {
-    log("funcOther");
-    const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
-
-    location.href = "${reserveUrl}";
-  }
-  function funcLogin() {
-    log("funcLogin");
+  function funcLogin() {  
+    log("funcLogin");  
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
@@ -70,35 +61,39 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {});
-    funcCancel();
+    TZLOG(logParam, (data) => {
+      log(data);
+      funcCancel();
+    });
   }
   function funcCancel() {
     log("funcCancel");
-    const els = doc.gcn("table_reserv")[0].gtn("a");
+    const els = doc.gcn("negative");
     const dictCourse = {
-      11: "OUT",
-      22: "IN",
+      1: "Victory",
+      2: "Challenge",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      if(el.str() != "취소") return true;
+    Array.from(els).every((el) => {
+      const param = el.attr("onclick").inparen();
+      const elDate = param[0];
+      const elTime = param[2];
+      const elCourse = param[1];
 
-      const param = el.attr("href").inparen();
-      const [elDate, elTime, elCourse] = param;
-
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
-      log(elDate, fulldate,
-        dictCourse[elCourse], course,
-        elTime, time);
+
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
         target = el;
+      
+      return !target;
     });
+    log("target", target);
     if (target) {
       target.click();
     } else {
@@ -106,15 +101,14 @@ javascript: (() => {
     }
   }
   function funcEnd() {
-    log("funcEnd");
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
-    TZLOG(logParam, (data) => {});
-    const ac = window.AndroidController;
-    if (ac) ac.message(strEnd);
+    TZLOG(logParam, (data) => {
+      const ac = window.AndroidController;
+      if (ac) ac.message(strEnd);
+    });
   }
   function LOGOUT() {
-    log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut.aspx";
+    location.href = "logout.asp";
   }
 })();
