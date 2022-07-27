@@ -10,6 +10,8 @@ javascript: (() => {
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -18,13 +20,9 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.blackcc.co.kr/Mobile/": funcMain,
-    "https://www.blackcc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
+    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
-  
-  log("raw addr :: ", location.href);
-  log("addr :: ", addr);
-
   const func = dict[addr];
   if (!func) funcOther();
   else func();
@@ -32,7 +30,7 @@ javascript: (() => {
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 10) {
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
       funcEnd();
       return;
     }
@@ -42,78 +40,81 @@ javascript: (() => {
   }
   function funcOut() {
     log("funcOut");
-    funcEnd();
     return;
   }
   function funcOther() {
     log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
   }
-  function funcLogin() {
-    log("funcLogin");
-
-    const tag = localStorage.getItem("TZ_LOGIN");
+  function funcLogin() {   
+    log("funcLogin"); 
+    const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
-    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
-    
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 10) {
-      LOGOUT();
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {});
-    funcCancel();
+    TZLOG(logParam, (data) => {
+      log(data);
+      setTimeout(funcCancel, 1000);
+    });
   }
   function funcCancel() {
-    log("funcSearch");
-
-    const els = doc.gcn("tbl02")[0].gtn("a");
+    log("funcCancel");
+    const els = document.gcn("cm_btn default cm_btn_space01");
     const dictCourse = {
-      11: "Black",
-      22: "Valley",
+      1: "단일",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      const param = el.attr("href").inparen();
-      const elDate = param[0].split("-").join("");
-      const [ , elTime, elCourse] = param;
-
+    els.every((el, i) => {
+      const param = el.attr("onclick").inparen();
+      const elDate = param[2];
+      const elTime = param[3];
+      const elCourse = param[4];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
+      log(elDate, fulldate,
+        dictCourse[elCourse], course,
+        elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.parentNode.parentNode.children[5].children[0];
+
+      return !target;  
     });
+    log("target", target);
     if (target) {
       target.click();
+      document.gcn("pop_body")[0].gcn("cm_btn orange")[0].click();
+      setTimeout(funcEnd, 1000);
     } else {
       LOGOUT();
     }
   }
   function funcEnd() {
-    log("funcEnd");
-    const strEnd = "end of reserve/search";
+    const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut.aspx";
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
