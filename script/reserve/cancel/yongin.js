@@ -18,8 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.stonegatecc.co.kr/Mobile/": funcMain,
-    "https://www.stonegatecc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.yongincc.com/Mobile/": funcMain,
+    "https://www.yongincc.com/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -80,8 +80,8 @@ javascript: (() => {
 
     const els = doc.gcn("cancelBtn");
     const dictCourse = {
-      11: "스톤",
-      22: "게이트",
+      11: "Out",
+      22: "In",
     };
     let target;
     Array.from(els).forEach((el) => {
