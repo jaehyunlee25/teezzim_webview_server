@@ -89,7 +89,9 @@ javascript: (() => {
     lss("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
-    const els = doc.gcn("calenda mt50")[0].gcn("reserved");
+    const els = doc.gcn("calenda mt50")[0].gcn("reserve");
+    log("els", els, els.length);
+
     let target;
     els.every(el => {
       const param = el.attr("href").inparen()[0].split("|");
