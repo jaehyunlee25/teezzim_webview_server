@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwonresort.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwonresort.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.lakeside.kr/mobile/main/mainPage.do": funcMain,
+    "https://www.lakeside.kr/mobile/user/sign/Logout.do": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -67,43 +67,47 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      setTimeout(funcCancel, 1000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcCancel, 1000);
   }
   function funcCancel() {
     log("funcCancel");
-    const els = document.gcn("cm_qusrud");
+    const els = doc
+        .gcn("cm_time_list_tbl real_table")[0]
+        .gtn("tbody")[0]
+        .gcn("cm_btn gray");
     log("els", els, els.length);
+
     const dictCourse = {
-      1: "한려",
-      2: "미륵",
+      1: "남Out",
+      2: "남In",
+      3: "동Out",
+      4: "동In",
+      5: "서Out",
+      6: "서In",
     };
     let target;
     els.every((el, i) => {
-      const param = el.children[0].attr("href").inparen();
-      const elDate = param[2];
-      const elTime = param[3];
-      const elCourse = param[4];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+      const param = el.attr("onclick").inparen();
+      const [elTime, elCourse, elDate] = param;
+
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
-      log(elDate, fulldate,
-        dictCourse[elCourse], course,
-        elTime, time);
+      
+      log(elDate, fulldate, dictCourse[elCourse], course, elTime, time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.parentNode.children[6].children[0];
+        target = el;
 
       return !target;  
     });
+
     log("target", target);
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
     } else {
       LOGOUT();
     }
