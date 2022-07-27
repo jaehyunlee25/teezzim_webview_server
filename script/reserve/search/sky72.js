@@ -2,24 +2,20 @@ javascript: (() => {
   ${commonScript}
   const logParam = {
     type: "command",
-    sub_type: "reserve/cancel",
+    sub_type: "reserve/search",
     device_id: "${deviceId}",
     device_token: "${deviceToken}",
     golf_club_id: "${golfClubId}",
-    message: "start reserve/cancel",
+    message: "start reserve/search",
     parameter: JSON.stringify({}),
   };
   const addr = location.href.split("?")[0];
-  const year = "${year}";
-  const month = "${month}";
-  const date = "${date}";
-  const course = "${course}";
-  const time = "${time}";
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://m.ara-mir.com/Mobile/": funcMain,
-    "https://m.ara-mir.com/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
+    "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
+    "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -64,55 +60,55 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
-      return;
-    }
-    TZLOG(logParam, (data) => {});
-    funcCancel();
-  }
-  function funcCancel() {
-    log("funcCancel");
-    const els = doc.gcn("reser_btn4");
-    const dictCourse = {
-      11: "ara_out",
-      22: "ara_in",
-      33: "mir_out",
-      44: "mir_in",
-    };
-    let target;
-    Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const [elDate, elTime, elCourse] = param;
 
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
-      const fulldate = [year, month, date].join("");
-      if (
-        elDate == fulldate &&
-        dictCourse[elCourse] == course &&
-        elTime == time
-      )
-        target = el;
+    const tag = localStorage.getItem("TZ_RESERVE");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
+
+    TZLOG(logParam, (data) => {});
+    funcSearch();
+  }
+  function funcSearch() {
+    log("funcSearch");
+
+    const els = doc.gcn("table_reserv")[0].gtn("a");
+    const dictCourse = {
+      11: "Sun",
+      22: "Sea",
+      33: "Moon",
+    };
+    const result = [];
+    Array.from(els).forEach((el) => {
+      if(el.str() != "취소") return true;
+
+      const param = el.attr("href").inparen();
+      const date = param[0].split("-").join("");
+      const time = param[1];
+      const course = param[2];
+      console.log("reserve search", dictCourse[course], date, time);
+      result.push({ date, time, course: dictCourse[course] });
     });
-    if (target) {
-      target.click();
-      setTimeout(funcEnd, 1000);
-    } else {
-      funcEnd();
-    }
+    const param = {
+      golf_club_id: "${golfClubId}",
+      device_id: "${deviceId}",
+      result,
+    };
+    const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
+    post(addr, param, { "Content-Type": "application/json" }, (data) => {
+      console.log(data);
+      LOGOUT();
+    });
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/cancel";
+    const strEnd = "end of reserve/search";
     logParam.message = strEnd;
-    TZLOG(logParam, (data) => {
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-    });
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut.aspx";
+    location.href = "/_mobile/login/logout.asp";
   }
 })();

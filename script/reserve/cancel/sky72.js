@@ -18,8 +18,9 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://m.ara-mir.com/Mobile/": funcMain,
-    "https://m.ara-mir.com/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
+    "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
+    "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -64,28 +65,34 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
+
+    const tag = localStorage.getItem("TZ_RESERVE");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      LOGOUT();
       return;
     }
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
+
     TZLOG(logParam, (data) => {});
     funcCancel();
   }
   function funcCancel() {
     log("funcCancel");
-    const els = doc.gcn("reser_btn4");
+
+    const els = doc.gcn("table_reserv")[0].gtn("a");
     const dictCourse = {
-      11: "ara_out",
-      22: "ara_in",
-      33: "mir_out",
-      44: "mir_in",
+      11: "Sun",
+      22: "Sea",
+      33: "Moon",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const [elDate, elTime, elCourse] = param;
-
+      if(el.str() != "취소") return true;
+      
+      const param = el.attr("href").inparen();
+      const elDate = param[0].split("-").join("");
+      const elTime = param[1];
+      const elCourse = param[2];
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -99,20 +106,19 @@ javascript: (() => {
       target.click();
       setTimeout(funcEnd, 1000);
     } else {
-      funcEnd();
+      LOGOUT();
     }
   }
   function funcEnd() {
     log("funcEnd");
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
-    TZLOG(logParam, (data) => {
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-    });
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut.aspx";
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
