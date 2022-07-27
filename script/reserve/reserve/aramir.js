@@ -19,17 +19,58 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://m.ara-mir.com/Mobile/": funcMain,
+    "https://m.ara-mir.com/Mobile/Member/LogOut.aspx": funcOut,
     "https://m.ara-mir.com/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
     "https://m.ara-mir.com/Mobile/Reservation/ReservationCheck.aspx": funcExec,
+    "https://m.ara-mir.com/Mobile/Reservation/ReservationList.aspx": funcList,
   };
   const func = dict[addr];
   const fulldate = [year, month, date].join("-");
-  if (!func) location.href = "${searchUrl}";
+  if (!func) funcOther();
   else func();
+
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if(tag == "true") {
       localStorage.removeItem("TZ_LOGOUT");
@@ -47,6 +88,8 @@ javascript: (() => {
     });
   }
   function funcTime() {
+    log("funcTime");
+
     const els = document.getElementsByClassName("reser_btn0");
     const dictCourse = {
       ara_in: "22",
@@ -64,13 +107,22 @@ javascript: (() => {
     if (target) {
       target.click();
     } else {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-      localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      LOGOUT();
     }
   }
   function funcExec() {
+    log("funcExec");    
+  }
+  function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();
