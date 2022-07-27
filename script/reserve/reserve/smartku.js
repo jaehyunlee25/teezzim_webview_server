@@ -31,8 +31,8 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    미쁨: "2",
     바른: "1",
+    미쁨: "2",
     혼솔: "3",
   };
   const fulldate = [year, month, date].join("");
