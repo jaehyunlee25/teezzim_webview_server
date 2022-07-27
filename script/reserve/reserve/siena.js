@@ -18,7 +18,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.sienacountryclub.com/mobile/index.asp": funcMain,
+    "http://www.sienacountryclub.com/index.asp": funcMain,
     "http://www.sienacountryclub.com/html/member/mem_logout.asp": funcOut,
     "http://www.sienacountryclub.com/html/reservation/reservation_02.asp": funcList,
   };
