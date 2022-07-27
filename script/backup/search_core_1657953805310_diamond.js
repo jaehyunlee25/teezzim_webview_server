@@ -28,14 +28,13 @@ function mneCallDetail(arrDate) {
   };
   const param = {};
   Array.from(aspnetForm.elements).forEach((el) => (param[el.name] = el.value));
-  global_param["__ASYNCPOST"] = "true";
-  global_param["ctl00$contents$htbArgs"] = "INIT";
-  global_param["ctl00$contents$ScptManager"] =
-    "ctl00$contents$ScptManager|ctl00$contents$btnUp";
-  global_param["__EVENTTARGET"] = "ctl00$contents$btnUp";
+  param["__ASYNCPOST"] = "true";
+  param["ctl00$contents$ScrptManager1"] =
+    "ctl00$contents$ScrptManager1|ctl00$contents$btnUp";
+  param["__EVENTTARGET"] = "ctl00$contents$btnUp";
   post(
     "/Mobile/Reservation/Reservation.aspx?SelectedDate=" + date.datify(),
-    global_param,
+    param,
     {},
     (data) => {
       const ifr = document.createElement("div");
@@ -75,19 +74,6 @@ function mneCallDetail(arrDate) {
 /* <============line_div==========> */
 
 /* <============line_div==========> */
-let global_param = {};
 mneCall(thisdate, () => {
-  mneCall(nextdate, () => {
-    const param = { SelectedDate: thisdate + "01" };
-    get("/Mobile/Reservation/Reservation.aspx", param, {}, (data) => {
-      const ifr = document.createElement("div");
-      ifr.innerHTML = data;
-      const ipts = ifr.getElementsByTagName("input");
-      Array.from(ipts).forEach((ipt) => {
-        if (!ipt.id) return;
-        global_param[ipt.name] = ipt.value;
-      });
-      procDate();
-    });
-  });
+  mneCall(nextdate, procDate);
 });

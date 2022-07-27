@@ -29,7 +29,6 @@ function mneCallDetail(arrDate) {
   const param = {};
   Array.from(aspnetForm.elements).forEach((el) => (param[el.name] = el.value));
   global_param["__ASYNCPOST"] = "true";
-  global_param["ctl00$contents$htbArgs"] = "INIT";
   global_param["ctl00$contents$ScptManager"] =
     "ctl00$contents$ScptManager|ctl00$contents$btnUp";
   global_param["__EVENTTARGET"] = "ctl00$contents$btnUp";
