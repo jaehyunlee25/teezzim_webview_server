@@ -18,9 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
-    "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
-    "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://m.sky72.com/index.jsp": funcMain,
+    "https://m.sky72.com/login/action/logout.jsp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -79,20 +78,22 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = doc.gcn("table_reserv")[0].gtn("a");
+    const els = container.gtn("a").filter(el => el.attr("title") == "정상취소하기");
     const dictCourse = {
-      11: "Sun",
-      22: "Sea",
-      33: "Moon",
+      1: "하늘",
+      2: "하늘",
+      3: "레이크",
+      4: "레이크",
+      5: "클래식",
+      6: "클래식",
+      7: "오션",
+      8: "오션",
     };
     let target;
-    Array.from(els).forEach((el) => {
-      if(el.str() != "취소") return true;
-      
+    Array.from(els).every((el) => {
       const param = el.attr("href").inparen();
-      const elDate = param[0].split("-").join("");
-      const elTime = param[1];
-      const elCourse = param[2];
+      const [elDate, elTime, elCourse] = param;
+
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
@@ -101,10 +102,14 @@ javascript: (() => {
         elTime == time
       )
         target = el;
+      
+      return !target;
     });
+
+    log("target", target);
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
+      timer(1000, goNext);
     } else {
       LOGOUT();
     }
