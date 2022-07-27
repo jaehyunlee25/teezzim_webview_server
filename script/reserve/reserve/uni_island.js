@@ -30,12 +30,12 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    IN: "22",
     OUT: "11",
+    IN: "22",
   };
   const fulldate = [year, month, date].join("-");
   log(addr);
-  if (!func) location.href = "${searchUrl}";
+  if (!func) funcOther();
   else func();
 
   function funcList() {
