@@ -71,7 +71,7 @@ javascript: (() => {
     Array.from(els).forEach((el) => {
       if(el.str() != "취소") return true;
 
-      const param = el.attr("onclick").inparen();
+      const param = el.attr("href").inparen();
       const [elDate, elTime, elCourse] = param;
 
       console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
