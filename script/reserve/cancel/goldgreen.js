@@ -19,8 +19,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.skyvalley.co.kr/hilldeloci/main": funcMain,
-    "https://www.skyvalley.co.kr/member/logout": funcOut,
+    "https://www.goldgreen.co.kr/": funcMain,
+    "https://www.goldgreen.co.kr/member/logout": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -87,18 +87,13 @@ javascript: (() => {
 
     const els = resHisListDiv.gtn("li");
     const dictCourse = {
-      1: "물길",
-      2: "꽃길",
-      3: "산길",
-      4: "숲길",
+      1: "단일",
     };
     let target;
     Array.from(els).every((el) => {
       const param = el.gtn("button")[2].attr("onclick").inparen();
+      const [elDate, elCourse, , , elTime] = param;
 
-      const elDate = param[0];
-      const elTime = param[4];
-      const elCourse = param[1];
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
