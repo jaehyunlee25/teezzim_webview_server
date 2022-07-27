@@ -46,9 +46,13 @@ javascript: (() => {
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
 
-    log("hi_ment", doc.gcn("hi_ment")[0]);
-    if(doc.gcn("hi_ment").length == 0) location.href = "${loginUrl}";
-    else location.href = "${searchUrl}";
+    log("hi_ment", doc.gcn("hi_ment").length);
+    if(doc.gcn("hi_ment").length == 0) {
+      location.href = "${loginUrl}";
+    } else {
+      log(doc.gcn("hi_ment")[0].str());
+      location.href = "${searchUrl}";
+    }
   }
   function funcOut() {
     log("funcOut");
