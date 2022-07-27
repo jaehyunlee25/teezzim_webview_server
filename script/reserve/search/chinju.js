@@ -13,8 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.yongincc.com/Mobile/": funcMain,
-    "https://www.yongincc.com/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.chinjucc.co.kr/Mobile/": funcMain,
+    "https://www.chinjucc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -70,15 +70,18 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
 
-    const els = doc.gcn("cancelBtn");
+    const els = doc.gcn("tbl02")[0].gtn("a");
     const dictCourse = {
-      11: "Out",
-      22: "In",
+      11: "Front",
+      22: "Back",
     };
     const result = [];
     Array.from(els).forEach((el) => {
+      if(el.str() != "변경") return;
+
       const param = el.attr("href").inparen();
-      const [date, time, course] = param;
+      const date = param[0].regex(/[^0-9]/g);
+      const [ , , , time, , , , course] = param;
       
       log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
