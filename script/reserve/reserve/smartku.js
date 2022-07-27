@@ -128,10 +128,6 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
 
-    const tag = localStorage.getItem("TZ_TIME");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_TIME", new Date().getTime());
-
     const els = doc.gcn("cm_btn default");
     let target;
     els.every((el) => {
