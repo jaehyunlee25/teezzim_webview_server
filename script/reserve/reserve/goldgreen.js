@@ -8,7 +8,7 @@ javascript: (() => {
     golf_club_id: "${golfClubId}",
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
-  };  
+  };
   const addr = location.href.split("?")[0];
   const year = "${year}";
   const month = "${month}";
@@ -18,31 +18,26 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.sienacountryclub.com/index.asp": funcMain,
-    "http://www.sienacountryclub.com/html/member/mem_logout.asp": funcOut,
-    "http://www.sienacountryclub.com/html/reservation/reservation_02.asp": funcList,
+    "https://www.goldgreen.co.kr/": funcMain,
+    "https://www.goldgreen.co.kr/member/logout": funcOut,
+    "https://www.goldgreen.co.kr/reservation/resList": funcList,
   };
 
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
-  
+
   const func = dict[addr];
   const dictCourse = {
-    서: "1",
-    동: "2",
+    단일: "1",
   };
+
   const fulldate = [year, month, date].join("");
-  log(addr);
   if (!func) funcOther();
   else func();
 
   function funcList() {
     log("funcList");
     LOGOUT();
-    return;
-  }
-  function funcOther() {
-    log("funcOther");
     return;
   }
   function funcOut() {
@@ -61,6 +56,17 @@ javascript: (() => {
 
     location.href = "${searchUrl}";
   }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_OTHER");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
     log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGIN");
@@ -70,47 +76,46 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    log("funcReserve");    
+    log("funcReserve");
+
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
-
-    const tees = doc.gcn("teeup");
-    const btn = doc.gcn("btn_reserve");
-
-    if(tees.length == 0 && btn.length == 0){
-      Date_Click(year, month, date);
-    } else if (tees.length > 0 && btn.length == 0) {
-      funcTime();
-    } else if (tees.length > 0 && btn.length > 0) {
-      funcExec();
-    }
-
-  }  
+    const sign = fulldate.daySign();
+    let str = "";
+    if(sign == 0) str = "hol";
+    if(sign == 6) str = "sat";
+    clickCal("", "A", fulldate, "OPEN");
+    setTimeout(funcTime, 500);
+  }
   function funcTime() {
     log("funcTime");
-    
-    const sign = dictCourse[course];
-    const els = doc.gcn("teeup")[0].gtn("button");
-    let target;
-    els.every(el => {
-      const param = el.attr("onclick").inparen();
-      const [elDate, elCourse, elTime] = param;
 
-      log(elDate == fulldate, elCourse == sign, elTime == time);
-      log(elDate, fulldate, elCourse, sign, elTime, time);
-      if(elDate == fulldate && elCourse == sign && elTime == time) target = el;
+    const els = document.gcn("btn btn-res");
+
+    let target;
+    Array.from(els).every((el) => {
+      const param = el.attr("onclick").inparen();
+      const [elDate, elTime, elCourse] = param;
+      log(elCourse == dictCourse[course], elTime == time);
+      log(elCourse, dictCourse[course], elTime, time);
+      if (dictCourse[course] == elCourse && time == elTime) target = el;
 
       return !target;
     });
 
     log("target", target);
-    if(target) target.click();
-    else LOGOUT();
-  }
-  function funcExec() {
-    log("funcExec");
-    const sign = dictCourse[course];
-    Book_ok(fulldate, time, sign,'');
+    if (target) {
+      target.click();
+      golfSubmit();
+    } else {
+      LOGOUT();
+    }
   }
   function funcEnd() {
     log("funcEnd");
@@ -122,6 +127,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/html/member/mem_logout.asp";
+    location.href = "/member/logout";
   }
 })();
