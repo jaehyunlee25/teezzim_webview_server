@@ -14,8 +14,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://lakewood.co.kr/": funcMain,
-    "https://lakewood.co.kr/member/logout": funcOut,
+    "https://www.goldgreen.co.kr/": funcMain,
+    "https://www.goldgreen.co.kr/member/logout": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -73,28 +73,21 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      setTimeout(funcSearch, 1000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcSearch, 1000);
   }
   function funcSearch() {
     log("funcReserve");
 
     const els = resHisListDiv.gtn("li");
     const dictCourse = {
-      1: "물길",
-      2: "꽃길",
-      3: "산길",
-      4: "숲길",
+      1: "단일",
     };
     const result = [];
     Array.from(els).forEach((el) => {
       const param = el.gtn("button")[2].attr("onclick").inparen();
+      const [date, course, , , time] = param;
 
-      const date = param[0];
-      const time = param[4];
-      const course = param[1];
       console.log("reserve search", course, dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
