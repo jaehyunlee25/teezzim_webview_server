@@ -14,6 +14,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
     "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
+    "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
     "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
@@ -72,7 +73,7 @@ javascript: (() => {
     const result = [];
     Array.from(els).forEach((el) => {
       if(el.str() != "취소") return true;
-      
+
       const param = el.attr("href").inparen();
       const date = param[0].split("-").join("");
       const time = param[1];
