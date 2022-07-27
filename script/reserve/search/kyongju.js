@@ -59,6 +59,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
@@ -68,6 +69,8 @@ javascript: (() => {
     funcSearch();
   }
   function funcSearch() {
+    log("funcSearch");
+
     const els = doc.gcn("table_reserv")[0].gtn("a");
     const dictCourse = {
       11: "Sun",
