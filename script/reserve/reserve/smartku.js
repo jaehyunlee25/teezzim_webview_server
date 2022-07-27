@@ -44,7 +44,7 @@ javascript: (() => {
     log("funcMain");
     if(lsg("TZ_ABSOLUTE_LOGOUT") == "true") {
 
-      location.href = "${searchUrl}";
+      location.href = "${loginUrl}";
       lsr("TZ_ABSOLUTE_LOGOUT");
 
     } else {
