@@ -13,9 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
-    "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
-    "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://m.sky72.com/index.jsp": funcMain,
+    "https://m.sky72.com/login/action/logout.jsp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -73,9 +72,10 @@ javascript: (() => {
 
     const els = doc.gcn("table_reserv")[0].gtn("a");
     const dictCourse = {
-      11: "Sun",
-      22: "Sea",
-      33: "Moon",
+      0: "하늘",
+      1: "레이크",
+      2: "클래식",
+      3: "오션",
     };
     const result = [];
     Array.from(els).forEach((el) => {

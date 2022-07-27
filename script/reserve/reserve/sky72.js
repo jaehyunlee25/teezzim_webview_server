@@ -83,7 +83,10 @@ javascript: (() => {
     log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      LOGOUT();
+      return;
+    }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     timer(1000, exec);
@@ -147,6 +150,9 @@ javascript: (() => {
   function funcExec() {
     log("funcExec");
     goNext();
+    timer(1000, () => {
+      if(doc.gcn("jconfirm-buttons").length > 0) doc.gcn("jconfirm-buttons")[0].click();
+    });
   }
   function funcEnd() {
     log("funcEnd");
