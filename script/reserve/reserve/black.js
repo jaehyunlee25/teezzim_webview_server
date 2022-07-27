@@ -87,8 +87,9 @@ javascript: (() => {
     Reserve("", fulldate);
   }
   function funcTime() {
-    const els = doc.gcn("tbl02")[0].gtn("a");
-    
+    log("funcTime");
+
+    const els = doc.gcn("tbl02")[0].gtn("a");    
     let target;
     Array.from(els).every((el) => {
       const param = el.attr("href").inparen();
