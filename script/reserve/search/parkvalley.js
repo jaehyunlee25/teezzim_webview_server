@@ -13,10 +13,9 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.jayurocc.com/Mobile/Member/Login": funcLogin,
-    "https://www.jayurocc.com/Mobile/Member/Logout": funcOut,
+    "https://parkvalley.co.kr/Mobile/": funcMain,
+    "https://parkvalley.co.kr/Mobile/Member/Logout.aspx": funcOut,
   };
-
   
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
@@ -32,42 +31,50 @@ javascript: (() => {
   }
   function funcOther() {
     log("funcOther");
-    const tag = localStorage.getItem("TZ_MAIN");
+    const tag = lsg("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
+    lss("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
   }
+  function funcMain() {
+    log("funcMain");
+    const tag = lsg("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    lss("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
     log("funcLogin");
-    const tag = localStorage.getItem("TZ_LOGOUT");
+    const tag = lsg("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+    lss("TZ_LOGOUT", new Date().getTime());
 
     ${loginScript}
   }
   function funcReserve() {
     log("funcReserve");
-    const tag = localStorage.getItem("TZ_RESERVE");
+    const tag = lsg("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_RESERVE", new Date().getTime());
+    lss("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
     funcSearch();
   }
   function funcSearch() {
     log("funcSearch");
-    const els = doc.gcn("table_reserv02")[0].gcn("smallBtn");
+    const els = doc.gcn("cancelBtn");
     const dictCourse = {
-      11: "대한",
-      22: "민국",
-      33: "통일",
+      11: "파크",
+      22: "밸리",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      if(el.str() != "취소") return true;
-
-      const param = el.attr("href").inparen();
+      const param = el.attr("onclick").inparen();
       const [elDate, elTime, elCourse] = param;
 
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
