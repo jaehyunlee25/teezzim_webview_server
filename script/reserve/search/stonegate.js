@@ -13,9 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.kyongjugolf.co.kr/_mobile/index.asp": funcMain,
-    "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
-    "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.stonegatecc.co.kr/Mobile/": funcMain,
+    "https://www.stonegatecc.co.kr/Mobile/Member/LogOut.aspx": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -71,20 +70,15 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
 
-    const els = doc.gcn("table_reserv")[0].gtn("a");
+    const els = doc.gcn("cancelBtn");
     const dictCourse = {
-      11: "Sun",
-      22: "Sea",
-      33: "Moon",
+      11: "스톤",
+      22: "게이트",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      if(el.str() != "취소") return true;
-
       const param = el.attr("href").inparen();
-      const date = param[0].split("-").join("");
-      const time = param[1];
-      const course = param[2];
+      const [date, time, course] = param;
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
