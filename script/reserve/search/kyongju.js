@@ -29,7 +29,7 @@ javascript: (() => {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
-      funcEnd();
+      LOGOUT();
       return;
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
@@ -59,11 +59,11 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if(tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
-      return;
-    }
+
+    const tag = localStorage.getItem("TZ_RESERVE");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
+
     TZLOG(logParam, (data) => {});
     funcSearch();
   }
