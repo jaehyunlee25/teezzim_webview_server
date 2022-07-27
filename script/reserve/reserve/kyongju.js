@@ -90,7 +90,7 @@ javascript: (() => {
     Array.from(els).every(el => {
       if(!el.attr("href")) return true;
 
-      const param = el.attr("href");
+      const param = el.attr("href").inparen();
       const elDate = param[1];
 
       log("elDate", elDate);
