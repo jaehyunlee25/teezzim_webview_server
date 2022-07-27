@@ -21,6 +21,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://www.jayurocc.com/Mobile/Member/Login": funcLogin,
     "https://jayurocc.com/Mobile/Reservation/ReservationCheck": funcExec,
+    "https://www.jayurocc.com/Mobile/Reservation/ReservationCheck": funcExec,
     "https://jayurocc.com/Mobile/Member/Logout": funcOut,
     "https://jayurocc.com/Mobile/": funcMain,
     "https://jayurocc.com/Mobile/Reservation/ReservationList": funcList,
