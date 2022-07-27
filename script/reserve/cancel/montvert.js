@@ -103,7 +103,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el.gtn("button")[2];
+        target = el.gtn("button")[1];
 
        return !target; 
     });
