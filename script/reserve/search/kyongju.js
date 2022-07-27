@@ -28,7 +28,7 @@ javascript: (() => {
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
       funcEnd();
       return;
     }
@@ -44,7 +44,7 @@ javascript: (() => {
   function funcOther() {
     log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
     location.href = "${reserveUrl}";
@@ -53,7 +53,7 @@ javascript: (() => {
     log("funcLogin");
 
     const tag = localStorage.getItem("TZ_LOGIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
     ${loginScript}
@@ -61,7 +61,7 @@ javascript: (() => {
   function funcReserve() {
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
