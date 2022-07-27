@@ -16,6 +16,11 @@ javascript: (() => {
     "https://www.jayurocc.com/Mobile/Member/Login": funcLogin,
     "https://www.jayurocc.com/Mobile/Member/Logout": funcOut,
   };
+
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   if (!func) funcOther();
   else func();
@@ -24,7 +29,7 @@ javascript: (() => {
     log("funcOut");
     funcEnd();
     return;
-  };
+  }
   function funcOther() {
     log("funcOther");
     const tag = localStorage.getItem("TZ_MAIN");
@@ -34,7 +39,7 @@ javascript: (() => {
     location.href = "${reserveUrl}";
   }
   function funcLogin() {
-    
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -42,7 +47,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -51,6 +56,7 @@ javascript: (() => {
     funcSearch();
   }
   function funcSearch() {
+    log("funcSearch");
     const els = doc.gcn("table_reserv02")[0].gcn("smallBtn");
     const dictCourse = {
       11: "대한",
@@ -61,7 +67,7 @@ javascript: (() => {
     Array.from(els).forEach((el) => {
       if(el.str() != "취소") return true;
 
-      const param = el.getAttribute("href").inparen();
+      const param = el.attr("href").inparen();
       const [elDate, elTime, elCourse] = param;
 
       console.log("reserve search", dictCourse[elCourse], elDate, elTime);
@@ -75,13 +81,20 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      LOGOUT();
     });
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {
+      const ac = window.AndroidController;
+      if (ac) ac.message(strEnd);
+    });
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();

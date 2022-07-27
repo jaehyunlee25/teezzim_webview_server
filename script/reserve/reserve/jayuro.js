@@ -25,6 +25,10 @@ javascript: (() => {
     "https://www.jayurocc.com/Mobile/": funcMain,
     "https://www.jayurocc.com/Mobile/Reservation/ReservationList": funcList,
   };
+
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
     대한: "11",
