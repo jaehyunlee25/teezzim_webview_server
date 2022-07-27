@@ -100,6 +100,6 @@ javascript: (() => {
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {
-    location.href = "logout.asp";
+    location.href = "/html/member/mem_logout.asp";
   }
 })();
