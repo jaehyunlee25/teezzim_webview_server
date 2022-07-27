@@ -17,6 +17,10 @@ javascript: (() => {
     "https://www.kyongjugolf.co.kr/Mobile/": funcMain,
     "https://www.kyongjugolf.co.kr/_mobile/login/logout.asp": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   if (!func) funcOther();
   else func();
