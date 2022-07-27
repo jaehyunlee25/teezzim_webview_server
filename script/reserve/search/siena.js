@@ -13,8 +13,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://namchuncheon.co.kr/mobile/index.asp": funcMain,
-    "http://namchuncheon.co.kr/mobile/logout.asp": funcOut,
+    "http://www.sienacountryclub.com/index.asp": funcMain,
+    "http://www.sienacountryclub.com/html/member/mem_logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
@@ -60,17 +60,15 @@ javascript: (() => {
     });
   }
   function funcSearch() {
-    const els = doc.gcn("negative");
+    const els = doc.gcn("reser_cancel");
     const dictCourse = {
-      1: "Victory",
-      2: "Challenge",
+      1: "서",
+      2: "동",
     };
     const result = [];
     Array.from(els).forEach((el) => {
       const param = el.attr("onclick").inparen();
-      const date = param[0];
-      const time = param[2];
-      const course = param[1];
+      const [date, course, time] = param;
 
       log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
