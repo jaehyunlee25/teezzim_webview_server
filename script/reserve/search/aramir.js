@@ -13,36 +13,67 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://m.ara-mir.com/Mobile/": funcMain,
+    "https://m.ara-mir.com/Mobile/Member/LogOut.aspx": funcOut,
   };
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
-  function funcLogin() {
-    ${loginScript}
+
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
   }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
+    ${loginScript}
+  }  
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
     if(tag == "true") {
       localStorage.removeItem("TZ_LOGOUT");
       return;
     }
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcSearch();
-    });
+    TZLOG(logParam, (data) => {});
+    funcSearch();
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("reser_btn4");
+    const els = doc.gcn("reser_btn4");
     const result = [];
     const dictCourse = {
-      22: "In",
-      11: "Out",
+      11: "ara_out",
+      22: "ara_in",
+      33: "mir_out",
+      44: "mir_in",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const date = param[0].split("-").join("");
-      const time = param[1];
-      const course = param[2];
+      const param = el.attr("href").inparen();
+      const [date, time, course] = param;
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });

@@ -71,14 +71,16 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if(tag == "true") {
-      localStorage.removeItem("TZ_LOGOUT");
+    const tag = localStorage.getItem("TZ_RESERVE");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
       return;
     }
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
+
     if(!suffix) location.href = location.href + "?ThisDate=" + fulldate;
     TZLOG(logParam, (data) => {
-      const els = document.getElementsByClassName("tbl02")[0].getElementsByClassName("r_choice");
+      const els = doc.gcn("tbl02")[0].gcn("r_choice");
       let target;
       Array.from(els).forEach(el => {
         const param = el.getAttribute("data-date");
@@ -90,12 +92,12 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
 
-    const els = document.getElementsByClassName("reser_btn0");
+    const els = doc.gcn("reser_btn0");
     const dictCourse = {
-      ara_in: "22",
       ara_out: "11",
-      mir_in: "44",
+      ara_in: "22",
       mir_out: "33",
+      mir_in: "44",
     };
     let target;
     Array.from(els).forEach((el) => {
