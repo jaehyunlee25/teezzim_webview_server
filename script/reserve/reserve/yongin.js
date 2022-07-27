@@ -31,8 +31,8 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    In: "11",
-    Out: "22",
+    Out: "11",  /* 용인 */
+    In: "22",   /* 석천 */
   };
   const fulldate = [year, month, date].join("-");
   
