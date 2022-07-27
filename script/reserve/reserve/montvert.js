@@ -21,7 +21,7 @@ javascript: (() => {
     "https://www.montvertcc.com/": funcMain,
     "https://www.montvertcc.com/reservation/resList": funcList,
     "https://www.montvertcc.com/member/logout": funcOut,
-  };
+  };  
 
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
