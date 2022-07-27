@@ -21,8 +21,8 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://incheongrand.cc/_mobile/index.asp": funcMain,
     "https://incheongrand.cc/_mobile/login/logout.asp": funcOut,
-    "https://m.ara-mir.com/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
-    "https://m.ara-mir.com/Mobile/Reservation/ReservationCheck.aspx": funcExec,
+    "https://incheongrand.cc/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
+    "https://incheongrand.cc/Mobile/Reservation/ReservationCheck.aspx": funcExec,
   };
   
   log("raw addr :: ", location.href);
