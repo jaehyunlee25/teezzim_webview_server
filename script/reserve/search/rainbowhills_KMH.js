@@ -15,8 +15,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://dongwongolf.co.kr/_mobile/index.asp": funcMain,
-    "https://dongwongolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://www.rainbowhills.co.kr/_mobile/index.asp": funcMain,
+    "https://www.rainbowhills.co.kr/_mobile/login/logout.asp": funcOut,
   };
   const func = dict[addr];
   if (!func) funcOther();
@@ -56,24 +56,23 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      setTimeout(funcSearch, 2000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcSearch, 2000);
   }
   function funcSearch() {
     log("funcSearch");
+
     const els = document.gcn("cm_btn default cm_btn_space01");
     log("els", els, els.length);
     const result = [];
     const dictCourse = {
-      1: "단일",
+      1: "EAST",
+      2: "SOUTH",
+      3: "WEST",
     };
     els.forEach((el, i) => {
       const param = el.attr("onclick").inparen();
-      const date = param[2];
-      const time = param[3];
-      const course = param[4];
+      const [ , , date, time, course] = param;
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
