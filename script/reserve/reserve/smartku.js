@@ -68,24 +68,14 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    if(addr.indexOf("returnurl") != -1) {
-        lss("TZ_RETURN", "true");
-        funcLogin();
-    } else {
-      location.href = "${searchUrl}";
-    }
+    location.href = "${searchUrl}";
   }
   function funcLogin() {
     log("funcLogin");
 
-    if(lsg("TZ_RETURN") == "true") {
-      log("TZ_RETURN");
-      lsr("TZ_RETURN");
-    } else {
-      const tag = localStorage.getItem("TZ_LOGIN");
-      if (tag && new Date().getTime() - tag < 1000 * 5) return;
-      localStorage.setItem("TZ_LOGIN", new Date().getTime());
-    }
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
     ${loginScript}
   }
