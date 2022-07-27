@@ -98,9 +98,7 @@ javascript: (() => {
   
       let target;
       Array.from(els).every(el => {
-        if(!el.attr("href")) return true;
-  
-        const param = el.attr("href").inparen();
+        const param = el.attr("onclick").inparen();
         const [elDate, elCourse] = param;
         const sign = dictCourse[course];
   
