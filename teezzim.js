@@ -127,6 +127,7 @@ function procPost(request, response, data) {
       })
     );
     response.end();
+    return;
   }
 
   let url;
