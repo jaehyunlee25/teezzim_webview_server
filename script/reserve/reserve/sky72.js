@@ -151,7 +151,8 @@ javascript: (() => {
     log("funcExec");
     goNext();
     timer(1000, () => {
-      if(doc.gcn("jconfirm-buttons").length > 0) doc.gcn("jconfirm-buttons")[0].click();
+      if(doc.gcn("jconfirm-buttons").length > 0) 
+        doc.gcn("jconfirm-buttons")[0].children[0].click();
     });
   }
   function funcEnd() {
