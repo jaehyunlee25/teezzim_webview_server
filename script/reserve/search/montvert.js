@@ -93,7 +93,7 @@ javascript: (() => {
       const param = el.gtn("button")[1].attr("onclick").inparen();
 
       const [elDate, elCourse, , , elTime] = param;
-      console.log("reserve search", course, dictCourse[elCourse], elDate, elTime);
+      console.log("reserve search", elCourse, dictCourse[elCourse], elDate, elTime);
       result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {
