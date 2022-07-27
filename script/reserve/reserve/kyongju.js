@@ -130,7 +130,7 @@ javascript: (() => {
   function funcExec() {
     log("funcExec");
 
-    ctl00_ContentPlaceHolder1_lbtOK.clic();
+    ctl00_ContentPlaceHolder1_lbtOK.click();
   }
   function funcEnd() {
     log("funcEnd");
