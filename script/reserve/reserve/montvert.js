@@ -116,6 +116,7 @@ javascript: (() => {
     if (target) {
       target.click();
       golfSubmit();
+      timer(1000, LOGOUT);
     } else {
       LOGOUT();
     }

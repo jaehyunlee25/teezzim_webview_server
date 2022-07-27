@@ -14,8 +14,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://lakewood.co.kr/": funcMain,
-    "https://lakewood.co.kr/member/logout": funcOut,
+    "https://www.montvertcc.com/": funcMain,
+    "https://www.montvertcc.com/member/logout": funcOut,
   };
 
   log("raw addr :: ", location.href);
@@ -83,20 +83,18 @@ javascript: (() => {
 
     const els = resHisListDiv.gtn("li");
     const dictCourse = {
-      1: "물길",
-      2: "꽃길",
-      3: "산길",
-      4: "숲길",
+      1: "AUTOMNE",
+      2: "HIVER",
+      3: "PRINTEMPS",
+      4: "ETE",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const param = el.gtn("button")[2].attr("onclick").inparen();
+      const param = el.gtn("button")[1].attr("onclick").inparen();
 
-      const date = param[0];
-      const time = param[4];
-      const course = param[1];
-      console.log("reserve search", course, dictCourse[course], date, time);
-      result.push({ date, time, course: dictCourse[course] });
+      const [elDate, elCourse, , , elTime] = param;
+      console.log("reserve search", course, dictCourse[elCourse], elDate, elTime);
+      result.push({ date: elDate, time: elTime, course: dictCourse[elCourse] });
     });
     const param = {
       golf_club_id: "${golfClubId}",
