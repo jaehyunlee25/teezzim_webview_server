@@ -216,6 +216,9 @@ document.gtn = function (str) {
   const els = this.getElementsByTagName(str);
   return Array.from(els);
 };
+document.clm = function (str) {
+  return document.createElement(str);
+};
 window.timer = function (time, callback) {
   setTimeout(callback, time);
 };
