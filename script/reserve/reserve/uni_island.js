@@ -98,7 +98,7 @@ javascript: (() => {
     const els = doc.gcn("Btn_reserv");
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.attr("onclick").inparen();
+      const param = el.attr("href").inparen();
       const [elDate, elTime, elCourse] = param;
 
       log(elDate, fulldate, elTime, time, elCourse, sign);
