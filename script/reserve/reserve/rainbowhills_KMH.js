@@ -111,7 +111,7 @@ javascript: (() => {
     let target;
     els.every((el) => {
       const param = el.attr("onclick").inparen();
-      const [ , , elCourse, elTime] = param;
+      const [ , elCourse, elTime] = param;
       const sign = dictCourse[course];
       log(elTime, time, elCourse, sign);
       log(elTime == time, elCourse == sign);
