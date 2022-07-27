@@ -93,7 +93,7 @@ javascript: (() => {
     };
     let target;
     Array.from(els).every((el) => {
-      const param = el.gtn("button")[2].attr("onclick").inparen();
+      const param = el.gtn("button")[1].attr("onclick").inparen();
 
       const [elDate, elCourse, , , elTime] = param;
       console.log("reserve cancel", course, dictCourse[elCourse], elDate, elTime);
