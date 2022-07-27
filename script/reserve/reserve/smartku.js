@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://kugolf.co.kr/_mobile/index.asp": funcMain,
-    "http://kugolf.co.kr/_mobile/login/logout.asp": funcOut,
+    "https://kugolf.co.kr/_mobile/index.asp": funcMain,
+    "https://kugolf.co.kr/_mobile/login/logout.asp": funcOut,
     "http://kugolf.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp":
       LOGOUT,
   };
