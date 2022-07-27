@@ -20,11 +20,10 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "https://www.jayurocc.com/Mobile/Member/Login": funcLogin,
-    "https://jayurocc.com/Mobile/Reservation/ReservationCheck": funcExec,
     "https://www.jayurocc.com/Mobile/Reservation/ReservationCheck": funcExec,
-    "https://jayurocc.com/Mobile/Member/Logout": funcOut,
-    "https://jayurocc.com/Mobile/": funcMain,
-    "https://jayurocc.com/Mobile/Reservation/ReservationList": funcList,
+    "https://www.jayurocc.com/Mobile/Member/Logout": funcOut,
+    "https://www.jayurocc.com/Mobile/": funcMain,
+    "https://www.jayurocc.com/Mobile/Reservation/ReservationList": funcList,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -79,7 +78,10 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {
