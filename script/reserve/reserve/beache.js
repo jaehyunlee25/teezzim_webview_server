@@ -92,7 +92,7 @@ javascript: (() => {
     log("funcTime");
 
     const sign = dictCourse[course];
-    const els = document.gcn("timeTbl")[0].gcn("tbody")[0].gtn("tr");
+    const els = doc.gcn("timeTbl")[0].gtn("tbody")[0].gtn("tr");
     log("els", els, els.length);
     
     let target;
