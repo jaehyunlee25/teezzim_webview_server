@@ -76,6 +76,8 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -84,7 +86,7 @@ javascript: (() => {
     location.href = "/BookingAdd.aspx?Date=" + fulldate;
   }
   function funcTime() {
-    log("funcDiv");
+    log("funcTime");
 
     const tag = localStorage.getItem("TZ_TIME");
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
@@ -94,6 +96,7 @@ javascript: (() => {
       const fd = [year.ch(2), month, date].join("");
       const key = [fd, time, dictCourse[course]].join("");
       
+      log("key", key);
       let target = window[key];
       log("taraget", target);
 
