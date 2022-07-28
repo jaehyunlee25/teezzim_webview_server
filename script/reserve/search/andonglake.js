@@ -34,7 +34,7 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcOut() {
     log("funcOut");
@@ -47,7 +47,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {
     log("funcLogin");
@@ -78,7 +78,7 @@ javascript: (() => {
       const date = "20" + param.gh(6);
       const time = param.ch(6).gh(4);
       const course = param.gt(1);
-      
+
       log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
