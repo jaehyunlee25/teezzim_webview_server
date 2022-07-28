@@ -4,7 +4,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.adelscott.co.kr/index.asp": funcEnd,
+    "https://www.adelscott.co.kr/_mobile/index.asp": funcEnd,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";

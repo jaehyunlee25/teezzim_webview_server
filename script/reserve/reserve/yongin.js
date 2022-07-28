@@ -21,9 +21,9 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://www.yongincc.com/Mobile/": funcMain,
     "https://www.yongincc.com/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.yongincc.com/Mobile/Reservation/ReservationList.aspx": funcList,
     "https://www.yongincc.com/Mobile/Reservation/ReservationTimeList.aspx": funcTime,
     "https://www.yongincc.com/Mobile/Reservation/ReservationCheck.aspx": funcExec,
-    "https://www.yongincc.com/Mobile/Reservation/ReservationList.aspx": funcList,
   };
   
   log("raw addr :: ", location.href);

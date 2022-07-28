@@ -9,23 +9,69 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
+    "https://www.adelscott.co.kr/_mobile/index.asp": funcOut,
+    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcList,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${searchUrl}";
+  const dictCourse = {
+    1: "Mountain",
+    2: "Hill",
+    3: "Lake",
+  };
+  if (!func) funcOther();
   else func();
+
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcLogin");
+
     if (window["tab0"]) {
       const els = tab0.getElementsByTagName("button");
       const fulldate = [year, month, date].join("");
       let target;
-      const dictCourse = {
-        1: "Mountain",
-        2: "Hill",
-        3: "Lake",
-      };
+      
       Array.from(els).forEach((el) => {
         const param = el.getAttribute("onclick").inparen();
         const signCourse = param[1].trim();
