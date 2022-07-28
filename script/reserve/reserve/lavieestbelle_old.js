@@ -80,12 +80,12 @@ javascript: (() => {
     log("funcReserve");
 
     if(doc.gcn("cm_dPdir").length > 0) {
-      funcTime();
-      return;
-    } else if(doc.gcn("cm_dPdir").length > 0) {
       funcExec();
       return;
-    }
+    } else if (doc.gcn("cm_dPdir").length > 0) {
+      funcTime();
+      return;
+    } 
 
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
