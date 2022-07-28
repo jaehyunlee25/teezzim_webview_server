@@ -92,6 +92,8 @@ javascript: (() => {
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
     localStorage.setItem("TZ_TIME", new Date().getTime());
 
+    log("Booking_Detail", Booking_Detail.style.display);
+
     if(Booking_Detail.style.display == "none") {
       const fd = [year.ch(2), month, date].join("");
       const key = [fd, time, dictCourse[course]].join("");
