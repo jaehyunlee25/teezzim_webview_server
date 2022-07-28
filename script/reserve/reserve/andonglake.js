@@ -88,10 +88,10 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
 
-    log("Booking_Detail", Booking_Detail.style.display);
-
+    
     timer(2000, exec);
     function exec() {
+      log("Booking_Detail", Booking_Detail.style.display);
       if(Booking_Detail.style.display == "none") {
         const fd = [year.ch(2), month, date].join("");
         const key = [fd, time, dictCourse[course]].join("");
