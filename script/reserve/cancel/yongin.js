@@ -79,6 +79,8 @@ javascript: (() => {
     log("funcCancel");
 
     const els = doc.gcn("cancelBtn");
+    log("els", els, els.length);
+
     const dictCourse = {
       11: "Out",
       22: "In",
