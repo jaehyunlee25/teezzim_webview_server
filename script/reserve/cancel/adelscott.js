@@ -89,7 +89,7 @@ javascript: (() => {
     Array.from(els).forEach((el) => {
       const [, , elDate, elTime, elCourse] = el.attr("onclick").inparen();
 
-      log("reserve cancel", dictCourse[btnCourse], date, time);
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
         elDate == fulldate &&
