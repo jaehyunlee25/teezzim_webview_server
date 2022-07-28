@@ -96,8 +96,11 @@ javascript: (() => {
       log("calendar");
       funcDate();
     } else if (suffixParam["settype"] == "T") {
-      log("time");
-      funcTime();
+      if(doc.gcn("cm_btn default")[0]) {
+        funcExec();
+      } else {
+        funcTime();
+      }
     } else {
       return;
     }
@@ -143,7 +146,7 @@ javascript: (() => {
   }
   function funcExec() {
     log("funcExec");
-    document.gcn("cm_btn default")[0].click();
+    doc.gcn("cm_btn default")[0].click();
   }
   function funcEnd() {
     log("funcEnd");
