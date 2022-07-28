@@ -95,7 +95,7 @@ javascript: (() => {
   }
   function funcEnd() {
     log("funcEnd");
-    const strEnd = "end of reserve/reserve";
+    const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
