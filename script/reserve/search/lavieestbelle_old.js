@@ -15,8 +15,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
-    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://lavieestbellegolfnresort.com/oldcourse/_mobile/index.asp": funcMain,
+    "http://lavieestbellegolfnresort.com/oldcourse/_mobile/login/logout.asp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -73,17 +73,16 @@ javascript: (() => {
   function funcSearch() {
     log("funcSearch");
 
-    const els = doc.gcn("cm_time_list_tbl")[0].gcn("cm_btn gray");
+    const els = doc.gcn("cm_cnlth");
     log("els", els, els.length);
 
     const dictCourse = {
-      1: "Mountain",
-      2: "Hill",
-      3: "Lake",
+      1: "OUT",
+      2: "IN",
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const [, , date, time, course] = el.attr("onclick").inparen();
+      const [ . , , date, time, course] = el.attr("onclick").inparen();
   
       log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
