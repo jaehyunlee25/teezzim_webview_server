@@ -55,25 +55,26 @@ javascript: (() => {
   }
   function funcReserve() {
     log("funcReserve");
+
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      setTimeout(funcSearch, 2000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcSearch, 2000);
   }
   function funcSearch() {
     log("funcSearch");
-    const els = document.gcn("cm_btn default cm_btn_space01");
+
+    const els = doc.gcn("cm_btn default cm_btn_space01");
     log("els", els, els.length);
-    const result = [];
+    
     const dictCourse = {
       1: "바른",
       2: "미쁨",
       3: "혼솔",
     };
+    const result = [];
     els.forEach((el, i) => {
       const param = el.attr("onclick").inparen();
       const [ , , date, time, course] = param;
@@ -82,10 +83,6 @@ javascript: (() => {
       result.push({ date, time, course: dictCourse[course] });
     });
     
-    if(result.length == 0) {
-      LOGOUT();
-      return;
-    }
     const param = {
       golf_club_id: "${golfClubId}",
       device_id: "${deviceId}",
