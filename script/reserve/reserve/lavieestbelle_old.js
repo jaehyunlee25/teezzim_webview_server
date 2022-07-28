@@ -79,10 +79,7 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
-    if(doc.gcn("cm_dPdir").length > 0) {
-      funcExec();
-      return;
-    } else if (doc.gcn("cm_dPdir").length > 0) {
+    if (doc.gcn("cm_dPdir").length > 0) {
       funcTime();
       return;
     } 
@@ -122,6 +119,7 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
+      timer(1000, funcExec);
     } else {
       LOGOUT();
     }
