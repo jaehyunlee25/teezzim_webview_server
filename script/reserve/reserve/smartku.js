@@ -44,13 +44,17 @@ javascript: (() => {
     log("funcMain");
 
     const tag = lsg("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
     lss("TZ_MAIN", new Date().getTime());
 
     location.href = "${searchUrl}";
   }
   function funcOut() {
     log("funcOut");
+    funcEnd();
     return;
   }
   function funcOther() {

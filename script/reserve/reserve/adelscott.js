@@ -9,7 +9,9 @@ javascript: (() => {
     message: "start reserve/reserve",
     parameter: JSON.stringify({}),
   };
-  const addr = location.href.split("#")[0];
+  const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
+  const addr = location.href.split(splitter)[0];
+  const suffix = location.href.split(splitter)[1];
   const year = "${year}";
   const month = "${month}";
   const date = "${date}";
@@ -20,7 +22,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
     "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcOut,
-    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcList,
+    "https://www.adelscott.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
   };
   
   log("raw addr :: ", location.href);
@@ -32,6 +34,8 @@ javascript: (() => {
     2: "Hill",
     3: "Lake",
   };
+  const fulldate = [year, month, date].join("");
+
   if (!func) funcOther();
   else func();
 
@@ -74,42 +78,69 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    log("funcLogin");
+    log("funcReserve");
 
-    if (window["tab0"]) {
-      const els = tab0.getElementsByTagName("button");
-      const fulldate = [year, month, date].join("");
-      let target;
-      
-      Array.from(els).forEach((el) => {
-        const param = el.getAttribute("onclick").inparen();
-        const signCourse = param[1].trim();
-        if (param[2].trim() == time && dictCourse[signCourse] == course)
-          target = el;
+    if (!suffix) return;
+
+    const suffixParam = (() => {
+      const result = {};
+      suffix.split("&").forEach((item) => {
+        const dv = item.split("=");
+        result[dv[0]] = dv[1];
       });
-      if (target) target.click();
-    } else if (document.getElementsByClassName("cm_btn default")[0]){
-      const btn = document.getElementsByClassName("cm_btn default")[0];
-      if (btn) btn.click();
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-      location.href = "/login/logout.asp";
+      return result;
+    })();
+
+    log("settype", suffixParam["settype"]);
+    if (suffixParam["settype"] == "") {
+      log("calendar");
+      funcDate();
+    } else if (suffixParam["settype"] == "T") {
+      log("time");
+      funcTime();
     } else {
-      const param = {
-        type: "command",
-        sub_type: "reserve/reserve",
-        device_id: "${deviceId}",
-        device_token: "${deviceToken}",
-        golf_club_id: "${golfClubId}",
-        message: "start reserve/reserve",
-        parameter: JSON.stringify({}),
-      };
-      TZLOG(param, (data) => {
-        log(data);
-        const fulldate = [year, month, date].join("");
-        timefrom_change(fulldate, "2", "1", "", "00", "T");
-      });
+      return;
     }
+  }
+  function funcDate() {
+    log("funcDate");
+
+    const tag = localStorage.getItem("TZ_LOGOUT");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
+
+    TZLOG(logParam, (data) => {});
+    let sign = fulldate.daySign();
+    if (sign != 1) sign = 2;
+    timefrom_change(fulldate, sign, fulldate.dayNum(), "", "00", "T");
+  }
+  function funcTime() {
+    log("funcTime");
+    
+    const els = doc.gcn("cm_btn default");
+    let target;
+    els.every((el) => {
+      const param = el.attr("onclick").inparen();
+      const [, elCourse, elTime] = param;
+      const sign = dictCourse[course];
+      log(elCourse, sign, elTime, time);
+      log(elCourse == sign, elTime == time);
+      if (elCourse == sign && elTime == time) target = el;
+
+      return !target;
+    });
+
+    log("target", target);
+    if (target) {
+      target.click();
+      timer(1000, funcExec);
+    } else {
+      LOGOUT();
+    }
+  }
+  function funcExec() {
+    log("funcExec");
+    document.gcn("cm_btn default")[0].click();
   }
   function funcEnd() {
     log("funcEnd");
