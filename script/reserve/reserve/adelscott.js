@@ -101,5 +101,17 @@ javascript: (() => {
         timefrom_change(fulldate, "2", "1", "", "00", "T");
       });
     }
-  }  
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
+  }
 })();
