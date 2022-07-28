@@ -78,7 +78,10 @@ javascript: (() => {
     log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
-    if(tag && (new Date().getTime() - tag) < 1000 * 10) return;
+    if(tag && (new Date().getTime() - tag) < 1000 * 10) {
+      funcEnd();
+      return;
+    }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
     
     TZLOG(logParam, (data) => {});
@@ -87,7 +90,7 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
     
-    timer(2000, exec);
+    timer(0, exec);
     function exec() {
       log("Booking_Detail", Booking_Detail.style.display);
       if(Booking_Detail.style.display == "none") {
