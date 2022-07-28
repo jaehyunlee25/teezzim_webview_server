@@ -109,6 +109,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/_mobile/login/logout.asp";
+    location.href = "/oldcourse/_mobile/login/logout.asp";
   }
 })();
