@@ -11,7 +11,7 @@ const connection = mysql.createConnection(
   JSON.parse(fs.readFileSync("db.json"))
 );
 const log = function () {
-  console.log(">> new log :: ", new Date());
+  console.log("\n\n>> new log :: ", new Date());
   console.log(Array.from(arguments).join(", "));
 };
 const dir = console.dir;
