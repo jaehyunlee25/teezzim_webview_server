@@ -22,7 +22,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "http://lavieestbellegolfnresort.com/oldcourse/_mobile/index.asp": funcMain,
     "http://lavieestbellegolfnresort.com/oldcourse/_mobile/login/logout.asp": funcOut,
-    "http://lavieestbellegolfnresort.com/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
+    "http://lavieestbellegolfnresort.com/oldcourse/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
   };
   
   log("raw addr :: ", location.href);
