@@ -67,7 +67,7 @@ javascript: (() => {
 
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
     if(tag && (new Date().getTime() - tag) < 1000 * 5) {
-      fundEnd();
+      funcEnd();
       return;
     }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
