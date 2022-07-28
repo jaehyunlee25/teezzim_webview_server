@@ -95,7 +95,7 @@ javascript: (() => {
         const key = [fd, time, dictCourse[course]].join("");
         
         log("key", key);
-        let target = window[key];
+        let target = doc.getElementsByName(key)[0];
         log("taraget", target);
   
         if (target) {
