@@ -1,6 +1,17 @@
 javascript: (() => {
   ${commonScript}
-  const addr = location.href.split("?")[0];
+  const logParam = {
+    type: "command",
+    sub_type: "reserve/reserve",
+    device_id: "${deviceId}",
+    device_token: "${deviceToken}",
+    golf_club_id: "${golfClubId}",
+    message: "start reserve/reserve",
+    parameter: JSON.stringify({}),
+  };
+  const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
+  const addr = location.href.split(splitter)[0];
+  const suffix = location.href.split(splitter)[1];
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
@@ -53,7 +64,7 @@ javascript: (() => {
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
-    setTimeout(funcSearch, 2000);
+    setTimeout(funcSearch, 1000);
   }
   function funcSearch() {
     log("funcSearch");
