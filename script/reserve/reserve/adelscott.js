@@ -19,7 +19,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
-    "https://www.adelscott.co.kr/_mobile/index.asp": funcOut,
+    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcOut,
     "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcList,
   };
   
