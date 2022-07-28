@@ -18,15 +18,54 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
+    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  
+  if (!func) funcOther();
   else func();
+
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
-    
+    log("funcReserve");
+
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -37,24 +76,29 @@ javascript: (() => {
     });
   }
   function funcCancel() {
+    log("funcCancel");
+
     const dictCourse = {
       In: "1",
       Out: "2",
     };
     const fd = [year.ch(2), month, date].join("");
     const key = [fd, time, dictCourse[course]].join("");
-    log(key);
+
+    log("key", key);
     let target = window[key];    
-    log(target);
+
+    log("target", target);
     if (target) {
       target.click();
       btn_delete.click();
-      setTimeout(funcEnd, 1000);
     } else {
       funcEnd();
     }
   }
   function funcEnd() {
+    log("funcEnd");
+
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
@@ -62,5 +106,8 @@ javascript: (() => {
       if (ac) ac.message(strEnd);
       localStorage.setItem("TZ_LOGOUT", "true");
     });
+  }
+  function LOGOUT() {
+    log("LOGOUT");
   }
 })();

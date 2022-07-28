@@ -59,6 +59,8 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -66,6 +68,8 @@ javascript: (() => {
     funcSearch();
   }
   function funcSearch() {
+    log("funcSearch");
+
     const els = doc.gcn("ui-btn ui-btn-up-c ui-btn-corner-all ui-btn-icon-left");
     const result = [];
     const dictCourse = {
@@ -73,7 +77,7 @@ javascript: (() => {
       2: "Out",
     };
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("for");
+      const param = el.attr("for");
       if(!param) return;
       const date = "20" + param.gh(6);
       const time = param.ch(6).gh(4);
@@ -95,6 +99,7 @@ javascript: (() => {
   }
   function funcEnd() {
     log("funcEnd");
+
     const strEnd = "end of reserve/search";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
