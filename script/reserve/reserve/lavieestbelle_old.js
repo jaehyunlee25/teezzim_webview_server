@@ -114,7 +114,7 @@ javascript: (() => {
 
       log(elCourse, sign, elTime, time);
       log(elCourse == sign, elTime == time);
-      if (elCourse == sign && elTime == time) target = el;
+      if (elCourse == sign && elTime == time) target = el.children[0];
 
       return !target;
     });
@@ -122,7 +122,6 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      timer(1000, funcExec);
     } else {
       LOGOUT();
     }
