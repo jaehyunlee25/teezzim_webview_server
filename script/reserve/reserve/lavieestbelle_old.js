@@ -82,6 +82,9 @@ javascript: (() => {
     if(doc.gcn("cm_dPdir").length > 0) {
       funcTime();
       return;
+    } else if(doc.gcn("cm_dPdir").length > 0) {
+      funcExec();
+      return;
     }
 
     const tag = localStorage.getItem("TZ_LOGOUT");
