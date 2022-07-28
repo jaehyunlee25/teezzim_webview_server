@@ -88,10 +88,6 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
 
-    const tag = localStorage.getItem("TZ_TIME");
-    if(tag && (new Date().getTime() - tag) < 1000 * 10) return;
-    localStorage.setItem("TZ_TIME", new Date().getTime());
-
     log("Booking_Detail", Booking_Detail.style.display);
 
     timer(2000, exec);
