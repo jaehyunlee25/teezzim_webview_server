@@ -82,7 +82,7 @@ javascript: (() => {
     };
     const result = [];
     Array.from(els).forEach((el) => {
-      const [ , , , date, time, course] = el.attr("onclick").inparen();
+      const [ , , , date, time, course] = el.attr("href").inparen();
   
       log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
