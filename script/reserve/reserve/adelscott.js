@@ -117,12 +117,15 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
     
-    const els = doc.gcn("cm_btn default");
+    const els = doc.gcn("pointer");
+    log("els", els, els.length);
+
     let target;
     els.every((el) => {
       const param = el.attr("onclick").inparen();
       const [, elCourse, elTime] = param;
       const sign = dictCourse[course];
+      
       log(elCourse, sign, elTime, time);
       log(elCourse == sign, elTime == time);
       if (elCourse == sign && elTime == time) target = el;
@@ -152,6 +155,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/Mobile/Member/LogOut.aspx";
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
