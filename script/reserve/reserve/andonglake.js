@@ -87,7 +87,6 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
-
     
     timer(2000, exec);
     function exec() {
