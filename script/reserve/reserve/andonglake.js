@@ -90,7 +90,7 @@ javascript: (() => {
   function funcTime() {
     log("funcTime");
     
-    timer(0, exec);
+    timer(500, exec);
     function exec() {
       log("Booking_Detail", Booking_Detail.style.display);
       if(Booking_Detail.style.display == "none") {
