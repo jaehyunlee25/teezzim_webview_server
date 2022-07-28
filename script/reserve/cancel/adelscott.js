@@ -72,7 +72,7 @@ javascript: (() => {
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
-    setTimeout(funcSearch, 1000);
+    setTimeout(funcCancel, 1000);
   }
   function funcCancel() {
     log("funcCancel");
