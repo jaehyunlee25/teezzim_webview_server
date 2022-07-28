@@ -69,10 +69,8 @@ javascript: (() => {
     if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcCancel();
-    });
+    TZLOG(logParam, (data) => {});
+    timer(500, funcCancel);
   }
   function funcCancel() {
     log("funcCancel");
