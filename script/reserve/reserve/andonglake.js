@@ -18,9 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
-    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcOut,
-    "https://www.adelscott.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
+    "http://m2.gtc.co.kr/": funcMain,
+    "http://m2.gtc.co.kr/BookingDel.aspx": funcList,
     "http://m2.gtc.co.kr/BookingAdd.aspx": funcTime,
   };
   

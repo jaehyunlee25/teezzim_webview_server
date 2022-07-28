@@ -13,8 +13,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
-    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://m2.gtc.co.kr/": funcMain,
   };
   
   log("raw addr :: ", location.href);
