@@ -9,40 +9,84 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://www.eodeungsancc.com/mobile/index.asp": funcMain,
+    "https://www.eodeungsancc.com/mobile/login.asp": funcOut,
+    "https://www.eodeungsancc.com/mobile/reservation_confirm.asp": funcList,
     "https://www.eodeungsancc.com/mobile/reservation_02.asp": funcTime,
     "https://www.eodeungsancc.com/mobile/reservation_03.asp": funcExec,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) funcMain();
+  const dictCourse = { 
+    어등: "1", 
+    송정: "2", 
+    하남: "3" 
+  };
+
+  if (!func) funcOther();
   else func();
+
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcMain() {
     log("funcMain");
-    const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
+    const tag = lsg("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
       funcEnd();
       return;
     }
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
+    lss("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = lsg("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    lss("TZ_MAIN", new Date().getTime());
 
     location.href = "${searchUrl}";
   }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = lsg("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    lss("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+    
+    const tag = lsg("TZ_RESERVE");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    lss("TZ_RESERVE", new Date().getTime());
+    
+    TZLOG(logParam, (data) => {});
     Date_Click(year, month, date);
   }
   function funcTime() {
-    const fulldate = [year, month, date].join("");
-    const dictCourse = { 어등: "1", 송정: "2", 하남: "3" };
+    log("funcTime");
+
+    const fulldate = [year, month, date].join("");    
     Book_Confirm(fulldate, "", dictCourse[course], course, time, "2");
   }
   function funcExec() {
-    document.getElementsByClassName("btn_reserve")[0].children[0].click();
-    setTimeout(() => {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-    }, 10000);
+    log("funcExec");
+
+    doc.gcn("btn_reserve")[0].children[0].click();
   }
   function funcEnd() {
     log("funcEnd");
@@ -51,6 +95,9 @@ javascript: (() => {
     TZLOG(logParam, (data) => {});
     const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
-    location.href = "logout.asp";
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/mobile/login.asp";
   }
 })();

@@ -10,7 +10,10 @@ admin.initializeApp({
 const connection = mysql.createConnection(
   JSON.parse(fs.readFileSync("db.json"))
 );
-const log = console.log;
+const log = function () {
+  console.log(">> new log :: ", new Date());
+  console.log(Array.from(arguments).join(", "));
+};
 const dir = console.dir;
 const golfClubEngNames = [];
 const golfClubIdToEng = {};
@@ -118,7 +121,7 @@ const server = http
   })
   .listen(8080);
 function procPost(request, response, data) {
-  console.log("data", data);
+  log("data", data);
   if (data.club && !golfClubAccounts[data.club]) {
     response.write(
       JSON.stringify({
