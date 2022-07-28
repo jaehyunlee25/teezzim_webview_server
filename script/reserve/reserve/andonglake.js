@@ -79,7 +79,7 @@ javascript: (() => {
     log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE") * 1;    
-    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
+    if(tag && (new Date().getTime() - tag) < 1000 * 10) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
     
     TZLOG(logParam, (data) => {});
@@ -89,26 +89,29 @@ javascript: (() => {
     log("funcTime");
 
     const tag = localStorage.getItem("TZ_TIME");
-    if(tag && (new Date().getTime() - tag) < 1000 * 5) return;
+    if(tag && (new Date().getTime() - tag) < 1000 * 10) return;
     localStorage.setItem("TZ_TIME", new Date().getTime());
 
     log("Booking_Detail", Booking_Detail.style.display);
 
-    if(Booking_Detail.style.display == "none") {
-      const fd = [year.ch(2), month, date].join("");
-      const key = [fd, time, dictCourse[course]].join("");
-      
-      log("key", key);
-      let target = window[key];
-      log("taraget", target);
-
-      if (target) {
-        target.click();
-      } else {
-        funcEnd();
+    timer(2000, exec);
+    function exec() {
+      if(Booking_Detail.style.display == "none") {
+        const fd = [year.ch(2), month, date].join("");
+        const key = [fd, time, dictCourse[course]].join("");
+        
+        log("key", key);
+        let target = window[key];
+        log("taraget", target);
+  
+        if (target) {
+          target.click();
+        } else {
+          funcEnd();
+        }
+      } else if(Booking_Detail.style.display == "block") {
+        funcExec();
       }
-    } else if(Booking_Detail.style.display == "block") {
-      funcExec();
     }
   }
   function funcExec() {
