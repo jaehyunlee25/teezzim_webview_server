@@ -30,9 +30,9 @@ javascript: (() => {
 
   const func = dict[addr];
   const dictCourse = {
-    1: "Mountain",
-    2: "Hill",
-    3: "Lake",
+    Mountain: "1",
+    Hill: "2",
+    Lake: "3",
   };
   const fulldate = [year, month, date].join("");
 
@@ -125,7 +125,7 @@ javascript: (() => {
       const param = el.attr("onclick").inparen();
       const [, elCourse, elTime] = param;
       const sign = dictCourse[course];
-      
+
       log(elCourse, sign, elTime, time);
       log(elCourse == sign, elTime == time);
       if (elCourse == sign && elTime == time) target = el;
