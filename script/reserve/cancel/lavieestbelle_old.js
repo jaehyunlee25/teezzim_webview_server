@@ -20,8 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "https://www.adelscott.co.kr/_mobile/index.asp": funcMain,
-    "https://www.adelscott.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://lavieestbellegolfnresort.com/oldcourse/_mobile/index.asp": funcMain,
+    "http://lavieestbellegolfnresort.com/oldcourse/_mobile/login/logout.asp": funcOut,
   };
   
   log("raw addr :: ", location.href);
@@ -77,17 +77,16 @@ javascript: (() => {
   function funcCancel() {
     log("funcCancel");
 
-    const els = doc.gcn("cm_time_list_tbl")[0].gcn("cm_btn gray");
+    const els = doc.gcn("cm_cnlth");
     log("els", els, els.length);
 
     const dictCourse = {
-      1: "Mountain",
-      2: "Hill",
-      3: "Lake",
+      1: "OUT",
+      2: "IN",
     };
     let target;
     Array.from(els).forEach((el) => {
-      const [, , elDate, elTime, elCourse] = el.attr("onclick").inparen();
+      const [ , , , elDate, elTime, elCourse] = el.children[0].attr("href").inparen();
 
       log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
@@ -96,7 +95,7 @@ javascript: (() => {
         dictCourse[elCourse] == course &&
         elTime == time
       )
-        target = el;
+        target = el.children[0];
     });
   
     if (target) {
@@ -116,6 +115,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/_mobile/login/logout.asp";
+    location.href = "/oldcourse/_mobile/login/logout.asp";
   }
 })();
