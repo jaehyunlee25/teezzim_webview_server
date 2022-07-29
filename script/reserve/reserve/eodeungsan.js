@@ -19,7 +19,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "https://www.eodeungsancc.com/mobile/index.asp": funcMain,
-    "https://www.eodeungsancc.com/mobile/login.asp": funcOut,
+    "https://www.eodeungsancc.com/mobile/logout.asp": funcOut,
     "https://www.eodeungsancc.com/mobile/reservation_confirm.asp": funcList,
     "https://www.eodeungsancc.com/mobile/reservation_02.asp": funcTime,
     "https://www.eodeungsancc.com/mobile/reservation_03.asp": funcExec,
@@ -107,6 +107,6 @@ javascript: (() => {
   }
   function LOGOUT() {
     log("LOGOUT");
-    location.href = "/mobile/login.asp";
+    location.href = "/mobile/logout.asp";
   }
 })();
