@@ -57,15 +57,13 @@ javascript: (() => {
     ${loginScript}
   }
   function funcCancel() {
-    log("funcCancel");
-    return;
 
-    const tag = lsg("TZ_LOGIN");
+    const tag = lsg("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
       timer(5000, LOGOUT);
       return;
     }
-    lss("TZ_LOGIN", new Date().getTime());
+    lss("TZ_LOGOUT", new Date().getTime());
 
     const els = doc.gcn("btn btn-sm btn-gray");
     log("els", els, els.length);
