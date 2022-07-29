@@ -1,5 +1,14 @@
 javascript: (() => {
   ${commonScript}
+  const logParam = {
+    type: "command",
+    sub_type: "reserve/search",
+    device_id: "${deviceId}",
+    device_token: "${deviceToken}",
+    golf_club_id: "${golfClubId}",
+    message: "start reserve/search",
+    parameter: JSON.stringify({}),
+  };
   const addr = location.href;
   const dict = {
     "${loginUrl}": funcLogin,
