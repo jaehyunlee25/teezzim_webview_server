@@ -57,7 +57,16 @@ javascript: (() => {
     ${loginScript}
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("btn btn-sm btn-gray");
+    log("funcCancel");
+
+    const tag = lsg("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      LOGOUT();
+      return;
+    }
+    lss("TZ_LOGIN", new Date().getTime());
+
+    const els = doc.gcn("btn btn-sm btn-gray");
     let target;
     Array.from(els).forEach((el) => {
       const [elDate, , elCourse, elTime] = el.attr("onclick").inparen();
