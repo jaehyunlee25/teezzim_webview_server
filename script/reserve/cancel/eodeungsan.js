@@ -57,6 +57,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcCancel() {
+    log("funcCancel");
 
     const tag = lsg("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
