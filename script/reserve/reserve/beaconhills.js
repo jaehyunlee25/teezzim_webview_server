@@ -80,25 +80,29 @@ javascript: (() => {
   }
   function funcTime() {
     log("funcTime");
-    const sign = dictCourse[course];
-    const els = document.getElementsByClassName("revBtn");
-    log("els", els, els.length);
 
-    let target;
-    Array.from(els).every((el) => {
-      const param = el.getAttribute("href").inparen();
-      const [elDate, elTime, elCourse] = param;
-
-      log(elDate == fulldate, elTime == time, elCourse == sign);
-      log(elDate, fulldate, elTime,  time, elCourse, sign);
-      if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
-
-      return !target;
-    });
-
-    log("target", target);
-    if (target) target.click();
-    else LOGOUT();
+    timer(500, exec);
+    function exec() {
+      const sign = dictCourse[course];
+      const els = doc.gcn("revBtn");
+      log("els", els, els.length);
+  
+      let target;
+      Array.from(els).every((el) => {
+        const param = el.getAttribute("href").inparen();
+        const [elDate, elTime, elCourse] = param;
+  
+        log(elDate == fulldate, elTime == time, elCourse == sign);
+        log(elDate, fulldate, elTime,  time, elCourse, sign);
+        if (elDate == fulldate && elTime == time && elCourse == sign) target = el;
+  
+        return !target;
+      });
+  
+      log("target", target);
+      if (target) target.click();
+      else LOGOUT();
+    }
   }
   function funcExec() {
     log("funcExec");
