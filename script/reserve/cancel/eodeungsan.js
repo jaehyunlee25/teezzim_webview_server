@@ -61,7 +61,7 @@ javascript: (() => {
 
     const tag = lsg("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
-      timer(5000, LOGOUT);
+      LOGOUT();
       return;
     }
     lss("TZ_LOGOUT", new Date().getTime());
