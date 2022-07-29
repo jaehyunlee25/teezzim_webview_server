@@ -58,6 +58,7 @@ javascript: (() => {
   }
   function funcCancel() {
     log("funcCancel");
+    return;
 
     const tag = lsg("TZ_LOGIN");
     if (tag && new Date().getTime() - tag < 1000 * 10) {
