@@ -66,6 +66,8 @@ javascript: (() => {
     lss("TZ_RESERVE", new Date().getTime());
     
     const els = doc.gcn("btn btn-sm btn-gray");
+    log("els", els, els.length);
+    
     const result = [];
     Array.from(els).forEach((el) => {
       const [date, , course, time] = el.attr("onclick").inparen();

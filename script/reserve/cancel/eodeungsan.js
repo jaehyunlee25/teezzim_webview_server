@@ -67,6 +67,8 @@ javascript: (() => {
     lss("TZ_LOGIN", new Date().getTime());
 
     const els = doc.gcn("btn btn-sm btn-gray");
+    log("els", els, els.length);
+
     let target;
     Array.from(els).forEach((el) => {
       const [elDate, , elCourse, elTime] = el.attr("onclick").inparen();
@@ -76,6 +78,8 @@ javascript: (() => {
       if (elDate == fulldate && elCourse == course && elTime == time)
         target = el;
     });
+
+    log("target", target);
     if (target) target.click();
     else LOGOUT();
   }
