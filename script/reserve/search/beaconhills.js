@@ -63,6 +63,7 @@ javascript: (() => {
     funcSearch();
   }
   function funcSearch() {
+    log("funcLogfuncSearchin");
     const els = doc.gcn("checkBtn colGray");
     const result = [];
     const dictCourse = {
@@ -72,7 +73,7 @@ javascript: (() => {
     Array.from(els).forEach((el) => {
       const param = el.attr("href").inparen();
       const [date, time, course] = param;
-      
+
       console.log("reserve search", dictCourse[course], date, time);
       result.push({ date, time, course: dictCourse[course] });
     });
