@@ -94,25 +94,25 @@ const server = http
         })
         .on("end", () => {
           let data;
+          data = body.join("");
           try {
-            data = body.join("");
-            try {
-              data = JSON.parse(data);
-            } catch (e) {
-              console.log(data);
-              return;
-            }
-
-            if (request.method === "GET") {
-              response.write("hello, world!");
-              response.end();
-            }
-
-            if (request.method === "POST") {
-              procPost(request, response, data);
-            }
+            data = JSON.parse(data);
           } catch (e) {
-            console.log(e);
+            console.log(data);
+            return;
+          }
+
+          if (request.method === "GET") {
+            response.write("hello, world!");
+            response.end();
+          }
+
+          if (request.method === "POST") {
+            try {
+              procPost(request, response, data);
+            } catch (e) {
+              log(e);
+            }
           }
         });
     } catch (e) {
