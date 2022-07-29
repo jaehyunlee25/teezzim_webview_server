@@ -19,6 +19,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "https://www.beaconhills.co.kr/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.beaconhills.co.kr/Mobile/Reservation/ReservationWith.aspx": LOGOUT,
     "https://www.beaconhills.co.kr/Mobile/Reservation/Reservation.aspx": funcTime,
     "https://www.beaconhills.co.kr/Mobile/Reservation/ReservationCheck.aspx":
       funcExec,

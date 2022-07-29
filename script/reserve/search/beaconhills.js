@@ -63,7 +63,7 @@ javascript: (() => {
     funcSearch();
   }
   function funcSearch() {
-    log("funcLogfuncSearchin");
+    log("funcSearch");
     const els = doc.gcn("checkBtn colGray");
     const result = [];
     const dictCourse = {
