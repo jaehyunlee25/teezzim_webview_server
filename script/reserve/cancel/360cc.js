@@ -1,5 +1,14 @@
 javascript: (() => {
   ${commonScript}
+  const logParam = {
+    type: "command",
+    sub_type: "reserve/reserve",
+    device_id: "${deviceId}",
+    device_token: "${deviceToken}",
+    golf_club_id: "${golfClubId}",
+    message: "start reserve/reserve",
+    parameter: JSON.stringify({}),
+  };
   const addr = location.href.split("?")[0];
   const year = "${year}";
   const month = "${month}";
@@ -10,6 +19,10 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcCancel,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   if (func) func();
   if(!func) location.href = "${reserveUrl}";

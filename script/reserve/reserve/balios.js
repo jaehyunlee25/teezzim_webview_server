@@ -1,5 +1,5 @@
 javascript: (() => {
-  //${commonScript}
+  ${commonScript}
   const logParam = {
     type: "command",
     sub_type: "reserve/reserve",
@@ -43,7 +43,7 @@ javascript: (() => {
     }
   }
   function funcLogin() {
-    //${loginScript}
+    ${loginScript}
   }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
