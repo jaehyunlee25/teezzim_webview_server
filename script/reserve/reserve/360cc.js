@@ -44,14 +44,9 @@ javascript: (() => {
   }
   function funcMain() {
     log("funcMain");
-    const tag = lsg("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 10) {
-      funcEnd();
-      return;
-    }
-    lss("TZ_MAIN", new Date().getTime());
-
-    location.href = "${searchUrl}";
+    
+    funcEnd();
+    return;
   }
   function funcOut() {
     log("funcOut");
