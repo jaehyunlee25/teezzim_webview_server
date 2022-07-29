@@ -24,6 +24,10 @@ javascript: (() => {
     "https://www.beaconhills.co.kr/Mobile/Reservation/ReservationCheck.aspx":
       funcExec,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
     누리: "11",
@@ -67,6 +71,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -75,6 +80,7 @@ javascript: (() => {
     location.href = "/Mobile/Reservation/Reservation.aspx?SelDate=" + fulldate;
   }
   function funcTime() {
+    log("funcTime");
     const sign = dictCourse[course];
     const els = document.getElementsByClassName("revBtn");
     log("els", els, els.length);
@@ -96,6 +102,7 @@ javascript: (() => {
     else LOGOUT();
   }
   function funcExec() {
+    log("funcExec");
     const strEnd = "end of reserve/reserve";
     ctl00_ContentPlaceHolder1_lbtOK.click();
     setTimeout(() => {
