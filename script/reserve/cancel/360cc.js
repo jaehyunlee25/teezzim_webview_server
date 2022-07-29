@@ -73,20 +73,20 @@ javascript: (() => {
 
     const els = doc.gcn("cm_time_list_tbl")[0].gtn("tbody")[0].gtn("tr");
     const dictCourse = {
-      OUT: "Out",
-      IN: "IN",
+      1: "Out",
+      2: "IN",
     };
     let target;
     Array.from(els).every((el) => {
       const btn = el.children[3].children[0];
-      const [btnTime, , btnDate, , , btnCourse] = btn.attr("onclick").inparen();
+      const [elTime, elCourse, elDate] = btn.attr("onclick").inparen();
 
-      log("reserve cancel", course, date, time);
+      log("reserve cancel", elCourse, elDate, elTime);
       const fulldate = [year, month, date].join("");
       if (
-        btnDate == fulldate &&
-        btnCourse == dictCourse[course] &&
-        btnTime == time
+        elDate == fulldate &&
+        dictCourse[elCourse] == course &&
+        elTime == time
       )
         target = btn;
 
