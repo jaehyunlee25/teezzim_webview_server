@@ -11,7 +11,6 @@ function mneCall(year, callback) {
   callback();
 }
 
-/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date, strParam] = arrDate;
   const param = {
@@ -23,17 +22,15 @@ function mneCallDetail(arrDate) {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gcn("can");
+    const tbl = ifr.getElementsByClassName("cosTable")[0];
+    const els = tbl.getElementsByTagName("tr");
+
     Array.from(els).forEach((el, i) => {
-      const param = el.attr("href").inparen();
-        let [, time, course, , , , , , , fee_discount] = param;
-        const dictCourse = {
-          11: "힐",
-          22: "포레스트",
-        };
-        course = dictCourse[course];
-        fee_discount *= 1;
-        const fee_normal = fee_discount;
+      if (i === 0) return;
+      const course = el.children[0].innerText;
+      const time = el.children[1].children[0].innerText;
+      const fee_discount = el.children[3].innerText.split(",").join("") * 1;
+      const fee_normal = el.children[2].innerText.split(",").join("") * 1;
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -51,7 +48,4 @@ function mneCallDetail(arrDate) {
   });
 }
 
-/* <============line_div==========> */
-
-/* <============line_div==========> */
 mneCall(thisyear, procDate);

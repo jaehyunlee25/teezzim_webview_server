@@ -28,8 +28,8 @@ function mneCallDetail(arrDate) {
       const param = el.attr("href").inparen();
         let [, time, course, , , , , , , fee_discount] = param;
         const dictCourse = {
-          11: "힐",
-          22: "포레스트",
+          11: 힐,
+          22: 포레스트,
         };
         course = dictCourse[course];
         fee_discount *= 1;
