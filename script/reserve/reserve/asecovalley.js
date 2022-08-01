@@ -115,8 +115,12 @@ javascript: (() => {
       const param = el.children[0].getAttribute("href").inparen();
       const elCourse = "단일";
       const elTime = param[2];
+
+      log(course == elCourse, time == elTime);
       if (course == elCourse && time == elTime) target = el.children[0];
     });
+
+    log("target", target);
     if (target) {
       target.click();
       funcExec();
