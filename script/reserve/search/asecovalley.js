@@ -13,32 +13,68 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "http://asecovalley.co.kr/_mobile/index.asp": funcMain,
+    "http://asecovalley.co.kr/_mobile/login/logout.asp": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
+
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
-    
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcSearch();
-    });
+    TZLOG(logParam, (data) => {});
+    funcSearch();
   }
   function funcSearch() {
-    const els = document.getElementsByClassName("cm_cnlth");
+    log("funcSearch");
+    const els = doc.gcn("cm_cnlth");
     const result = [];
     const dictCourse = {
       단일: "단일",
     };
     Array.from(els).forEach((el) => {
-      const param = el.children[0].getAttribute("href").inparen();
+      const param = el.children[0].attr("href").inparen();
       const date = param[2];
       const time = param[3];
       const course = "단일";
@@ -53,13 +89,19 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/search");
-      location.href = "/_mobile/login/logout.asp";
+      LOGOUT();
     });
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/search";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/_mobile/login/logout.asp";
   }
 })();
