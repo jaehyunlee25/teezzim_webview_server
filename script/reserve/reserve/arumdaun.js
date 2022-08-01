@@ -20,11 +20,15 @@ javascript: (() => {
   const day = week[new Date([year, month, date].join("/")).getDay()];
   const dict = {
     "${loginUrl}": funcLogin,
-    /* "${searchUrl}": funcReserve,
+    "${searchUrl}": funcReserve,
     "http://m2.arumdaunresort.com/main.asp": funcMain,
-    "http://m2.arumdaunresort.com/include/menu.asp": funcBasic,
-    "http://m2.arumdaunresort.com/reserve_02_Book.asp": funcTime, */
+    "http://m2.arumdaunresort.com/reserve_confirm1.asp": funcList,
+    "http://m2.arumdaunresort.com/reserve_02_Book.asp": funcTime,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
     Hill: "1",
@@ -32,16 +36,22 @@ javascript: (() => {
     Rock: "3",
   };
   const fulldate = [year, month, date].join("");
+
   if (!func) funcOther();
   else func();
   
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcOther() {
     log("funcOther");
-    const tag = localStorage.getItem("TZ_MAIN");
+    const tag = localStorage.getItem("TZ_OTHER");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
 
-    location.href = "${reserveUrl}";
+    location.href = "${searchUrl}";
   }
   function funcLogin() {
     log("funcLogin");
@@ -61,15 +71,6 @@ javascript: (() => {
 
     location.href = "${searchUrl}";
   }
-  function funcBasic() {
-    const tag = localStorage.getItem("TZ_BASIC");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      return;
-    }
-    localStorage.setItem("TZ_BASIC", new Date().getTime());
-
-    location.href = "${searchUrl}";
-  }
   function funcReserve() {
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
@@ -77,59 +78,57 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      Date_Click("B", fulldate);
-    });
+    TZLOG(logParam, (data) => {});
+    Date_Click("B", fulldate);
   }
   function funcTime() {
+    log("funcTime");
+
     if (!suffix) {
-      /* Book_Confirm(
-        fulldate,
-        day,
-        dictCourse[course],
-        course.toUpperCase(),
-        time,
-        "210000",
-        "N",
-        "18홀"
-      ); */
-      delete dict["http://m2.arumdaunresort.com/reserve_02_Book.asp"];
-    }
-    return;
-    /*
-    const els = document.getElementsByClassName("reser_btn2");
-    const dictCourse = {
-      In: "22",
-      Out: "11",
-    };
-    let target;
-    Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
-      const elCourse = param[2];
-      const elTime = param[1];
-      if (dictCourse[course] == elCourse && time == elTime) target = el;
-    });
-    if (target) {
-      target.click();
+      const els = doc.gcn("reser_btn2");
+      
+      let target;
+      Array.from(els).forEach((el) => {
+        const param = el.attr("href").inparen();
+        const elCourse = param[2];
+        const elTime = param[1];
+        if (dictCourse[course] == elCourse && time == elTime) target = el;
+      });
+
+      log("target", target);
+      if (target) {
+        target.click();
+      } else {
+        LOGOUT()
+      }
+      
     } else {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-      localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/member/LogOut.aspx";
+      funcExec();
     }
-    */
+    
+   
   }
   function funcExec() {
+    log("funcExec");
+
     const strEnd = "end of reserve/reserve";
     const cfrmNo = document.getElementsByName("apply_no")[0].value;
-    /* document.getElementsByName("apply_no_re")[0].value = cfrmNo;
+    document.getElementsByName("apply_no_re")[0].value = cfrmNo;
     document.getElementsByClassName("btn002")[0].click();
-    setTimeout(() => {
-      logParam.message = strEnd;
-      TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      checkLogOut();
-    }, 1000); */
+    
+  }s
+  function funcEnd() {
+    log("funcEnd");
+
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+
+    checkLogOut();
   }
 })();
