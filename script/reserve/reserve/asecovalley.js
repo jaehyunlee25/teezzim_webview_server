@@ -91,6 +91,7 @@ javascript: (() => {
       return result;
     })();
 
+    log("settype", suffixParam["settype"]);
     if(suffixParam["settype"] == "T") {
       log("calendar");
       funcDate();
