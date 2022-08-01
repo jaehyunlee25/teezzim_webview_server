@@ -104,9 +104,7 @@ javascript: (() => {
       
     } else {
       funcExec();
-    }
-    
-   
+    }   
   }
   function funcExec() {
     log("funcExec");
@@ -116,7 +114,7 @@ javascript: (() => {
     document.getElementsByName("apply_no_re")[0].value = cfrmNo;
     document.getElementsByClassName("btn002")[0].click();
     
-  }s
+  }
   function funcEnd() {
     log("funcEnd");
 
