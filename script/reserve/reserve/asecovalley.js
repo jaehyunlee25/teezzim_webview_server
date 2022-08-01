@@ -23,6 +23,10 @@ javascript: (() => {
     "http://asecovalley.co.kr/_mobile/login/logout.asp": funcOut,
     "http://asecovalley.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
     "단일": "1",
