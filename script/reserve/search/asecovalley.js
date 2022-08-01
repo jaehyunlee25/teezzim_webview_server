@@ -15,6 +15,7 @@ javascript: (() => {
     "${reserveUrl}": funcReserve,
     "http://asecovalley.co.kr/_mobile/index.asp": funcMain,
     "http://asecovalley.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://asecovalley.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcReserve,
   };
   
   log("raw addr :: ", location.href);
