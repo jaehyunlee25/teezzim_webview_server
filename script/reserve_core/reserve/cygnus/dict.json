@@ -1,0 +1,1 @@
+[["login_url","http://www.cygnuscc.com/user/login/login.asp","funcLogin"],["search_url","http://www.cygnuscc.com/booking/booking_pcalendar.asp","funcReserve"],["main_url","http://www.cygnuscc.com/main.asp","funcMain"],["logout_url","http://www.cygnuscc.com/booking/logout.asp","funcOut"]]

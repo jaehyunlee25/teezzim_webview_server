@@ -19,16 +19,60 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "http://asecovalley.co.kr/_mobile/index.asp": funcMain,
+    "http://asecovalley.co.kr/_mobile/login/logout.asp": funcOut,
+    "http://asecovalley.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
   };
   const func = dict[addr];
-  const dictCourse = {};
+  const dictCourse = {
+    "단일": "1",
+  };
   const fulldate = [year, month, date].join("");
-  if (!func) location.href = "${searchUrl}";
+
+  if (!func) funcOther();
   else func();
+
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -52,13 +96,16 @@ javascript: (() => {
     }
   }
   function funcDate() {
+    log("funcDate");
+
     TZLOG(logParam, (data) => {
       timefrom_change(fulldate,'2','1','','00','T')
     });
   }
-  function funcTime() {    
-    const els = document.getElementsByClassName("cm_dPdir");
-    const dictCourse = {};
+  function funcTime() {
+    log("funcTime");
+
+    const els = doc.gcn("cm_dPdir");
     let target;
     Array.from(els).forEach((el) => {
       const param = el.children[0].getAttribute("href").inparen();
@@ -70,21 +117,25 @@ javascript: (() => {
       target.click();
       funcExec();
     } else {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-      location.href = "/Mobile/member/LogOut.aspx";
+      LOGOUT();
     }   
   }
   function funcExec() {
-    const strEnd = "end of reserve/reserve";
+    log("funcExec");
+
     person_count2.click();
-    document.getElementsByClassName("cm_ok")[0].click();
-    setTimeout(() => {
-      logParam.message = strEnd;
-      TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      location.href = "/_mobile/login/logout.asp";
-    }, 1000);
+    doc.gcn("cm_ok")[0].click();
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/_mobile/login/logout.asp";
   }
 })();

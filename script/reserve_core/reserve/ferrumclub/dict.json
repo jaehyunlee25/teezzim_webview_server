@@ -1,0 +1,1 @@
+[["login_url","http://www.ferrumclub.com/m/lounge/login.asp","funcLogin"],["search_url","http://www.ferrumclub.com/m/reservation/live.asp","funcReserve"],["main_url","http://www.ferrumclub.com/m/","funcMain"],["reserve_url","http://www.ferrumclub.com/m/reservation/check.asp","funcList"],["logout_url","http://www.ferrumclub.com/m/lounge/logout.asp","funcOut"]]

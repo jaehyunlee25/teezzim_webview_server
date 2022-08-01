@@ -1,0 +1,1 @@
+[["login_url","http://m2.gtc.co.kr/Login.aspx","funcLogin"],["search_url","http://m2.gtc.co.kr/Booking.aspx","funcReserve"],["main_url","http://m2.gtc.co.kr/","funcMain"],["reserve_url","http://m2.gtc.co.kr/BookingDel.aspx","funcList"],["time_url","http://m2.gtc.co.kr/BookingAdd.aspx","funcTime"]]
