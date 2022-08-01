@@ -74,6 +74,8 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if(tag == "true") {
       localStorage.removeItem("TZ_LOGOUT");
@@ -84,6 +86,8 @@ javascript: (() => {
     });
   }
   function funcTime() {
+    log("funcTime");
+
     const els = document.getElementsByClassName("reser_btn2");
     const dictCourse = {
       In: "22",
@@ -96,17 +100,15 @@ javascript: (() => {
       const elTime = param[1];
       if (dictCourse[course] == elCourse && time == elTime) target = el;
     });
+
+    log("target", target);
     if (target) {
       target.click();
     } else {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-      localStorage.setItem("TZ_LOGOUT", "true");
-      location.href = "/Mobile/member/LogOut.aspx";
+      LOGOUT
     }
   }
   function funcExec() {
-    const strEnd = "end of reserve/reserve";
     ctl00_ContentPlaceHolder1_btnOk.click();
   }
   function funcEnd() {

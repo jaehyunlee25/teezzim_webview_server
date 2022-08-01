@@ -72,6 +72,8 @@ javascript: (() => {
     });
   }
   function funcSearch() {
+    log("funcSearch");
+
     const els = document.getElementsByClassName("reser_btn4");
     const result = [];
     const dictCourse = {
