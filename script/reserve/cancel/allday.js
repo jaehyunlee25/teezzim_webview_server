@@ -38,7 +38,7 @@ javascript: (() => {
     }
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcOther() {
     log("funcOther");
@@ -46,7 +46,7 @@ javascript: (() => {
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_MAIN", new Date().getTime());
 
-    location.href = "${searchUrl}";
+    location.href = "${reserveUrl}";
   }
   function funcLogin() {
     log("funcLogin");
