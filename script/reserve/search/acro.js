@@ -13,20 +13,49 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
-    "http://www.acrogolf.co.kr/mobile/index.asp": funcEnd,
+    "http://www.acrogolf.co.kr/mobile/index.asp": funcMain,
+    "http://www.acrogolf.co.kr/mobile/logout.asp": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (func) func();
-  if (!func) location.href = "${reserveUrl}";
-  function funcLogin() {
-    ${loginScript}
+  if (!func) funcOther();
+  else func();
+
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
   }
-  function funcEnd() {
-    const el = document.getElementsByClassName("btn loginBtn btn-xs")[0];
-    if (el.innerText == "로그아웃")
-      location.href = "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp";
-    const ac = window.AndroidController;
-    if (ac) ac.message("end of reserve/search");
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
+    ${loginScript}
   }
   function funcReserve() {
     const els = document
@@ -52,19 +81,19 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      const param = {
-        type: "command",
-        sub_type: "reserve/search",
-        device_id: "${deviceId}",
-        device_token: "${deviceToken}",
-        golf_club_id: "${golfClubId}",
-        message: "end of reserve/search",
-        parameter: JSON.stringify({}),
-      };
-      TZLOG(param, (data) => {
-        log(data);
-        location.href = "logout.asp";
-      });
+      LOGOUT();
     });
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/search";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/mobile/logout.asp";
   }
 })();
