@@ -29,10 +29,12 @@ javascript:(() => {
 
     function funcList() {
       log("funcList");
+      location.href = "${searchUrl}";
       return;
     }
     function funcMain() {
       log("funcMain");
+      location.href = "${searchUrl}";
       return;
     }
     function funcOut() {
@@ -45,7 +47,7 @@ javascript:(() => {
     function funcOther() {
       log("funcOther");
         
-      LOGOUT();
+      location.href = "${searchUrl}";
 
       return;
     }
