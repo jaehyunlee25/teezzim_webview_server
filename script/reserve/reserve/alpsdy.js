@@ -20,6 +20,7 @@ javascript: (() => {
     "${searchUrl}": funcReserve,
     "https://www.alpsdy.com/Mobile/": funcMain,
     "https://www.alpsdy.com/Mobile/member/LogOut.aspx": funcOut,
+    "https://www.alpsdy.com/Mobile/Reservation/ReservationList.aspx": funcList,
     "https://www.alpsdy.com/Mobile/reservation/ReservationTimeList.aspx":
       funcTime,
     "https://www.alpsdy.com/Mobile/reservation/ReservationCheck.aspx": funcExec,
@@ -81,14 +82,13 @@ javascript: (() => {
       localStorage.removeItem("TZ_LOGOUT");
       return;
     }
-    TZLOG(logParam, (data) => {
-      Reserve("", fulldate);
-    });
+    TZLOG(logParam, (data) => {});
+    Reserve("", fulldate);
   }
   function funcTime() {
     log("funcTime");
 
-    const els = document.getElementsByClassName("reser_btn2");
+    const els = doc.gcn("reser_btn2");
     const dictCourse = {
       In: "22",
       Out: "11",
