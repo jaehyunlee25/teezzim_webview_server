@@ -102,9 +102,10 @@ javascript: (() => {
   function funcDate() {
     log("funcDate");
 
-    TZLOG(logParam, (data) => {
-      timefrom_change(fulldate,'2','1','','00','T')
-    });
+    TZLOG(logParam, (data) => {});
+    let sign = fulldate.daySign();
+    if (sign != 1) sign = 2;
+    timefrom_change(fulldate, sign, fulldate.dayNum(), '', '00', 'T');
   }
   function funcTime() {
     log("funcTime");
