@@ -21,6 +21,10 @@ javascript: (() => {
     "https://www.bestvalleygc.com/Mobile/": funcMain,
     "https://www.bestvalleygc.com/Mobile/Member/LogOut.aspx": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
@@ -52,7 +56,10 @@ javascript: (() => {
   function funcReserve() {
 
     const tag = localStorage.getItem("TZ_RESERVE");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
+      return;
+    }
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
 
     TZLOG(logParam, (data) => {
