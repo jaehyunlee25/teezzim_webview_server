@@ -60,6 +60,13 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
+    const tag = localStorage.getItem("TZ_RESERVE");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      LOGOUT();
+      return;
+    }
+    localStorage.setItem("TZ_RESERVE", new Date().getTime());
+
     if (coName.innerText != "ALLDAY GOLFAND RESORT") {
       changeCoDiv("76");
     }    
