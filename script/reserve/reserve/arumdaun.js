@@ -85,14 +85,19 @@ javascript: (() => {
     log("funcTime");
 
     if (!suffix) {
-      const els = doc.gcn("reser_btn2");
+      const els = doc.gcn("btn02");
       
       let target;
-      Array.from(els).forEach((el) => {
+      Array.from(els).every((el) => {
         const param = el.attr("href").inparen();
         const elCourse = param[2];
-        const elTime = param[1];
+        const elTime = param[4];
+
+        log(dictCourse[course] == elCourse, time == elTime);
+        log(dictCourse[course], elCourse, time, elTime);
         if (dictCourse[course] == elCourse && time == elTime) target = el;
+
+        return !target;
       });
 
       log("target", target);
