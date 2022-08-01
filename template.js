@@ -25,8 +25,8 @@ javascript:(() => {
     
     const func = dict[addr];
     if (!func) funcOther();
-    else func();
-    
+    else func();    
+
     function funcList() {
       log("funcList");
       return;
