@@ -396,6 +396,13 @@ function procPost(request, response, data) {
         "utf-8"
       )
     );
+    const funcs = JSON.parse(
+      fs.readFileSync(
+        "script/reserve_core/reserve/" + engName + "/funcs.json",
+        "utf-8"
+      )
+    );
+    const endoutScript = [funcs.funcEnd, funcs.LOGOUT].join("\r\n");
     const templateScript = fs.readFileSync("template.js", "utf-8");
     getSearchScript(engName, (searchScript) => {
       const script = templateScript.dp({
@@ -405,6 +412,7 @@ function procPost(request, response, data) {
         loginScript,
         searchScript,
         address_mapping,
+        endoutScript,
       });
       objResp = {
         url: loginUrl,

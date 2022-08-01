@@ -67,7 +67,7 @@ javascript:(() => {
 
       return;
     }
-    /* funcEnd & LOGOUT */
+    ${endoutScript}
 
 })();
     
