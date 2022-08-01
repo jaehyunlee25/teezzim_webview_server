@@ -380,6 +380,20 @@ function procPost(request, response, data) {
       login_id: golfClubAccounts[engName].id,
       login_password: golfClubAccounts[engName].pw,
     });
+    const address_mapping = ((strDate) => {
+      const json = JSON.parse(strDate);
+      const obj = ["{"];
+      json.forEach((ar) => {
+        obj.push(["  " + ar[1], ar[2]].join(": "));
+      });
+      obj.push("}");
+      return obj.join(",\r\n");
+    })(
+      fs.readFileSync(
+        "script/reserve_core/reserve/" + engName + "/dict.json",
+        "utf-8"
+      )
+    );
     const templateScript = fs.readFileSync("template.js", "utf-8");
     getSearchScript(engName, (searchScript) => {
       const script = templateScript.dp({
@@ -388,6 +402,7 @@ function procPost(request, response, data) {
         searchUrl,
         loginScript,
         searchScript,
+        address_mapping,
       });
       objResp = {
         url: loginUrl,
