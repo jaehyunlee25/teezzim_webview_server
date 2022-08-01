@@ -120,7 +120,7 @@ javascript: (() => {
     log("target", target);
     if (target) {
       target.click();
-      funcExec();
+      timer(1000, funcExec);
     } else {
       LOGOUT();
     }   
