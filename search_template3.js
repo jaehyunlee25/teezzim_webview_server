@@ -17,7 +17,8 @@ function procDate() {
   const order = lmt - dates.length + 1;
   const arrDate = dates.shift();
   if (arrDate) {
-    console.log("수집하기", order + "/" + lmt, arrDate[0]);
+    log("수집하기", order + "/" + lmt, arrDate[0]);
+    log("TZ_PROGRESS," + order + "," + lmt + "," + arrDate[0]);
     const param = {
       type: "command",
       sub_type: "search",
