@@ -382,12 +382,14 @@ function procPost(request, response, data) {
     });
     const address_mapping = ((strDate) => {
       const json = JSON.parse(strDate);
-      const obj = ["{"];
+      let obj = [];
       json.forEach((ar) => {
         obj.push(['  "' + ar[1], ar[2]].join('": '));
       });
+      obj = [obj.join(",")];
+      obj.shift("{");
       obj.push("}");
-      return obj.join(",\r\n");
+      return obj.join("\r\n");
     })(
       fs.readFileSync(
         "script/reserve_core/reserve/" + engName + "/dict.json",
