@@ -41,7 +41,7 @@ javascript: (() => {
     return;
   }
   function funcLogin() {
-    
+    log("funcLogin");
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -49,7 +49,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
-    
+    log("funcReserve");
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_RESERVE", new Date().getTime());
@@ -60,6 +60,7 @@ javascript: (() => {
     });
   }
   function funcSearch() {
+    log("funcSearch");
     const els = document.getElementsByClassName("bt_cancel");
     const result = [];
     const dictCourse = {
@@ -81,13 +82,19 @@ javascript: (() => {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newReserveSearch";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
-      logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/search");
-      location.href = "/Mobile/Member/LogOut.aspx";
+      LOGOUT();
     });
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/search";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();

@@ -78,6 +78,8 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+    
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -87,6 +89,7 @@ javascript: (() => {
     });
   }
   function funcTime() {
+    log("funcTime");
     const sign = dictCourse[course];
     const els = document
       .getElementsByClassName("timeTbl")[1]
@@ -100,14 +103,19 @@ javascript: (() => {
     if (target) target.click();
   }
   function funcExec() {
-    const strEnd = "end of reserve/reserve";
+    log("funcExec");
     ctl00_ContentPlaceHolder1_lbtOK.click();
-    setTimeout(() => {
-      logParam.message = strEnd;
-      TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
-      if (ac) ac.message(strEnd);
-      location.href = "/Mobile/Member/LogOut.aspx";
-    }, 1000);
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();

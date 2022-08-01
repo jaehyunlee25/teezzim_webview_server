@@ -46,7 +46,8 @@ javascript: (() => {
     return;
   }
   function funcLogin() {
-    
+    log("funcLogin");
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 10) return;
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
@@ -54,6 +55,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
 
     const tag = localStorage.getItem("TZ_RESERVE");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
@@ -68,6 +70,7 @@ javascript: (() => {
     });
   }
   function funcCancel() {
+    log("funcCancel");
     const els = document.getElementsByClassName("bt_cancel");
     const dictCourse = {
       11: "단일",
@@ -89,18 +92,21 @@ javascript: (() => {
     });
     if (target) {
       target.click();
-      setTimeout(funcEnd, 1000);
     } else {
-      funcEnd();
+      LOGOUT();
     }
   }
   function funcEnd() {
+    log("funcEnd");
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
       const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
-      location.href = "/Mobile/Member/LogOut.aspx";
     });
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    location.href = "/Mobile/Member/LogOut.aspx";
   }
 })();
