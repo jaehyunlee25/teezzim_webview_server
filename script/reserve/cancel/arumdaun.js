@@ -18,26 +18,69 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "http://m2.arumdaunresort.com/main.asp": funcMain,
+    "http://m2.arumdaunresort.com/include/menu.asp": funcMenu,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+  if (!func) funcOther();
   else func();
+
+  function funcMain() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
+  function funcMenu() {
+    log("funcMenu");
+
+    checkLogOut();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_OTHER");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_OTHER", new Date().getTime());
+
+    location.href = "${reserveUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
 
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
-    TZLOG(logParam, (data) => {
-      log(data);
-      funcCancel();
-    });
+    TZLOG(logParam, (data) => {});
+    funcCancel();
   }
   function funcCancel() {
-    const els = document.getElementsByClassName("open_pop btn_type01 marL_5");
+    log("funcCancel");
+    
+    const els = doc.gcn("open_pop btn_type01 marL_5");
     const dictCourse = {
       1: "Hill",
       2: "Lake",
@@ -45,13 +88,15 @@ javascript: (() => {
     };
     let target;
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("href").inparen();
+      const param = el.attr("href").inparen();
 
       const elDate = param[0];
       const elTime = param[3];
       const elCourse = param[1];
-      console.log("reserve cancel", dictCourse[elCourse], elDate, elTime);
+
+      log("reserve cancel", dictCourse[elCourse], elDate, elTime);
       const fulldate = [year, month, date].join("");
+      log(elDate == fulldate, dictCourse[elCourse] == course, elTime == time);
       if (
         elDate == fulldate &&
         dictCourse[elCourse] == course &&
@@ -59,14 +104,18 @@ javascript: (() => {
       )
         target = el;
     });
+
+    log("target", target);
     if (target) {
       target.click();
       setTimeout(funcEnd, 1000);
     } else {
-      funcEnd();
+      LOGOUT();
     }
   }
   function funcEnd() {
+    log("funcEnd");
+
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
@@ -74,5 +123,10 @@ javascript: (() => {
       if (ac) ac.message(strEnd);
       checkLogOut();
     });
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+
+    location.href = "/include/menu.asp";
   }
 })();
