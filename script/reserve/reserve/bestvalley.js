@@ -35,7 +35,7 @@ javascript: (() => {
     단일: "11",
   };
   const fulldate = [year, month, date].join("-");
-  
+
   if (!func) funcOther();
   else func();
 
@@ -69,6 +69,12 @@ javascript: (() => {
     location.href = "${searchUrl}";
   }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
