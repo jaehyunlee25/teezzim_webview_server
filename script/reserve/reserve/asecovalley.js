@@ -129,7 +129,7 @@ javascript: (() => {
     log("funcExec");
 
     person_count2.click();
-    doc.gcn("cm_ok")[0].click();
+    doc.gcn("cm_ok")[0].children[0].click();
   }
   function funcEnd() {
     log("funcEnd");
