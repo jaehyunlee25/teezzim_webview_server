@@ -25,6 +25,7 @@ javascript: (() => {
     "http://m2.arumdaunresort.com/reserve_confirm1.asp": funcList,
     "http://m2.arumdaunresort.com/reserve_02_Book.asp": funcTime,
     "http://m2.arumdaunresort.com/reserve_02_book.asp": funcExec,
+    "http://m2.arumdaunresort.com/include/menu.asp": funcMenu,
   };
   
   log("raw addr :: ", location.href);
@@ -45,6 +46,24 @@ javascript: (() => {
     log("funcList");
     LOGOUT();
     return;
+  }  
+  function funcMain() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcMenu() {
+    log("funcMenu");
+
+    checkLogOut();
+    return;
   }
   function funcOther() {
     log("funcOther");
@@ -62,17 +81,10 @@ javascript: (() => {
     localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
     ${loginScript}
-  }
-  function funcMain() {
-    const tag = localStorage.getItem("TZ_MAIN");
-    if (tag && new Date().getTime() - tag < 1000 * 5) {
-      return;
-    }
-    localStorage.setItem("TZ_MAIN", new Date().getTime());
-
-    location.href = "${searchUrl}";
-  }
+  }  
   function funcReserve() {
+    log("funcReserve");
+
     const tag = localStorage.getItem("TZ_LOGOUT");
     if (tag && new Date().getTime() - tag < 1000 * 5) {
       return;
@@ -104,17 +116,15 @@ javascript: (() => {
     if (target) {
       target.click();
     } else {
-      LOGOUT()
+      LOGOUT();
     }
   }
   function funcExec() {
     log("funcExec");
 
-    const strEnd = "end of reserve/reserve";
     const cfrmNo = doc.getElementsByName("apply_no")[0].value;
     doc.getElementsByName("apply_no_re")[0].value = cfrmNo;
-    doc.gcn("btn002")[0].click();
-    
+    doc.gcn("btn002")[0].click();    
   }
   function funcEnd() {
     log("funcEnd");
@@ -128,6 +138,6 @@ javascript: (() => {
   function LOGOUT() {
     log("LOGOUT");
 
-    checkLogOut();
+    location.href = "/include/menu.asp";
   }
 })();
