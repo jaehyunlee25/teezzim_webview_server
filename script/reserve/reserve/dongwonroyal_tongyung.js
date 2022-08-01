@@ -21,7 +21,7 @@ javascript: (() => {
     "https://dongwonresort.co.kr/_mobile/index.asp": funcMain,
     "https://dongwonresort.co.kr/_mobile/login/logout.asp": funcOut,
     "https://dongwonresort.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp":
-      funcEnd,
+      funcList,
   };
 
   log("raw addr :: ", location.href);
@@ -37,6 +37,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcList");
+    funcEnd();
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");

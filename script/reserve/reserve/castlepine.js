@@ -20,7 +20,7 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://castlepine.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
+    "https://castlepine.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
   };
 
   log("raw addr :: ", location.href);
@@ -36,6 +36,11 @@ javascript: (() => {
   if (!func) funcMain();
   else func();
 
+  function funcList() {
+    log("funcList");
+    funcEnd();
+    return;
+  }
   function funcMain() {
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) return;

@@ -22,7 +22,7 @@ javascript: (() => {
     "http://www.edenblue.co.kr/_mobile/index.asp": funcMain,
     "http://www.edenblue.co.kr/_mobile/login/logout.asp": funcOut,
     "http://www.edenblue.co.kr/_mobile/GolfRes/onepage/my_golfreslist.asp":
-      funcEnd,
+      funcList,
   };
 
   log("raw addr :: ", location.href);
@@ -39,6 +39,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcList");
+    funcEnd();
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");

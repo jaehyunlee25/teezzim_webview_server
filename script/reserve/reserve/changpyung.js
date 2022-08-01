@@ -24,7 +24,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "https://m.cppc.co.kr/_html/reserve_info.asp": funcMain,
-    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcEnd,
+    "https://m.cppc.co.kr/_html/member/logout_ok.asp": funcOut,
     "https://m.cppc.co.kr/_html/reserve_time.part.asp": funcTime,
     "https://m.cppc.co.kr/_html/reserve_form.asp": funcExec,
   };
@@ -36,6 +36,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
   function funcList() {
     log("funcList");
     funcEnd();

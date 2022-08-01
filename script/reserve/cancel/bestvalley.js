@@ -18,6 +18,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.bestvalleygc.com/Mobile/": funcMain,
+    "https://www.bestvalleygc.com/Mobile/Member/LogOut.aspx": funcOut,
   };
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";

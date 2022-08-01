@@ -19,7 +19,6 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://www.hanmircc.com/Reservation/ReservCalendar": funcReserve,
     "https://www.hanmircc.com/MyPage/ReservedList": funcList,
     "https://www.hanmircc.com/Member/Logout": funcOut,
     "https://www.hanmircc.com/Reservation/ReservCheck": funcExec,

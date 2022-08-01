@@ -17,17 +17,14 @@ javascript: (() => {
   const course = "${course}";
   const time = "${time}";
   const dict = {
-    /* "${loginUrl}": funcLogin, */
     "https://www.blueone.com/member/login.jsp": funcLogin,
-    /* "${searchUrl}": funcReserve, */
     "https://market.blueone.com/shop/golf/step1.jsp": funcReserve,
-    /* "https://www.dongchongc.co.kr:442/Mobile": funcMain, */
     "https://market.blueone.com/shop/golf/list_reserve.jsp":
       funcList,
     "https://market.blueone.com/shop/common/file/logout.jsp": funcOut,
     "https://market.blueone.com/shop/golf/step2.jsp": funcExec,
     "https://market.blueone.com/shop/golf/step3.jsp": funcNext,
-    "https://market.blueone.com/shop/golf/step4.jsp": LOGOUT,
+    "https://market.blueone.com/shop/golf/step4.jsp": funcLast,
   };
 
   log("raw addr :: ", location.href);
@@ -162,6 +159,11 @@ javascript: (() => {
       document.getElementsByName("agreeAll")[0].click();
       sendit();
     }, 1000);
+  }
+  function funcLast() {
+    log("funcLast");
+    LOGOUT();
+    return;
   }
   function funcEnd() {
     log("funcEnd");

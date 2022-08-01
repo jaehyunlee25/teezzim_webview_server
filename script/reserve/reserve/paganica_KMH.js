@@ -19,7 +19,6 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "https://paganica.kmhleisure.com/Mobile/Paganica/Default.aspx": funcReserve,
     "https://paganica.kmhleisure.com/Mobile/Reservation/ReservationList.aspx": funcList,
     "https://paganica.kmhleisure.com/Mobile/Member/LogOut.aspx": funcOut,
     "https://paganica.kmhleisure.com/Mobile/Reservation/ReservationTimeList.aspx": funcTime,

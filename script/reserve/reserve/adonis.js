@@ -22,7 +22,6 @@ javascript: (() => {
     "https://www.adoniscc.co.kr/": funcMain,
     "https://www.adoniscc.co.kr/booking/history": funcList,
     "https://www.adoniscc.co.kr/auth/logout": funcOut,
-    /* "https://www.adoniscc.co.kr/Mobile/Booking/ReservationCheck": funcExec, */
   };
 
   log("raw addr :: ", location.href);

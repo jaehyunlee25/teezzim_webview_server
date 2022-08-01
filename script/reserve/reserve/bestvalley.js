@@ -22,14 +22,52 @@ javascript: (() => {
       funcTime,
     "https://www.bestvalleygc.com/Mobile/Reservation/ReservationCheck.aspx":
       funcExec,
+    "https://www.bestvalleygc.com/Mobile/": funcMain,
+    "https://www.bestvalleygc.com/Mobile/Member/LogOut.aspx": funcOut,
+    "https://www.bestvalleygc.com/Mobile/Reservation/ReservationList.aspx": funcList,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   const dictCourse = {
     단일: "11",
   };
   const fulldate = [year, month, date].join("-");
-  if (!func) location.href = "${searchUrl}";
+  
+  if (!func) funcOther();
   else func();
+
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
     ${loginScript}
   }

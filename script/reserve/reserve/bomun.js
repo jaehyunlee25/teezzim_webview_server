@@ -28,6 +28,8 @@ javascript: (() => {
   const fulldate = [year, month, date].join("-");
   if (!func) location.href = "${searchUrl}";
   else func();
+
+  
   function funcLogin() {
     log("funcLogin");
 

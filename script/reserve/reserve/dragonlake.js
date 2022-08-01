@@ -22,7 +22,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "http://www.dragonlake.co.kr/mobile/index.asp": funcMain,
-    "http://www.dragonlake.co.kr/mobile/mypage/reserCheck.asp": LOGOUT,
+    "http://www.dragonlake.co.kr/mobile/mypage/reserCheck.asp": funcList,
   };
 
   log("raw addr :: ", location.href);
@@ -39,6 +39,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");

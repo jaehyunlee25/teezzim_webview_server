@@ -13,10 +13,18 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.bestvalleygc.com/Mobile/": funcMain,
+    "https://www.bestvalleygc.com/Mobile/Member/LogOut.aspx": funcOut,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
   if (!func) location.href = "${reserveUrl}";
   else func();
+
+  
   function funcLogin() {
     
     const tag = localStorage.getItem("TZ_LOGOUT");

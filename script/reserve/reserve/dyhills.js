@@ -24,7 +24,7 @@ javascript: (() => {
       funcExec,
     "https://dyhills.basecc.co.kr:6443/Mobile/Main/Main.aspx": funcMain,
     "https://dyhills.basecc.co.kr:6443/Mobile/Reservation/ReservationList.aspx":
-      LOGOUT,
+      funcList,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -36,6 +36,11 @@ javascript: (() => {
   if (!func) location.href = "${searchUrl}";
   else func();
 
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcMain() {
     const tag = localStorage.getItem("TZ_MAIN");
     if (tag && new Date().getTime() - tag < 1000 * 5) {

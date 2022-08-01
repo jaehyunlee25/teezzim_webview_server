@@ -21,7 +21,7 @@ javascript: (() => {
     "https://www.lakeside.kr/mobile/main/mainPage.do": funcMain,
     "https://www.lakeside.kr/mobile/user/sign/Logout.do": funcOut,
     "https://www.lakeside.kr/mobile/reservation/my_golfreslist.do":
-      LOGOUT,
+      funcList,
   };
 
   log("raw addr :: ", location.href);
@@ -41,6 +41,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");

@@ -32,6 +32,7 @@ javascript: (() => {
   else func();
 
   function funcOut() {
+    log("funcOut");
     return;
   }
   function funcMain() {

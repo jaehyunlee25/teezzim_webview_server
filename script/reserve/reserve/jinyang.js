@@ -22,8 +22,8 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "http://m.chinyangvalley.co.kr/index.asp": funcMain,
-    "http://m.chinyangvalley.co.kr/info/reserCheck.asp": LOGOUT,
     "http://m.chinyangvalley.co.kr/info/reservation.asp": funcExec,
+    "http://m.chinyangvalley.co.kr/info/reserCheck.asp": funcList,
   };
 
   log("raw addr :: ", location.href);
@@ -40,6 +40,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcMain() {
     log("funcMain");
     const tag = localStorage.getItem("TZ_MAIN");

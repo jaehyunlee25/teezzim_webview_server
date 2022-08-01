@@ -20,9 +20,8 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
-    "http://www.clubmow.com/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
     "http://www.clubmow.com/_mobile/login/logout.asp": funcOut,
-    "http://www.clubmow.com/_mobile/GolfRes/onepage/my_golfreslist.asp": funcEnd,
+    "http://www.clubmow.com/_mobile/GolfRes/onepage/my_golfreslist.asp": funcList,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -34,7 +33,12 @@ javascript: (() => {
   
   if (!func) funcOther();
   else func();
-
+  
+  function funcList() {
+    log("funcList");
+    funcEnd();
+    return;
+  }
   function funcOut() {
     log("funcOut");
     return;

@@ -25,7 +25,7 @@ javascript: (() => {
     "https://www.fortunehills.co.kr/Mobile/": funcMain,
     "https://www.fortunehills.co.kr/Mobile/Member/LogOut.aspx": funcOut,
     "https://www.fortunehills.co.kr/Mobile/Reservation/ReservationList.aspx":
-      LOGOUT,
+      funcList,
   };
   const func = dict[addr];
   const dictCourse = {
@@ -37,6 +37,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
   function funcOut() {
     log("funcOut");
     funcEnd();

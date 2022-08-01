@@ -24,7 +24,7 @@ javascript: (() => {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
     "https://www.bearsbestcheongnagc.com/Mobile": funcMain,
-    "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcEnd,
+    "https://www.bearsbestcheongnagc.com/Mobile/Member/Logout": funcOut,
     "https://www.bearsbestcheongnagc.com/Mobile/Booking/SelectTime": funcTime,
     "https://www.bearsbestcheongnagc.com/Mobile/Booking/ReservationForm": funcExec,
     "https://www.bearsbestcheongnagc.com/Mobile/Booking/ReservedList": funcList,
@@ -39,6 +39,11 @@ javascript: (() => {
   if (!func) funcOther();
   else func();
 
+  function funcOut() {
+    log("funcOut");
+    funcEnd();
+    return;
+  }
   function funcList() {
     log("funcList");
     funcEnd();
