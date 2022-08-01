@@ -384,7 +384,7 @@ function procPost(request, response, data) {
       const json = JSON.parse(strDate);
       const obj = ["{"];
       json.forEach((ar) => {
-        obj.push(["  " + ar[1], ar[2]].join(": "));
+        obj.push(['  "' + ar[1], ar[2]].join('": '));
       });
       obj.push("}");
       return obj.join(",\r\n");
