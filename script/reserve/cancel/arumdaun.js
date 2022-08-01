@@ -65,15 +65,21 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
 
     const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    if (tag && new Date().getTime() - tag < 1000 * 5) {
+      LOGOUT();
+      return;
+    }
     localStorage.setItem("TZ_LOGOUT", new Date().getTime());
 
     TZLOG(logParam, (data) => {});
     funcCancel();
   }
   function funcCancel() {
+    log("funcCancel");
+    
     const els = doc.gcn("open_pop btn_type01 marL_5");
     const dictCourse = {
       1: "Hill",
@@ -108,6 +114,8 @@ javascript: (() => {
     }
   }
   function funcEnd() {
+    log("funcEnd");
+
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
