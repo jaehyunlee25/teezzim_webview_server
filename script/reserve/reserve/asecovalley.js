@@ -77,11 +77,6 @@ javascript: (() => {
   function funcReserve() {
     log("funcReserve");
 
-    const tag = localStorage.getItem("TZ_LOGOUT");
-    if (tag && new Date().getTime() - tag < 1000 * 5) return;
-    localStorage.setItem("TZ_LOGOUT", new Date().getTime());
-    if(!suffix) return;
-
     const suffixParam = (() => {
       const result = {};
       suffix.split("&").forEach(item => {
