@@ -100,6 +100,7 @@ javascript: (() => {
     });
     if (target) {
       target.children[6].children[0].click();
+      timer(1000, LOGOUT);
     } else {
       LOGOUT();
     }
