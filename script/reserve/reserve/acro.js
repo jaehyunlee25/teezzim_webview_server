@@ -30,6 +30,12 @@ javascript: (() => {
   log("addr :: ", addr);
 
   const func = dict[addr];
+  const dictCourse = { 
+    챌린지: "1", 
+    스카이: "3", 
+    마스터: "2" 
+  };
+
   if (!func) funcOther();
   else func();
 
@@ -88,9 +94,9 @@ javascript: (() => {
   }
   function funcTime() {
     const fulldate = [year, month, date].join("");
-    const dictCourse = { 챌린지: "C코스", 스카이: "S코스", 마스터: "M코스" };
-    const signCourse = { 챌린지: "1", 스카이: "3", 마스터: "2" };
-    Book_time(fulldate, signCourse[course], dictCourse[course], time, "", "");
+    const strCourse = { 챌린지: "C코스", 스카이: "S코스", 마스터: "M코스" };
+    
+    Book_time(fulldate, dictCourse[course], strCourse[course], time, "", "");
   }
   function funcExec() {
     /* const fulldate = [year, month, date].join("");
