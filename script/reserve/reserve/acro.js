@@ -23,7 +23,6 @@ javascript: (() => {
     "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp": funcList,
     "http://www.acrogolf.co.kr/mobile/reserve_step1.asp": funcTime,
     "http://www.acrogolf.co.kr/mobile/reserve_step2.asp": funcExec,
-    "http://www.acrogolf.co.kr/mobile/reserveConfirm.asp": funcList,
   };
   
   log("raw addr :: ", location.href);
@@ -78,6 +77,7 @@ javascript: (() => {
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
     const param = {
       type: "command",
       sub_type: "reserve/reserve",
@@ -93,12 +93,14 @@ javascript: (() => {
     Date_Click(year, month, date);
   }
   function funcTime() {
+    log("funcTime");
     const fulldate = [year, month, date].join("");
     const strCourse = { 챌린지: "C코스", 스카이: "S코스", 마스터: "M코스" };
     
     Book_time(fulldate, dictCourse[course], strCourse[course], time, "", "");
   }
   function funcExec() {
+    log("funcExec");
     /* const fulldate = [year, month, date].join("");
     const signCourse = { 챌린지: "1", 스카이: "3", 마스터: "2" }; */
     document.getElementsByClassName("btn book mt10")[0].click();
