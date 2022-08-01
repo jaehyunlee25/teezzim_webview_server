@@ -18,22 +18,57 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${reserveUrl}": funcReserve,
+    "https://www.ilcc.co.kr/mobile/index.asp": funcMain,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${reserveUrl}";
+
+  if (!func) funcOther();
   else func();
+
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
+    log("funcReserve");
+
     if (coName.innerText != "ALLDAY GOLFAND RESORT") {
       changeCoDiv("76");
     }    
-    TZLOG(logParam, (data) => {
-      setTimeout(funcCancel, 3000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcCancel, 3000);
   }
   function funcCancel() {
+    log("funcCancel");
+    
     const els = window["time-grid"].children;
     const dictCourse = {
       M: "Mountain",
@@ -46,7 +81,8 @@ javascript: (() => {
       const elDate = "20" + el.children[0].innerText.split("/").join("");
       const elTime = el.children[1].innerText.split(":").join("");
       const elCourse = el.children[2].innerText;
-      console.log("reserve cancel", dictCourse[elCourse], date, time);
+
+      log("reserve cancel", dictCourse[elCourse], date, time);
       const fulldate = [year, month, date].join("");
       if (
         elDate == fulldate &&
@@ -57,18 +93,20 @@ javascript: (() => {
     });
     if (target) {
       target.children[6].children[0].click();
-      logParam.message = "end of reserve/cancel";
-      TZLOG(param, (data) => {
-        const ac = window.AndroidController;
-        if (ac) ac.message("end of reserve/cancel");
-        doLogout();
-      });
+    } else {
+      LOGOUT();
     }
-    /* 3초 후엔 무조건 닫는다 */
-    setTimeout(() => {
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/cancel");
-      doLogout();
-    }, 3000);
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/cancel";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    doLogout();
   }
 })();

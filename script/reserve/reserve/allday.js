@@ -18,29 +18,57 @@ javascript: (() => {
   const dict = {
     "${loginUrl}": funcLogin,
     "${searchUrl}": funcReserve,
+    "https://www.ilcc.co.kr/mobile/index.asp": funcMain,
+    "https://www.ilcc.co.kr/mobile/reservation/reservation2.asp": funcList,
   };
+  
+  log("raw addr :: ", location.href);
+  log("addr :: ", addr);
+
   const func = dict[addr];
-  if (!func) location.href = "${searchUrl}";
+  
+  if (!func) funcOther();
   else func();
+
+  function funcList() {
+    log("funcList");
+    LOGOUT();
+    return;
+  }
+  function funcMain() {
+    log("funcMain");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) {
+      funcEnd();
+      return;
+    }
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
+  function funcOther() {
+    log("funcOther");
+    const tag = localStorage.getItem("TZ_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_MAIN", new Date().getTime());
+
+    location.href = "${searchUrl}";
+  }
   function funcLogin() {
+    log("funcLogin");
+
+    const tag = localStorage.getItem("TZ_LOGIN");
+    if (tag && new Date().getTime() - tag < 1000 * 10) return;
+    localStorage.setItem("TZ_LOGIN", new Date().getTime());
+
     ${loginScript}
   }
   function funcReserve() {
     if (coPlace.innerText != "앙성면") {
       changeCoDiv("76");
     }
-    const param = {
-      type: "command",
-      sub_type: "reserve/reserve",
-      device_id: "${deviceId}",
-      device_token: "${deviceToken}",
-      golf_club_id: "${golfClubId}",
-      message: "start reserve/reserve",
-      parameter: JSON.stringify({}),
-    };
-    TZLOG(param, (data) => {
-      setTimeout(funcDate, 3000);
-    });
+    TZLOG(logParam, (data) => {});
+    setTimeout(funcDate, 3000);
   }
   function funcDate() {
     const fulldate = [year, month, date].join("");
@@ -63,9 +91,20 @@ javascript: (() => {
     });
     if (target) {
       target.children[5].children[0].click();
-      const ac = window.AndroidController;
-      if (ac) ac.message("end of reserve/reserve");
-      doLogout();
+    } else {
+      LOGOUT();
     }
+  }
+  function funcEnd() {
+    log("funcEnd");
+    const strEnd = "end of reserve/reserve";
+    logParam.message = strEnd;
+    TZLOG(logParam, (data) => {});
+    const ac = window.AndroidController;
+    if (ac) ac.message(strEnd);
+  }
+  function LOGOUT() {
+    log("LOGOUT");
+    doLogout();
   }
 })();
