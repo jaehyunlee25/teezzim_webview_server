@@ -387,7 +387,7 @@ function procPost(request, response, data) {
         obj.push(['  "' + ar[1], ar[2]].join('": '));
       });
       obj = [obj.join(",")];
-      obj.shift("{");
+      obj.unshift("{");
       obj.push("}");
       return obj.join("\r\n");
     })(
