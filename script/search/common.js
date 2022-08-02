@@ -1,3 +1,4 @@
+/* test */
 const log = console.log;
 const dir = console.dir;
 const doc = document;
