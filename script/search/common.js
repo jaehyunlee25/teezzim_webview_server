@@ -3,6 +3,8 @@ const dir = console.dir;
 const doc = document;
 const ls = localStorage;
 const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+console.clear();
+
 function TZLOG(param, callback) {
   const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";
   post(addr, param, { "Content-Type": "application/json" }, (data) => {
@@ -222,4 +224,3 @@ document.clm = function (str) {
 window.timer = function (time, callback) {
   setTimeout(callback, time);
 };
-console.clear();
