@@ -1,6 +1,6 @@
 /* begin blocking infinite call */
 const TZ_BOT_SAFETY = true;
-if(lsg("TZ_ADMIN_BLOCK_IC")) {
+if(lsg("TZ_ADMIN_BLOCK_IC") == null) {
 	const visitNumber = lsg("TZ_ADMIN_BLOCK_IC") * 1;
 	const lastVistTime = lsg("TZ_ADMIN_BLOCK_IC_TIME") * 1;
 	if (lastVistTime < 1000 * 15) {
