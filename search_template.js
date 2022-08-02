@@ -13,9 +13,6 @@ if(lsg("TZ_ADMIN_BLOCK_IC") == null) {
 			lss("TZ_ADMIN_BLOCK_IC_TIME", new Date().getTime());
 			/* 로그아웃 */
 			if (LOGOUT) LOGOUT();
-		} else {
-			visitNumber++;
-			lss("TZ_ADMIN_BLOCK_IC", visitNumber);
 		}
 	} else {
 		lss("TZ_ADMIN_BLOCK_IC", 0);
@@ -25,6 +22,8 @@ if(lsg("TZ_ADMIN_BLOCK_IC") == null) {
 	lss("TZ_ADMIN_BLOCK_IC", 0);
 	lss("TZ_ADMIN_BLOCK_IC_TIME", new Date().getTime());
 }
+visitNumber++;
+lss("TZ_ADMIN_BLOCK_IC", visitNumber);
 log("TZ_ADMIN_BLOCK_IC", lsg("TZ_ADMIN_BLOCK_IC"), lsg("TZ_ADMIN_BLOCK_IC_TIME"));
 /* end blocking infinite call */
 
