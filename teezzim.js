@@ -952,3 +952,9 @@ String.prototype.query = function (callback) {
   connection.connect();
   connection.query(sql, callback);
 };
+String.prototype.howmany = function (str) {
+  let num = this.match(new RegExp(str, "g"));
+  if (!num) num = 0;
+  else num = num.length;
+  return num;
+};
