@@ -4,6 +4,15 @@ const dir = console.dir;
 const doc = document;
 const ls = localStorage;
 const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const logParam = {
+  type: "command",
+  sub_type: "reserve/reserve",
+  device_id: "${deviceId}",
+  device_token: "${deviceToken}",
+  golf_club_id: "${golfClubId}",
+  message: "start reserve/reserve",
+  parameter: JSON.stringify({}),
+};
 
 function TZLOG(param, callback) {
   const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";

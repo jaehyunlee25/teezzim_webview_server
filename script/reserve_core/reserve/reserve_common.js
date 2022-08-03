@@ -29,15 +29,6 @@ lss("TZ_ADMIN_BLOCK_IC", visitNumber);
 log("TZ_ADMIN_BLOCK_IC", lsg("TZ_ADMIN_BLOCK_IC"), lsg("TZ_ADMIN_BLOCK_IC_TIME"));
 /* end blocking infinite call */
 
-const logParam = {
-  type: "command",
-  sub_type: "reserve/reserve",
-  device_id: "${deviceId}",
-  device_token: "${deviceToken}",
-  golf_club_id: "${golfClubId}",
-  message: "start reserve/reserve",
-  parameter: JSON.stringify({}),
-};
 const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
 const aDDr = location.href.split(splitter)[0];
 const suffix = location.href.split(splitter)[1];
