@@ -32,6 +32,9 @@ const dictCourse = ${reserve_course_mapping};
 const splitterDate = "${splitter_date}";
 const fulldate = [year, month, date].join(splitterDate);
 
+if (!func) funcOther();
+else func();
+
 function funcLogin() {
   log("funcLogin");
   
