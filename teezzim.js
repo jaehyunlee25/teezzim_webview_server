@@ -156,21 +156,97 @@ function procPost(request, response, data) {
     log(data.club);
     if (!fs.existsSync("script/reserve_core/reserve/" + data.club))
       fs.mkdirSync("script/reserve_core/reserve/" + data.club);
+
+    /* dict file backup */
+    if (
+      fs.existsSync("script/reserve_core/reserve/" + data.club + "/dict.json")
+    ) {
+      const con = fs.readFileSync(
+        "script/reserve_core/reserve/" + data.club + "/dict.json"
+      );
+      fs.writeFileSync(
+        "script/backup/reserve_reserve_dict_" +
+          new Date().getTime() +
+          "_" +
+          data.club +
+          ".json",
+        con,
+        "utf-8"
+      );
+    }
     fs.writeFileSync(
       "script/reserve_core/reserve/" + data.club + "/dict.json",
       JSON.stringify(data.dict),
       "utf-8"
     );
+
+    /* funcs file backup */
+    if (
+      fs.existsSync("script/reserve_core/reserve/" + data.club + "/funcs.json")
+    ) {
+      const con = fs.readFileSync(
+        "script/reserve_core/reserve/" + data.club + "/funcs.json"
+      );
+      fs.writeFileSync(
+        "script/backup/reserve_reserve_funcs_" +
+          new Date().getTime() +
+          "_" +
+          data.club +
+          ".json",
+        con,
+        "utf-8"
+      );
+    }
     fs.writeFileSync(
       "script/reserve_core/reserve/" + data.club + "/funcs.json",
       JSON.stringify(data.funcs),
       "utf-8"
     );
+
+    /* dictCourse file backup */
+    if (
+      fs.existsSync(
+        "script/reserve_core/reserve/" + data.club + "/dictCourse.json"
+      )
+    ) {
+      const con = fs.readFileSync(
+        "script/reserve_core/reserve/" + data.club + "/dictCourse.json"
+      );
+      fs.writeFileSync(
+        "script/backup/reserve_reserve_dictCourse_" +
+          new Date().getTime() +
+          "_" +
+          data.club +
+          ".json",
+        con,
+        "utf-8"
+      );
+    }
     fs.writeFileSync(
       "script/reserve_core/reserve/" + data.club + "/dictCourse.json",
       JSON.stringify(data.dictCourse),
       "utf-8"
     );
+
+    /* splitterDate file backup */
+    if (
+      fs.existsSync(
+        "script/reserve_core/reserve/" + data.club + "/splitterDate"
+      )
+    ) {
+      const con = fs.readFileSync(
+        "script/reserve_core/reserve/" + data.club + "/splitterDate"
+      );
+      fs.writeFileSync(
+        "script/backup/reserve_reserve_splitterDate_" +
+          new Date().getTime() +
+          "_" +
+          data.club +
+          "",
+        con,
+        "utf-8"
+      );
+    }
     fs.writeFileSync(
       "script/reserve_core/reserve/" + data.club + "/splitterDate",
       data.splitterDate,
@@ -426,7 +502,8 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (request.url == "/reservebot") {
-    const { club: engName, year, month, date, course, time } = data;
+    objResp = reservebotAdmin(data);
+    /* const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const searchUrl = golfClubSearchUrl[engName];
@@ -454,7 +531,7 @@ function procPost(request, response, data) {
     objResp = {
       url: loginUrl,
       script,
-    };
+    }; */
   } else if (request.url == "/reservebot_admin") {
     objResp = reservebotAdmin(data);
   } else if (request.url == "/reserveSearchbot") {
@@ -619,10 +696,7 @@ function reservebotAdmin(data) {
   const loginUrl = golfClubLoginUrl[engName];
   const searchUrl = golfClubSearchUrl[engName];
   const reserveUrl = golfClubReserveUrl[engName];
-  const loginScript = getPureLoginScript(engName).dp({
-    /* login_id: golfClubAccounts[engName].id,
-    login_password: golfClubAccounts[engName].pw, */
-  });
+  const loginScript = getPureLoginScript(engName);
 
   let templateScript;
   if (fs.existsSync("script/reserve_core/reserve/" + engName)) {
