@@ -1,1 +1,1 @@
-[["login_url","https://m.ariji.co.kr:444/login/login.asp","funcLogin"],["search_url","https://m.ariji.co.kr:444/membership/booking/time_calendar_form.asp","funcReserve"],["time_url","https://m.ariji.co.kr:444/membership/booking/time_list.asp","funcTime"]]
+[["login_url","https://m.ariji.co.kr:444/login/login.asp","funcLogin"],["main_url","https://m.ariji.co.kr:444/","funcMain"],["search_url","https://m.ariji.co.kr:444/membership/booking/time_calendar_form.asp","funcReserve"],["time_url","https://m.ariji.co.kr:444/membership/booking/time_list.asp","funcTime"]]
