@@ -1,5 +1,6 @@
 SELECT 
-	golf_club_eng.eng_id
+	golf_club_eng.eng_id,
+	golf_club.id
 FROM golf_club
 JOIN golf_club_detail ON golf_club.id = golf_club_detail.golf_club_id
 join golf_club_eng on golf_club.id = golf_club_eng.golf_club_id
