@@ -646,7 +646,7 @@ function reservebotAdmin(data) {
       const json = JSON.parse(strDate);
       const obj = ["{"];
       Object.keys(json).forEach((key) => {
-        obj.push(["  " + key, json[key]].join(": "));
+        obj.push(["  " + key, '"' + json[key].trim() + '"'].join(": "));
       });
       obj.push("}");
       return obj.join(",\r\n");

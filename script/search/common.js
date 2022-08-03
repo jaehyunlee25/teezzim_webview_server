@@ -4,7 +4,6 @@ const dir = console.dir;
 const doc = document;
 const ls = localStorage;
 const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
-console.clear();
 
 function TZLOG(param, callback) {
   const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";
@@ -225,3 +224,5 @@ document.clm = function (str) {
 window.timer = function (time, callback) {
   setTimeout(callback, time);
 };
+/* 이 부분 자리 옮기지 마시오.*/
+console.clear();
