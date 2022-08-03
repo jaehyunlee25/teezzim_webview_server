@@ -679,7 +679,7 @@ function reservebotAdmin(data) {
     );
     if (!funcs.funcLogin) {
       if (fs.existsSync("script/reserve/reserve/" + engName + ".js")) {
-        const oldFuncs = getFuncs(
+        const oldFuncs = getFunc(
           fs.readFileSync("script/reserve/reserve/" + engName + ".js", "utf-8")
         );
         funcs.funcLogin = oldFuncs.funcLogin;
