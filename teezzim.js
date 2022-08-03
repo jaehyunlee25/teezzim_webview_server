@@ -635,7 +635,7 @@ function reservebotAdmin(data) {
         obj.push(['  "' + ar[1] + '"', ar[2]].join(": "));
       });
       obj.push();
-      obj = [obj.join(",")];
+      obj = [obj.join(",\r\n")];
       obj.unshift("{");
       obj.push("}");
       return obj.join("\r\n");
@@ -651,7 +651,7 @@ function reservebotAdmin(data) {
       Object.keys(json).forEach((key) => {
         obj.push(["  " + key, '"' + json[key].trim() + '"'].join(": "));
       });
-      obj = [obj.join(",")];
+      obj = [obj.join(",\r\n")];
       obj.unshift("{");
       obj.push("}");
       return obj.join("\r\n");
