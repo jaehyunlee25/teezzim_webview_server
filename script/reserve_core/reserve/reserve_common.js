@@ -44,5 +44,5 @@ function funcLogin() {
 
   ${loginScript}
 
-  return;
+  location.href = "${searchUrl}";
 }

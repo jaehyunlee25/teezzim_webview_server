@@ -8,7 +8,5 @@ const param = {
     message: "start login",
     parameter: JSON.stringify({}),
 };
-TZLOG(param, (data) => {
-    log(data);
-    ${loginScript}
-});  
+TZLOG(param, (data) => {}); 
+${loginScript} 
