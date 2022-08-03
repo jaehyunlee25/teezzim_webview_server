@@ -138,12 +138,15 @@ function procPost(request, response, data) {
   let objResp;
   if (request.url == "/clubs") {
     const result = [];
+    const clubIds = {};
     getClubs((rows) => {
       rows.forEach((row) => {
-        result.push([row.eng_id, row.id]);
+        result.push(row.eng_id);
+        clubIds[row.eng_id] = row.id;
       });
       objResp = {
         clubs: result,
+        clubIds,
       };
       response.write(JSON.stringify(objResp));
       response.end();
