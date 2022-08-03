@@ -677,6 +677,19 @@ function reservebotAdmin(data) {
     tmpResult.push(
       tmpCom.dp({ address_mapping, reserve_course_mapping, splitter_date })
     );
+    if (!funcs.funcLogin) {
+      if (fs.existsSync("script/reserve/reserve/" + engName + ".js")) {
+        const oldFuncs = getFuncs(
+          fs.readFileSync("script/reserve/reserve/" + engName + ".js", "utf-8")
+        );
+        funcs.funcLogin = oldFuncs.funcLogin;
+      } else {
+        funcs.funcLogin = fs.readFileSync(
+          "script/reserve_core/reserve/reserve_login.js",
+          "utf-8"
+        );
+      }
+    }
     Object.keys(funcs).forEach((key) => {
       const func = funcs[key];
       tmpResult.push(func);
@@ -708,6 +721,44 @@ function reservebotAdmin(data) {
     loginScript,
   });
   return { url: loginUrl, script };
+}
+function getFunc(code) {
+  code = code.split("\r\n").join("\n");
+  code = code.split("\n").join("\r\n");
+  let pCount = 0;
+  const funcs = {};
+  const resEls = [];
+  let curFunc = "";
+  code.split("\r\n").forEach((ln) => {
+    const regex = /\s?function\s([a-zA-Z]+)\s?\(/;
+    const res = regex.exec(ln);
+    if (!pCount && res) {
+      curFunc = res[1];
+      funcs[curFunc] = [ln];
+
+      let plus = ln.howmany("{");
+      let minus = ln.howmany("}");
+
+      pCount += plus - minus;
+
+      return;
+    }
+    if (pCount) {
+      funcs[curFunc].push(ln);
+
+      let plus = ln.howmany("{");
+      let minus = ln.howmany("}");
+
+      pCount += plus - minus;
+      return;
+    }
+    resEls.push(ln);
+  });
+  Object.keys(funcs).forEach((key) => {
+    const func = funcs[key];
+    funcs[key] = func.join("\r\n");
+  });
+  return funcs;
 }
 function getClubs(callback) {
   const connection = mysql.createConnection(

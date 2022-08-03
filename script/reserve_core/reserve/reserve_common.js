@@ -34,3 +34,4 @@ const fulldate = [year, month, date].join(splitterDate);
 
 if (!func) funcOther();
 else func();
+
