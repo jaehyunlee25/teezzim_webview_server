@@ -1,12 +1,3 @@
 ${common}
-const param = {
-    type: "command", 
-    sub_type: "login",
-    device_id: "${deviceId}",
-    device_token: "${deviceToken}",
-    golf_club_id: "${golfClubId}",
-    message: "start login",
-    parameter: JSON.stringify({}),
-};
-TZLOG(param, (data) => {}); 
+TZLOG(logParam, (data) => {}); 
 ${loginScript} 
