@@ -620,8 +620,8 @@ function reservebotAdmin(data) {
   const searchUrl = golfClubSearchUrl[engName];
   const reserveUrl = golfClubReserveUrl[engName];
   const loginScript = getPureLoginScript(engName).dp({
-    login_id: golfClubAccounts[engName].id,
-    login_password: golfClubAccounts[engName].pw,
+    /* login_id: golfClubAccounts[engName].id,
+    login_password: golfClubAccounts[engName].pw, */
   });
 
   let templateScript;
