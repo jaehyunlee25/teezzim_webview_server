@@ -630,12 +630,15 @@ function reservebotAdmin(data) {
     );
     const address_mapping = ((strDate) => {
       const json = JSON.parse(strDate);
-      const obj = ["{"];
+      let obj = [];
       json.forEach((ar) => {
         obj.push(["  " + ar[1], ar[2]].join(": "));
       });
+      obj.push();
+      obj = [obj.join(",")];
+      obj.unshift("{");
       obj.push("}");
-      return obj.join(",\r\n");
+      return obj.join("\r\n");
     })(
       fs.readFileSync(
         "script/reserve_core/reserve/" + engName + "/dict.json",
@@ -644,12 +647,14 @@ function reservebotAdmin(data) {
     );
     const reserve_course_mapping = ((strDate) => {
       const json = JSON.parse(strDate);
-      const obj = ["{"];
+      let obj = [];
       Object.keys(json).forEach((key) => {
         obj.push(["  " + key, '"' + json[key].trim() + '"'].join(": "));
       });
+      obj = [obj.join(",")];
+      obj.unshift("{");
       obj.push("}");
-      return obj.join(",\r\n");
+      return obj.join("\r\n");
     })(
       fs.readFileSync(
         "script/reserve_core/reserve/" + engName + "/dictCourse.json",
