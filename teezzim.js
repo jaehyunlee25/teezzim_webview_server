@@ -140,7 +140,7 @@ function procPost(request, response, data) {
     const result = [];
     getClubs((rows) => {
       rows.forEach((row) => {
-        result.push(row.eng_id);
+        result.push([row.eng_id, row.id]);
       });
       objResp = {
         clubs: result,
