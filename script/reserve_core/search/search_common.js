@@ -1,4 +1,3 @@
-javascript:(() => {
 ${commonScript}
 
 /* begin blocking infinite call */
@@ -42,11 +41,6 @@ log("raw addr :: ", location.href);
 log("aDDr :: ", aDDr);
 log("addr :: ", addr);
     
-const year = "${year}";
-const month = "${month}";
-const date = "${date}";
-const course = "${course}";
-const time = "${time}";
 const dict = ${address_mapping};
 
 const func = dict[addr];
@@ -57,51 +51,3 @@ const fulldate = [year, month, date].join(splitterDate);
 if (!func) funcOther();
 else func();
 
-function funcList() {
-  log("funcList");
-  return;
-}
-function funcMain() {
-  log("funcMain");
-  return;
-}
-function funcOut() {
-  log("funcOut");
-  return;
-}
-function funcOther() {
-  log("funcOther");
-  return;
-}
-function funcLogin() {
-  log("funcLogin");
-  
-  const tag = localStorage.getItem("TZ_LOGIN");
-  if (tag && new Date().getTime() - tag < 1000 * 5) return;
-  localStorage.setItem("TZ_LOGIN", new Date().getTime());
-
-  ${loginScript}
-
-  return;
-}
-function funcReserve() {
-  log("funcReserve");
-  return;
-}
-function funcTime() {
-  log("funcTime");
-  return;
-}
-function funcExec() {
-  log("funcExec");
-  return;
-}
-function funcEnd() {
-  log("funcEnd");
-  return;
-}
-function LOGOUT() {
-  log("LOGOUT");
-  return;
-}
-})();

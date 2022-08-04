@@ -42,11 +42,6 @@ log("raw addr :: ", location.href);
 log("aDDr :: ", aDDr);
 log("addr :: ", addr);
     
-const year = "${year}";
-const month = "${month}";
-const date = "${date}";
-const course = "${course}";
-const time = "${time}";
 const dict = ${address_mapping};
 
 const func = dict[addr];
@@ -57,10 +52,6 @@ const fulldate = [year, month, date].join(splitterDate);
 if (!func) funcOther();
 else func();
 
-function funcList() {
-  log("funcList");
-  return;
-}
 function funcMain() {
   log("funcMain");
   return;
@@ -86,10 +77,6 @@ function funcLogin() {
 }
 function funcReserve() {
   log("funcReserve");
-  return;
-}
-function funcTime() {
-  log("funcTime");
   return;
 }
 function funcExec() {

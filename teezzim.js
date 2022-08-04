@@ -564,37 +564,7 @@ function procPost(request, response, data) {
       script,
     };
   } else if (request.url == "/reserveSearchbot_admin") {
-    const { club: engName, year, month, date, course, time } = data;
-    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
-    const loginUrl = golfClubLoginUrl[engName];
-    const reserveUrl = golfClubReserveUrl[engName];
-    const loginScript = getPureLoginScript(engName).dp({
-      login_id: golfClubAccounts[engName].id,
-      login_password: golfClubAccounts[engName].pw,
-    });
-    let templateScript;
-    if (fs.existsSync("script/reserve/search/" + engName + ".js"))
-      templateScript = fs.readFileSync(
-        "script/reserve/search/" + engName + ".js",
-        "utf-8"
-      );
-    else
-      templateScript = fs.readFileSync(
-        "script/reserve/search/reserveSearchTemplate.js",
-        "utf-8"
-      );
-    const golfClubId = golfClubIds[engName];
-    const script = templateScript.dp({
-      golfClubId,
-      commonScript,
-      loginUrl,
-      reserveUrl,
-      loginScript,
-    });
-    objResp = {
-      url: loginUrl,
-      script,
-    };
+    objResp = reserveSearchbotAdmin(data);
   } else if (request.url == "/reserveCancelbot") {
     const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
@@ -690,6 +660,104 @@ function procPost(request, response, data) {
     response.end();
   }
 }
+function reserveSearchbotAdmin(data) {
+  const { club: engName, year, month, date, course, time } = data;
+  const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+  const loginUrl = golfClubLoginUrl[engName];
+  const reserveUrl = golfClubReserveUrl[engName];
+  const loginScript = getPureLoginScript(engName);
+
+  let templateScript;
+  if (fs.existsSync("script/reserve_core/reserve/" + engName)) {
+    const tmpResult = ["javascript:(() => {"];
+    const tmpCom = fs.readFileSync(
+      "script/reserve_core/search/search_common.js",
+      "utf-8"
+    );
+    /** dict */
+    const conDict = fs.readFileSync(
+      "script/reserve_core/reserve/" + engName + "/dict.json",
+      "utf-8"
+    );
+    const address_mapping = ((strDate) => {
+      const json = JSON.parse(strDate);
+      let obj = [];
+      json.forEach((ar) => {
+        obj.push(['  "' + ar[1] + '"', ar[2]].join(": "));
+      });
+      obj.push();
+      obj = [obj.join(",\r\n")];
+      obj.unshift("{");
+      obj.push("}");
+      return obj.join("\r\n");
+    })(conDict);
+
+    /** dictCourse */
+    const conDictCourse = fs.readFileSync(
+      "script/reserve_core/reserve/" + engName + "/dictCourse.json",
+      "utf-8"
+    );
+    const reserve_course_mapping = ((strDate) => {
+      const json = JSON.parse(strDate);
+      let obj = [];
+      Object.keys(json).forEach((key) => {
+        obj.push(["  " + key, '"' + json[key].trim() + '"'].join(": "));
+      });
+      obj = [obj.join(",\r\n")];
+      obj.unshift("{");
+      obj.push("}");
+      return obj.join("\r\n");
+    })(conDictCourse);
+
+    /** funcs */
+    const funcs = JSON.parse(
+      fs.readFileSync(
+        "script/reserve_core/reserve/" + engName + "/funcs.json",
+        "utf-8"
+      )
+    );
+    if (!funcs.funcLogin) {
+      if (fs.existsSync("script/reserve/search/" + engName + ".js")) {
+        const oldFuncs = getFunc(
+          fs.readFileSync("script/reserve/search/" + engName + ".js", "utf-8")
+        );
+        funcs.funcLogin = oldFuncs.funcLogin;
+      } else {
+        funcs.funcLogin = fs.readFileSync(
+          "script/reserve_core/search/search_login.js",
+          "utf-8"
+        );
+      }
+    }
+    tmpResult.push(tmpCom.dp({ address_mapping, reserve_course_mapping }));
+    Object.keys(funcs).forEach((key) => {
+      const func = funcs[key];
+      tmpResult.push(func);
+    });
+    tmpResult.push("})();");
+    templateScript = tmpResult.join("\r\n");
+  } else {
+    if (fs.existsSync("script/reserve/search/" + engName + ".js"))
+      templateScript = fs.readFileSync(
+        "script/reserve/search/" + engName + ".js",
+        "utf-8"
+      );
+    else
+      templateScript = fs.readFileSync(
+        "script/reserve_core/search/reserveSearchTemplate.js",
+        "utf-8"
+      );
+  }
+  const golfClubId = golfClubIds[engName];
+  const script = templateScript.dp({
+    golfClubId,
+    commonScript,
+    loginUrl,
+    reserveUrl,
+    loginScript,
+  });
+  return { url: loginUrl, script };
+}
 function reservebotAdmin(data) {
   const { club: engName, year, month, date, course, time } = data;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
@@ -748,9 +816,6 @@ function reservebotAdmin(data) {
         "utf-8"
       )
     );
-    tmpResult.push(
-      tmpCom.dp({ address_mapping, reserve_course_mapping, splitter_date })
-    );
     if (!funcs.funcLogin) {
       if (fs.existsSync("script/reserve/reserve/" + engName + ".js")) {
         const oldFuncs = getFunc(
@@ -764,6 +829,9 @@ function reservebotAdmin(data) {
         );
       }
     }
+    tmpResult.push(
+      tmpCom.dp({ address_mapping, reserve_course_mapping, splitter_date })
+    );
     Object.keys(funcs).forEach((key) => {
       const func = funcs[key];
       tmpResult.push(func);
