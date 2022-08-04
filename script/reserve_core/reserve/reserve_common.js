@@ -16,6 +16,9 @@ if(lsg("TZ_ADMIN_BLOCK_IC") != null) {
 			/* 로그아웃 */
 			if (LOGOUT) LOGOUT();
 		}
+	} else {
+		visitNumber = 0;
+		lss("TZ_ADMIN_BLOCK_IC_TIME", new Date().getTime());
 	}
 } else {
 	visitNumber = 0;

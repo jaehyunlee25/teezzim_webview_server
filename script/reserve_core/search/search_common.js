@@ -4,7 +4,7 @@ ${commonScript}
 let TZ_BOT_SAFETY = true;
 let visitNumber = lsg("TZ_ADMIN_BLOCK_IC") * 1;
 let lastVistTime = lsg("TZ_ADMIN_BLOCK_IC_TIME") * 1;
-if(lsg("TZ_ADMIN_BLOCK_IC") == null) {
+if(lsg("TZ_ADMIN_BLOCK_IC") != null) {
 	if (lastVistTime < 1000 * 15) {
 		if (visitNumber > 9) {
 			if(window.AndroidController) 
