@@ -152,110 +152,10 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (request.url == "/setReserveSearch") {
+    objResp = setReserveSearch(data);
   } else if (request.url == "/setReserveReserve") {
-    log(data.club);
-    if (!fs.existsSync("script/reserve_core/reserve/" + data.club))
-      fs.mkdirSync("script/reserve_core/reserve/" + data.club);
-
-    /* dict file backup */
-    if (
-      fs.existsSync("script/reserve_core/reserve/" + data.club + "/dict.json")
-    ) {
-      const con = fs.readFileSync(
-        "script/reserve_core/reserve/" + data.club + "/dict.json"
-      );
-      fs.writeFileSync(
-        "script/backup/reserve_reserve_dict_" +
-          new Date().getTime() +
-          "_" +
-          data.club +
-          ".json",
-        con,
-        "utf-8"
-      );
-    }
-    fs.writeFileSync(
-      "script/reserve_core/reserve/" + data.club + "/dict.json",
-      JSON.stringify(data.dict),
-      "utf-8"
-    );
-
-    /* funcs file backup */
-    if (
-      fs.existsSync("script/reserve_core/reserve/" + data.club + "/funcs.json")
-    ) {
-      const con = fs.readFileSync(
-        "script/reserve_core/reserve/" + data.club + "/funcs.json"
-      );
-      fs.writeFileSync(
-        "script/backup/reserve_reserve_funcs_" +
-          new Date().getTime() +
-          "_" +
-          data.club +
-          ".json",
-        con,
-        "utf-8"
-      );
-    }
-    fs.writeFileSync(
-      "script/reserve_core/reserve/" + data.club + "/funcs.json",
-      JSON.stringify(data.funcs),
-      "utf-8"
-    );
-
-    /* dictCourse file backup */
-    if (
-      fs.existsSync(
-        "script/reserve_core/reserve/" + data.club + "/dictCourse.json"
-      )
-    ) {
-      const con = fs.readFileSync(
-        "script/reserve_core/reserve/" + data.club + "/dictCourse.json"
-      );
-      fs.writeFileSync(
-        "script/backup/reserve_reserve_dictCourse_" +
-          new Date().getTime() +
-          "_" +
-          data.club +
-          ".json",
-        con,
-        "utf-8"
-      );
-    }
-    fs.writeFileSync(
-      "script/reserve_core/reserve/" + data.club + "/dictCourse.json",
-      JSON.stringify(data.dictCourse),
-      "utf-8"
-    );
-
-    /* splitterDate file backup */
-    if (
-      fs.existsSync(
-        "script/reserve_core/reserve/" + data.club + "/splitterDate"
-      )
-    ) {
-      const con = fs.readFileSync(
-        "script/reserve_core/reserve/" + data.club + "/splitterDate"
-      );
-      fs.writeFileSync(
-        "script/backup/reserve_reserve_splitterDate_" +
-          new Date().getTime() +
-          "_" +
-          data.club +
-          "",
-        con,
-        "utf-8"
-      );
-    }
-    fs.writeFileSync(
-      "script/reserve_core/reserve/" + data.club + "/splitterDate",
-      data.splitterDate,
-      "utf-8"
-    );
-    objResp = {
-      msg: "successfully saved!!",
-      code: 200,
-    };
+    objResp = setReserveReserve(data);
   } else if (request.url == "/account") {
     objResp = {
       accounts: golfClubAccounts,
@@ -659,6 +559,102 @@ function procPost(request, response, data) {
     response.write(JSON.stringify(objResp));
     response.end();
   }
+}
+function setReserveSearch(data) {
+  if (!fs.existsSync("script/reserve_core/search/" + data.club))
+    fs.mkdirSync("script/reserve_core/search/" + data.club);
+
+  /* dict file backup */
+  const dictPath = "script/reserve_core/search/" + data.club + "/dict.json";
+  if (fs.existsSync(dictPath)) {
+    const con = fs.readFileSync(dictPath);
+    const backupPath = "script/backup/reserve_search_dict_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupPath, con, "utf-8");
+  }
+  fs.writeFileSync(dictPath, JSON.stringify(data.dict), "utf-8");
+
+  /* funcs file backup */
+  const funcPath = "script/reserve_core/search/" + data.club + "/funcs.json";
+  if (fs.existsSync(funcPath)) {
+    const con = fs.readFileSync(funcPath);
+    const backupPath = "script/backup/reserve_search_funcs_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(funcPath, JSON.stringify(data.funcs), "utf-8");
+
+  /* dictCourse file backup */
+  const dcPath = "script/reserve_core/search/" + data.club + "/dictCourse.json";
+  if (fs.existsSync(dcPath)) {
+    const con = fs.readFileSync(dcPath);
+    const backupPath = "script/backup/reserve_search_dictCourse_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(dcPath, JSON.stringify(data.dictCourse), "utf-8");
+
+  return {
+    msg: "successfully saved!!",
+    code: 200,
+  };
+}
+function setReserveReserve(data) {
+  if (!fs.existsSync("script/reserve_core/reserve/" + data.club))
+    fs.mkdirSync("script/reserve_core/reserve/" + data.club);
+
+  /* dict file backup */
+  const dictPath = "script/reserve_core/reserve/" + data.club + "/dict.json";
+  if (fs.existsSync(dictPath)) {
+    const con = fs.readFileSync(dictPath);
+    const backupPath = "script/backup/reserve_reserve_dict_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(dictPath, JSON.stringify(data.dict), "utf-8");
+
+  /* funcs file backup */
+  const funcPath = "script/reserve_core/reserve/" + data.club + "/funcs.json";
+  if (funcPath) {
+    const con = fs.readFileSync(funcPath);
+    const backupPath = "script/backup/reserve_reserve_funcs_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(funcPath, JSON.stringify(data.funcs), "utf-8");
+
+  /* dictCourse file backup */
+  const dcPath =
+    "script/reserve_core/reserve/" + data.club + "/dictCourse.json";
+  if (fs.existsSync(dcPath)) {
+    const con = fs.readFileSync(dcPath);
+    const backupPath = "script/backup/reserve_reserve_dictCourse_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(dcPath, JSON.stringify(data.dictCourse), "utf-8");
+
+  /* splitterDate file backup */
+  const sdPath = "script/reserve_core/reserve/" + data.club + "/splitterDate";
+  if (sdPath) {
+    const con = fs.readFileSync(sdPath);
+    const backupPath = "script/backup/reserve_reserve_splitterDate_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(sdPath, data.splitterDate, "utf-8");
+
+  return {
+    msg: "successfully saved!!",
+    code: 200,
+  };
 }
 function reserveSearchbotAdmin(data) {
   const { club: engName, year, month, date, course, time } = data;

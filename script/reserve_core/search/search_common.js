@@ -45,8 +45,6 @@ const dict = ${address_mapping};
 
 const func = dict[addr];
 const dictCourse = ${reserve_course_mapping};
-const splitterDate = "${splitter_date}";
-const fulldate = [year, month, date].join(splitterDate);
 
 if (!func) funcOther();
 else func();
