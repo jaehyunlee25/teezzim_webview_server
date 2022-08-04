@@ -1,0 +1,1 @@
+[["login_url","https://www.bavista.co.kr/Mobile/Member/Login","funcLogin"],["search_url","https://www.bavista.co.kr/Mobile/Booking/GolfCalendar","funcReserve"],["time_url","https://www.bavista.co.kr/Mobile/Booking/SelectTime","funcTime"],["exec_url","https://www.bavista.co.kr/Mobile/Booking/GolfProgress","funcExec"],["main_url","https://www.bavista.co.kr/Mobile","funcMain"]]

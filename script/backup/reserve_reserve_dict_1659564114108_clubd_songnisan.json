@@ -1,0 +1,1 @@
+[["login_url","https://www.clubd.com/m_clubd/member/login.do","funcLogin"],["search_url","https://www.clubd.com/m_clubd/index.do?iCoDiv=02","funcReserve"],["main_url","https://www.clubd.com/m_clubd/index.do","funcMain"],["logout_url","https://www.clubd.com/clubd/member/actionLogout.do","funcOut"]]
