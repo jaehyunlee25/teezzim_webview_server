@@ -571,7 +571,7 @@ function setReserveSearch(data) {
     const backupPath = "script/backup/reserve_search_dict_";
     const CT = new Date().getTime();
     const backupfile = backupPath + CT + "_" + data.club + ".json";
-    fs.writeFileSync(backupPath, con, "utf-8");
+    fs.writeFileSync(backupfile, con, "utf-8");
   }
   fs.writeFileSync(dictPath, JSON.stringify(data.dict), "utf-8");
 
