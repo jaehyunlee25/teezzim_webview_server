@@ -668,7 +668,7 @@ function reserveSearchbotAdmin(data) {
   const loginScript = getPureLoginScript(engName);
 
   let templateScript;
-  if (fs.existsSync("script/reserve_core/reserve/" + engName)) {
+  if (fs.existsSync("script/reserve_core/search/" + engName)) {
     const tmpResult = ["javascript:(() => {"];
     const tmpCom = fs.readFileSync(
       "script/reserve_core/search/search_common.js",
