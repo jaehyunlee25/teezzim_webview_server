@@ -676,7 +676,7 @@ function reserveSearchbotAdmin(data) {
     );
     /** dict */
     const conDict = fs.readFileSync(
-      "script/reserve_core/reserve/" + engName + "/dict.json",
+      "script/reserve_core/search/" + engName + "/dict.json",
       "utf-8"
     );
     const address_mapping = ((strDate) => {
@@ -694,7 +694,7 @@ function reserveSearchbotAdmin(data) {
 
     /** dictCourse */
     const conDictCourse = fs.readFileSync(
-      "script/reserve_core/reserve/" + engName + "/dictCourse.json",
+      "script/reserve_core/search/" + engName + "/dictCourse.json",
       "utf-8"
     );
     const reserve_course_mapping = ((strDate) => {
@@ -712,7 +712,7 @@ function reserveSearchbotAdmin(data) {
     /** funcs */
     const funcs = JSON.parse(
       fs.readFileSync(
-        "script/reserve_core/reserve/" + engName + "/funcs.json",
+        "script/reserve_core/search/" + engName + "/funcs.json",
         "utf-8"
       )
     );
