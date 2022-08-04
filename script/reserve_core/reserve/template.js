@@ -12,17 +12,17 @@ if(lsg("TZ_ADMIN_BLOCK_IC") == null) {
 				window.AndroidController.message("TZ_MSG_IC");
 			TZ_BOT_SAFETY = false;
 			/* 초기화 */
-			lss("TZ_ADMIN_BLOCK_IC", 0);
+			visitNumber = 0;
 			lss("TZ_ADMIN_BLOCK_IC_TIME", new Date().getTime());
 			/* 로그아웃 */
 			if (LOGOUT) LOGOUT();
 		}
 	} else {
-		lss("TZ_ADMIN_BLOCK_IC", 0);
+		visitNumber = 0;
 		lss("TZ_ADMIN_BLOCK_IC_TIME", new Date().getTime());
 	}
 } else {
-	lss("TZ_ADMIN_BLOCK_IC", 0);
+	visitNumber = 0;
 	lss("TZ_ADMIN_BLOCK_IC_TIME", new Date().getTime());
 }
 visitNumber++;
