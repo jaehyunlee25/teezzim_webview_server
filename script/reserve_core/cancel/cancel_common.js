@@ -49,6 +49,11 @@ log("raw addr :: ", location.href);
 log("aDDr :: ", aDDr);
 log("addr :: ", addr);
     
+const year = "${year}";
+const month = "${month}";
+const date = "${date}";
+const course = "${course}";
+const time = "${time}";
 const dict = ${address_mapping};
 
 const func = dict[addr];
