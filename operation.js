@@ -13,13 +13,22 @@ files.forEach((file) => {
   if (!clubs[club]) clubs[club] = {};
   const sec = time.ct(3);
   if (!clubs[club][sec]) clubs[club][sec] = [];
-  clubs[club][sec].push(
-    ["./script/reserve_core", two, club, type + ".json"].join("/")
-  );
+  clubs[club][sec].push([
+    file,
+    ["./script/reserve_core", two, club, type + ".json"].join("/"),
+  ]);
 });
-log(Object.keys[clubs]);
 
-/* Object.keys[clubs].forEach((club) => {
+const curClub = {};
+Object.keys(clubs).forEach((key) => {
+  const club = clubs[key];
   const dates = Object.keys(club);
-  log(dates);
-}); */
+  dates.sort((a, b) => b - a);
+  curClub[key] = club[dates[0]];
+});
+Object.keys(curClub).forEach((key) => {
+  const club = clubs[key];
+  const time = Object.keys(club)[0];
+  log(time);
+  // log(club);
+});
