@@ -1,5 +1,8 @@
 const fs = require("fs");
 const log = console.log;
+String.prototype.ct = function (num) {
+  return this.substring(0, this.length - num);
+};
 
 const clubs = {};
 const files = fs.readdirSync("./script/backup/");
@@ -8,7 +11,8 @@ files.forEach((file) => {
   let [one, two, type, time, ...club] = file.split("_");
   club = club.join("_").split(".")[0];
   if (!clubs[club]) clubs[club] = {};
-  if (!clubs[club][time]) clubs[club][time] = [];
-  clubs[club][time].push(file);
+  const sec = time.ct(3);
+  if (!clubs[club][sec]) clubs[club][sec] = [];
+  clubs[club][sec].push(file);
 });
 log(clubs);
