@@ -1,16 +1,14 @@
 const fs = require("fs");
 const log = console.log;
 
-const clubFrom = "adelscott";
-const clubTo = "lavieestbelle_old";
-
-["reserve", "search", "cancel"].forEach((folder) => {
-  const newName = "./script/reserve/" + folder + "/" + clubTo + ".js";
-  if (fs.existsSync(newName)) return;
-  const con = fs.readFileSync(
-    "./script/reserve/" + folder + "/" + clubFrom + ".js",
-    "utf-8"
-  );
-  fs.writeFileSync(newName, con);
+const clubs = {};
+const files = fs.readdirSync("./script/backup/");
+files.forEach((file) => {
+  if (file.indexOf("reserve_search") == -1) return;
+  let [one, two, type, time, ...club] = file.split("_");
+  club = club.join("_").split(".")[0];
+  if (!clubs[club]) clubs[club] = {};
+  if (!clubs[club][time]) clubs[club][time] = [];
+  clubs[club][time].push(file);
 });
-log("file copy completed!!");
+log(clubs);
