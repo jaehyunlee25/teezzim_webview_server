@@ -31,34 +31,22 @@ function mneCallDetail(arrDate) {
     openyn: "2",
     currentdate: "",
   };
-  const dictCourse = {};
+  const dictCourse = {
+    1: "햇님",
+    2: "달님",
+    3: "별님",
+  };
   post("/membership/booking/time_list.asp", param, {}, (data) => {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const trs1 = ifr
-      .getElementsByClassName("panel")[1]
-      .getElementsByTagName("tbody")[0]
-      .getElementsByTagName("tr");
-    const trs2 = ifr
-      .getElementsByClassName("panel")[2]
-      .getElementsByTagName("tbody")[0]
-      .getElementsByTagName("tr");
-    const trs3 = ifr
-      .getElementsByClassName("panel")[3]
-      .getElementsByTagName("tbody")[0]
-      .getElementsByTagName("tr");
-
-    const els = Array.from(trs1)
-      .concat(Array.from(trs2))
-      .concat(Array.from(trs3));
-
+    const els = ifr.gcn("btn btn-success");
     els.forEach((el, i) => {
-      if (i === 0) return;
-      const course = el.children[1].innerText;
-      const time = el.children[2].innerText;
-      const fee_normal = el.children[5].innerText.split(",").join("") * 1;
-      const fee_discount = el.children[4].innerText.split(",").join("") * 1;
+      const param = el.parentNode.attr("href").inparen();
+      let [, course, time, , , , fee_normal] = param;
+      course = dictCourse[course];
+      fee_normal *= 1;
+      const fee_discount = fee_normal;
 
       golf_schedule.push({
         golf_club_id: clubId,

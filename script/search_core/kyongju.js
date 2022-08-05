@@ -16,6 +16,7 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date, course] = arrDate;
   const param = {};
@@ -28,11 +29,16 @@ function mneCallDetail(arrDate) {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
+    const dictCourse = {
+      SUN: "Sun",
+      MOON: "Moon",
+      SEA: "Sea",
+    };
     const table = ifr.getElementsByClassName("timeTbl")[0];
     const tbody = table.getElementsByTagName("tbody")[0];
     const trs = tbody.children;
     Array.from(trs).forEach((tr) => {
-      const course = tr.children[1].innerText;
+      const course = dictCourse[tr.children[1].innerText];
       const time = tr.children[2].innerText
         .replace(/\s/g, "")
         .split(":")
@@ -56,12 +62,14 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
 function procHref(str) {
   const regex = /\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values[1].split("-").join(""), type: "" };
 }
 
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);
 });

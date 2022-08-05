@@ -28,6 +28,7 @@ function mneCall(date, callback) {
   );
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   post(
@@ -43,6 +44,7 @@ function mneCallDetail(arrDate) {
         .getElementsByTagName("tbody")[0].children[0].children;
       const [victory, challenge] = tds;
       const obTeams = { victory: {}, challenge: {} };
+      
 
       Array.from(victory.children).forEach((div) => {
         const str = div.innerText;
@@ -54,7 +56,7 @@ function mneCallDetail(arrDate) {
 
         golf_schedule.push({
           golf_club_id: clubId,
-          golf_course_id: "victory",
+          golf_course_id: "Victory",
           date,
           time: str.gh(5),
           in_out: "",
@@ -73,7 +75,7 @@ function mneCallDetail(arrDate) {
           div.children[0].innerText.ch(1).replace(/,/g, "") * 1;
         golf_schedule.push({
           golf_club_id: clubId,
-          golf_course_id: "challenge",
+          golf_course_id: "Challenge",
           date,
           time: str.gh(5),
           in_out: "",
@@ -88,6 +90,9 @@ function mneCallDetail(arrDate) {
   );
 }
 
+/* <============line_div==========> */
+
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   setTimeout(() => {
     mneCall(nextdate, procDate);

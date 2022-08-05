@@ -16,6 +16,7 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = { book_date: date };
@@ -30,6 +31,7 @@ function mneCallDetail(arrDate) {
 
       const ob = procStrDetail(str);
       const { course, time, fee_normal, fee_discount } = ob;
+log(course);
       const slot = time.gh(2);
 
       golf_schedule.push({
@@ -48,6 +50,7 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
 function procStrDetail(str) {
   const regex = /Book_time\d*\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
@@ -67,4 +70,5 @@ function procStr(str) {
   return { date: values.join("") };
 }
 
+/* <============line_div==========> */
 mneCall("", procDate);

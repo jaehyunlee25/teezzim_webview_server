@@ -37,6 +37,7 @@ function mneCallDetail(arrDate) {
     Array.from(els).forEach((el, i) => {
       if (i === 0) return;
       const course = el.children[0].innerText;
+log(course);
       const time = el.children[1].innerText.ch(2);
       let fee_normal =
         el.children[3].innerText

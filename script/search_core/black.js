@@ -35,7 +35,7 @@ function mneCallDetail(arrDate) {
 
     Array.from(els).forEach((el, i) => {
       const param = el.getAttribute("href").inparen();
-      const course = param[2];
+      const course = dictCourse[param[2]];
       const time = param[1];
       let fee_normal = 130000;
       let fee_discount = 130000;

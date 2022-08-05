@@ -22,7 +22,7 @@ function mneCallDetail(arrDate) {
     cssncourseum: "",
     inputtype: "I",
   };
-  const courseDict = {
+  const dictCourse = {
     마운틴: "Mountain",
     힐: "Hill",
     레이크: "Lake",
@@ -38,7 +38,7 @@ function mneCallDetail(arrDate) {
 
     const obTeams = {};
     Array.from(els).forEach((el, i) => {
-      const course = el.children[1].innerText;
+      const course = dictCourse [el.children[1].innerText];
       const time = el.children[2].innerText;
       const fee_discount = el.children[5].innerText.split(",").join("") * 1;
       const fee_normal = el.children[4].innerText.split(",").join("") * 1;

@@ -8,6 +8,7 @@ function mneCall(date, callback) {
   callback();
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -22,6 +23,12 @@ function mneCallDetail(arrDate) {
     macroChk: "",
     agreeYn: "Y",
   };
+  const dictCourse = {
+    이베르: "HIVER",
+    오똔: "AUTOMNE",
+    브렝땅: "PRINTEMPS",
+    에떼: "ETE",
+  };
 
   post("ajax/golfTimeList", param, {}, (data) => {
     const ifr = document.createElement("div");
@@ -32,7 +39,7 @@ function mneCallDetail(arrDate) {
 
     Array.from(els).forEach((el, i) => {
       if (i == 0) return;
-      const course = el.children[1].innerText;
+      const course = dictCourse[el.children[1].innerText];
       const time = el.children[2].innerText;
       const fee_discount = el.children[5].innerText.split(",").join("") * 1;
       const fee_normal = el.children[4].innerText.split(",").join("") * 1;
@@ -54,12 +61,14 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
 function procStr(str) {
   const regex = /\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values[2], param: "" };
 }
 
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   workMonthNext();
   setTimeout(() => {

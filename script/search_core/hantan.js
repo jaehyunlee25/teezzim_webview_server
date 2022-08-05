@@ -13,11 +13,16 @@ function mneCall(date, callback) {
   callback();
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
     book_date: date,
     book_yymm: date.ct(2),
+  };
+  const dictCourse = {
+    밸리: "VALLEY",
+    마운틴: "MOUNTAIN",
   };
   post("/html/reservation/reservation_01.asp", param, {}, (data) => {
     const ifr = document.createElement("div");
@@ -30,7 +35,7 @@ function mneCallDetail(arrDate) {
     Array.from(trs).forEach((tr, i) => {
       if (i < 2) return;
 
-      const course = tr.children[1].innerHTML.replace(/\s/g, "");
+      const course = dictCourse[tr.children[1].innerHTML.replace(/\s/g, "")];
       const time = tr.children[2].innerHTML;
       const fee_normal = tr.children[4].innerText.replace(/\,/g, "") * 1;
       const fee_discount = tr.children[4].innerText.replace(/\,/g, "") * 1;
@@ -51,6 +56,9 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   get("reservation_01.asp", { book_yymm: "202206" }, {}, (data) => {
     document.body.innerHTML = data;

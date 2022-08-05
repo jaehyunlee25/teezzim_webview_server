@@ -21,6 +21,7 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -43,7 +44,8 @@ function mneCallDetail(arrDate) {
     Array.from(as).forEach((a) => {
       const ob = procHrefDetail(a.href);
       if (!ob) return;
-      const { course, time, fee_normal, fee_discount } = ob;
+      let { course, time, fee_normal, fee_discount } = ob;
+log(course);
       const slot = time.gh(2);
       if (!obTeams[course]) obTeams[course] = {};
       if (!obTeams[course][slot]) obTeams[course][slot] = [];
@@ -64,6 +66,7 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
 function procHrefDetail(str) {
   const head = str.indexOf("subcmd");
   if (head === -1) return false;
@@ -89,6 +92,7 @@ function procHref(str) {
   return { date: values[0], type: values[5] };
 }
 
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);
 });

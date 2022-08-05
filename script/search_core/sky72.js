@@ -16,6 +16,7 @@ function mneCall(callback) {
   callback();
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date, course] = arrDate;
   const param = {
@@ -35,6 +36,12 @@ function mneCallDetail(arrDate) {
     enc: "",
     cmd: "",
   };
+  const dictCourse = {
+    A: "하늘",
+    B: "레이크",
+    C: "클래식",
+    D: "오션",
+  };
 
   post("real_step02.jsp", param, {}, (data) => {
     const ifr = document.createElement("div");
@@ -46,11 +53,11 @@ function mneCallDetail(arrDate) {
       const fee_discount = el.children[1].innerText.split(",").join("") * 1;
       const fee_normal = el.children[1].innerText.split(",").join("") * 1;
 
-      console.log(date, course, time, fee_discount, fee_normal);
+      log(date, course, time, fee_discount, fee_normal);
 
       golf_schedule.push({
         golf_club_id: clubId,
-        golf_course_id: course,
+        golf_course_id: dictCourse[course],
         date,
         time,
         in_out: "",
@@ -64,4 +71,7 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
+/* <============line_div==========> */
 mneCall(procDate);

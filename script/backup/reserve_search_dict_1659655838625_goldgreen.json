@@ -1,0 +1,1 @@
+[["login_url","https://www.goldgreen.co.kr/member/login","funcLogin"],["search_url","https://www.goldgreen.co.kr/reservation/resList","funcReserve"],["main_url","https://www.goldgreen.co.kr/","funcMain"],["logout_url","https://www.goldgreen.co.kr/member/logout","funcOut"]]

@@ -25,8 +25,8 @@ function mneCallDetail(arrDate) {
     const els = ifr.gcn("can");
     Array.from(els).forEach((el, i) => {
       const dictCourse = {
-          1: "동",
-          2: "서",
+          11: "동",
+          22: "서",
         };
         const param = el.attr("href").inparen();
         let [, time, course, , , , , , , fee_discount] = param;

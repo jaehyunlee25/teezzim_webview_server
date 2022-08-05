@@ -15,7 +15,7 @@ function mneCallDetail(arrDate) {
     book_date: date,
     index: "86201",
   };
-  const courseDict = {
+  const dictCourse = {
     C코스: "챌린지",
     M코스: "마스터",
     S코스: "스카이",
@@ -31,10 +31,13 @@ function mneCallDetail(arrDate) {
     Array.from(els).forEach((el, i) => {
       const str = el.getAttribute("onclick");
       const regex = /Book_time\((.+)\)/;
-      const [, , course, time] = regex
+      let [, , course, time] = regex
         .exec(str)[1]
         .replace(/'/g, "")
         .split(",");
+
+      course = dictCourse[course.trim()];
+
       const fee_discount = 135000;
       const fee_normal = 135000;
 

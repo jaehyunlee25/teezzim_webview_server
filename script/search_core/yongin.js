@@ -12,12 +12,17 @@ function mneCall(date, callback) {
   callback();
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date, strParam] = arrDate;
   const param = {};
   Array.from(aspnetForm.elements).forEach((el) => (param[el.name] = el.value));
   param["SelectedDate"] =
     date.gh(4) + "-" + date.ch(4).gh(2) + "-" + date.gt(2);
+  const dictCourse = {
+    용인: "Out",
+    석천: "In",
+  };
 
   post("ReservationTimeList.aspx", param, {}, (data) => {
     const ifr = document.createElement("div");
@@ -28,7 +33,7 @@ function mneCallDetail(arrDate) {
 
     Array.from(els).forEach((el, i) => {
       if (i === 0) return;
-      const course = el.children[0].innerText.gh(2);
+      const course = dictCourse[el.children[0].innerText.gh(2)];
       const time = el.children[1].innerText;
       if (time.length !== 5) return;
       const fee_normal = el.children[2].innerText.ct(1).split(",").join("") * 1;
@@ -51,10 +56,12 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
 function procHref(str) {
   const regex = /\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values[0].split("-").join(""), param: "" };
 }
 
+/* <============line_div==========> */
 mneCall(thisdate, procDate);

@@ -22,6 +22,7 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -44,6 +45,7 @@ function mneCallDetail(arrDate) {
     Array.from(trs).forEach((tr, i) => {
       if (i === 0) return;
       const course = tr.children[1].innerText;
+log(course);
       const time = tr.children[2].innerText;
       const fee_normal =
         tr.children[4].children[0].innerText.replace(/,/g, "") * 1;
@@ -67,6 +69,7 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
 function procStr(str) {
   const head = str.indexOf("quick_timefrom_change");
   if (head === -1) return false;
@@ -75,6 +78,7 @@ function procStr(str) {
   return { date: values[0], type: values[5] };
 }
 
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);
 });

@@ -38,6 +38,7 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -66,6 +67,7 @@ function mneCallDetail(arrDate) {
       if (i === 0) return;
 
       const course = tr.children[1].innerHTML;
+log(course);
       const time = tr.children[0].innerHTML;
       const fee_normal = tr.children[2].innerHTML.replace(/\,/g, "") * 1;
       const fee_discount = tr.children[4].innerHTML.replace(/\,/g, "") * 1;
@@ -87,12 +89,14 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
 function procStr(str) {
   const regex = /clickCal\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values[2] };
 }
 
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   workMonthNext();
   setTimeout(() => {
