@@ -435,7 +435,8 @@ function procPost(request, response, data) {
   } else if (request.url == "/reservebot_admin") {
     objResp = reservebotAdmin(data);
   } else if (request.url == "/reserveSearchbot") {
-    const { club: engName, year, month, date, course, time } = data;
+    objResp = reserveSearchbotAdmin(data);
+    /*  const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const reserveUrl = golfClubReserveUrl[engName];
@@ -462,7 +463,7 @@ function procPost(request, response, data) {
     objResp = {
       url: loginUrl,
       script,
-    };
+    }; */
   } else if (request.url == "/reserveSearchbot_admin") {
     objResp = reserveSearchbotAdmin(data);
   } else if (request.url == "/reserveCancelbot") {
