@@ -152,6 +152,8 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (request.url == "/setReserveCancel") {
+    objResp = setReserveCancel(data);
   } else if (request.url == "/setReserveSearch") {
     objResp = setReserveSearch(data);
   } else if (request.url == "/setReserveReserve") {
@@ -561,6 +563,48 @@ function procPost(request, response, data) {
     response.write(JSON.stringify(objResp));
     response.end();
   }
+}
+function setReserveCancel(data) {
+  if (!fs.existsSync("script/reserve_core/cancel/" + data.club))
+    fs.mkdirSync("script/reserve_core/cancel/" + data.club);
+
+  /* dict file backup */
+  const dictPath = "script/reserve_core/cancel/" + data.club + "/dict.json";
+  if (fs.existsSync(dictPath)) {
+    const con = fs.readFileSync(dictPath);
+    const backupPath = "script/backup/reserve_cancel_dict_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(dictPath, JSON.stringify(data.dict), "utf-8");
+
+  /* funcs file backup */
+  const funcPath = "script/reserve_core/cancel/" + data.club + "/funcs.json";
+  if (fs.existsSync(funcPath)) {
+    const con = fs.readFileSync(funcPath);
+    const backupPath = "script/backup/reserve_cancel_funcs_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(funcPath, JSON.stringify(data.funcs), "utf-8");
+
+  /* dictCourse file backup */
+  const dcPath = "script/reserve_core/cancel/" + data.club + "/dictCourse.json";
+  if (fs.existsSync(dcPath)) {
+    const con = fs.readFileSync(dcPath);
+    const backupPath = "script/backup/reserve_cancel_dictCourse_";
+    const CT = new Date().getTime();
+    const backupfile = backupPath + CT + "_" + data.club + ".json";
+    fs.writeFileSync(backupfile, con, "utf-8");
+  }
+  fs.writeFileSync(dcPath, JSON.stringify(data.dictCourse), "utf-8");
+
+  return {
+    msg: "successfully saved!!",
+    code: 200,
+  };
 }
 function setReserveSearch(data) {
   if (!fs.existsSync("script/reserve_core/search/" + data.club))
