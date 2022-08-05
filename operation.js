@@ -21,6 +21,7 @@ files.forEach((file) => {
 
 const curClub = {};
 Object.keys(clubs).forEach((key) => {
+  log(key);
   const club = clubs[key];
   const dates = Object.keys(club);
   dates.sort((a, b) => b - a);
@@ -28,7 +29,7 @@ Object.keys(clubs).forEach((key) => {
   curClub[key][dates[0]] = club[dates[0]];
 });
 
-Object.keys(curClub).forEach((key) => {
+/* Object.keys(curClub).forEach((key) => {
   const club = curClub[key];
   const date = Object.keys(club)[0];
   const files = club[date];
@@ -36,4 +37,4 @@ Object.keys(curClub).forEach((key) => {
     const con = fs.readFileSync(file[0], "utf-8");
     fs.writeFileSync(file[1], con, "utf-8");
   });
-});
+}); */
