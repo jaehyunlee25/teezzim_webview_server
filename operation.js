@@ -13,6 +13,13 @@ files.forEach((file) => {
   if (!clubs[club]) clubs[club] = {};
   const sec = time.ct(3);
   if (!clubs[club][sec]) clubs[club][sec] = [];
-  clubs[club][sec].push(file);
+  clubs[club][sec].push(
+    ["./script/reserve_core", two, club, type + ".json"].join("/")
+  );
 });
-log(clubs);
+log(Object.keys[clubs]);
+
+/* Object.keys[clubs].forEach((club) => {
+  const dates = Object.keys(club);
+  log(dates);
+}); */
