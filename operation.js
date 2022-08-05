@@ -1,5 +1,6 @@
 const fs = require("fs");
 const log = console.log;
+const dir = console.dir;
 String.prototype.ct = function (num) {
   return this.substring(0, this.length - num);
 };
@@ -20,13 +21,29 @@ files.forEach((file) => {
 });
 
 const curClub = {};
+let gochang;
 Object.keys(clubs).forEach((key) => {
-  log(key);
+  if (key != "gochang") return;
   const club = clubs[key];
+  gochang = club;
   const dates = Object.keys(club);
   dates.sort((a, b) => b - a);
   if (!curClub[key]) curClub[key] = {};
   curClub[key][dates[0]] = club[dates[0]];
+});
+
+const times = {};
+Object.keys(gochang).forEach((time) => {
+  if (!times[time]) times[time] = [];
+  times[time].push(gochang[time]);
+});
+dir(times);
+log(times["1659684711"]);
+
+times["1659684711"][0].forEach((file) => {
+  const con = fs.readFileSync(file[0], "utf-8");
+  log(con);
+  //fs.writeFileSync(file[1], con, "utf-8");
 });
 
 /* Object.keys(curClub).forEach((key) => {
