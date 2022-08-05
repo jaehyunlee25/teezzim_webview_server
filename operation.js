@@ -24,11 +24,12 @@ Object.keys(clubs).forEach((key) => {
   const club = clubs[key];
   const dates = Object.keys(club);
   dates.sort((a, b) => b - a);
+  log(dates);
   curClub[key] = club[dates[0]];
 });
 Object.keys(curClub).forEach((key) => {
   const club = clubs[key];
   const time = Object.keys(club)[0];
-  log(time);
+  //log(time);
   // log(club);
 });
