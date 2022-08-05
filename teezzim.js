@@ -713,7 +713,7 @@ function reserveCancelbotAdmin(data) {
   if (fs.existsSync("script/reserve_core/cancel/" + engName)) {
     const tmpResult = ["javascript:(() => {"];
     const tmpCom = fs.readFileSync(
-      "script/reserve_core/cancel/search_common.js",
+      "script/reserve_core/cancel/cancel_common.js",
       "utf-8"
     );
     /** dict */
