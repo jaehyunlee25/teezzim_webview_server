@@ -43,7 +43,7 @@ log(times["1659684711"]);
 times["1659684711"][0].forEach((file) => {
   const con = fs.readFileSync(file[0], "utf-8");
   log(con);
-  //fs.writeFileSync(file[1], con, "utf-8");
+  fs.writeFileSync(file[1], con, "utf-8");
 });
 
 /* Object.keys(curClub).forEach((key) => {
