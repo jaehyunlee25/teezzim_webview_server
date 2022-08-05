@@ -501,7 +501,8 @@ function procPost(request, response, data) {
       script,
     };
   } else if (request.url == "/reserveCancelbot_admin") {
-    const { club: engName, year, month, date, course, time } = data;
+    objResp = reserveCancelbotAdmin(data);
+    /* const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const reserveUrl = golfClubReserveUrl[engName];
@@ -536,7 +537,7 @@ function procPost(request, response, data) {
     objResp = {
       url: loginUrl,
       script,
-    };
+    }; */
   } else if (request.url == "/login") {
     const uuid = data.clubId;
     const engName = golfClubIdToEng[uuid];
@@ -657,6 +658,104 @@ function setReserveReserve(data) {
     code: 200,
   };
 }
+function reserveCancelbotAdmin(data) {
+  const { club: engName, year, month, date, course, time } = data;
+  const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+  const loginUrl = golfClubLoginUrl[engName];
+  const reserveUrl = golfClubReserveUrl[engName];
+  const loginScript = getPureLoginScript(engName);
+
+  let templateScript;
+  if (fs.existsSync("script/reserve_core/cancel/" + engName)) {
+    const tmpResult = ["javascript:(() => {"];
+    const tmpCom = fs.readFileSync(
+      "script/reserve_core/cancel/search_common.js",
+      "utf-8"
+    );
+    /** dict */
+    const conDict = fs.readFileSync(
+      "script/reserve_core/cancel/" + engName + "/dict.json",
+      "utf-8"
+    );
+    const address_mapping = ((strDate) => {
+      const json = JSON.parse(strDate);
+      let obj = [];
+      json.forEach((ar) => {
+        obj.push(['  "' + ar[1] + '"', ar[2]].join(": "));
+      });
+      obj.push();
+      obj = [obj.join(",\r\n")];
+      obj.unshift("{");
+      obj.push("}");
+      return obj.join("\r\n");
+    })(conDict);
+
+    /** dictCourse */
+    const conDictCourse = fs.readFileSync(
+      "script/reserve_core/cancel/" + engName + "/dictCourse.json",
+      "utf-8"
+    );
+    const reserve_course_mapping = ((strDate) => {
+      const json = JSON.parse(strDate);
+      let obj = [];
+      Object.keys(json).forEach((key) => {
+        obj.push(["  " + key, '"' + json[key].trim() + '"'].join(": "));
+      });
+      obj = [obj.join(",\r\n")];
+      obj.unshift("{");
+      obj.push("}");
+      return obj.join("\r\n");
+    })(conDictCourse);
+
+    /** funcs */
+    const funcs = JSON.parse(
+      fs.readFileSync(
+        "script/reserve_core/cancel/" + engName + "/funcs.json",
+        "utf-8"
+      )
+    );
+    if (!funcs.funcLogin) {
+      if (fs.existsSync("script/reserve/cancel/" + engName + ".js")) {
+        const oldFuncs = getFunc(
+          fs.readFileSync("script/reserve/cancel/" + engName + ".js", "utf-8")
+        );
+        funcs.funcLogin = oldFuncs.funcLogin;
+      } else {
+        funcs.funcLogin = fs.readFileSync(
+          "script/reserve_core/cancel/search_login.js",
+          "utf-8"
+        );
+      }
+    }
+    tmpResult.push(tmpCom.dp({ address_mapping, reserve_course_mapping }));
+    Object.keys(funcs).forEach((key) => {
+      const func = funcs[key];
+      tmpResult.push(func);
+    });
+    tmpResult.push("})();");
+    templateScript = tmpResult.join("\r\n");
+  } else {
+    if (fs.existsSync("script/reserve/cancel/" + engName + ".js"))
+      templateScript = fs.readFileSync(
+        "script/reserve/cancel/" + engName + ".js",
+        "utf-8"
+      );
+    else
+      templateScript = fs.readFileSync(
+        "script/reserve_core/cancel/reserveSearchTemplate.js",
+        "utf-8"
+      );
+  }
+  const golfClubId = golfClubIds[engName];
+  const script = templateScript.dp({
+    golfClubId,
+    commonScript,
+    loginUrl,
+    reserveUrl,
+    loginScript,
+  });
+  return { url: loginUrl, script };
+}
 function reserveSearchbotAdmin(data) {
   const { club: engName, year, month, date, course, time } = data;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
@@ -747,6 +846,11 @@ function reserveSearchbotAdmin(data) {
   }
   const golfClubId = golfClubIds[engName];
   const script = templateScript.dp({
+    year,
+    month,
+    date,
+    course,
+    time,
     golfClubId,
     commonScript,
     loginUrl,
