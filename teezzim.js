@@ -471,8 +471,8 @@ function procPost(request, response, data) {
     const urls = {};
     const scripts = {};
     const ids = {};
-    clubs.forEach(club => {
-      const result = reserveSearchbotAdmin({club});
+    clubs.forEach((club) => {
+      const result = reserveSearchbotAdmin({ club });
       urls[club] = result.url;
       scripts[club] = result.script;
       ids[club] = golfClubIds[club];
@@ -798,7 +798,7 @@ function reserveCancelbotAdmin(data) {
       );
     else
       templateScript = fs.readFileSync(
-        "script/reserve_core/cancel/reserveSearchTemplate.js",
+        "script/reserve_core/cancel/template.js",
         "utf-8"
       );
   }
@@ -896,7 +896,7 @@ function reserveSearchbotAdmin(data) {
       );
     else
       templateScript = fs.readFileSync(
-        "script/reserve_core/search/reserveSearchTemplate.js",
+        "script/reserve_core/search/template.js",
         "utf-8"
       );
   }
