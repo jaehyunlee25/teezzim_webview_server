@@ -473,7 +473,7 @@ function procPost(request, response, data) {
     clubs.forEach(club => {
       const result = reserveSearchbotAdmin({club});
       urls[club] = result.url;
-      scripts[club] = result.scripts;
+      scripts[club] = result.script;
     });
     objResp = { urls, scripts };
   } else if (request.url == "/reserveSearchbot_admin") {
