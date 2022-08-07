@@ -477,7 +477,7 @@ function procPost(request, response, data) {
       scripts[club] = result.script;
       ids[club] = golfClubIds[club];
     });
-    objResp = { urls, scripts };
+    objResp = { urls, scripts, ids };
   } else if (request.url == "/reserveSearchbot_admin") {
     objResp = reserveSearchbotAdmin(data);
   } else if (request.url == "/reserveCancelbot") {
