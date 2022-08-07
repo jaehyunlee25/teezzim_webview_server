@@ -466,6 +466,16 @@ function procPost(request, response, data) {
       url: loginUrl,
       script,
     }; */
+  } else if (request.url == "/reserveSearchbots_admin") {
+    const { clubs } = data;
+    const urls = {};
+    const scripts = {};
+    clubs.forEach(club => {
+      const result = reserveSearchbotAdmin({club});
+      urls[club] = result.url;
+      scripts[club] = result.scripts;
+    });
+    objResp = { urls, scripts };
   } else if (request.url == "/reserveSearchbot_admin") {
     objResp = reserveSearchbotAdmin(data);
   } else if (request.url == "/reserveCancelbot") {
@@ -801,7 +811,7 @@ function reserveCancelbotAdmin(data) {
   return { url: loginUrl, script };
 }
 function reserveSearchbotAdmin(data) {
-  const { club: engName, year, month, date, course, time } = data;
+  const { club: engName } = data;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
   const loginUrl = golfClubLoginUrl[engName];
   const reserveUrl = golfClubReserveUrl[engName];
@@ -890,11 +900,6 @@ function reserveSearchbotAdmin(data) {
   }
   const golfClubId = golfClubIds[engName];
   const script = templateScript.dp({
-    year,
-    month,
-    date,
-    course,
-    time,
     golfClubId,
     commonScript,
     loginUrl,
