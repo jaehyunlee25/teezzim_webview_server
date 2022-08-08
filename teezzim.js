@@ -1183,6 +1183,7 @@ function getSearchScript(engName, callback) {
     golf_club_id: "",
     golf_course: [],
   };
+  log("course", engName, golfCourseByEngId[engName]);
   golfCourseByEngId[engName].forEach((course, i) => {
     if (i === 0) param.golf_club_id = course.golf_club_id;
     param.golf_course.push(
