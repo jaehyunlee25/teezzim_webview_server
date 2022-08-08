@@ -330,7 +330,7 @@ function procPost(request, response, data) {
 
     objResp = {};
   } else if (request.url == "/searchbot") {
-    searchbotAdmin(data, (objResp) => {
+    searchbot(data, (objResp) => {
       response.write(JSON.stringify(objResp));
       response.end();
     });
@@ -358,7 +358,7 @@ function procPost(request, response, data) {
     });
     objResp = 0; */
   } else if (request.url == "/searchbot_admin") {
-    searchbotAdmin(data, (objResp) => {
+    searchbot(data, (objResp) => {
       response.write(JSON.stringify(objResp));
       response.end();
     });
@@ -377,7 +377,7 @@ function procPost(request, response, data) {
         response.write(JSON.stringify({ urls, scripts, ids }));
         response.end();
       };
-      searchbotAdmin({ club }, (objResp) => {
+      searchbot({ club }, (objResp) => {
         urls[club] = objResp.url;
         scripts[club] = objResp.script;
         ids[club] = golfClubIds[club];        
@@ -1000,8 +1000,28 @@ function reservebotAdmin(data) {
   });
   return { url: loginUrl, script };
 }
-function searchbotAdmin(data, callback) {
+function searchbot(data, callback) {
   const engName = data.club;
+  const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+  const loginUrl = golfClubLoginUrl[engName];
+  const searchUrl = golfClubSearchUrl[engName];
+  const loginScript = getLoginScript(engName, true);
+  const templateScript = fs.readFileSync("template.js", "utf-8");
+  getSearchScript(engName, (searchScript) => {
+    const script = templateScript.dp({
+      commonScript,
+      loginUrl,
+      searchUrl,
+      loginScript,
+      searchScript,
+    });
+    objResp = {
+      url: loginUrl,
+      script,
+    };
+    callback(objResp);
+  });
+  /* const engName = data.club;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
   const loginUrl = golfClubLoginUrl[engName];
   const searchUrl = golfClubSearchUrl[engName];
@@ -1045,7 +1065,7 @@ function searchbotAdmin(data, callback) {
       script,
     };
     callback(objResp);    
-  });
+  }); */
   
 }
 function getFunc(code) {
