@@ -388,9 +388,10 @@ function procPost(request, response, data) {
     exec();
     function exec() {
       const club = clubs[count];
-      if(club.length == 0) {
+      if(!club) {
         response.write(JSON.stringify({ urls, scripts, ids }));
         response.end();
+        return;
       };
       searchbot({ club }, (objResp) => {
         urls[club] = objResp.url;
