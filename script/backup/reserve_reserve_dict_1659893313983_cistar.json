@@ -1,0 +1,1 @@
+[["login_url","https://www.cistar.co.kr/m/login.do","funcLogin"],["search_url","https://www.cistar.co.kr/m/view/golfRsvnStep1.do","funcReserve"],["time_url","https://www.cistar.co.kr/m/view/golfRsvnStep2.do","funcExec"],["exec_url","https://www.cistar.co.kr/m/view/golfRsvnStep3.do","LOGOUT"],["logout_url","https://www.cistar.co.kr/m/logout.do","funcOut"]]
