@@ -25,7 +25,9 @@ javascript: (() => {
   log("raw addr :: ", location.href);
   log("addr :: ", addr);
   const func = dict[addr];
-  const dictCourse = {};
+  const dictCourse = {
+    "단일": "시스타18홀",
+  };
   const fulldate = [year, month, date].join("-");
   log(addr);
   if (!func) funcMain();
