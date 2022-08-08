@@ -330,7 +330,12 @@ function procPost(request, response, data) {
 
     objResp = {};
   } else if (request.url == "/searchbot") {
-    const engName = data.club;
+    searchbotAdmin(data, (objResp) => {
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+    objResp = 0;
+    /* const engName = data.club;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const searchUrl = golfClubSearchUrl[engName];
@@ -351,9 +356,35 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
-    objResp = 0;
+    objResp = 0; */
   } else if (request.url == "/searchbot_admin") {
-    searchbotAdmin(data);
+    searchbotAdmin(data, (objResp) => {
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+    objResp = 0;
+  } else if (request.url == "/searchbots_admin") {
+    const { clubs } = data;
+    const urls = {};
+    const scripts = {};
+    const ids = {};
+    let count = 0;
+
+    exec();
+    function exec() {
+      const club = clubs[count];
+      if(!club) {
+        response.write(JSON.stringify({ urls, scripts, ids }));
+        response.end();
+      };
+      searchbotAdmin({ club }, (objResp) => {
+        urls[club] = objResp.url;
+        scripts[club] = objResp.script;
+        ids[club] = golfClubIds[club];        
+        count++;
+        exec();
+      });
+    }
     objResp = 0;
   } else if (request.url == "/reservebot") {
     objResp = reservebotAdmin(data);
@@ -969,7 +1000,7 @@ function reservebotAdmin(data) {
   });
   return { url: loginUrl, script };
 }
-function searchbotAdmin(data) {
+function searchbotAdmin(data, callback) {
   const engName = data.club;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
   const loginUrl = golfClubLoginUrl[engName];
@@ -1013,8 +1044,7 @@ function searchbotAdmin(data) {
       url: loginUrl,
       script,
     };
-    response.write(JSON.stringify(objResp));
-    response.end();
+    callback(objResp);    
   });
   
 }
