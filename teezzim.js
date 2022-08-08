@@ -388,7 +388,7 @@ function procPost(request, response, data) {
     exec();
     function exec() {
       const club = clubs[count];
-      if(!club) {
+      if(club.length == 0) {
         response.write(JSON.stringify({ urls, scripts, ids }));
         response.end();
       };
@@ -1178,7 +1178,7 @@ function controlForAdminDevice(engName) {
     });
 }
 function getSearchScript(engName, callback) {
-  const golfClubId = golfClubIds[engName];    
+  const golfClubId = golfClubIds[engName];  
   const param = {
     golf_club_id: "",
     golf_course: [],
