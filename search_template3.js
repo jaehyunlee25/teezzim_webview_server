@@ -18,13 +18,13 @@ function procDate() {
       const golf_date = [];
       dates.forEach(([date]) => {
         log(clubId, "date", date, typeof date);
-        golf_date.push(date.datify("-"));
+        golf_date.push(date.datify("/"));
       });
       const param = { golf_date, golf_club_id: clubId };
       post(OUTER_ADDR_HEADER + "/api/reservation/golfDate", param, header, (data) => {
         log(data);
         const ac = window.AndroidController;
-        if(date.resultCode == 200) {
+        if(data.resultCode == 200) {
           if (ac) ac.message("SUCCESS_OF_GET_DATE");
         } else {
           if (ac) ac.message("FAIL_OF_GET_DATE");
