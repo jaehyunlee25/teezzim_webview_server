@@ -16,7 +16,7 @@ function procDate() {
   if(COMMAND == "GET_DATE") {
     if(dates.length > 0) {
       const golf_date = [];
-      dates.forEach(date => {
+      dates.forEach(([date]) => {
         log(clubId, "date", date, typeof date);
         golf_date.push(date.datify("-"));
       });
