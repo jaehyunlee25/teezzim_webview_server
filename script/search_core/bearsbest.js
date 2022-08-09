@@ -1,8 +1,9 @@
 function mneCall(date, callback) {
   const param = {
-    day: date,
+    day: (date + "01").datify("/"),
     type: "today",
   };
+  log(param);
   post("Booking/AjaxCalendar", param, {}, (data) => {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
@@ -12,14 +13,14 @@ function mneCall(date, callback) {
       if (el.children[0].tagName !== "A") return;
       if (el.children[0].className !== "reserved") return;
 
-      const realdate =
-        date.split("/").join("").ct(2) + el.children[0].innerText.addzero();
+      const [realdate] = el.attr("onclick").inparen();
       dates.push([realdate, 0]);
     });
     callback();
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -55,8 +56,11 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
+/* <============line_div==========> */
 mneCall(thisdate, () => {
-  change_calendar(thisdate, "next");
+  change_calendar((thisdate + "01").datify("/"), "next");
   setTimeout(() => {
     mneCall(nextdate, procDate);
   }, 3000);

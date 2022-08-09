@@ -16,7 +16,7 @@ function mneCallDetail(arrDate) {
     golfrestype: "real",
     courseid: "0",
     usrmemcd: "80",
-    pointdate: "20220807",
+    pointdate: date,
     openyn: "2",
     dategbn: option[1],
     choice_time: "00",

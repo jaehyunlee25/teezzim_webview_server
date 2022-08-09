@@ -10,16 +10,17 @@ function mneCall(date, callback) {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const as = Array.from(ifr.getElementsByClassName("cal_live"));
+    const as = Array.from(ifr.gcn("cal_live"));
     as.forEach((a) => {
-      const str = a.getAttribute("href");
-      const ob = procStr(str);
-      dates.push([ob.date, 0]);
+      const param = a.attr("href").inparen();
+      const [elDate] = param;
+      dates.push([elDate, 0]);
     });
     callback();
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -60,6 +61,9 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);
 });

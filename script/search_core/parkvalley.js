@@ -22,22 +22,21 @@ function mneCallDetail(arrDate) {
   post("ReservationCalendar.aspx", param, {}, (data) => {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
-
-    const tbl = ifr.getElementsByClassName("timeTbl")[0];
-    const els = tbl.getElementsByTagName("tr");
+    
+    const els = ifr.gcn("reservBtn");
     const dictCourse = {
-      PARK: "파크",
-      VALLEY: "밸리",
+      11: "파크",
+      22: "밸리",
     };
 
-    Array.from(els).forEach((el, i) => {
-      if (i === 0) return;
-      const course = dictCourse[el.children[0].innerText];
-      const time = el.children[1].innerText.ct(4);
+    Array.from(els).forEach((el, i) => {      
+      const param = el.attr("onclick").inparen();
+      let [elDate, time, elCourse] = param;
+      const course = dictCourse[elCourse];
       const fee_discount =
-        el.children[3].innerText.ct(1).split(",").join("") * 1;
-      const fee_normal = el.children[3].innerText.ct(1).split(",").join("") * 1;
-      const holes = el.children[2].innerText;
+        el.parentNode.parentNode.children[4].str().ct(1).split(",").join("") * 1;
+      const fee_normal = el.parentNode.parentNode.children[4].str().ct(1).split(",").join("") * 1;
+      const holes = el.parentNode.parentNode.children[2].str() + "홀";
 
       golf_schedule.push({
         golf_club_id: clubId,

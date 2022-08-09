@@ -1,3 +1,3 @@
 git pull origin main
-forever restart Wuny
-tail -f /root/.forever/Wuny.log
+forever restart JWvx
+tail -f /root/.forever/JWvx.log
