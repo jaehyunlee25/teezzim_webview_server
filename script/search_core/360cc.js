@@ -66,7 +66,7 @@ function mneCallDetail(arrDate) {
 
 /* <============line_div==========> */
 mneCall(thisdate, () => {
-  document.getElementsByClassName("right")[1].click();
+  doc.gcn("right")[1].click();
   setTimeout(() => {
     mneCall(nextdate, procDate);
   }, 1000);

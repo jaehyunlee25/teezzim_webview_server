@@ -373,6 +373,19 @@ function procPost(request, response, data) {
       ids[club] = golfClubIds[club];        
     });
     objResp = { urls, scripts, ids };
+  } else if (request.url == "/searchbots_time") {
+    const { clubs } = data;
+    const urls = {};
+    const scripts = {};
+    const ids = {};
+    const command = "GET_TIME";
+    clubs.forEach((club) => {
+      const result = searchbotTime({ club, command, date });
+      urls[club] = result.url;
+      scripts[club] = result.script;
+      ids[club] = golfClubIds[club];        
+    });
+    objResp = { urls, scripts, ids };
   } else if (request.url == "/reservebot") {
     objResp = reservebotAdmin(data);
     /* const { club: engName, year, month, date, course, time } = data;
@@ -986,6 +999,28 @@ function reservebotAdmin(data) {
     loginScript,
   });
   return { url: loginUrl, script };
+}
+function searchbotTime(data) {
+  const { club: engName, command, date: TARGET_DATE } = data.club;
+  const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+  const loginUrl = golfClubLoginUrl[engName];
+  const searchUrl = golfClubSearchUrl[engName];
+  const loginScript = getLoginScript(engName, true);
+  const templateScript = fs.readFileSync("template.js", "utf-8");
+  const searchScript = getSearchScript(engName, command).dp({ TARGET_DATE });
+  const script = templateScript.dp({
+    commonScript,
+    loginUrl,
+    searchUrl,
+    loginScript,
+    searchScript,
+  });
+  objResp = {
+    url: loginUrl,
+    script,
+  };
+  
+  return objResp;  
 }
 function searchbotDate(data) {
   const engName = data.club;

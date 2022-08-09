@@ -35,6 +35,19 @@ function procDate() {
     return;
   }
 
+  if(COMMAND == "GET_TIME") {
+    const result = [];
+    dates.every((arr) => {
+      const [date] = arr;
+      if(date == "${TARGET_DATE}") {
+        result.push(arr);
+        return false;
+      }
+      return true;
+    });
+    dates = result;
+  }
+
   if (lmt === undefined) lmt = dates.length - 1;
   const order = lmt - dates.length + 1;
   const arrDate = dates.shift();

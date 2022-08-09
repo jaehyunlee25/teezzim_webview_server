@@ -14,7 +14,7 @@ const nextdate = nextyear + nextmonth;
 
 console.log(thisdate, nextdate);
 
-const dates = [];
+let dates = [];
 const result = [];
 const golf_schedule = [];
 let lmt;
