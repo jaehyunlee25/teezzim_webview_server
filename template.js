@@ -23,15 +23,10 @@ javascript:(() => {
 
         ${loginScript}
     } else if (addr == "${searchUrl}") {
-        log("suffix", suffix);
-        if(!suffix) return;
-        log("step", 0);
-
         const tag = lsg("TZ_SEARCH_DATETIME");
-        if (tag && new Date().getTime() - tag < 1000 * 3) return;
+        if (tag && new Date().getTime() - tag < 1000 * 1) return;
         lss("TZ_SEARCH_DATETIME", new Date().getTime());
         
-        log("step", 1);
         ${searchScript}
     } else {
         location.href = "${searchUrl}";
