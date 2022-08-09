@@ -5,36 +5,22 @@ String.prototype.ct = function (num) {
   return this.substring(0, this.length - num);
 };
 
-const files = fs.readdirSync("./script/reserve/reserve/");
+const clubs = {};
+const files = fs.readdirSync("./script/backup/");
 files.forEach((file) => {
-  const club = file.split(".")[0];
-  const addr = "./script/reserve_core/reserve/" + club + "/splitterDate";
-  if(fs.existsSync(addr)) log(fs.readFileSync(addr, "utf-8"));
+  if (file.indexOf("reserve_search") == -1) return;
+  let [one, two, type, time, ...club] = file.split("_");
+  club = club.join("_").split(".")[0];
+  if (!clubs[club]) clubs[club] = {};
+  const sec = time.ct(3);
+  if (!clubs[club][sec]) clubs[club][sec] = [];
+  clubs[club][sec].push([
+    "./script/backup/" + file,
+    ["./script/reserve_core", two, club, type + ".json"].join("/"),
+  ]);
 });
 
-/* const clubs = {};
-const files = fs.readdirSync("./script/reserve/reserve/");
-let count = 0;
-files.forEach((file) => {
-  let con = fs.readFileSync("./script/reserve/reserve/" + file, "utf-8");
-  con = con.split("\r\n").join("\n");
-  con = con.split("\n").join("\r\n");
-  con.split("\r\n").every(ln => {
-    const regex = /\s?const\s?fulldate\s?=\s?\[year\,\s?month\,\s?date\]\.join\(\"(.?)\"\)\;/;
-    const res = regex.exec(ln);
-    if(res) {
-      const splt = res[1];
-      const club = file.split(".")[0];
-      const addr = "./script/reserve_core/reserve/" + club + "/splitterDate";
-      if(fs.existsSync(addr)) 
-        fs.writeFileSync(addr, splt, "utf-8");
-    }
-
-    return !res;
-  });
-}); */
-
-/* const curClub = {};
+const curClub = {};
 let gochang;
 Object.keys(clubs).forEach((key) => {
   if (key != "gochang") return;
@@ -58,7 +44,7 @@ times["1659684711"][0].forEach((file) => {
   const con = fs.readFileSync(file[0], "utf-8");
   log(con);
   fs.writeFileSync(file[1], con, "utf-8");
-}); */
+});
 
 /* Object.keys(curClub).forEach((key) => {
   const club = curClub[key];
