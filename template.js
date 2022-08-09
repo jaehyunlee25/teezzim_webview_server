@@ -1,6 +1,18 @@
 javascript:(() => {
     ${commonScript}
-    const addr = location.href;
+    
+    const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
+    const aDDr = location.href.split(splitter)[0];
+    const suffix = location.href.split(splitter)[1];
+    const dictSplitter = {"#": "?", "?": "#"};
+    let addr = aDDr;
+    if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
+        addr = aDDr.split(dictSplitter[splitter])[0];
+
+    log("raw addr :: ", location.href);
+    log("aDDr :: ", aDDr);
+    log("addr :: ", addr);
+        
     if(addr == "${loginUrl}") {
         const tag = localStorage.getItem("TZ_LOGIN");
         if (tag && new Date().getTime() - tag < 1000 * 10) {
