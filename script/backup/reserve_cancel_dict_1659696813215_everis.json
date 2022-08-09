@@ -1,0 +1,1 @@
+[["login_url","https://www.shinangolf.com/member/login","funcLogin"],["search_url","https://www.shinangolf.com/reservation/list","funcReserve"],["main_url","https://www.shinangolf.com/","funcMain"],["logout_url","https://www.shinangolf.com/member/logout","funcOut"],["exec_url","https://www.shinangolf.com/reservation/view","funcExec"]]

@@ -1,0 +1,1 @@
+[["login_url","${loginUrl}","funcLogin"],["search_url","${searchUrl}","funcReserve"],["time_url","https://www.cistar.co.kr/m/view/golfRsvnStep2.do","funcTime"],["exec_url","https://www.cistar.co.kr/m/view/golfRsvnStep3.do","funcExec"],["logout_url","https://www.cistar.co.kr/m/logout.do","funcOut"]]

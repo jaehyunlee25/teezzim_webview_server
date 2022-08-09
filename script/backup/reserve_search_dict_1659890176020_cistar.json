@@ -1,0 +1,1 @@
+[["login_url","${loginUrl}","funcLogin"],["search_url","${reserveUrl}","funcReserve"],["logout_url","https://www.cistar.co.kr/view/logout.asp","funcOut"]]

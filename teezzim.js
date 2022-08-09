@@ -23,6 +23,8 @@ const golfClubLoginUrlByUUID = {};
 const golfClubSearchUrl = {};
 const golfClubReserveUrl = {};
 const golfClubAccounts = {};
+const golfCourseByEngId = {};
+const golfCourseByUUID = {};
 const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 connection.connect();
@@ -31,7 +33,20 @@ connection.query(fs.readFileSync("getLoginUrl.sql", "utf-8"), getLoginUrl);
 connection.query(fs.readFileSync("getSearchUrl.sql", "utf-8"), getSearchUrl);
 connection.query(fs.readFileSync("getReserveUrl.sql", "utf-8"), getReserveUrl);
 connection.query(fs.readFileSync("getAccount.sql", "utf-8"), getAccounts);
+connection.query(fs.readFileSync("golf_course.sql", "utf-8"), getGolfCourses);
 connection.end();
+
+function getGolfCourses(err, rows, fields) {
+  rows.forEach(row => {
+    if (!golfCourseByEngId[row.golf_club_english_name]) 
+      golfCourseByEngId[row.golf_club_english_name] = [];
+    golfCourseByEngId[row.golf_club_english_name].push(row);
+
+    if (!golfCourseByUUID[row.golf_club_id]) 
+      golfCourseByUUID[row.golf_club_id] = [];
+    golfCourseByUUID[row.golf_club_id].push(row);
+  });
+}
 function getAccounts(err, rows, fields) {
   rows.forEach((row) => {
     golfClubAccounts[row.golf_club_english_name] = {
@@ -330,7 +345,12 @@ function procPost(request, response, data) {
 
     objResp = {};
   } else if (request.url == "/searchbot") {
-    const engName = data.club;
+    searchbot(data, (objResp) => {
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+    objResp = 0;
+    /* const engName = data.club;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const searchUrl = golfClubSearchUrl[engName];
@@ -351,57 +371,36 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
-    objResp = 0;
+    objResp = 0; */
   } else if (request.url == "/searchbot_admin") {
-    const engName = data.club;
-    const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
-    const loginUrl = golfClubLoginUrl[engName];
-    const searchUrl = golfClubSearchUrl[engName];
-    const loginScript = getPureLoginScript(engName).dp({
-      login_id: golfClubAccounts[engName].id,
-      login_password: golfClubAccounts[engName].pw,
-    });
-    const address_mapping = ((strDate) => {
-      const json = JSON.parse(strDate);
-      let obj = [];
-      json.forEach((ar) => {
-        obj.push(['  "' + ar[1], ar[2]].join('": '));
-      });
-      obj = [obj.join(",\r\n")];
-      obj.unshift("{");
-      obj.push("}");
-      return obj.join("\r\n");
-    })(
-      fs.readFileSync(
-        "script/reserve_core/reserve/" + engName + "/dict.json",
-        "utf-8"
-      )
-    );
-    const funcs = JSON.parse(
-      fs.readFileSync(
-        "script/reserve_core/reserve/" + engName + "/funcs.json",
-        "utf-8"
-      )
-    );
-    const endoutScript = [funcs.funcEnd, funcs.LOGOUT].join("\r\n");
-    const templateScript = fs.readFileSync("template.js", "utf-8");
-    getSearchScript(engName, (searchScript) => {
-      const script = templateScript.dp({
-        commonScript,
-        loginUrl,
-        searchUrl,
-        loginScript,
-        searchScript,
-        address_mapping,
-        endoutScript,
-      });
-      objResp = {
-        url: loginUrl,
-        script,
-      };
+    searchbot(data, (objResp) => {
       response.write(JSON.stringify(objResp));
       response.end();
     });
+    objResp = 0;
+  } else if (request.url == "/searchbots_admin") {
+    const { clubs } = data;
+    const urls = {};
+    const scripts = {};
+    const ids = {};
+    let count = 0;
+
+    exec();
+    function exec() {
+      const club = clubs[count];
+      if(!club) {
+        response.write(JSON.stringify({ urls, scripts, ids }));
+        response.end();
+        return;
+      };
+      searchbot({ club }, (objResp) => {
+        urls[club] = objResp.url;
+        scripts[club] = objResp.script;
+        ids[club] = golfClubIds[club];        
+        count++;
+        exec();
+      });
+    }
     objResp = 0;
   } else if (request.url == "/reservebot") {
     objResp = reservebotAdmin(data);
@@ -481,7 +480,8 @@ function procPost(request, response, data) {
   } else if (request.url == "/reserveSearchbot_admin") {
     objResp = reserveSearchbotAdmin(data);
   } else if (request.url == "/reserveCancelbot") {
-    const { club: engName, year, month, date, course, time } = data;
+    objResp = reserveCancelbotAdmin(data);
+    /* const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
     const loginUrl = golfClubLoginUrl[engName];
     const reserveUrl = golfClubReserveUrl[engName];
@@ -513,7 +513,7 @@ function procPost(request, response, data) {
     objResp = {
       url: loginUrl,
       script,
-    };
+    }; */
   } else if (request.url == "/reserveCancelbot_admin") {
     objResp = reserveCancelbotAdmin(data);
     /* const { club: engName, year, month, date, course, time } = data;
@@ -1016,6 +1016,74 @@ function reservebotAdmin(data) {
   });
   return { url: loginUrl, script };
 }
+function searchbot(data, callback) {
+  const engName = data.club;
+  const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+  const loginUrl = golfClubLoginUrl[engName];
+  const searchUrl = golfClubSearchUrl[engName];
+  const loginScript = getLoginScript(engName, true);
+  const templateScript = fs.readFileSync("template.js", "utf-8");
+  getSearchScript(engName, (searchScript) => {
+    const script = templateScript.dp({
+      commonScript,
+      loginUrl,
+      searchUrl,
+      loginScript,
+      searchScript,
+    });
+    objResp = {
+      url: loginUrl,
+      script,
+    };
+    callback(objResp);
+  });
+  /* const engName = data.club;
+  const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
+  const loginUrl = golfClubLoginUrl[engName];
+  const searchUrl = golfClubSearchUrl[engName];
+  const loginScript = getPureLoginScript(engName);
+  const address_mapping = ((strDate) => {
+    const json = JSON.parse(strDate);
+    let obj = [];
+    json.forEach((ar) => {
+      obj.push(['  "' + ar[1], ar[2]].join('": '));
+    });
+    obj = [obj.join(",\r\n")];
+    obj.unshift("{");
+    obj.push("}");
+    return obj.join("\r\n");
+  })(
+    fs.readFileSync(
+      "script/reserve_core/reserve/" + engName + "/dict.json",
+      "utf-8"
+    )
+  );
+  const funcs = JSON.parse(
+    fs.readFileSync(
+      "script/reserve_core/reserve/" + engName + "/funcs.json",
+      "utf-8"
+    )
+  );
+  const endoutScript = [funcs.funcEnd, funcs.LOGOUT].join("\r\n");
+  const templateScript = fs.readFileSync("template.js", "utf-8");
+  getSearchScript(engName, (searchScript) => {
+    const script = templateScript.dp({
+      commonScript,
+      loginUrl,
+      searchUrl,
+      loginScript,
+      searchScript,
+      address_mapping,
+      endoutScript,
+    });
+    objResp = {
+      url: loginUrl,
+      script,
+    };
+    callback(objResp);    
+  }); */
+  
+}
 function getFunc(code) {
   code = code.split("\r\n").join("\n");
   code = code.split("\n").join("\r\n");
@@ -1111,64 +1179,46 @@ function controlForAdminDevice(engName) {
     });
 }
 function getSearchScript(engName, callback) {
-  const golfClubId = golfClubIds[engName];
-  const result = {};
-  const connection = mysql.createConnection(
-    JSON.parse(fs.readFileSync("db.json", "utf-8"))
+  const golfClubId = golfClubIds[engName];  
+  const param = {
+    golf_club_id: "",
+    golf_course: [],
+  };
+  log("course", engName, golfCourseByEngId[engName]);
+  golfCourseByEngId[engName].forEach((course, i) => {
+    if (i === 0) param.golf_club_id = course.golf_club_id;
+    param.golf_course.push(
+      [
+        "'" + course.golf_course_name + "'",
+        ": '",
+        course.golf_course_id,
+        "',",
+      ].join("")
+    );
+  });
+  param.golf_course = param.golf_course.join("\r\n\t");
+  const template = gf("search_template.js").dp(param);
+  console.log(template);
+  const common = gf("search_template2.js").add(gf("search_template3.js"));
+  const core = fs.readFileSync(
+    "script/search_core/" + engName + ".js",
+    "utf-8"
   );
-  connection.connect();
-  connection.query(
-    fs.readFileSync("golf_course.sql", "utf-8"),
-    (err, rows, fields) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      rows.forEach((row) => {
-        if (!result[row.golf_club_english_name])
-          result[row.golf_club_english_name] = [];
-        result[row.golf_club_english_name].push(row);
-      });
-      const param = {
-        golf_club_id: "",
-        golf_course: [],
-      };
-      result[engName].forEach((course, i) => {
-        if (i === 0) param.golf_club_id = course.golf_club_id;
-        param.golf_course.push(
-          [
-            "'" + course.golf_course_name + "'",
-            ": '",
-            course.golf_course_id,
-            "',",
-          ].join("")
-        );
-      });
-      param.golf_course = param.golf_course.join("\r\n\t");
-      const template = gf("search_template.js").dp(param);
-      console.log(template);
-      const common = gf("search_template2.js").add(gf("search_template3.js"));
-      const core = fs.readFileSync(
-        "script/search_core/" + engName + ".js",
-        "utf-8"
-      );
-      let wrapper;
-      try {
-        wrapper = fs.readFileSync(
-          "script/search_wrapper/" + engName + ".js",
-          "utf-8"
-        );
-      } catch (e) {
-        console.log(e.toString());
-      }
+  let wrapper;
+  try {
+    wrapper = fs.readFileSync(
+      "script/search_wrapper/" + engName + ".js",
+      "utf-8"
+    );
+  } catch (e) {
+    console.log(e.toString());
+  }
 
-      let script;
-      if (wrapper)
-        script = wrapper.dp({ searchScript: template + common + core });
-      else script = template + common + core;
-      callback(script.dp({ golfClubId }));
-    }
-  );
+  let script;
+  if (wrapper)
+    script = wrapper.dp({ searchScript: template + common + core });
+  else script = template + common + core;
+  callback(script.dp({ golfClubId }));
 }
 function getPureLoginScript(engName) {
   const golfClubId = golfClubIds[engName];

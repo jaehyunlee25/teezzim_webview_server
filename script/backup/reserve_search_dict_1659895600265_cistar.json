@@ -1,0 +1,1 @@
+[["login_url","https://www.cistar.co.kr/m/login.do","funcLogin"],["search_url","${reserveUrl}","funcReserve"],["logout_url","https://www.cistar.co.kr/m/logout.do","funcOut"]]
