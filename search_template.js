@@ -38,16 +38,17 @@ log("TZ_ADMIN_BLOCK_IC", lsg("TZ_ADMIN_BLOCK_IC"), lsg("TZ_ADMIN_BLOCK_IC_TIME")
 var aDDr = location.href.split(splitter)[0];
 var suffix = location.href.split(splitter)[1];
 var dictSplitter = {"#": "?", "?": "#"};
-var addr = aDDr; */
+var addr = aDDr;
 if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
     addr = aDDr.split(dictSplitter[splitter])[0];
 
 log("raw addr :: ", location.href);
 log("aDDr :: ", aDDr);
-log("addr :: ", addr);
+log("addr :: ", addr); */
 
 const COMMAND = "${command}";
 const clubId = '${golf_club_id}';
 const courses = { 
 	${golf_course}
 };
+log("step::", 1);

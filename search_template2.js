@@ -12,7 +12,7 @@ const nextyear = now.getFullYear() + "";
 const nextmonth = ("0" + (1 + now.getMonth())).slice(-2);
 const nextdate = nextyear + nextmonth;
 
-console.log(thisdate, nextdate);
+log(thisdate, nextdate);
 
 let dates = [];
 const result = [];
