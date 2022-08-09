@@ -23,6 +23,9 @@ javascript:(() => {
 
         ${loginScript}
     } else if (addr == "${searchUrl}") {
+        log(suffix);
+        if(!suffix) return;
+
         const tag = lsg("TZ_SEARCH_DATETIME");
         if (tag && new Date().getTime() - tag < 1000 * 10) return;
         lss("TZ_SEARCH_DATETIME", new Date().getTime());
