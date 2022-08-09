@@ -13,6 +13,26 @@ function procDate() {
     return;
   }
 
+  if(COMMAND == "GET_DATE") {
+    if(dates.length > 0) {
+      const golf_date = [];
+      dates.forEach(date => {
+        golf_date.push(date.datify("-"));
+      });
+      const param = { golf_date, golf_club_id: clubId };
+      post(OUTER_ADDR_HEADER + "/api/reservation/golfDate", param, header, (data) => {
+        log(data);
+        const ac = window.AndroidController;
+        if(date.resultCode == 200) {
+          if (ac) ac.message("SUCCESS_OF_GET_DATE");
+        } else {
+          if (ac) ac.message("FAIL_OF_GET_DATE");
+        }
+      });
+    }
+    return;
+  }
+
   if (lmt === undefined) lmt = dates.length - 1;
   const order = lmt - dates.length + 1;
   const arrDate = dates.shift();
@@ -50,6 +70,10 @@ function procGolfSchedule() {
   post(addrOuter, param, header, (data) => {
     console.log(data);
     const ac = window.AndroidController;
-    if (ac) ac.message("end of procGolfSchedule!");
+    if(date.resultCode == 200) {
+      if (ac) ac.message("end of procGolfSchedule!");
+    } else {
+      if (ac) ac.message("FAIL_OF_GET_SCHEDULE");
+    }
   });
 }
