@@ -1002,8 +1002,7 @@ function reservebotAdmin(data) {
   return { url: loginUrl, script };
 }
 function searchbotTime(data) {
-  const { club: engName, command, date: TARGET_DATE } = data.club;
-  log("param", engName, date, TARGET_DATE);
+  const { club: engName, command, date: TARGET_DATE } = data;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
   const loginUrl = golfClubLoginUrl[engName];
   const searchUrl = golfClubSearchUrl[engName];
