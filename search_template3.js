@@ -23,8 +23,9 @@ function procDate() {
       const param = { golf_date, golf_club_id: clubId };
       post(OUTER_ADDR_HEADER + "/api/reservation/golfDate", param, header, (data) => {
         log(data);
+        const json = JSON.parse(data);
         const ac = window.AndroidController;
-        if(data.resultCode == 200) {
+        if(json.resultCode == 200) {
           if (ac) ac.message("SUCCESS_OF_GET_DATE");
         } else {
           if (ac) ac.message("FAIL_OF_GET_DATE");
@@ -69,9 +70,10 @@ function procGolfSchedule() {
   /* console.log(golf_schedule); */
   const param = { golf_schedule, golf_club_id: clubId };
   post(addrOuter, param, header, (data) => {
-    console.log(data);
+    log(data);
+    const json = JSON.parse(data);
     const ac = window.AndroidController;
-    if(date.resultCode == 200) {
+    if(json.resultCode == 200) {
       if (ac) ac.message("end of procGolfSchedule!");
     } else {
       if (ac) ac.message("FAIL_OF_GET_SCHEDULE");
