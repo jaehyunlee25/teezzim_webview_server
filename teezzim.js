@@ -367,7 +367,7 @@ function procPost(request, response, data) {
     const ids = {};
     const command = "GET_DATE";
     clubs.forEach((club) => {
-      const result = searchbot({ club, command });
+      const result = searchbotDate({ club, command });
       urls[club] = result.url;
       scripts[club] = result.script;
       ids[club] = golfClubIds[club];        
@@ -987,7 +987,7 @@ function reservebotAdmin(data) {
   });
   return { url: loginUrl, script };
 }
-function searchbot(data) {
+function searchbotDate(data) {
   const engName = data.club;
   const command = data.command;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
