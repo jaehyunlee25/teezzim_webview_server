@@ -34,11 +34,11 @@ lss("TZ_ADMIN_BLOCK_IC", visitNumber);
 log("TZ_ADMIN_BLOCK_IC", lsg("TZ_ADMIN_BLOCK_IC"), lsg("TZ_ADMIN_BLOCK_IC_TIME"));
 /* end blocking infinite call */
 
-const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
-const aDDr = location.href.split(splitter)[0];
-const suffix = location.href.split(splitter)[1];
-const dictSplitter = {"#": "?", "?": "#"};
-let addr = aDDr;
+var splitter = location.href.indexOf("?") == -1 ? "#" : "?";
+var aDDr = location.href.split(splitter)[0];
+var suffix = location.href.split(splitter)[1];
+var dictSplitter = {"#": "?", "?": "#"};
+var addr = aDDr;
 if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
     addr = aDDr.split(dictSplitter[splitter])[0];
 
