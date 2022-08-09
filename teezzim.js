@@ -374,6 +374,7 @@ function procPost(request, response, data) {
     });
     objResp = { urls, scripts, ids };
   } else if (request.url == "/searchbots_time") {
+    log("searchbots_time");
     const { clubs, date } = data;
     const urls = {};
     const scripts = {};
