@@ -18,7 +18,7 @@ function procDate() {
       const golf_date = [];
       dates.forEach(([date]) => {
         log(clubId, "date", date, typeof date);
-        golf_date.push(date.datify("/"));
+        golf_date.push(date.datify("-"));
       });
       const param = { golf_date, golf_club_id: clubId };
       post(OUTER_ADDR_HEADER + "/api/reservation/golfDate", param, header, (data) => {
