@@ -1,5 +1,15 @@
 ${common}
-logParam.sub_type = "login";
-message: "start login";
-TZLOG(logParam, (data) => {}); 
-${loginScript} 
+
+main();
+function main() {
+    log("main");
+
+    const tag = lsg("TZ_LOGIN_MAIN");
+    if (tag && new Date().getTime() - tag < 1000 * 5) return;
+    lss("TZ_LOGIN_MAIN", new Date().getTime());
+
+    logParam.sub_type = "login";
+    message: "start login";
+    TZLOG(logParam, (data) => {}); 
+    ${loginScript} 
+}
