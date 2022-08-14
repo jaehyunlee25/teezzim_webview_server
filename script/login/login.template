@@ -1,7 +1,7 @@
 ${common}
 
 main();
-function main() {
+var main = () => {
     log("main");
 
     const tag = lsg("TZ_LOGIN_MAIN");
