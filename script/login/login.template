@@ -1,7 +1,5 @@
 ${common}
-
-main();
-var main = () => {
+const main = () => {
     log("main");
 
     const tag = lsg("TZ_LOGIN_MAIN");
@@ -13,3 +11,4 @@ var main = () => {
     TZLOG(logParam, (data) => {}); 
     ${loginScript} 
 }
+main();
