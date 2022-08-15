@@ -1045,13 +1045,13 @@ function searchbotTime(data) {
 }
 function searchbotDateAdmin(data) {
   const { club, command } = data;
-  const commonScript = fr("script/search/common.js");
+  const commonScript = rf("script/search/common.js");
   const loginUrl = golfClubLoginUrl[club];
   const searchUrl = golfClubSearchUrl[club];
-  const loginScript = fr("script/login/" + club + ".js")
+  const loginScript = rf("script/login/" + club + ".js")
     .split("\r\n")
     .join("\r\n    ");
-  const templateScript = fr("template.js");
+  const templateScript = rf("template.js");
   const searchScript = getSearchScript(club, command);
   const script = templateScript.dp({
     commonScript,
