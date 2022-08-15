@@ -1277,7 +1277,7 @@ function getPureLoginScript(engName) {
 }
 function getLoginScriptAdmin(engName) {
   const golfClubId = golfClubIds[engName];
-  const path = "script/template/login/";
+  const path = "template/login/";
   const cover = rf(path + "cover.template");
   const template = rf(path + "login.template");
   const common = rf("script/search/common.js");
