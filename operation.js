@@ -5,11 +5,14 @@ String.prototype.ct = function (num) {
   return this.substring(0, this.length - num);
 };
 
-const files = fs.readdirSync("./script/reserve/reserve/");
+const files = fs.readdirSync("./script/reserve_core/reserve/");
 files.forEach((file) => {
-  const club = file.split(".")[0];
-  const addr = "./script/reserve_core/reserve/" + club + "/splitterDate";
-  if(fs.existsSync(addr)) log(fs.readFileSync(addr, "utf-8"));
+  if (file.indexOf(".") != -1) return;
+  const con = fs.readFileSync(
+    "./script/reserve_core/reserve/" + file + "/dict.json",
+    "utf-8"
+  );
+  if (con.indexOf("kmhleisure")) log(file);
 });
 
 /* const clubs = {};
