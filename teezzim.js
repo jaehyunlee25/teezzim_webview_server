@@ -1278,7 +1278,7 @@ function getSearchScriptAdmin(engName, command) {
   });
   param.golf_course = param.golf_course.join("\r\n\t");
   // step 2: url 정보
-  const urls = ("script/reserve_core/search/" + engName + ".js").gfjp();
+  const urls = ("script/reserve_core/search/" + engName + "/dict.json").gfjp();
   const objUrl = {};
   urls.forEach(([url, func]) => {
     objUrl[url] = func;
