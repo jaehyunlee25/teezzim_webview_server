@@ -2,8 +2,20 @@ ${common}
 
 main();
 function main() {
+    log("main");
+    const chk = lsCheck("TZ_LOGIN_MAIN", 10);
+    if(!chk) {
+        return;
+    }
+
     logParam.sub_type = "login";
     message: "start login";
     TZLOG(logParam, (data) => {}); 
     ${loginScript}
+}
+function lsCheck(str, sec, callback) {
+    const tag = lsg(str);
+    if (tag && new Date().getTime() - tag < 1000 * sec) return false;
+    lss(str, new Date().getTime());
+    return true;
 }
