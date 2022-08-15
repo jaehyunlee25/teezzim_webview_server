@@ -1075,7 +1075,7 @@ function searchbotTimeAdmin(data) {
     club,
     command
   );
-  searchScript = searchScript.dp({ TARGET_DATE });
+  searchCommonScript = searchCommonScript.dp({ TARGET_DATE });
   const script = templateScript.dp({
     commonScript,
     searchCommonScript,
