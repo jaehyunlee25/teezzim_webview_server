@@ -37,12 +37,12 @@ connection.query(fs.readFileSync("golf_course.sql", "utf-8"), getGolfCourses);
 connection.end();
 
 function getGolfCourses(err, rows, fields) {
-  rows.forEach(row => {
-    if (!golfCourseByEngId[row.golf_club_english_name]) 
+  rows.forEach((row) => {
+    if (!golfCourseByEngId[row.golf_club_english_name])
       golfCourseByEngId[row.golf_club_english_name] = [];
     golfCourseByEngId[row.golf_club_english_name].push(row);
 
-    if (!golfCourseByUUID[row.golf_club_id]) 
+    if (!golfCourseByUUID[row.golf_club_id])
       golfCourseByUUID[row.golf_club_id] = [];
     golfCourseByUUID[row.golf_club_id].push(row);
   });
@@ -357,7 +357,7 @@ function procPost(request, response, data) {
       const result = searchbot({ club });
       urls[club] = result.url;
       scripts[club] = result.script;
-      ids[club] = golfClubIds[club];        
+      ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
   } else if (request.url == "/searchbots_date") {
@@ -370,7 +370,7 @@ function procPost(request, response, data) {
       const result = searchbotDate({ club, command });
       urls[club] = result.url;
       scripts[club] = result.script;
-      ids[club] = golfClubIds[club];        
+      ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
   } else if (request.url == "/searchbots_time") {
@@ -384,7 +384,7 @@ function procPost(request, response, data) {
       const result = searchbotTime({ club, command, date });
       urls[club] = result.url;
       scripts[club] = result.script;
-      ids[club] = golfClubIds[club];        
+      ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
   } else if (request.url == "/reservebot") {
@@ -537,6 +537,12 @@ function procPost(request, response, data) {
       url: loginUrl,
       script,
     }; */
+  } else if (request.url == "/login_admin") {
+    const { club } = data;
+    objResp = {
+      url: golfClubLoginUrl[engName],
+      script: getLoginScriptAdmin(engName),
+    };
   } else if (request.url == "/login") {
     const uuid = data.clubId;
     const engName = golfClubIdToEng[uuid];
@@ -1020,8 +1026,8 @@ function searchbotTime(data) {
     url: loginUrl,
     script,
   };
-  
-  return objResp;  
+
+  return objResp;
 }
 function searchbotDate(data) {
   const engName = data.club;
@@ -1043,8 +1049,8 @@ function searchbotDate(data) {
     url: loginUrl,
     script,
   };
-  
-  return objResp;  
+
+  return objResp;
 }
 function searchbot(data) {
   const engName = data.club;
@@ -1065,9 +1071,9 @@ function searchbot(data) {
     url: loginUrl,
     script,
   };
-  
+
   return objResp;
-  
+
   /* const engName = data.club;
   const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
   const loginUrl = golfClubLoginUrl[engName];
@@ -1113,7 +1119,6 @@ function searchbot(data) {
     };
     callback(objResp);    
   }); */
-  
 }
 function getFunc(code) {
   code = code.split("\r\n").join("\n");
@@ -1210,8 +1215,8 @@ function controlForAdminDevice(engName) {
     });
 }
 function getSearchScript(engName, command) {
-  if(!command) command = "NORMAL";
-  const golfClubId = golfClubIds[engName];  
+  if (!command) command = "NORMAL";
+  const golfClubId = golfClubIds[engName];
   const param = {
     golf_club_id: "",
     golf_course: [],
@@ -1231,8 +1236,7 @@ function getSearchScript(engName, command) {
   });
   param.golf_course = param.golf_course.join("\r\n\t");
   const template = gf("search_template.js").dp(param);
-  const common = gf("search_template2.js")
-    .add(gf("search_template3.js"));
+  const common = gf("search_template2.js").add(gf("search_template3.js"));
   const core = fs.readFileSync(
     "script/search_core/" + engName + ".js",
     "utf-8"
@@ -1248,10 +1252,9 @@ function getSearchScript(engName, command) {
   }
 
   let script;
-  if (wrapper)
-    script = wrapper.dp({ searchScript: template + common + core });
+  if (wrapper) script = wrapper.dp({ searchScript: template + common + core });
   else script = template + common + core;
-  
+
   return script.dp({ golfClubId });
 }
 function getPureLoginScript(engName) {
@@ -1272,6 +1275,22 @@ function getPureLoginScript(engName) {
   }
   return loginContent;
 }
+function getLoginScriptAdmin(engName) {
+  const golfClubId = golfClubIds[engName];
+  const path = "script/template/login/";
+  const cover = rf(path + "cover.template");
+  const template = rf(path + "login.template");
+  const common = rf("script/search/common.js");
+  const chk = fs.existsSync("script/login/" + engName + ".js");
+  if (!chk) return "";
+
+  let loginScript = rf("script/login/" + engName + ".js");
+  loginScript = loginScript.split("\r\n").join("\r\n    ");
+  let loginContent = template.dp({ common, loginScript, golfClubId });
+  loginContent = cover.dp({ loginContent });
+
+  return loginContent;
+}
 function getLoginScript(engName, noCover) {
   const golfClubId = golfClubIds[engName];
   const cover = fs.readFileSync("script/login/cover.template", "utf-8");
@@ -1285,7 +1304,7 @@ function getLoginScript(engName, noCover) {
       .split("\r\n")
       .join("\r\n    ");
     loginContent = template.dp({ common, loginScript, golfClubId });
-    console.log("noCover", noCover);
+    log("noCover", noCover);
     if (noCover == undefined) loginContent = cover.dp({ loginContent });
   } catch (e) {
     loginContent = "no login script";
@@ -1294,6 +1313,9 @@ function getLoginScript(engName, noCover) {
 }
 function gf(file) {
   //get file
+  return fs.readFileSync(file, "utf-8");
+}
+function rf(file) {
   return fs.readFileSync(file, "utf-8");
 }
 
