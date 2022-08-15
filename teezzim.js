@@ -1051,6 +1051,13 @@ function searchbotDateAdmin(data) {
   const loginScript = gf("script/login/" + club + ".js")
     .split("\r\n")
     .join("\r\n    ");
+  // step 2: url 정보
+  const urls = ("script/reserve_core/search/" + engName + "/dict.json").gfjp();
+  const objUrl = {};
+  urls.forEach(([url, func]) => {
+    objUrl[url] = func;
+  });
+  const address_mapping = JSON.stringify(objUrl);
   const templateScript = gf("template/search/template.js");
   const { searchCommonScript, searchScript } = getSearchScriptAdmin(
     club,
@@ -1059,6 +1066,7 @@ function searchbotDateAdmin(data) {
   const script = templateScript.dp({
     commonScript,
     searchCommonScript,
+    address_mapping,
     loginUrl,
     searchUrl,
     loginScript,
@@ -1277,13 +1285,6 @@ function getSearchScriptAdmin(engName, command) {
     );
   });
   param.golf_course = param.golf_course.join("\r\n\t");
-  // step 2: url 정보
-  const urls = ("script/reserve_core/search/" + engName + "/dict.json").gfjp();
-  const objUrl = {};
-  urls.forEach(([url, func]) => {
-    objUrl[url] = func;
-  });
-  param.address_mapping = JSON.stringify(objUrl);
 
   const path = "template/search/";
   const a = (path + "search_common.js").gf();
