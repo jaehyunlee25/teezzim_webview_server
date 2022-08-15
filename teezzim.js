@@ -1071,10 +1071,11 @@ function searchbotTimeAdmin(data) {
   });
   const address_mapping = "{" + objUrl.join(",") + "}";
   const templateScript = gf("template/search/template.js");
-  const { searchCommonScript, searchScript } = getSearchScriptAdmin(
+  let { searchCommonScript, searchScript } = getSearchScriptAdmin(
     club,
     command
-  ).dp({ TARGET_DATE });
+  );
+  searchScript = searchScript.dp({ TARGET_DATE });
   const script = templateScript.dp({
     commonScript,
     searchCommonScript,
