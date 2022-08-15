@@ -1053,11 +1053,11 @@ function searchbotDateAdmin(data) {
     .join("\r\n    ");
   // step 2: url 정보
   const urls = ("script/reserve_core/reserve/" + club + "/dict.json").gfjp();
-  const objUrl = {};
+  const objUrl = [];
   urls.forEach(([, url, func]) => {
-    objUrl[url] = func;
+    objUrl.push('"' + url + '": ' + func);
   });
-  const address_mapping = JSON.stringify(objUrl);
+  const address_mapping = "{" + objUrl.join(",") + "}";
   const templateScript = gf("template/search/template.js");
   const { searchCommonScript, searchScript } = getSearchScriptAdmin(
     club,
