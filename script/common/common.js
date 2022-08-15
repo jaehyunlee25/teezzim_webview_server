@@ -24,11 +24,11 @@ if (aDDr.indexOf(dictSplitter[splitter]) != -1)
 
 logParam.sub_type = "url";
 logParam.message = "raw addr :: " + location.href;
-TZLOG(param);
+TZLOG(logParam);
 logParam.message = "aDDr :: " + aDDr;
-TZLOG(param);
+TZLOG(logParam);
 logParam.message = "addr :: " + addr;
-TZLOG(param);
+TZLOG(logParam);
 
 function LSCHK(str, sec) {
   const tag = lsg(str);
