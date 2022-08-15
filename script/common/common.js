@@ -29,6 +29,7 @@ logParam.message = "aDDr :: " + aDDr;
 TZLOG(logParam);
 logParam.message = "addr :: " + addr;
 TZLOG(logParam);
+log("addr", addr);
 
 function LSCHK(str, sec) {
   const tag = lsg(str);
