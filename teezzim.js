@@ -1289,9 +1289,9 @@ function getSearchScriptAdmin(engName, command) {
   let script;
   if (chk) {
     wrapper = addr.gf();
-    script = wrapper.dp({ searchScript: template + common + core });
+    script = wrapper.dp({ searchScript: core });
   } else {
-    script = template + common + core;
+    script = core;
   }
   const searchScript = script.dp({ golfClubId });
 
