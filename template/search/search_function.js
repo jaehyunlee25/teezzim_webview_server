@@ -3,7 +3,7 @@ function procDate() {
     logParam.sub_type = "search";
     logParam.message = "no empty tees!!";
     logParam.parameter = JSON.stringify({ order: 0, total: 0 });
-    TZLOG(param, (data) => {});
+    TZLOG(logParam, (data) => {});
     return;
   }
 
@@ -18,7 +18,7 @@ function procDate() {
           date,
           type: typeof date,
         });
-        TZLOG(param, (data) => {});
+        TZLOG(logParam, (data) => {});
         golf_date.push(date.datify("-"));
       });
       const param = { golf_date, golf_club_id: clubId };
