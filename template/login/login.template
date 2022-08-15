@@ -7,7 +7,7 @@ function main() {
     if(!chk) return;
 
     logParam.sub_type = "login";
-    message: "start login";
+    logParam.message = "start login";
     TZLOG(logParam, (data) => {}); 
     ${loginScript}
 }
