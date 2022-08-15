@@ -1296,7 +1296,10 @@ function getSearchScriptAdmin(engName, command) {
     .split("/* <============line_div==========> */");
   const core = cores.pop();
   const d = cores.join("");
-  const searchCommonScript = a.add(b).add(c).add(d).dp(param);
+  // LOGOUT
+  const loPath = "script/reserve_core/reserve/" + engName + "/funcs.js";
+  const { LOGOUT } = loPath.gfjp();
+  const searchCommonScript = a.add(b).add(c).add(d).add(LOGOUT).dp(param);
 
   // step 3: 동작 함수
   const addr = "script/search_wrapper/" + engName + ".js";
