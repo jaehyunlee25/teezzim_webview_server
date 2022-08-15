@@ -1045,7 +1045,7 @@ function searchbotTime(data) {
 }
 function searchbotDateAdmin(data) {
   const { club, command } = data;
-  const commonScript = rf("script/search/common.js");
+  const commonScript = rf("script/common/common.js");
   const loginUrl = golfClubLoginUrl[club];
   const searchUrl = golfClubSearchUrl[club];
   const loginScript = rf("script/login/" + club + ".js")
