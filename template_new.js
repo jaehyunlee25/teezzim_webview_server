@@ -1,31 +1,15 @@
 javascript:(() => {
     ${commonScript}
-    const logParam = {
-      type: "command",
-      sub_type: "reserve/reserve",
-      device_id: "${deviceId}",
-      device_token: "${deviceToken}",
-      golf_club_id: "${golfClubId}",
-      message: "start reserve/reserve",
-      parameter: JSON.stringify({}),
-    };
-    const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
-    const aDDr = location.href.split(splitter)[0];
-    const suffix = location.href.split(splitter)[1];
-    const dictSplitter = {"#": "?", "?": "#"};
-    let addr = aDDr;
-    if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
-        addr = aDDr.split(dictSplitter[splitter])[0];
-    
-    log("raw addr :: ", location.href);
-    log("aDDr :: ", aDDr);
-    log("addr :: ", addr);
-        
+            
     const dict = ${address_mapping};
+    main();
     
-    const func = dict[addr];
-    if (!func) funcOther();
-    else func();    
+    function main() {
+      log("main");
+      const func = dict[addr];
+      if (!func) funcOther();
+      else func();
+    }
 
     function funcList() {
       log("funcList");

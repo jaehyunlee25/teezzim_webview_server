@@ -6,18 +6,40 @@ const ls = localStorage;
 const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
 const logParam = {
   type: "command",
-  sub_type: "reserve/reserve",
+  sub_type: "",
   device_id: "${deviceId}",
   device_token: "${deviceToken}",
   golf_club_id: "${golfClubId}",
-  message: "start reserve/reserve",
+  message: "",
   parameter: JSON.stringify({}),
 };
 
+const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
+const aDDr = location.href.split(splitter)[0];
+const suffix = location.href.split(splitter)[1];
+const dictSplitter = { "#": "?", "?": "#" };
+let addr = aDDr;
+if (aDDr.indexOf(dictSplitter[splitter]) != -1)
+  addr = aDDr.split(dictSplitter[splitter])[0];
+
+logParam.sub_type = "url";
+logParam.message = "raw addr :: " + location.href;
+TZLOG(param);
+logParam.message = "aDDr :: " + aDDr;
+TZLOG(param);
+logParam.message = "addr :: " + addr;
+TZLOG(param);
+
+function LSCHK(str, sec) {
+  const tag = lsg(str);
+  if (tag && new Date().getTime() - tag < 1000 * sec) return false;
+  lss(str, new Date().getTime());
+  return true;
+}
 function TZLOG(param, callback) {
   const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";
   post(addr, param, { "Content-Type": "application/json" }, (data) => {
-    callback(data);
+    if (callback) callback(data);
   });
 }
 function post(addr, param, header, callback) {
