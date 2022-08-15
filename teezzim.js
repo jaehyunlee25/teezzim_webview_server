@@ -1052,7 +1052,10 @@ function searchbotDateAdmin(data) {
     .split("\r\n")
     .join("\r\n    ");
   const templateScript = gf("template/search/template.js");
-  const { searchCommonScript, searchScript } = getSearchScript(club, command);
+  const { searchCommonScript, searchScript } = getSearchScriptAdmin(
+    club,
+    command
+  );
   const script = templateScript.dp({
     commonScript,
     searchCommonScript,
