@@ -14,6 +14,12 @@ const logParam = {
   parameter: JSON.stringify({}),
 };
 
+function LSCHK(str, sec) {
+  const tag = lsg(str);
+  if (tag && new Date().getTime() - tag < 1000 * sec) return false;
+  lss(str, new Date().getTime());
+  return true;
+}
 function TZLOG(param, callback) {
   const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";
   post(addr, param, { "Content-Type": "application/json" }, (data) => {
