@@ -12,7 +12,15 @@ files.forEach((file) => {
     "./script/reserve_core/reserve/" + file + "/dict.json",
     "utf-8"
   );
-  if (con.indexOf("kmhleisure")) log(file);
+  if (con.indexOf("kmhleisure") == -1) return;
+  log(file);
+
+  /* const recon = con.replace(/kmhleisure/g, "kxleisure");
+  fs.writeFileSync(
+    "./script/reserve_core/reserve/" + file + "/dict.json",
+    recon,
+    "utf-8"
+  ); */
 });
 
 /* const clubs = {};
