@@ -1,0 +1,1 @@
+[["login_url","${loginUrl}","funcLogin"],["search_url","${reserveUrl}","funcReserve"],["main_url","https://paju.kxleisure.com/Mobile/","funcMain"],["logout_url","https://paju.kxleisure.com/Mobile/Member/LogOut.aspx","funcOut"]]
