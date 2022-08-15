@@ -540,8 +540,8 @@ function procPost(request, response, data) {
   } else if (request.url == "/login_admin") {
     const { club } = data;
     objResp = {
-      url: golfClubLoginUrl[engName],
-      script: getLoginScriptAdmin(engName),
+      url: golfClubLoginUrl[club],
+      script: getLoginScriptAdmin(club),
     };
   } else if (request.url == "/login") {
     const uuid = data.clubId;
