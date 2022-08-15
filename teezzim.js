@@ -374,6 +374,18 @@ function procPost(request, response, data) {
     });
     objResp = { urls, scripts, ids };
   } else if (request.url == "/searchbots_time_admin") {
+    const { clubs } = data;
+    const urls = {};
+    const scripts = {};
+    const ids = {};
+    const command = "GET_TIME";
+    clubs.forEach((club) => {
+      const result = searchbotTimeAdmin({ club, command, date });
+      urls[club] = result.url;
+      scripts[club] = result.script;
+      ids[club] = golfClubIds[club];
+    });
+    objResp = { urls, scripts, ids };
   } else if (request.url == "/searchbots_date") {
     const { clubs } = data;
     const urls = {};
@@ -1031,6 +1043,42 @@ function searchbotTime(data) {
   const searchScript = getSearchScript(engName, command).dp({ TARGET_DATE });
   const script = templateScript.dp({
     commonScript,
+    loginUrl,
+    searchUrl,
+    loginScript,
+    searchScript,
+  });
+  objResp = {
+    url: loginUrl,
+    script,
+  };
+
+  return objResp;
+}
+function searchbotTimeAdmin(data) {
+  const { club, command, date: TARGET_DATE } = data;
+  const commonScript = gf("script/common/common.js");
+  const loginUrl = golfClubLoginUrl[club];
+  const searchUrl = golfClubSearchUrl[club];
+  const loginScript = gf("script/login/" + club + ".js")
+    .split("\r\n")
+    .join("\r\n    ");
+  // step 2: url 정보
+  const urls = ("script/reserve_core/reserve/" + club + "/dict.json").gfjp();
+  const objUrl = [];
+  urls.forEach(([, url, func]) => {
+    objUrl.push('"' + url + '": ' + func);
+  });
+  const address_mapping = "{" + objUrl.join(",") + "}";
+  const templateScript = gf("template/search/template.js");
+  const { searchCommonScript, searchScript } = getSearchScriptAdmin(
+    club,
+    command
+  ).dp({ TARGET_DATE });
+  const script = templateScript.dp({
+    commonScript,
+    searchCommonScript,
+    address_mapping,
     loginUrl,
     searchUrl,
     loginScript,
