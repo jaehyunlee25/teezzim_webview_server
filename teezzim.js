@@ -1051,7 +1051,7 @@ function searchbotDateAdmin(data) {
   const loginScript = rf("script/login/" + club + ".js")
     .split("\r\n")
     .join("\r\n    ");
-  const templateScript = rf("template.js");
+  const templateScript = rf("template_new.js");
   const searchScript = getSearchScript(club, command);
   const script = templateScript.dp({
     commonScript,
