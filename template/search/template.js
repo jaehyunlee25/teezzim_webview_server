@@ -8,7 +8,7 @@ javascript:(() => {
     
     function main() {
       log("main");
-      const func = dict[addr];
+      const func = window[dict[addr]];
       if (!func) funcOther();
       else func();
     }
