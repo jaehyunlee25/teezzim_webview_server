@@ -1104,6 +1104,7 @@ function searchbotDateAdmin(data) {
   const urls = ("script/reserve_core/reserve/" + club + "/dict.json").gfjp();
   const objUrl = [];
   urls.forEach(([, url, func]) => {
+    if (["funcLogin", "funcReserve", "funcOut"].indexOf(func) == -1) return;
     objUrl.push('"' + url + '": ' + func);
   });
   const address_mapping = "{" + objUrl.join(",") + "}";
