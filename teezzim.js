@@ -1054,7 +1054,7 @@ function searchbotDateAdmin(data) {
   // step 2: url 정보
   const urls = ("script/reserve_core/search/" + club + "/dict.json").gfjp();
   const objUrl = {};
-  urls.forEach(([url, func]) => {
+  urls.forEach(([, url, func]) => {
     objUrl[url] = func;
   });
   const address_mapping = JSON.stringify(objUrl);
@@ -1286,13 +1286,19 @@ function getSearchScriptAdmin(engName, command) {
   });
   param.golf_course = param.golf_course.join("\r\n\t");
 
+  // step 2: 공통 변수 및 함수
   const path = "template/search/";
   const a = (path + "search_common.js").gf();
   const b = (path + "search_common2.js").gf();
   const c = (path + "search_function.js").gf();
-  const searchCommonScript = a.add(b).add(c).dp(param);
+  const cores = ("script/search_core/" + engName + ".js")
+    .gf()
+    .split("/* <============line_div==========> */");
+  const core = cores.pop();
+  const d = cores.join("");
+  const searchCommonScript = a.add(b).add(c).add(d).dp(param);
 
-  const core = ("script/search_core/" + engName + ".js").gf();
+  // step 3: 동작 함수
   const addr = "script/search_wrapper/" + engName + ".js";
   const chk = fs.existsSync(addr);
   let wrapper;
