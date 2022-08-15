@@ -1264,6 +1264,7 @@ function getSearchScriptAdmin(engName, command) {
     golf_course: [],
     command,
   };
+  // step 1: course 정보
   golfCourseByEngId[engName].forEach((course, i) => {
     if (i === 0) param.golf_club_id = course.golf_club_id;
     param.golf_course.push(
@@ -1276,6 +1277,14 @@ function getSearchScriptAdmin(engName, command) {
     );
   });
   param.golf_course = param.golf_course.join("\r\n\t");
+  // step 2: url 정보
+  const urls = ("script/reserve_core/search/" + engName + ".js").gfjp();
+  const objUrl = {};
+  urls.forEach(([url, func]) => {
+    objUrl[url] = func;
+  });
+  param.address_mapping = JSON.stringify(objUrl);
+
   const path = "template/search/";
   const a = (path + "search_common.js").gf();
   const b = (path + "search_common2.js").gf();
