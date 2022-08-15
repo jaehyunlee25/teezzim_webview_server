@@ -8,6 +8,8 @@ javascript:(() => {
     
     function main() {
       log("main");
+
+      log(addr, dict[addr], typeof dict[addr]);
       const func = window[dict[addr]];
       if (!func) funcOther();
       else func();
