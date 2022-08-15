@@ -1045,16 +1045,17 @@ function searchbotTime(data) {
 }
 function searchbotDateAdmin(data) {
   const { club, command } = data;
-  const commonScript = rf("script/common/common.js");
+  const commonScript = gf("script/common/common.js");
   const loginUrl = golfClubLoginUrl[club];
   const searchUrl = golfClubSearchUrl[club];
-  const loginScript = rf("script/login/" + club + ".js")
+  const loginScript = gf("script/login/" + club + ".js")
     .split("\r\n")
     .join("\r\n    ");
-  const templateScript = rf("template_new.js");
-  const searchScript = getSearchScript(club, command);
+  const templateScript = gf("template/search/template.js");
+  const { searchCommonScript, searchScript } = getSearchScript(club, command);
   const script = templateScript.dp({
     commonScript,
+    searchCommonScript,
     loginUrl,
     searchUrl,
     loginScript,
@@ -1252,6 +1253,47 @@ function controlForAdminDevice(engName) {
       console.log(err);
     });
 }
+function getSearchScriptAdmin(engName, command) {
+  if (!command) command = "NORMAL";
+  const golfClubId = golfClubIds[engName];
+  const param = {
+    golf_club_id: "",
+    golf_course: [],
+    command,
+  };
+  golfCourseByEngId[engName].forEach((course, i) => {
+    if (i === 0) param.golf_club_id = course.golf_club_id;
+    param.golf_course.push(
+      [
+        "'" + course.golf_course_name + "'",
+        ": '",
+        course.golf_course_id,
+        "',",
+      ].join("")
+    );
+  });
+  param.golf_course = param.golf_course.join("\r\n\t");
+  const path = "template/search/";
+  const a = (path + "search_common.js").gf();
+  const b = (path + "search_common2.js").gf();
+  const c = (path + "search_function.js").gf();
+  const searchCommonScript = a.add(b).add(c).dp(param);
+
+  const core = ("script/search_core/" + engName + ".js").gf();
+  const addr = "script/search_wrapper/" + engName + ".js";
+  const chk = fs.existsSync(addr);
+  let wrapper;
+  let script;
+  if (chk) {
+    wrapper = addr.gf();
+    script = wrapper.dp({ searchScript: template + common + core });
+  } else {
+    script = template + common + core;
+  }
+  const searchScript = script.dp({ golfClubId });
+
+  return { searchCommonScript, searchScript };
+}
 function getSearchScript(engName, command) {
   if (!command) command = "NORMAL";
   const golfClubId = golfClubIds[engName];
@@ -1275,16 +1317,10 @@ function getSearchScript(engName, command) {
   param.golf_course = param.golf_course.join("\r\n\t");
   const template = gf("search_template.js").dp(param);
   const common = gf("search_template2.js").add(gf("search_template3.js"));
-  const core = fs.readFileSync(
-    "script/search_core/" + engName + ".js",
-    "utf-8"
-  );
+  const core = gf("script/search_core/" + engName + ".js");
   let wrapper;
   try {
-    wrapper = fs.readFileSync(
-      "script/search_wrapper/" + engName + ".js",
-      "utf-8"
-    );
+    wrapper = gf("script/search_wrapper/" + engName + ".js");
   } catch (e) {
     console.log(e.toString());
   }
@@ -1316,13 +1352,13 @@ function getPureLoginScript(engName) {
 function getLoginScriptAdmin(engName) {
   const golfClubId = golfClubIds[engName];
   const path = "template/login/";
-  const cover = rf(path + "cover.template");
-  const template = rf(path + "login.template");
-  const common = rf("script/search/common.js");
+  const cover = gf(path + "cover.template");
+  const template = gf(path + "login.template");
+  const common = gf("script/search/common.js");
   const chk = fs.existsSync("script/login/" + engName + ".js");
   if (!chk) return "";
 
-  let loginScript = rf("script/login/" + engName + ".js");
+  let loginScript = gf("script/login/" + engName + ".js");
   loginScript = loginScript.split("\r\n").join("\r\n    ");
   let loginContent = template.dp({ common, loginScript, golfClubId });
   loginContent = cover.dp({ loginContent });
@@ -1351,9 +1387,6 @@ function getLoginScript(engName, noCover) {
 }
 function gf(file) {
   //get file
-  return fs.readFileSync(file, "utf-8");
-}
-function rf(file) {
   return fs.readFileSync(file, "utf-8");
 }
 

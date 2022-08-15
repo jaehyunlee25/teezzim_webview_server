@@ -1,6 +1,8 @@
 javascript:(() => {
     ${commonScript}
-            
+
+    ${searchCommonScript}
+
     const dict = ${address_mapping};
     main();
     
@@ -38,13 +40,12 @@ javascript:(() => {
     function funcLogin() {
       log("funcLogin");
       
-      const tag = localStorage.getItem("TZ_LOGIN");
-      if (tag && new Date().getTime() - tag < 1000 * 5) {
+      const chk = LSCHK("TZ_SEARCH_LOGIN", 5);
+      if(!chk) {
         location.href = "${searchUrl}";
         return;
       }
-      localStorage.setItem("TZ_LOGIN", new Date().getTime());
-    
+
       ${loginScript}
     
       return;
@@ -56,7 +57,5 @@ javascript:(() => {
 
       return;
     }
-    ${endoutScript}
-
 })();
     
