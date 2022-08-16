@@ -88,8 +88,8 @@ function procGolfSchedule() {
   /* console.log(golf_schedule); */
   const param = { golf_schedule, golf_club_id: clubId };
   post(addrOuter, param, header, (data) => {
-    log(data);
     const json = JSON.parse(data);
+    log(json.message);
     const ac = window.AndroidController;
     if (json.resultCode == 200) {
       if (ac) ac.message("end of procGolfSchedule!");

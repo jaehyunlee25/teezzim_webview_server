@@ -27,8 +27,8 @@ function procDate() {
         param,
         header,
         (data) => {
-          log(data);
           const json = JSON.parse(data);
+          log(json.message);
           const ac = window.AndroidController;
           if (json.resultCode == 200) {
             if (ac) ac.message("SUCCESS_OF_GET_DATE");
