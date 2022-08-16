@@ -600,7 +600,7 @@ function procPost(request, response, data) {
   }
 }
 function getLog(callback) {
-  const query = "select * from LOG;";
+  const query = "select * from LOG order by id asc;";
   query.query(callback);
 }
 function setReserveCancel(data) {
