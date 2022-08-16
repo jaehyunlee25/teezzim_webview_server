@@ -13,33 +13,38 @@ function procDate() {
     return;
   }
 
-  if(COMMAND == "GET_DATE") {
-    if(dates.length > 0) {
+  if (COMMAND == "GET_DATE") {
+    if (dates.length > 0) {
       const golf_date = [];
       dates.forEach(([date]) => {
         log(clubId, "date", date, typeof date);
         golf_date.push(date.datify("-"));
       });
       const param = { golf_date, golf_club_id: clubId };
-      post(OUTER_ADDR_HEADER + "/api/reservation/golfDate", param, header, (data) => {
-        log(data);
-        const json = JSON.parse(data);
-        const ac = window.AndroidController;
-        if(json.resultCode == 200) {
-          if (ac) ac.message("SUCCESS_OF_GET_DATE");
-        } else {
-          if (ac) ac.message("FAIL_OF_GET_DATE");
+      post(
+        OUTER_ADDR_HEADER + "/api/reservation/golfDate",
+        param,
+        header,
+        (data) => {
+          const json = JSON.parse(data);
+          log(json.message);
+          const ac = window.AndroidController;
+          if (json.resultCode == 200) {
+            if (ac) ac.message("SUCCESS_OF_GET_DATE");
+          } else {
+            if (ac) ac.message("FAIL_OF_GET_DATE");
+          }
         }
-      });
+      );
     }
     return;
   }
 
-  if(COMMAND == "GET_TIME") {
+  if (COMMAND == "GET_TIME") {
     const result = [];
     dates.every((arr) => {
       const [date] = arr;
-      if(date == "${TARGET_DATE}") {
+      if (date == "${TARGET_DATE}") {
         result.push(arr);
         return false;
       }
@@ -86,7 +91,7 @@ function procGolfSchedule() {
     log(data);
     const json = JSON.parse(data);
     const ac = window.AndroidController;
-    if(json.resultCode == 200) {
+    if (json.resultCode == 200) {
       if (ac) ac.message("end of procGolfSchedule!");
     } else {
       if (ac) ac.message("FAIL_OF_GET_SCHEDULE");
