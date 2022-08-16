@@ -1,0 +1,1 @@
+[["login_url","http://www.bosungcc.co.kr/mobile/login.asp","funcLogin"],["search_url","http://www.bosungcc.co.kr/mobile/reserve.asp","funcReserve"],["time_url","http://www.bosungcc.co.kr/mobile/reserve01_step1.asp","funcTime"],["exec_url","http://www.bosungcc.co.kr/mobile/reserve01_step2.asp","funcExec"],["main_url","http://www.bosungcc.co.kr/mobile/index.asp","funcMain"]]
