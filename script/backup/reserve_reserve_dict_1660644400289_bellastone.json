@@ -1,0 +1,1 @@
+[["login_url","http://www.bellastonecc.com/Mobile/Member/Login.aspx","funcLogin"],["search_url","http://www.bellastonecc.com/Mobile/","funcReserve"],["time_url","http://www.bellastonecc.com/Mobile/Reservation/ReservationTimeList.aspx","funcTime"],["exec_url","http://www.bellastonecc.com/Mobile/Reservation/ReservationCheck.aspx","funcExec"]]
