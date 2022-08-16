@@ -167,6 +167,12 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (request.url == "/getLog") {
+    getLog((err, rows, fields) => {
+      objResp = { resultCode: 200, message: "okay", data: rows };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (request.url == "/setReserveCancel") {
     objResp = setReserveCancel(data);
   } else if (request.url == "/setReserveSearch") {
@@ -592,6 +598,10 @@ function procPost(request, response, data) {
     response.write(JSON.stringify(objResp));
     response.end();
   }
+}
+function getLog(callback) {
+  const query = "select * from LOG;";
+  query.query(callback);
 }
 function setReserveCancel(data) {
   if (!fs.existsSync("script/reserve_core/cancel/" + data.club))
