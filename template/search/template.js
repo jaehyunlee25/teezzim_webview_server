@@ -33,6 +33,9 @@ javascript:(() => {
     }
     function funcOther() {
       log("funcOther");
+
+      const chk = LSCHK("TZ_SEARCH_OTHER", 5);
+      if(!chk) return;
         
       location.href = "${searchUrl}";
 

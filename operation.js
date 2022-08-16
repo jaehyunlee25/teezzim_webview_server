@@ -9,11 +9,13 @@ const files = fs.readdirSync("./script/reserve_core/reserve/");
 files.forEach((file) => {
   if (file.indexOf(".") != -1) return;
   const con = fs.readFileSync(
-    "./script/reserve_core/reserve/" + file + "/dict.json",
+    "./script/reserve_core/reserve/" + file + "/funcs.json",
     "utf-8"
   );
-  if (con.indexOf("kmhleisure") == -1) return;
-  log(file);
+  const json = JSON.parse(con);
+  if (!json.LOGOUT) {
+    log(file);
+  }
 
   /* const recon = con.replace(/kmhleisure/g, "kxleisure");
   fs.writeFileSync(
