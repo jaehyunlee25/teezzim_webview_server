@@ -5,11 +5,11 @@ String.prototype.ct = function (num) {
   return this.substring(0, this.length - num);
 };
 
-const files = fs.readdirSync("./script/reserve_core/cancel/");
+const files = fs.readdirSync("./script/reserve_core/search/");
 files.forEach((file) => {
   if (file.indexOf(".") != -1) return;
   const con = fs.readFileSync(
-    "./script/reserve_core/cancel/" + file + "/funcs.json",
+    "./script/reserve_core/search/" + file + "/funcs.json",
     "utf-8"
   );  
 
