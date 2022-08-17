@@ -9,15 +9,15 @@ const files = fs.readdirSync("./script/reserve_core/reserve/");
 files.forEach((file) => {
   if (file.indexOf(".") != -1) return;
   const con = fs.readFileSync(
-    "./script/reserve_core/reserve/" + file + "/funcs.json",
+    "./script/reserve_core/reserve/" + file + "/dict.json",
     "utf-8"
-  );
-  const json = JSON.parse(con);
-  if (!json.LOGOUT) {
-    log(file);
-  }
+  );  
 
-  /* const recon = con.replace(/kmhleisure/g, "kxleisure");
+  if(con.indexOf("kmh") != -1) {
+    log(file);
+    log(con);
+  }
+  /* const recon = con.replace(/kmh/g, "kx");
   fs.writeFileSync(
     "./script/reserve_core/reserve/" + file + "/dict.json",
     recon,
