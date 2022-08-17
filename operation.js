@@ -9,13 +9,14 @@ const files = fs.readdirSync("./script/reserve_core/reserve/");
 files.forEach((file) => {
   if (file.indexOf(".") != -1) return;
   const con = fs.readFileSync(
-    "./script/reserve_core/reserve/" + file + "/dict.json",
+    "./script/reserve_core/reserve/" + file + "/funcs.json",
     "utf-8"
   );  
 
   if(con.indexOf("kmh") != -1) {
     log(file);
-    log(con);
+    const json = JSON.parse(file);
+    log(json);
   }
   /* const recon = con.replace(/kmh/g, "kx");
   fs.writeFileSync(
