@@ -15,15 +15,13 @@ files.forEach((file) => {
 
   if(con.indexOf("kmh") != -1) {
     log(file);
-    const json = JSON.parse(file);
-    log(json);
+    /* const recon = con.replace(/kmh/g, "kx");
+    fs.writeFileSync(
+      "./script/reserve_core/reserve/" + file + "/funcs.json",
+      recon,
+      "utf-8"
+    ); */
   }
-  /* const recon = con.replace(/kmh/g, "kx");
-  fs.writeFileSync(
-    "./script/reserve_core/reserve/" + file + "/dict.json",
-    recon,
-    "utf-8"
-  ); */
 });
 
 /* const clubs = {};
