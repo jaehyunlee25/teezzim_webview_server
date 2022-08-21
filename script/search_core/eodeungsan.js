@@ -17,6 +17,8 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
+
 function mneCallDetail(arrDate) {
   const [date, course] = arrDate;
   const param = {
@@ -63,11 +65,15 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
 function procHref(str) {
   const regex = /\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values.join(""), type: "" };
 }
+
+/* <============line_div==========> */
 
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);

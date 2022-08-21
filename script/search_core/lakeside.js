@@ -30,6 +30,8 @@ function mneCall(date, callback) {
   );
 }
 
+/* <============line_div==========> */
+
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -75,11 +77,15 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
 function procStr(str) {
   const regex = /javascript:timefrom_change\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: values[0], available: values[5] === "T" };
 }
+
+/* <============line_div==========> */
 
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);

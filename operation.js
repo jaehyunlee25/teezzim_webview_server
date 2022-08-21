@@ -8,20 +8,9 @@ String.prototype.ct = function (num) {
 const files = fs.readdirSync("./script/reserve_core/search/");
 files.forEach((file) => {
   if (file.indexOf(".") != -1) return;
-  const con = fs.readFileSync(
-    "./script/reserve_core/search/" + file + "/funcs.json",
-    "utf-8"
-  );  
+  const con = fs.readFileSync("./script/search_core/" + file + ".js", "utf-8");
 
-  if(con.indexOf("kmh") != -1) {
-    log(file);
-    /* const recon = con.replace(/kmh/g, "kx");
-    fs.writeFileSync(
-      "./script/reserve_core/reserve/" + file + "/funcs.json",
-      recon,
-      "utf-8"
-    ); */
-  }
+  if (con.indexOf("=line_div=") == -1) log(file);
 });
 
 /* const clubs = {};
