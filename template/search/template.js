@@ -2,8 +2,7 @@ javascript:(() => {
   
     ${commonScript}
  
-    const dict = ${address_mapping};
-    main();
+    const dict = ${address_mapping};   
 
     function funcLogin() {
       log("funcLogin");
@@ -63,5 +62,7 @@ javascript:(() => {
 
       return;
     }
+
+    main();
 })();
     
