@@ -6,6 +6,10 @@ try {
 } catch(e) {
 	ac = false;
 }
+
+log("ac", ac);
+log("ac.message", ac.message);
+
 let TZ_BOT_SAFETY = true;
 let visitNumber = lsg("TZ_ADMIN_BLOCK_IC") * 1;
 let lastVistTime = lsg("TZ_ADMIN_BLOCK_IC_TIME") * 1;
