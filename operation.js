@@ -5,12 +5,12 @@ String.prototype.ct = function (num) {
   return this.substring(0, this.length - num);
 };
 
-const files = fs.readdirSync("./script/reserve_core/search/");
+const files = fs.readdirSync("./script/reserve/reserve/");
 files.forEach((file) => {
   if (file.indexOf(".") != -1) return;
-  const con = fs.readFileSync("./script/search_core/" + file + ".js", "utf-8");
+  const con = fs.readFileSync("./script/reserve/reserve/" + file + ".js", "utf-8");
 
-  if (con.indexOf("=line_div=") == -1) log(file);
+  if (con.indexOf("const ac") == -1) log(file);
 });
 
 /* const clubs = {};
