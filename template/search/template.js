@@ -58,6 +58,9 @@ javascript:(() => {
     function funcReserve() {
       log("funcSearch");
 
+      const chk = LSCHK("TZ_SEARCH_RESERVE", 5);
+      if(!chk) return;
+
       ${searchScript}
 
       return;
