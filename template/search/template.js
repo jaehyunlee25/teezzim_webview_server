@@ -4,6 +4,22 @@ javascript:(() => {
  
     const dict = ${address_mapping};
     main();
+
+    function funcLogin() {
+      log("funcLogin");
+      
+      const chk = LSCHK("TZ_SEARCH_LOGIN", 5);
+      if(!chk) {
+        location.href = "${searchUrl}";
+        return;
+      }
+
+      ${loginScript}
+    
+      return;
+    }
+    
+    ${searchCommonScript}
     
     function main() {
       log("main");
@@ -39,20 +55,7 @@ javascript:(() => {
       location.href = "${searchUrl}";
 
       return;
-    }
-    function funcLogin() {
-      log("funcLogin");
-      
-      const chk = LSCHK("TZ_SEARCH_LOGIN", 5);
-      if(!chk) {
-        location.href = "${searchUrl}";
-        return;
-      }
-
-      ${loginScript}
-    
-      return;
-    }
+    }    
     function funcReserve() {
       log("funcSearch");
 
@@ -60,8 +63,5 @@ javascript:(() => {
 
       return;
     }
-
-    ${searchCommonScript}
-
 })();
     
