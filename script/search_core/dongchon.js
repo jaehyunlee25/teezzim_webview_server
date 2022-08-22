@@ -19,6 +19,8 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
+
 function mneCallDetail(arrDate) {
   const [date] = arrDate;
   const param = {
@@ -55,13 +57,17 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
+function addColon(str) {
+  return str.gh(2) + ":" + str.gt(2);
+}
+
+/* <============line_div==========> */
+
 mneCall(thisdate, () => {
   change_calendar(thisdate, "next");
   setTimeout(() => {
     mneCall(nextdate, procDate);
   }, 3000);
 });
-
-function addColon(str) {
-  return str.gh(2) + ":" + str.gt(2);
-}

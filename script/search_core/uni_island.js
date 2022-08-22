@@ -8,6 +8,8 @@ function mneCall(date, callback) {
   callback();
 }
 
+/* <============line_div==========> */
+
 function mneCallDetail(arrDate) {
   const [date, strParam] = arrDate;
   const param = {};
@@ -48,12 +50,16 @@ function mneCallDetail(arrDate) {
   });
 }
 
+/* <============line_div==========> */
+
 function procHref(str) {
   if (str.indexOf("javascript:Update('LIST") === -1) return;
   const regex = /\((.+)\)/;
   const values = regex.exec(str)[1].replace(/'/g, "").split(",");
   return { date: str.split("|")[2].split("-").join(""), param: values[0] };
 }
+
+/* <============line_div==========> */
 
 mneCall(thisdate, () => {
   Update(
