@@ -1,7 +1,7 @@
 /* begin blocking infinite call */
 let ac;
 try{
-	window.webkit.messageHandlers.iosController; 
+	ac = window.webkit.messageHandlers.iosController; 
 } catch(e) {
 	ac = false;
 }
