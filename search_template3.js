@@ -1,11 +1,4 @@
-function procDate() {
-  let ac = false; 
-  try {
-    ac = window.AndroidController || window.webkit.messageHandlers.iosController;
-    ac.message = ac.message || window.webkit.messageHandlers.iosController.postMessage;
-  } catch(e) {
-    ac = false;
-  }
+function procDate() { 
 
   if (lmt === undefined && dates.length == 0) {
     const param = {
