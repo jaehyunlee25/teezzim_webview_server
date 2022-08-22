@@ -1,5 +1,5 @@
 /* begin blocking infinite call */
-let ac = window.webkit.messageHandlers.iosControllerlse; 
+let ac = window.webkit.messageHandlers.iosController; 
 /* try {
 	ac = window.AndroidController || window.webkit.messageHandlers.iosController;
 	ac.postMessage = ac.postMessage || window.webkit.messageHandlers.iosController.postMessage;
