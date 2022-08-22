@@ -1,18 +1,14 @@
 /* begin blocking infinite call */
-let ac;
-try{
-	ac = window.webkit.messageHandlers.iosController; 
+let ac = false; 
+try {
+	ac = window.AndroidController || window.webkit.messageHandlers.iosController;
+	ac.message = ac.message || window.webkit.messageHandlers.iosController.postMessage;
 } catch(e) {
 	ac = false;
 }
-/* try {
-	ac = window.AndroidController || window.webkit.messageHandlers.iosController;
-	ac.postMessage = ac.postMessage || window.webkit.messageHandlers.iosController.postMessage;
-} catch(e) {
-	ac = false;
-} */
 
 log("ac", ac);
+log("ac.message", ac.message);
 
 let TZ_BOT_SAFETY = true;
 let visitNumber = lsg("TZ_ADMIN_BLOCK_IC") * 1;
@@ -25,7 +21,7 @@ if(lsg("TZ_ADMIN_BLOCK_IC") != null) {
 		log(2);
 		if (visitNumber > 9) {
 			log(3);
-			if(ac) ac.postMessage("TZ_MSG_IC");
+			if(ac) ac.message("TZ_MSG_IC");
 			TZ_BOT_SAFETY = false;
 			/* 초기화 */
 			visitNumber = 0;
