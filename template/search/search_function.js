@@ -29,7 +29,6 @@ function procDate() {
         (data) => {
           const json = JSON.parse(data);
           log(json.message);          
-          const ac = window.AndroidController;
           if (json.resultCode == 200) {
             if (ac) ac.message("SUCCESS_OF_GET_DATE");
           } else {
@@ -39,7 +38,6 @@ function procDate() {
       );
     } else {
       log("예약가능한 날짜가 없습니다.");
-      const ac = window.AndroidController;
       if (ac) ac.message("NONE_OF_GET_DATE");
     }
     return;
@@ -93,7 +91,6 @@ function procGolfSchedule() {
   /* console.log(golf_schedule); */
   if(golf_schedule.length == 0) {
     log("예약가능한 시간이 없습니다.");
-    const ac = window.AndroidController;
     if (ac) ac.message("NONE_OF_GET_SCHEDULE");
     return;
   }
@@ -101,7 +98,6 @@ function procGolfSchedule() {
   post(addrOuter, param, header, (data) => {
     const json = JSON.parse(data);
     log(json.message);
-    const ac = window.AndroidController;
     if (json.resultCode == 200) {
       if (ac) ac.message("end of procGolfSchedule!");
     } else {
