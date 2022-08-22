@@ -1,4 +1,7 @@
-javascript:(() => {    
+javascript:(() => {   
+  
+    ${commonScript}
+ 
     const dict = ${address_mapping};
     main();
     
@@ -57,8 +60,6 @@ javascript:(() => {
 
       return;
     }
-
-    ${commonScript}
 
     ${searchCommonScript}
 
