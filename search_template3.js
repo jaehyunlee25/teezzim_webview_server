@@ -1,16 +1,8 @@
-function procDate() { 
-
+function procDate() {
   if (lmt === undefined && dates.length == 0) {
-    const param = {
-      type: "command",
-      sub_type: "search",
-      device_id: "${deviceId}",
-      device_token: "${deviceToken}",
-      golf_club_id: "${golfClubId}",
-      message: "no empty tees!!",
-      parameter: JSON.stringify({ order: 0, total: 0 }),
-    };
-    TZLOG(param, (data) => {});
+    log("예약가능한 시간이 없습니다.");
+    if (ac) ac.message("NONE_OF_GET_SCHEDULE");
+    return;
     return;
   }
 
@@ -89,7 +81,7 @@ function procGolfSchedule() {
       obj.time = obj.time.gh(2) + ":" + obj.time.gt(2);
   });
   /* console.log(golf_schedule); */
-  if(golf_schedule.length == 0) {
+  if (golf_schedule.length == 0) {
     log("예약가능한 시간이 없습니다.");
     if (ac) ac.message("NONE_OF_GET_SCHEDULE");
     return;

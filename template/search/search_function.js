@@ -1,9 +1,7 @@
 function procDate() {
   if (lmt === undefined && dates.length == 0) {
-    logParam.sub_type = "search";
-    logParam.message = "no empty tees!!";
-    logParam.parameter = JSON.stringify({ order: 0, total: 0 });
-    TZLOG(logParam, (data) => {});
+    log("예약가능한 시간이 없습니다.");
+    if (ac) ac.message("NONE_OF_GET_SCHEDULE");
     return;
   }
 
@@ -28,7 +26,7 @@ function procDate() {
         header,
         (data) => {
           const json = JSON.parse(data);
-          log(json.message);          
+          log(json.message);
           if (json.resultCode == 200) {
             if (ac) ac.message("SUCCESS_OF_GET_DATE");
           } else {
@@ -89,7 +87,7 @@ function procGolfSchedule() {
       obj.time = obj.time.gh(2) + ":" + obj.time.gt(2);
   });
   /* console.log(golf_schedule); */
-  if(golf_schedule.length == 0) {
+  if (golf_schedule.length == 0) {
     log("예약가능한 시간이 없습니다.");
     if (ac) ac.message("NONE_OF_GET_SCHEDULE");
     return;
