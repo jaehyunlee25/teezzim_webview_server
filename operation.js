@@ -1,16 +1,36 @@
 const fs = require("fs");
+const { isFunction } = require("lodash");
 const log = console.log;
 const dir = console.dir;
 String.prototype.ct = function (num) {
   return this.substring(0, this.length - num);
 };
 
-const files = fs.readdirSync("./script/reserve/reserve/");
-files.forEach((file) => {
-  if (file.indexOf(".") != -1) return;
-  const con = fs.readFileSync("./script/reserve/reserve/" + file + ".js", "utf-8");
-
-  if (con.indexOf("const ac") == -1) log(file);
+const path = "./script/reserve_core/reserve/";
+const files = fs.readdirSync(path);
+files.forEach((folder, i) => {
+  if(folder.indexOf(".") != -1) return;
+  const con = fs.readFileSync(path + folder + "/funcs.json", "utf-8");
+  const funcs = JSON.parse(con);
+  Object.keys(funcs).forEach(key => {
+    const str = funcs[key];
+    const res = [];
+    str.split("\r\n").forEach(ln => {
+      if(ln.indexOf("const ac") != -1) return;
+      res.push(ln);
+    });
+    funcs[key] = res.join("\r\n");    
+  });
+  fs.writeFileSync(path + folder + "/funcs.json", JSON.stringify(funcs), "utf-8");
+  
+  // if(i > 0) return;
+  /* const con = fs.readFileSync(path + file, "utf-8");
+  const res = [];
+  con.split("\r\n").forEach(ln => {
+    if (ln.indexOf("const ac") != -1) return;
+    res.push(ln);
+  });
+  fs.writeFileSync(path + file, res.join("\r\n"), "utf-8"); */
 });
 
 /* const clubs = {};

@@ -115,7 +115,6 @@ javascript: (() => {
     const strEnd = "end of reserve/reserve";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
-    const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
     location.href = "/_mobile/login/logout.asp";
   }

@@ -1,0 +1,1 @@
+[["login_url","https://www.elevencc.co.kr/member/login","funcLogin"],["search_url","https://www.elevencc.co.kr/reservation/golf","funcReserve"],["main_url","https://www.elevencc.co.kr/","funcMain"],["reserve_url","https://www.elevencc.co.kr/reservation/resList","funcList"],["logout_url","https://www.elevencc.co.kr/member/logout","funcOut"]]

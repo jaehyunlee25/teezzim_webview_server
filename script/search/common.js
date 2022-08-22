@@ -13,6 +13,13 @@ const logParam = {
   message: "start reserve/reserve",
   parameter: JSON.stringify({}),
 };
+let ac = false; 
+try {
+	ac = window.AndroidController || window.webkit.messageHandlers.iosController;
+	ac.message = ac.message || window.webkit.messageHandlers.iosController.postMessage;
+} catch(e) {
+	ac = false;
+}
 
 function TZLOG(param, callback) {
   const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";

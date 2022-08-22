@@ -1,0 +1,1 @@
+[["login_url","https://www.adoniscc.co.kr/auth/login","funcLogin"],["search_url","https://www.adoniscc.co.kr/public/booking/history","funcReserve"],["main_url","https://www.adoniscc.co.kr/","funcMain"],["logout_url","https://www.adoniscc.co.kr/auth/logout","funcOut"]]

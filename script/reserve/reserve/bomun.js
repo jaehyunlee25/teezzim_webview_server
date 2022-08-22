@@ -81,7 +81,6 @@ javascript: (() => {
       target.click();
     } else {
       localStorage.clear();
-      const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
     }
   }
@@ -96,7 +95,6 @@ javascript: (() => {
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
     localStorage.clear();
-    const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
     localStorage.setItem("TZ_LOGOUT", "true");
   }

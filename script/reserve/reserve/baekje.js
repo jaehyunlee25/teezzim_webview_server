@@ -66,7 +66,6 @@ javascript: (() => {
       target.click();
       funcExec();
     } else {
-      const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
       location.href = "/login/logout.asp";
     }
@@ -77,7 +76,6 @@ javascript: (() => {
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
       location.href = "/_mobile/login/logout.asp";
     }, 1000);

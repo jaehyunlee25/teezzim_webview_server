@@ -63,7 +63,6 @@ javascript: (() => {
       TZLOG(logParam, (data) => {
         log(data);
       });
-      const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/search");
       location.href = "/Mobile/Member/LogOut.aspx";
     });

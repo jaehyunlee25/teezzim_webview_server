@@ -62,7 +62,6 @@ javascript: (() => {
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
       location.href = "/Mobile/Member/LogOut.aspx";
     }, 1000);

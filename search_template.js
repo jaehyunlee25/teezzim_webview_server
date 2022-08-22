@@ -1,11 +1,4 @@
 /* begin blocking infinite call */
-let ac = false; 
-try {
-	ac = window.AndroidController || window.webkit.messageHandlers.iosController;
-	ac.message = ac.message || window.webkit.messageHandlers.iosController.postMessage;
-} catch(e) {
-	ac = false;
-}
 let TZ_BOT_SAFETY = true;
 let visitNumber = lsg("TZ_ADMIN_BLOCK_IC") * 1;
 let lastVistTime = lsg("TZ_ADMIN_BLOCK_IC_TIME") * 1;

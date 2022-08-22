@@ -58,14 +58,12 @@ javascript: (() => {
       target.children[6].children[0].click();
       logParam.message = "end of reserve/cancel";
       TZLOG(param, (data) => {
-        const ac = window.AndroidController;
         if (ac) ac.message("end of reserve/cancel");
         doLogout();
       });
     }
     /* 3초 후엔 무조건 닫는다 */
     setTimeout(() => {
-      const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/cancel");
       doLogout();
     }, 3000);

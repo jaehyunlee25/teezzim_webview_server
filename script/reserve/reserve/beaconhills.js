@@ -115,7 +115,6 @@ javascript: (() => {
     setTimeout(() => {
       logParam.message = strEnd;
       TZLOG(logParam, (data) => {});
-      const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
       ctl00_ContentPlaceHolder1_lbtOK.click();
     }, 1000);
@@ -125,7 +124,6 @@ javascript: (() => {
     const strEnd = "end of reserve/reserve";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {});
-    const ac = window.AndroidController;
     if (ac) ac.message(strEnd);
   }
   function LOGOUT() {

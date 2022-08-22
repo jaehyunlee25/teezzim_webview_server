@@ -53,7 +53,6 @@ javascript: (() => {
     });
     if (target) {
       target.children[5].children[0].click();
-      const ac = window.AndroidController;
       if (ac) ac.message("end of reserve/reserve");
       doLogout();
     }

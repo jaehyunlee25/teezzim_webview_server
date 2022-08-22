@@ -63,10 +63,7 @@ javascript: (() => {
     post(addr, param, { "Content-Type": "application/json" }, (data) => {
       console.log(data);
       logParam.message = "end of reserve/search";
-      TZLOG(logParam, (data) => {
-        log(data);
-      });
-      const ac = window.AndroidController;
+      TZLOG(logParam, (data) => {});
       if (ac) ac.message("end of reserve/search");
       location.href = "/Mobile/Member/LogOut";
     });

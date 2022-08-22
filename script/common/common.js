@@ -13,6 +13,13 @@ const logParam = {
   message: "",
   parameter: JSON.stringify({}),
 };
+let ac = false; 
+try {
+	ac = window.AndroidController || window.webkit.messageHandlers.iosController;
+	ac.message = ac.message || window.webkit.messageHandlers.iosController.postMessage;
+} catch(e) {
+	ac = false;
+}
 
 const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
 const aDDr = location.href.split(splitter)[0];

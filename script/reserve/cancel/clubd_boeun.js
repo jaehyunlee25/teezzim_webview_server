@@ -89,7 +89,6 @@ javascript: (() => {
     const strEnd = "end of reserve/cancel";
     logParam.message = strEnd;
     TZLOG(logParam, (data) => {
-      const ac = window.AndroidController;
       if (ac) ac.message(strEnd);
       location.href = "/clubd/member/actionLogout.do";
     });
