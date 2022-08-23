@@ -154,14 +154,17 @@ function procPost(request, response, data) {
   if (request.url == "/clubs") {
     const result = [];
     const clubIds = {};
+    const clubStatus = {};
     getClubs((rows) => {
       rows.forEach((row) => {
         result.push(row.eng_id);
         clubIds[row.eng_id] = row.id;
+        clubStatus[row.eng_id] = row.golf_club_status;
       });
       objResp = {
         clubs: result,
         clubIds,
+        clubStatus,
       };
       response.write(JSON.stringify(objResp));
       response.end();
