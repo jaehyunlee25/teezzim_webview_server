@@ -632,7 +632,8 @@ function setGolfClubState(data, callback) {
   connection.query(
     fs.readFileSync("sql/setGolfClubState.sql", "utf-8").dp(data),
     (err, rows, fields) => {
-      callback(rows);
+      if (err) callback(err);
+      else callback(rows);
     }
   );
 }
