@@ -180,7 +180,7 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (request.url == "/setGolfClubState") {
-    setGolfClubState(date, (rows) => {
+    setGolfClubState(data, (rows) => {
       objResp = {
         resultCode: 200,
         message: row,
