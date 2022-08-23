@@ -46,6 +46,7 @@ function procDate() {
 
   if (COMMAND == "GET_TIME") {
     log("target date", "${TARGET_DATE}", dates.length);
+    if(dates.length == 0) dates.push(["${TARGET_DATE}", 0]);
     const result = [];
     dates.every((arr) => {
       const [date] = arr;
