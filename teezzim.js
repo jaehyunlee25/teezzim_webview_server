@@ -183,7 +183,7 @@ function procPost(request, response, data) {
     setGolfClubState(data, (rows) => {
       objResp = {
         resultCode: 200,
-        message: row,
+        message: rows,
       };
       response.write(JSON.stringify(objResp));
       response.end();
