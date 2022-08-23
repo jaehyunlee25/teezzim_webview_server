@@ -29,11 +29,20 @@ const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
-connection.query(fs.readFileSync("getLoginUrl.sql", "utf-8"), getLoginUrl);
-connection.query(fs.readFileSync("getSearchUrl.sql", "utf-8"), getSearchUrl);
-connection.query(fs.readFileSync("getReserveUrl.sql", "utf-8"), getReserveUrl);
-connection.query(fs.readFileSync("getAccount.sql", "utf-8"), getAccounts);
-connection.query(fs.readFileSync("golf_course.sql", "utf-8"), getGolfCourses);
+connection.query(fs.readFileSync("sql/getLoginUrl.sql", "utf-8"), getLoginUrl);
+connection.query(
+  fs.readFileSync("sql/getSearchUrl.sql", "utf-8"),
+  getSearchUrl
+);
+connection.query(
+  fs.readFileSync("sql/getReserveUrl.sql", "utf-8"),
+  getReserveUrl
+);
+connection.query(fs.readFileSync("sql/getAccount.sql", "utf-8"), getAccounts);
+connection.query(
+  fs.readFileSync("sql/golf_course.sql", "utf-8"),
+  getGolfCourses
+);
 connection.end();
 
 function getGolfCourses(err, rows, fields) {
@@ -170,6 +179,15 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (request.url == "/setGolfClubState") {
+    setGolfClubState(date, (rows) => {
+      objResp = {
+        resultCode: 200,
+        message: row,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (request.url == "/getLog") {
     getLog((err, rows, fields) => {
       objResp = { resultCode: 200, message: "okay", data: rows };
@@ -339,7 +357,7 @@ function procPost(request, response, data) {
     controlForUserDevice(engName, "");
     */
     const engName = data.club;
-    const sql = "getDeviceByClub.sql".gfdp({ engName });
+    const sql = "sql/getDeviceByClub.sql".gfdp({ engName });
     sql.query((err, rows, fields) => {
       if (rows.length === 0) {
         controlForAdminDevice(engName);
@@ -605,6 +623,18 @@ function procPost(request, response, data) {
 function getLog(callback) {
   const query = "select * from LOG order by id asc limit 1000;";
   query.query(callback);
+}
+function setGolfClubState(data, callback) {
+  const connection = mysql.createConnection(
+    JSON.parse(fs.readFileSync("db.json", "utf-8"))
+  );
+  connection.connect();
+  connection.query(
+    fs.readFileSync("sql/setGolfClubState.sql", "utf-8").dp(data),
+    (err, rows, fields) => {
+      callback(rows);
+    }
+  );
 }
 function setReserveCancel(data) {
   if (!fs.existsSync("script/reserve_core/cancel/" + data.club))
@@ -1278,7 +1308,7 @@ function getClubs(callback) {
   );
   connection.connect();
   connection.query(
-    fs.readFileSync("getSearchClubs.sql", "utf-8"),
+    fs.readFileSync("sql/getSearchClubs.sql", "utf-8"),
     (err, rows, fields) => {
       callback(rows);
     }
