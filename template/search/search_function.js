@@ -1,6 +1,6 @@
 function procDate() {
   if (lmt === undefined && dates.length == 0) {
-    dates.push(["${TARGET_DATE}", 0]);
+    if (COMMAND == "GET_TIME") dates.push(["${TARGET_DATE}", 0]);
   }
 
   if (COMMAND == "GET_DATE") {
