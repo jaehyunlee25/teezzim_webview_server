@@ -1,12 +1,14 @@
 function mneCall(date, callback) {
-  Array.from(mabari.children).forEach((el) => {
-    const date = el.children[0].getAttribute("data-date");
-    const sign = el.children[2].innerText;
-    if (sign != "예약") return;
-    dates.push([date, ""]);
+  timer(1000, () => {
+    Array.from(mabari.children).forEach((el) => {
+      const date = el.children[0].getAttribute("data-date");
+      const sign = el.children[2].innerText;
+      if (sign != "예약") return;
+      dates.push([date, ""]);
+    });
+  
+    callback();
   });
-
-  callback();
 }
 
 /* <============line_div==========> */
