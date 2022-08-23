@@ -159,7 +159,7 @@ function procPost(request, response, data) {
       rows.forEach((row) => {
         result.push(row.eng_id);
         clubIds[row.eng_id] = row.id;
-        clubStatus[row.eng_id] = row.golf_club_status;
+        clubStatus[row.eng_id] = row.golf_club_state;
       });
       objResp = {
         clubs: result,
