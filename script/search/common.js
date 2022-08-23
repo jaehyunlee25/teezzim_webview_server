@@ -6,7 +6,7 @@ const ls = localStorage;
 const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
 const logParam = {
   type: "command",
-  sub_type: "reserve/reserve",
+  sub_type: "start",
   device_id: "${deviceId}",
   device_token: "${deviceToken}",
   golf_club_id: "${golfClubId}",

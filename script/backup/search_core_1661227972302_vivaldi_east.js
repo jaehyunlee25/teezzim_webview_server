@@ -1,14 +1,12 @@
 function mneCall(date, callback) {
-  timer(1000, () => {
-    Array.from(mabari.children).forEach((el) => {
-      const date = el.children[0].getAttribute("data-date");
-      const sign = el.children[3].innerText;
-      if (sign != "예약") return;
-      dates.push([date, ""]);
-    });
-  
-    callback();
+  Array.from(mabari.children).forEach((el) => {
+    const date = el.children[0].getAttribute("data-date");
+    const sign = el.children[1].innerText;
+    if (sign != "예약") return;
+    dates.push([date, ""]);
   });
+
+  callback();
 }
 
 /* <============line_div==========> */
@@ -18,7 +16,7 @@ function mneCallDetail(arrDate) {
   const param = {
     fRsvD: date,
     fJiyukCd: "60",
-    fStoreCd: 2110,
+    fStoreCd: 2180,
   };
 
   post("/m.rsv.selectMobileRsvStepOne.dp/dmparse.dm", param, {}, (data) => {
@@ -73,6 +71,4 @@ function funcLogin() {
 }
 /* <============line_div==========> */
 
-setTimeout(() => {
-  mneCall(thisdate, procDate);
-}, 1000);
+mneCall(thisdate, procDate);

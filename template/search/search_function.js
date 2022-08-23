@@ -1,9 +1,6 @@
 function procDate() {
   if (lmt === undefined && dates.length == 0) {
-    log("예약가능한 시간이 없습니다.");
-    if (ac) ac.message("NONE_OF_GET_SCHEDULE");
-    LOGOUT();
-    return;
+    if (COMMAND == "GET_TIME") dates.push(["${TARGET_DATE}", 0]);
   }
 
   if (COMMAND == "GET_DATE") {
@@ -45,6 +42,8 @@ function procDate() {
   }
 
   if (COMMAND == "GET_TIME") {
+    log("target date", "${TARGET_DATE}", dates.length);
+    
     const result = [];
     dates.every((arr) => {
       const [date] = arr;

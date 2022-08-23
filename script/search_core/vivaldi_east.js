@@ -1,12 +1,14 @@
 function mneCall(date, callback) {
-  Array.from(mabari.children).forEach((el) => {
-    const date = el.children[0].getAttribute("data-date");
-    const sign = el.children[1].innerText;
-    if (sign != "예약") return;
-    dates.push([date, ""]);
+  timer(1000, () => {
+    Array.from(mabari.children).forEach((el) => {
+      const date = el.children[0].getAttribute("data-date");
+      const sign = el.children[1].innerText;
+      if (sign != "예약") return;
+      dates.push([date, ""]);
+    });
+  
+    callback();
   });
-
-  callback();
 }
 
 /* <============line_div==========> */
@@ -53,7 +55,22 @@ function mneCallDetail(arrDate) {
 }
 
 /* <============line_div==========> */
+function funcLogin() {
+  log("funcLogin");
 
+  if (doc.gcn("atag_flex")[0].str() == "로그아웃")
+    location.href = "${searchUrl}";
+  
+  const chk = LSCHK("TZ_SEARCH_LOGIN", 5);
+  if(!chk) {
+    location.href = "${searchUrl}";
+    return;
+  }
+
+  ${loginScript}
+
+  return;
+}
 /* <============line_div==========> */
 
 mneCall(thisdate, procDate);
