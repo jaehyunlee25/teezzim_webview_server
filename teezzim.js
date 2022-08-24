@@ -1392,7 +1392,7 @@ function getSearchScriptAdmin(engName, command) {
   const core = cores.pop();
   const d = cores.join("");
   // LOGOUT
-  const loPath = "script/reserve_core/reserve/" + engName + "/funcs.json";
+  const loPath = "script/search_logout/" + engName + ".json";
   const { LOGOUT } = loPath.gfjp();
   const searchCommonScript = a.add(b).add(c).add(d).add(LOGOUT).dp(param);
 

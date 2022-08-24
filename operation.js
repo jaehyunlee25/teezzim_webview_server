@@ -10,7 +10,7 @@ const path = "./script/reserve_core/reserve/";
 const files = fs.readdirSync(path);
 files.forEach((file) => {
   if (file.indexOf(".") != -1) return;
-  const addr = path + file + "/dict.json";
+  const addr = path + file + "/funcs.json";
   const con = fs.readFileSync(addr, "utf-8");
-  fs.writeFileSync("script/search_dict/" + file + ".json", con, "utf-8");
+  fs.writeFileSync("script/search_logout/" + file + ".json", con, "utf-8");
 });
