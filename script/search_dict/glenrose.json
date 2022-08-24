@@ -1,0 +1,4 @@
+[
+    ["loginUrl", "https://www.golfsamsung.com/web/join.do", "funcLogin"],
+    ["searchUrl", "https://www.golfsamsung.com/reve/mo/reserve/choice.do", "funcReserve"]
+]

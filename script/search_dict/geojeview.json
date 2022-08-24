@@ -1,0 +1,4 @@
+[
+    ["loginUrl", "https://www.geojeview.co.kr/auth/login", "funcLogin"],
+    ["searchUrl", "https://www.geojeview.co.kr/booking", "funcReserve"]
+]
