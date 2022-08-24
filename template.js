@@ -13,7 +13,7 @@ javascript:(() => {
     log("aDDr :: ", aDDr);
     log("addr :: ", addr);
         
-    if(addr == "${loginUrl}") {
+    if(location.href == "${loginUrl}") {
         const tag = localStorage.getItem("TZ_LOGIN");
         if (tag && new Date().getTime() - tag < 1000 * 10) {
             if(lsg("tz_search_once")) {
@@ -27,7 +27,7 @@ javascript:(() => {
         localStorage.setItem("TZ_LOGIN", new Date().getTime());
 
         ${loginScript}
-    } else if (addr == "${searchUrl}") {
+    } else if (location.href == "${searchUrl}") {
         const tag = lsg("TZ_SEARCH_DATETIME");
         if (tag && new Date().getTime() - tag < 1000 * 1) return;
         lss("TZ_SEARCH_DATETIME", new Date().getTime());
