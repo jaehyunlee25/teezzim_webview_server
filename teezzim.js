@@ -1108,7 +1108,7 @@ function searchbotTimeAdmin(data) {
     .split("\r\n")
     .join("\r\n    ");
   // step 2: url 정보
-  const urls = ("script/reserve_core/reserve/" + club + "/dict.json").gfjp();
+  const urls = ("script/search_dict/" + club + ".json").gfjp();
   const objUrl = [];
   urls.forEach(([, url, func]) => {
     if (["funcLogin", "funcReserve", "funcOut"].indexOf(func) == -1) return;
@@ -1146,7 +1146,7 @@ function searchbotDateAdmin(data) {
     .split("\r\n")
     .join("\r\n    ");
   // step 2: url 정보
-  const urls = ("script/reserve_core/reserve/" + club + "/dict.json").gfjp();
+  const urls = ("script/search_dict/" + club + ".json").gfjp();
   const objUrl = [];
   urls.forEach(([, url, func]) => {
     if (["funcLogin", "funcReserve", "funcOut"].indexOf(func) == -1) return;

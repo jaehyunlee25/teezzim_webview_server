@@ -6,6 +6,11 @@ String.prototype.ct = function (num) {
   return this.substring(0, this.length - num);
 };
 
-const path = "./script/login/";
+const path = "./script/reserve_core/reserve/";
 const files = fs.readdirSync(path);
-log(files.length);
+files.forEach((file) => {
+  if (file.indexOf(".") != -1) return;
+  const addr = path + file + "/dict.json";
+  const con = fs.readFileSync(addr, "utf-8");
+  fs.writeFileSync("script/search_dict/" + file + ".json", con, "utf-8");
+});
