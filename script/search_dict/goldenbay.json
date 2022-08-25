@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.goldenbay.kr/mobile/join/login.asp","funcLogin"],
+    ["search_url","https://www.goldenbay.kr/mobile/reservation/golf_reser.asp","funcReserve"]
+]
