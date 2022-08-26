@@ -1149,7 +1149,7 @@ function searchbotDateAdmin(data) {
   const urls = ("script/search_dict/" + club + ".json").gfjp();
   const objUrl = [];
   urls.forEach(([, url, func]) => {
-    if (["funcLogin", "funcReserve", "funcOut"].indexOf(func) == -1) return;
+    if (["funcLogin", "funcReserve", "funcCalendar", "funcOut"].indexOf(func) == -1) return;
     objUrl.push('"' + url + '": ' + func);
   });
   const address_mapping = "{" + objUrl.join(",") + "}";
