@@ -23,7 +23,10 @@ javascript:(() => {
     function main() {
       log("main");
 
-      if (!TZ_BOT_SAFETY) return;
+      if (!TZ_BOT_SAFETY) {
+        log("stopped by Infinite Call");
+        return;
+      }
 
       const func = dict[addr];
       if (!func) funcOther();
