@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.goldlake.co.kr/login/login.asp","funcLogin"],
+    ["search_url","https://www.goldlake.co.kr/booking/booking01.asp","funcReserve"]
+]
