@@ -1,0 +1,5 @@
+[
+    ["login_url","http://www.oakvalley.co.kr/oak_new/login.asp","funcLogin"],
+    ["search_url","https://reservation.oakvalley.co.kr/frontoffice/p_entrance.jsp","funcCalendar"],
+    ["calendar_url","https://reservation.oakvalley.co.kr/frontoffice/golf/g_100.jsp","funcReserve"]
+]

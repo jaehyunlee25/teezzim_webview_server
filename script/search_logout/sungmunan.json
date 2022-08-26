@@ -1,0 +1,3 @@
+{
+    "LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    logout.click();\r\n  }"
+}
