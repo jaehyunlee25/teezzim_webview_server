@@ -23,6 +23,8 @@ javascript:(() => {
     function main() {
       log("main");
 
+      if (!TZ_BOT_SAFETY) return;
+
       const func = dict[addr];
       if (!func) funcOther();
       else func();
