@@ -1,3 +1,3 @@
 {
-    "LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    logout.click();\r\n  }"
+    "LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    location.href=\"/oak_new/login_exec.asp?logout=y\"\r\n  }"
 }
