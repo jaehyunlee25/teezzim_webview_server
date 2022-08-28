@@ -54,6 +54,7 @@ javascript:(() => {
       log("funcOther");
 
       const chk = LSCHK("TZ_SEARCH_OTHER", 10);
+      log("timeout chk", chk);
       if (!chk) {
         log("funcOther Timeout");
         return;
@@ -67,6 +68,7 @@ javascript:(() => {
       log("funcSearch");
 
       const chk = LSCHK("TZ_SEARCH_RESERVE", 10);
+      log("timeout chk", chk);
       if (!chk) {
         log("funcSearch Timeout");
         return;
