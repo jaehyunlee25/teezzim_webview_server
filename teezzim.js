@@ -1155,7 +1155,8 @@ function searchbotDateAdmin(data) {
       "funcCalendar",
       "funcOut",
       "funcLogout",
-      "funcEnd"
+      "funcProcEnd",
+      "funcPopLogin"
     ].indexOf(func) == -1) return;
     objUrl.push('"' + url + '": ' + func);
   });
