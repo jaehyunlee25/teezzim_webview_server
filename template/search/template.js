@@ -54,7 +54,10 @@ javascript:(() => {
       log("funcOther");
 
       const chk = LSCHK("TZ_SEARCH_OTHER", 10);
-      if(!chk) return;
+      if (!chk) {
+        log("funcOther Timeout");
+        return;
+      }
         
       location.href = "${searchUrl}";
 
@@ -64,7 +67,10 @@ javascript:(() => {
       log("funcSearch");
 
       const chk = LSCHK("TZ_SEARCH_RESERVE", 10);
-      if(!chk) return;
+      if (!chk) {
+        log("funcSearch Timeout");
+        return;
+      }
 
       ${searchScript}
 
