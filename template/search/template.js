@@ -53,7 +53,7 @@ javascript:(() => {
     function funcOther() {
       log("funcOther");
 
-      const chk = LSCHK("TZ_SEARCH_OTHER", 5);
+      const chk = LSCHK("TZ_SEARCH_OTHER", 10);
       if(!chk) return;
         
       location.href = "${searchUrl}";
@@ -63,7 +63,7 @@ javascript:(() => {
     function funcReserve() {
       log("funcSearch");
 
-      const chk = LSCHK("TZ_SEARCH_RESERVE", 5);
+      const chk = LSCHK("TZ_SEARCH_RESERVE", 10);
       if(!chk) return;
 
       ${searchScript}
