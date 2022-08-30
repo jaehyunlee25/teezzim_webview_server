@@ -89,20 +89,19 @@ function procGolfSchedule() {
       obj.time = obj.time.gh(2) + ":" + obj.time.gt(2);
   });
   /* console.log(golf_schedule); */
-  if (golf_schedule.length == 0) {
-    log("예약가능한 시간이 없습니다.");
-    if (ac) ac.message("NONE_OF_GET_SCHEDULE");
-    LOGOUT();
-    return;
-  }
   const param = { golf_schedule, golf_club_id: clubId };
   post(addrOuter, param, header, (data) => {
     const json = JSON.parse(data);
     log(json.message);
-    if (json.resultCode == 200) {
-      if (ac) ac.message("end of procGolfSchedule!");
-    } else {
-      if (ac) ac.message("FAIL_OF_GET_SCHEDULE");
+    if (golf_schedule.length == 0) {
+      log("예약가능한 시간이 없습니다.");
+      if (ac) ac.message("NONE_OF_GET_SCHEDULE");
+    } else { 
+      if (json.resultCode == 200) {
+        if (ac) ac.message("end of procGolfSchedule!");
+      } else {
+        if (ac) ac.message("FAIL_OF_GET_SCHEDULE");
+      }
     }
     LOGOUT();
   });
