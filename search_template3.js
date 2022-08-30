@@ -21,7 +21,7 @@ function procDate() {
         (data) => {
           const json = JSON.parse(data);
           log(json.message);
-          if (date.length == 0) {
+          if (golf_date.length == 0) {
             log("예약가능한 날짜가 없습니다.");
             if (ac) ac.message("NONE_OF_GET_DATE");
           } else { 
