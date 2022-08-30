@@ -4,42 +4,41 @@ function procDate() {
   }
 
   if (COMMAND == "GET_DATE") {
-    if (dates.length > 0) {
-      const golf_date = [];
-      dates.forEach(([date]) => {
-        logParam.sub_type = "search";
-        logParam.message = date;
-        logParam.parameter = JSON.stringify({
-          clubId,
-          date,
-          type: typeof date,
-        });
-        TZLOG(logParam, (data) => {});
-        golf_date.push(date.datify("-"));
+    const golf_date = [];
+    dates.forEach(([date]) => {
+      logParam.sub_type = "search";
+      logParam.message = date;
+      logParam.parameter = JSON.stringify({
+        clubId,
+        date,
+        type: typeof date,
       });
-      const param = { golf_date, golf_club_id: clubId };
-      log("golf_date", golf_date);
-      post(
-        OUTER_ADDR_HEADER + "/api/reservation/golfDate",
-        param,
-        header,
-        (data) => {
-          const json = JSON.parse(data);
-          log(json.message);
-          if (golf_date.length == 0) {
-            log("예약가능한 날짜가 없습니다.");
-            if (ac) ac.message("NONE_OF_GET_DATE");
-          } else { 
-            if (json.resultCode == 200) {
-              if (ac) ac.message("SUCCESS_OF_GET_DATE");
-            } else {
-              if (ac) ac.message("FAIL_OF_GET_DATE");
-            }
+      TZLOG(logParam, (data) => {});
+      golf_date.push(date.datify("-"));
+    });
+    const param = { golf_date, golf_club_id: clubId };
+    log("golf_date", golf_date);
+    post(
+      OUTER_ADDR_HEADER + "/api/reservation/golfDate",
+      param,
+      header,
+      (data) => {
+        const json = JSON.parse(data);
+        log(json.message);
+        if (golf_date.length == 0) {
+          log("예약가능한 날짜가 없습니다.");
+          if (ac) ac.message("NONE_OF_GET_DATE");
+        } else { 
+          if (json.resultCode == 200) {
+            if (ac) ac.message("SUCCESS_OF_GET_DATE");
+          } else {
+            if (ac) ac.message("FAIL_OF_GET_DATE");
           }
-          LOGOUT();
         }
-      );
-    }
+        LOGOUT();
+      }
+    );
+    
     return;
   }
 
