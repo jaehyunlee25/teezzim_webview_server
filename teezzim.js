@@ -1412,6 +1412,7 @@ function getSearchScriptAdmin(engName, command) {
   let { LOGOUT } = loPath.gfjp();
   if (engName.indexOf("vivaldi") != -1) {
     LOGOUT = "function LOGOUT(){log('funcLogout'); return;}";
+  }
    }
   const searchCommonScript = a.add(b).add(c).add(d).add(LOGOUT).dp(param);
 
