@@ -18,6 +18,7 @@ function procDate() {
         golf_date.push(date.datify("-"));
       });
       const param = { golf_date, golf_club_id: clubId };
+      log("golf_date", golf_date);
       post(
         OUTER_ADDR_HEADER + "/api/reservation/golfDate",
         param,
