@@ -21,16 +21,18 @@ function procDate() {
         (data) => {
           const json = JSON.parse(data);
           log(json.message);
-          if (json.resultCode == 200) {
-            if (ac) ac.message("SUCCESS_OF_GET_DATE");
-          } else {
-            if (ac) ac.message("FAIL_OF_GET_DATE");
+          if (date.length == 0) {
+            log("예약가능한 날짜가 없습니다.");
+            if (ac) ac.message("NONE_OF_GET_DATE");
+          } else { 
+            if (json.resultCode == 200) {
+              if (ac) ac.message("SUCCESS_OF_GET_DATE");
+            } else {
+              if (ac) ac.message("FAIL_OF_GET_DATE");
+            }
           }
         }
       );
-    } else {
-      log("예약가능한 날짜가 없습니다.");
-      if (ac) ac.message("NONE_OF_GET_DATE");
     }
     return;
   }
