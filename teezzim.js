@@ -1413,7 +1413,7 @@ function getSearchScriptAdmin(engName, command) {
   if (engName.indexOf("vivaldi") != -1) {
     LOGOUT = "function LOGOUT(){log('funcLogout'); return;}";
   }
-   }
+   
   const searchCommonScript = a.add(b).add(c).add(d).add(LOGOUT).dp(param);
 
   // step 3: 동작 함수
