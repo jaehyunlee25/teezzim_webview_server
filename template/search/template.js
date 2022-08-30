@@ -7,8 +7,9 @@ javascript:(() => {
     function funcLogin() {
       log("funcLogin");
       
-      const chk = LSCHK("TZ_SEARCH_LOGIN", 5);
-      if(!chk) {
+      const chk = LSCHK("TZ_SEARCH_LOGIN" + clubId, 5);
+      if (!chk) {
+        log("funcLogin Timein ERROR");
         location.href = "${searchUrl}";
         return;
       }
@@ -53,10 +54,10 @@ javascript:(() => {
     function funcOther() {
       log("funcOther");
 
-      const chk = LSCHK("TZ_SEARCH_OTHER", 10);
+      const chk = LSCHK("TZ_SEARCH_OTHER" + clubId, 10);
       log("timeout chk", chk);
       if (!chk) {
-        log("funcOther Timeout");
+        log("funcOther Timein ERROR");
         return;
       }
         
@@ -67,10 +68,10 @@ javascript:(() => {
     function funcReserve() {
       log("funcSearch");
 
-      const chk = LSCHK("TZ_SEARCH_RESERVE", 10);
+      const chk = LSCHK("TZ_SEARCH_RESERVE" + clubId, 10);
       log("timeout chk", chk);
       if (!chk) {
-        log("funcSearch Timeout");
+        log("funcSearch Timein ERROR");
         return;
       }
 
