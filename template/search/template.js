@@ -54,7 +54,7 @@ javascript:(() => {
     function funcOther() {
       log("funcOther");
 
-      const chk = LSCHK("TZ_SEARCH_OTHER" + clubId, 10);
+      const chk = LSCHK("TZ_SEARCH_OTHER" + clubId, 5);
       log("timeout chk", chk);
       if (!chk) {
         log("funcOther Timein ERROR");
@@ -68,7 +68,7 @@ javascript:(() => {
     function funcReserve() {
       log("funcSearch");
 
-      const chk = LSCHK("TZ_SEARCH_RESERVE" + clubId, 10);
+      const chk = LSCHK("TZ_SEARCH_RESERVE" + clubId, 5);
       log("timeout chk", chk);
       if (!chk) {
         log("funcSearch Timein ERROR");
