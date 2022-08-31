@@ -1409,11 +1409,7 @@ function getSearchScriptAdmin(engName, command) {
   const d = cores.join("");
   // LOGOUT
   const loPath = "script/search_logout/" + engName + ".json";
-  let { LOGOUT } = loPath.gfjp();
-  if (engName.indexOf("vivaldi") != -1) {
-    LOGOUT = "function LOGOUT(){log('funcLogout'); return;}";
-  }
-   
+  let { LOGOUT } = loPath.gfjp();   
   const searchCommonScript = a.add(b).add(c).add(d).add(LOGOUT).dp(param);
 
   // step 3: 동작 함수
