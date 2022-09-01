@@ -16,7 +16,11 @@ function procDate() {
       TZLOG(logParam, (data) => {});
       golf_date.push(date.datify("-"));
     });
-    const param = { golf_date, golf_club_id: clubId };
+    const param = {
+      golf_date,
+      golf_club_id: clubId,
+      device_id: "${deviceId}",
+    };
     log("golf_date", golf_date);
     post(
       OUTER_ADDR_HEADER + "/api/reservation/golfDate",
@@ -90,7 +94,11 @@ function procGolfSchedule() {
       obj.time = obj.time.gh(2) + ":" + obj.time.gt(2);
   });
   /* console.log(golf_schedule); */
-  const param = { golf_schedule, golf_club_id: clubId };
+  const param = {
+    golf_schedule,
+    device_id: "${deviceId}",
+    golf_club_id: clubId,
+  };
   post(addrOuter, param, header, (data) => {
     const json = JSON.parse(data);
     log(json.message);
