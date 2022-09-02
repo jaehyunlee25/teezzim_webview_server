@@ -642,7 +642,7 @@ function delDeviceDate(data, callback) {
     }
   );
 }
-function delDeviceTime(data) { 
+function delDeviceTime(data, callback) { 
   const connection = mysql.createConnection("db.json".gfjp());
   connection.connect();
   connection.query(
