@@ -643,6 +643,7 @@ function delDeviceDate(data, callback) {
       else callback(rows);
     }
   );
+  connection.end();
 }
 function delDeviceTime(data, callback) { 
   const connection = mysql.createConnection("db.json".gfjp());
@@ -654,6 +655,7 @@ function delDeviceTime(data, callback) {
       else callback(rows);
     }
   );
+  connection.end();
 }
 function getLog(callback) {
   const query = "select * from LOG order by id asc limit 1000;";
@@ -1590,6 +1592,7 @@ String.prototype.query = function (callback) {
   const connection = mysql.createConnection(dbconf.gfjp());
   connection.connect();
   connection.query(sql, callback);
+  connection.end();
 };
 String.prototype.howmany = function (str) {
   let num = this.match(new RegExp(str, "g"));
