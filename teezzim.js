@@ -673,6 +673,7 @@ function setGolfClubState(data, callback) {
       else callback(rows);
     }
   );
+  connection.end();
 }
 function setReserveCancel(data) {
   if (!fs.existsSync("script/reserve_core/cancel/" + data.club))
@@ -1367,6 +1368,7 @@ function getClubs(callback) {
       callback(rows);
     }
   );
+  connection.end();
 }
 function controlForUserDevice(engName, token) {
   token =
