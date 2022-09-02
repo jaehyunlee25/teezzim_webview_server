@@ -45,6 +45,7 @@ log("raw addr :: ", location.href);
 log("aDDr :: ", aDDr);
 log("addr :: ", addr); */
 
+let global_param = {};
 const COMMAND = "${command}";
 const clubId = '${golf_club_id}';
 const courses = { 
