@@ -179,6 +179,17 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (request.url == "/delDeviceRecord") {
+    delDeviceDate(data, (res1) => {
+      log(res1);
+      delDeviceTime(data, (res2) => { 
+        log(res2);
+        objResp = {
+          resultCode: 200,
+          message: "디바이스 자료를 모두 삭제했습니다.",
+        };
+      });
+    });
   } else if (request.url == "/setGolfClubState") {
     setGolfClubState(data, (rows) => {
       objResp = {
@@ -619,6 +630,28 @@ function procPost(request, response, data) {
     response.write(JSON.stringify(objResp));
     response.end();
   }
+}
+function delDeviceDate(data, callback) { 
+  const connection = mysql.createConnection("db.json".gfjp());
+  connection.connect();
+  connection.query(
+    "sql/delDeviceDate.sql".gfdp(data),
+    (err, rows, fields) => {
+      if (err) callback(err);
+      else callback(rows);
+    }
+  );
+}
+function delDeviceTime(data) { 
+  const connection = mysql.createConnection("db.json".gfjp());
+  connection.connect();
+  connection.query(
+    "sql/delDeviceTime.sql".gfdp(data),
+    (err, rows, fields) => {
+      if (err) callback(err);
+      else callback(rows);
+    }
+  );
 }
 function getLog(callback) {
   const query = "select * from LOG order by id asc limit 1000;";
