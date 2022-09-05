@@ -54,7 +54,7 @@ function procDate() {
       const [date] = arr;
       if (date == "${TARGET_DATE}") {
         result.push(arr);
-        // return false;
+        /*return false;*/
       }
       return true;
     });
