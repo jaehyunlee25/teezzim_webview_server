@@ -7,9 +7,9 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const connection = mysql.createConnection(
+/* const connection = mysql.createConnection(
   JSON.parse(fs.readFileSync("db.json"))
-);
+); */
 const log = function () {
   console.log("\n\n>> new log :: ", new Date());
   console.log(Array.from(arguments).join(", "));
@@ -27,7 +27,7 @@ const golfCourseByEngId = {};
 const golfCourseByUUID = {};
 const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
-connection.connect();
+/* connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
 connection.query(fs.readFileSync("sql/getLoginUrl.sql", "utf-8"), getLoginUrl);
 connection.query(
@@ -43,7 +43,13 @@ connection.query(
   fs.readFileSync("sql/golf_course.sql", "utf-8"),
   getGolfCourses
 );
-connection.end();
+connection.end(); */
+
+"select * from golf_club_eng;".query(getClubNames);
+"sql/getLoginUrl.sql".gf().query(getLoginUrl);
+"sql/getSearchUrl.sql".gf().query(getSearchUrl);
+"sql/getAccount.sql".gf().query(getAccounts);
+"sql/golf_course.sql".gf().query(getGolfCourses);
 
 function getGolfCourses(err, rows, fields) {
   rows.forEach((row) => {
@@ -634,7 +640,7 @@ function procPost(request, response, data) {
   }
 }
 function delDeviceDate(data, callback) { 
-  const connection = mysql.createConnection("db.json".gfjp());
+  /* const connection = mysql.createConnection("db.json".gfjp());
   connection.connect();
   connection.query(
     "sql/delDeviceDate.sql".gfdp(data),
@@ -643,10 +649,14 @@ function delDeviceDate(data, callback) {
       else callback(rows);
     }
   );
-  connection.end();
+  connection.end(); */
+  "sql/delDeviceDate.sql".gfdp(data).query((err, rows, fields) => {
+    if (err) callback(err);
+    else callback(rows);
+  });
 }
 function delDeviceTime(data, callback) { 
-  const connection = mysql.createConnection("db.json".gfjp());
+  /* const connection = mysql.createConnection("db.json".gfjp());
   connection.connect();
   connection.query(
     "sql/delDeviceTime.sql".gfdp(data),
@@ -655,14 +665,18 @@ function delDeviceTime(data, callback) {
       else callback(rows);
     }
   );
-  connection.end();
+  connection.end(); */
+  "sql/delDeviceTime.sql".gfdp(data).query((err, rows, fields) => {
+    if (err) callback(err);
+    else callback(rows);
+  });
 }
 function getLog(callback) {
   const query = "select * from LOG order by id asc limit 1000;";
   query.query(callback);
 }
 function setGolfClubState(data, callback) {
-  const connection = mysql.createConnection(
+  /* const connection = mysql.createConnection(
     JSON.parse(fs.readFileSync("db.json", "utf-8"))
   );
   connection.connect();
@@ -673,7 +687,11 @@ function setGolfClubState(data, callback) {
       else callback(rows);
     }
   );
-  connection.end();
+  connection.end(); */
+  "sql/setGolfClubState.sql".gfdp(data).query((err, rows, fields) => {
+    if (err) callback(err);
+    else callback(rows);
+  });
 }
 function setReserveCancel(data) {
   if (!fs.existsSync("script/reserve_core/cancel/" + data.club))
@@ -1358,7 +1376,7 @@ function getFunc(code) {
   return funcs;
 }
 function getClubs(callback) {
-  const connection = mysql.createConnection(
+  /* const connection = mysql.createConnection(
     JSON.parse(fs.readFileSync("db.json", "utf-8"))
   );
   connection.connect();
@@ -1368,7 +1386,11 @@ function getClubs(callback) {
       callback(rows);
     }
   );
-  connection.end();
+  connection.end(); */
+  "sql/getSearchClubs.sql".gf().query((err, rows, fields) => {
+    if (err) callback(err);
+    else callback(rows);
+  });
 }
 function controlForUserDevice(engName, token) {
   token =
