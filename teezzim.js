@@ -14,7 +14,6 @@ const log = function () {
   console.log("\n\n>> new log :: ", new Date());
   console.log(Array.from(arguments).join(", "));
 };
-
 const dir = console.dir;
 String.prototype.dp = function (param) {
   let self = this;
@@ -43,12 +42,16 @@ String.prototype.gfdp = function (param) {
   return this.toString().gf().dp(param);
 };
 String.prototype.query = function (callback) {
-  const sql = this.toString();
-  const dbconf = "db.json";
-  const connection = mysql.createConnection(dbconf.gfjp());
-  connection.connect();
-  connection.query(sql, callback);
-  connection.end();
+  try {
+    const sql = this.toString();
+    const dbconf = "db.json";
+    const connection = mysql.createConnection(dbconf.gfjp());
+    connection.connect();
+    connection.query(sql, callback);
+    connection.end();
+  } catch (e) { 
+    console.error(e);
+  }
 };
 String.prototype.howmany = function (str) {
   let num = this.match(new RegExp(str, "g"));
