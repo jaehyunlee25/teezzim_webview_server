@@ -49,7 +49,7 @@ String.prototype.query = function (callback) {
     connection.connect();
     connection.query(sql, callback);
     connection.end();
-  } catch (e) { 
+  } catch (e) {
     console.error(e);
   }
 };
@@ -61,6 +61,7 @@ String.prototype.howmany = function (str) {
 };
 const golfClubEngNames = [];
 const golfClubIdToEng = {};
+const golfClubEngToKor = {};
 const golfClubIds = {};
 const golfClubLoginUrl = {};
 const golfClubLoginUrlByUUID = {};
@@ -89,7 +90,7 @@ connection.query(
 );
 connection.end(); */
 
-"select * from golf_club_eng;".query(getClubNames);
+"sql/golfClubNames.sql".query(getClubNames);
 "sql/getLoginUrl.sql".gf().query(getLoginUrl);
 "sql/getSearchUrl.sql".gf().query(getSearchUrl);
 "sql/getAccount.sql".gf().query(getAccounts);
@@ -120,6 +121,7 @@ function getClubNames(err, rows, fields) {
     golfClubEngNames.push(row.eng_id);
     golfClubIds[row.eng_id] = row.golf_club_id;
     golfClubIdToEng[row.golf_club_id] = row.eng_id;
+    golfClubEngToKor[row.eng_id] = row.name;
     // console.log(row.eng_id);
     // if(row.eng_id != "allday") fs.writeFileSync("script/search/" + row.eng_id + ".js", "");
   });
@@ -229,10 +231,14 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (request.url == "/getClubNames") {
+    objResp = {
+      golfClubEngToKor,
+    };
   } else if (request.url == "/delDeviceRecord") {
     delDeviceDate(data, (res1) => {
       dir(res1);
-      delDeviceTime(data, (res2) => { 
+      delDeviceTime(data, (res2) => {
         dir(res2);
         objResp = {
           resultCode: 200,
@@ -683,7 +689,7 @@ function procPost(request, response, data) {
     response.end();
   }
 }
-function delDeviceDate(data, callback) { 
+function delDeviceDate(data, callback) {
   /* const connection = mysql.createConnection("db.json".gfjp());
   connection.connect();
   connection.query(
@@ -699,7 +705,7 @@ function delDeviceDate(data, callback) {
     else callback(rows);
   });
 }
-function delDeviceTime(data, callback) { 
+function delDeviceTime(data, callback) {
   /* const connection = mysql.createConnection("db.json".gfjp());
   connection.connect();
   connection.query(
@@ -1211,15 +1217,18 @@ function searchbotTimeAdmin(data) {
   const urls = ("script/search_dict/" + club + ".json").gfjp();
   const objUrl = [];
   urls.forEach(([, url, func]) => {
-    if ([
-      "funcLogin",
-      "funcReserve",
-      "funcCalendar",
-      "funcOut",
-      "funcLogout",
-      "funcProcEnd",
-      "funcPopLogin"
-    ].indexOf(func) == -1) return;
+    if (
+      [
+        "funcLogin",
+        "funcReserve",
+        "funcCalendar",
+        "funcOut",
+        "funcLogout",
+        "funcProcEnd",
+        "funcPopLogin",
+      ].indexOf(func) == -1
+    )
+      return;
     objUrl.push('"' + url + '": ' + func);
   });
   const address_mapping = "{" + objUrl.join(",") + "}";
@@ -1257,15 +1266,18 @@ function searchbotDateAdmin(data) {
   const urls = ("script/search_dict/" + club + ".json").gfjp();
   const objUrl = [];
   urls.forEach(([, url, func]) => {
-    if ([
-      "funcLogin",
-      "funcReserve",
-      "funcCalendar",
-      "funcOut",
-      "funcLogout",
-      "funcProcEnd",
-      "funcPopLogin"
-    ].indexOf(func) == -1) return;
+    if (
+      [
+        "funcLogin",
+        "funcReserve",
+        "funcCalendar",
+        "funcOut",
+        "funcLogout",
+        "funcProcEnd",
+        "funcPopLogin",
+      ].indexOf(func) == -1
+    )
+      return;
     objUrl.push('"' + url + '": ' + func);
   });
   const address_mapping = "{" + objUrl.join(",") + "}";
@@ -1514,7 +1526,7 @@ function getSearchScriptAdmin(engName, command) {
   const d = cores.join("");
   // LOGOUT
   const loPath = "script/search_logout/" + engName + ".json";
-  let { LOGOUT } = loPath.gfjp();   
+  let { LOGOUT } = loPath.gfjp();
   const searchCommonScript = a.add(b).add(c).add(d).add(LOGOUT).dp(param);
 
   // step 3: 동작 함수
@@ -1627,5 +1639,3 @@ function gf(file) {
   //get file
   return fs.readFileSync(file, "utf-8");
 }
-
-
