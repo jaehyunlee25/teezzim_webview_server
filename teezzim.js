@@ -90,7 +90,7 @@ connection.query(
 );
 connection.end(); */
 
-"sql/golfClubNames.sql".query(getClubNames);
+"sql/golfClubNames.sql".gf().query(getClubNames);
 "sql/getLoginUrl.sql".gf().query(getLoginUrl);
 "sql/getSearchUrl.sql".gf().query(getSearchUrl);
 "sql/getAccount.sql".gf().query(getAccounts);
