@@ -117,6 +117,7 @@ function getAccounts(err, rows, fields) {
   // console.log(golfClubAccounts);
 }
 function getClubNames(err, rows, fields) {
+  if (err) log(err);
   rows.forEach((row) => {
     golfClubEngNames.push(row.eng_id);
     golfClubIds[row.eng_id] = row.golf_club_id;
