@@ -61,7 +61,7 @@ javascript:(() => {
         return;
       }
         
-      location.href = "${searchUrl}";
+      /*location.href = "${searchUrl}";*/
 
       return;
     }    
