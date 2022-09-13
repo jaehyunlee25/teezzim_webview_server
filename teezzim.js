@@ -1227,6 +1227,7 @@ function searchbotTimeAdmin(data) {
         "funcLogout",
         "funcProcEnd",
         "funcPopLogin",
+        "funcMain",
       ].indexOf(func) == -1
     )
       return;
@@ -1276,6 +1277,7 @@ function searchbotDateAdmin(data) {
         "funcLogout",
         "funcProcEnd",
         "funcPopLogin",
+        "funcMain",
       ].indexOf(func) == -1
     )
       return;

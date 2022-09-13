@@ -41,6 +41,14 @@ javascript:(() => {
     }
     function funcMain() {
       log("funcMain");
+
+      const chk = LSCHK("TZ_SEARCH_MAIN" + clubId, 10);
+      log("timeout chk", chk);
+      if (!chk) {
+        log("funcMain Timein ERROR");
+        return;
+      }
+
       location.href = "${searchUrl}";
       return;
     }
@@ -54,14 +62,14 @@ javascript:(() => {
     function funcOther() {
       log("funcOther");
 
-      const chk = LSCHK("TZ_SEARCH_OTHER" + clubId, 5);
+      const chk = LSCHK("TZ_SEARCH_OTHER" + clubId, 10);
       log("timeout chk", chk);
       if (!chk) {
         log("funcOther Timein ERROR");
         return;
       }
         
-      /*location.href = "${searchUrl}";*/
+      location.href = "${searchUrl}";
 
       return;
     }    
