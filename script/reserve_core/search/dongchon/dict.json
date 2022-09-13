@@ -1,1 +1,6 @@
-[["login_url","https://www.dongchongc.co.kr:442/Mobile/Member/Login","funcLogin"],["search_url","https://www.dongchongc.co.kr:442/Mobile/Booking/ReservedList","funcReserve"],["main_url","https://www.dongchongc.co.kr:442/Mobile","funcMain"],["logout_url","https://www.dongchongc.co.kr:442/Mobile/Mobile/Member/Logout","funcOut"]]
+[
+    ["login_url","https://www.dongchongc.co.kr:442/Mobile/Member/Login","funcLogin"],
+    ["search_url","https://www.dongchongc.co.kr:442/Mobile/Booking/ReservedList","funcReserve"],
+    ["main_url","https://www.dongchongc.co.kr:442/Mobile","funcMain"],
+    ["logout_url","https://www.dongchongc.co.kr:442/Mobile/Mobile/Member/LogOut","funcOut"]
+]
