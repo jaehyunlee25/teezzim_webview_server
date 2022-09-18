@@ -238,9 +238,7 @@ function procPost(request, response, data) {
     };
   } else if (request.url == "/delDeviceRecord") {
     delDeviceDate(data, (res1) => {
-      dir(res1);
       delDeviceTime(data, (res2) => {
-        dir(res2);
         objResp = {
           resultCode: 200,
           message: "디바이스 자료를 모두 삭제했습니다.",
@@ -248,6 +246,15 @@ function procPost(request, response, data) {
         response.write(JSON.stringify(objResp));
         response.end();
       });
+    });
+  } else if (request.url == "/delDeviceRecordTime") {
+    delDeviceTime(data, (res2) => {
+      objResp = {
+        resultCode: 200,
+        message: "디바이스 타임 자료를 모두 삭제했습니다.",
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
     });
   } else if (request.url == "/setGolfClubState") {
     setGolfClubState(data, (rows) => {
