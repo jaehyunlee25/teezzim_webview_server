@@ -59,6 +59,10 @@ String.prototype.howmany = function (str) {
   else num = num.length;
   return num;
 };
+Array.prototype.lo = function () {
+  const idx = this.length - 1;
+  return this[idx];
+};
 const golfClubEngNames = [];
 const golfClubIdToEng = {};
 const golfClubEngToKor = {};
@@ -213,7 +217,8 @@ function procPost(request, response, data) {
   let url;
   let script;
   let objResp;
-  if (request.url == "/clubs") {
+  const reqUrl = "/" + request.url.split("/").lo();
+  if (reqUrl == "/clubs") {
     const result = [];
     const clubIds = {};
     const clubStates = {};
@@ -232,11 +237,11 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
-  } else if (request.url == "/getClubNames") {
+  } else if (reqUrl == "/getClubNames") {
     objResp = {
       golfClubEngToKor,
     };
-  } else if (request.url == "/delDeviceRecord") {
+  } else if (reqUrl == "/delDeviceRecord") {
     delDeviceDate(data, (res1) => {
       delDeviceTime(data, (res2) => {
         objResp = {
@@ -247,7 +252,7 @@ function procPost(request, response, data) {
         response.end();
       });
     });
-  } else if (request.url == "/delDeviceRecordTime") {
+  } else if (reqUrl == "/delDeviceRecordTime") {
     delDeviceTime(data, (res2) => {
       objResp = {
         resultCode: 200,
@@ -256,7 +261,7 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
-  } else if (request.url == "/setGolfClubState") {
+  } else if (reqUrl == "/setGolfClubState") {
     setGolfClubState(data, (rows) => {
       objResp = {
         resultCode: 200,
@@ -265,23 +270,23 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
-  } else if (request.url == "/getLog") {
+  } else if (reqUrl == "/getLog") {
     getLog((err, rows, fields) => {
       objResp = { resultCode: 200, message: "okay", data: rows };
       response.write(JSON.stringify(objResp));
       response.end();
     });
-  } else if (request.url == "/setReserveCancel") {
+  } else if (reqUrl == "/setReserveCancel") {
     objResp = setReserveCancel(data);
-  } else if (request.url == "/setReserveSearch") {
+  } else if (reqUrl == "/setReserveSearch") {
     objResp = setReserveSearch(data);
-  } else if (request.url == "/setReserveReserve") {
+  } else if (reqUrl == "/setReserveReserve") {
     objResp = setReserveReserve(data);
-  } else if (request.url == "/account") {
+  } else if (reqUrl == "/account") {
     objResp = {
       accounts: golfClubAccounts,
     };
-  } else if (request.url == "/search_core") {
+  } else if (reqUrl == "/search_core") {
     const engName = data.club;
     getSearchScript(engName, (script) => {
       const url = golfClubSearchUrl[engName];
@@ -292,7 +297,7 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
-  } else if (request.url == "/set_pure_search_core") {
+  } else if (reqUrl == "/set_pure_search_core") {
     const { club, part } = data;
     const engName = club;
     let core;
@@ -341,7 +346,7 @@ function procPost(request, response, data) {
 
     response.write(JSON.stringify({ resultCode: 200, result: "okay" }));
     response.end();
-  } else if (request.url == "/get_pure_search_core") {
+  } else if (reqUrl == "/get_pure_search_core") {
     const engName = data.club;
     let core = "";
     const part = {
@@ -388,7 +393,7 @@ function procPost(request, response, data) {
     }
     response.write(JSON.stringify({ core, part }));
     response.end();
-  } else if (request.url == "/get_pure_login") {
+  } else if (reqUrl == "/get_pure_login") {
     const engName = data.club;
     let core = "";
     try {
@@ -399,7 +404,7 @@ function procPost(request, response, data) {
     response.write(JSON.stringify({ core }));
     response.end();
     return;
-  } else if (request.url == "/set_pure_login") {
+  } else if (reqUrl == "/set_pure_login") {
     const { engName, core } = data;
     // backup first
     fs.writeFileSync(
@@ -410,8 +415,8 @@ function procPost(request, response, data) {
     fs.writeFileSync("script/login/" + engName + ".js", core);
     response.write(JSON.stringify({ resultCode: 200, result: "okay" }));
     response.end();
-  } else if (request.url == "/search") {
-    console.log("url", request.url);
+  } else if (reqUrl == "/search") {
+    console.log("url", reqUrl);
     const engName = data.club;
     const common = fs.readFileSync("script/search/common.js", "utf-8");
     /* const clubscript = fs.readFileSync(
@@ -429,7 +434,7 @@ function procPost(request, response, data) {
       response.write(JSON.stringify(objResp));
       response.end();
     });
-  } else if (request.url == "/control") {
+  } else if (reqUrl == "/control") {
     /*
     controlForUserDevice(engName, "");
     */
@@ -448,11 +453,11 @@ function procPost(request, response, data) {
     });
 
     objResp = {};
-  } else if (request.url == "/searchbot") {
+  } else if (reqUrl == "/searchbot") {
     objResp = searchbot(data);
-  } else if (request.url == "/searchbot_admin") {
+  } else if (reqUrl == "/searchbot_admin") {
     objResp = searchbot(data);
-  } else if (request.url == "/searchbots_admin") {
+  } else if (reqUrl == "/searchbots_admin") {
     const { clubs } = data;
     const urls = {};
     const scripts = {};
@@ -464,7 +469,7 @@ function procPost(request, response, data) {
       ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
-  } else if (request.url == "/searchbots_date_admin") {
+  } else if (reqUrl == "/searchbots_date_admin") {
     const { clubs } = data;
     const urls = {};
     const scripts = {};
@@ -477,7 +482,7 @@ function procPost(request, response, data) {
       ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
-  } else if (request.url == "/searchbots_time_admin") {
+  } else if (reqUrl == "/searchbots_time_admin") {
     const { clubs, date } = data;
     const urls = {};
     const scripts = {};
@@ -490,7 +495,7 @@ function procPost(request, response, data) {
       ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
-  } else if (request.url == "/searchbots_date") {
+  } else if (reqUrl == "/searchbots_date") {
     const { clubs } = data;
     const urls = {};
     const scripts = {};
@@ -503,7 +508,7 @@ function procPost(request, response, data) {
       ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
-  } else if (request.url == "/searchbots_time") {
+  } else if (reqUrl == "/searchbots_time") {
     log("searchbots_time");
     const { clubs, date } = data;
     const urls = {};
@@ -517,7 +522,7 @@ function procPost(request, response, data) {
       ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
-  } else if (request.url == "/reservebot") {
+  } else if (reqUrl == "/reservebot") {
     objResp = reservebotAdmin(data);
     /* const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
@@ -548,9 +553,9 @@ function procPost(request, response, data) {
       url: loginUrl,
       script,
     }; */
-  } else if (request.url == "/reservebot_admin") {
+  } else if (reqUrl == "/reservebot_admin") {
     objResp = reservebotAdmin(data);
-  } else if (request.url == "/reserveSearchbot") {
+  } else if (reqUrl == "/reserveSearchbot") {
     objResp = reserveSearchbotAdmin(data);
     /* const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
@@ -580,7 +585,7 @@ function procPost(request, response, data) {
       url: loginUrl,
       script,
     }; */
-  } else if (request.url == "/reserveSearchbots_admin") {
+  } else if (reqUrl == "/reserveSearchbots_admin") {
     const { clubs } = data;
     const urls = {};
     const scripts = {};
@@ -592,9 +597,9 @@ function procPost(request, response, data) {
       ids[club] = golfClubIds[club];
     });
     objResp = { urls, scripts, ids };
-  } else if (request.url == "/reserveSearchbot_admin") {
+  } else if (reqUrl == "/reserveSearchbot_admin") {
     objResp = reserveSearchbotAdmin(data);
-  } else if (request.url == "/reserveCancelbot") {
+  } else if (reqUrl == "/reserveCancelbot") {
     objResp = reserveCancelbotAdmin(data);
     /* const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
@@ -629,7 +634,7 @@ function procPost(request, response, data) {
       url: loginUrl,
       script,
     }; */
-  } else if (request.url == "/reserveCancelbot_admin") {
+  } else if (reqUrl == "/reserveCancelbot_admin") {
     objResp = reserveCancelbotAdmin(data);
     /* const { club: engName, year, month, date, course, time } = data;
     const commonScript = fs.readFileSync("script/search/common.js", "utf-8");
@@ -667,13 +672,13 @@ function procPost(request, response, data) {
       url: loginUrl,
       script,
     }; */
-  } else if (request.url == "/login_admin") {
+  } else if (reqUrl == "/login_admin") {
     const { club } = data;
     objResp = {
       url: golfClubLoginUrl[club],
       script: getLoginScriptAdmin(club),
     };
-  } else if (request.url == "/login") {
+  } else if (reqUrl == "/login") {
     const uuid = data.clubId;
     const engName = golfClubIdToEng[uuid];
     url = golfClubLoginUrl[engName];
@@ -683,7 +688,7 @@ function procPost(request, response, data) {
       script,
     };
   } else {
-    const engName = request.url.substring(1);
+    const engName = reqUrl.substring(1);
     url = golfClubLoginUrl[engName];
     script = getLoginScript(engName);
     objResp = {
