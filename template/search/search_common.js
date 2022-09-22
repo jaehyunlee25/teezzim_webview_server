@@ -10,7 +10,7 @@ if(lsg("TZ_ADMIN_BLOCK_IC") != null) {
 		log(2);
 		if (visitNumber > 9) {
 			log(3);
-			if(ac) ac.message("TZ_MSG_IC");
+			if (ac) ac.message(JSON.stringify({command: "TZ_MSG_IC"}));
 			TZ_BOT_SAFETY = false;
 			/* 초기화 */
 			visitNumber = 0;
