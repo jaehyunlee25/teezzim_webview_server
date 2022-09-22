@@ -86,6 +86,7 @@ function procDate() {
 }
 function procGolfSchedule() {
   golf_schedule.forEach((obj) => {
+    obj.golf_course_name = obj.golf_course_id;
     let course_id = courses[obj.golf_course_id];
     if (!course_id && Object.keys(courses).length === 1)
       course_id = courses[Object.keys(courses)[0]];
@@ -120,3 +121,35 @@ function procGolfSchedule() {
     LOGOUT();
   });
 }
+/* 
+[
+  {
+    club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
+    club: "delphino",
+    content: [
+      {
+        date: "2022-09-28",
+        fee_discount: 210000,
+        fee_normal: 210000,
+        golf_club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
+        golf_course_id: "b81cbf25-cd86-11ec-a93e-0242ac11000a",
+        in_out: "",
+        others: "OUT",
+        persons: "",
+        time: "07:07",
+      },
+      {
+        date: "2022-09-28",
+        fee_discount: 210000,
+        fee_normal: 210000,
+        golf_club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
+        golf_course_id: "b81cc15a-cd86-11ec-a93e-0242ac11000a",
+        in_out: "",
+        others: "IN",
+        persons: "",
+        time: "07:07",
+      },
+    ],
+  },
+];
+ */
