@@ -32,6 +32,7 @@ function procDate() {
         const acParam = {};
         if (golf_date.length == 0) {
           acParam.command = "NONE_OF_GET_DATE";
+        } else {
           if (json.resultCode == 200) {
             acParam.command = "SUCCESS_OF_GET_DATE";
             acParam.content = golf_date;
