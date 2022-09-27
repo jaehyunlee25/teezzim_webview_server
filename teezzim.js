@@ -239,12 +239,7 @@ function procPost(request, response, data) {
     objResp = 0;
   } else if (reqUrl == "/getOuterInfo") {
     const { club_id: clubId } = data;
-    const qStr =
-      'select * from golf_club_outer_info where golf_club_id = "' +
-      clubId +
-      '";';
-    console.log(qStr);
-    qStr.query((err, rows, fields) => {
+    "sql/getOuterInfo.sql".gfdp({ clubId }).query((err, rows, fields) => {
       if (err) console.log(err);
       objResp = {
         data: rows,
