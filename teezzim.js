@@ -237,6 +237,16 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/getOuterInfo") {
+    "select * from golf_club_outer_info where golf_club_id = '" +
+      data.club_id +
+      "';".query((err, rows, fields) => {
+        objResp = {
+          data: rows,
+        };
+        response.write(JSON.stringify(objResp));
+        response.end();
+      });
   } else if (reqUrl == "/getClubNames") {
     objResp = {
       golfClubEngToKor,
