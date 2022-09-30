@@ -35,12 +35,8 @@ function procDate() {
     if (golf_date.length == 0) {
       acParam.command = "NONE_OF_GET_DATE";
     } else {
-      if (json.resultCode == 200) {
-        acParam.command = "SUCCESS_OF_GET_DATE";
-        acParam.content = golf_date;
-      } else {
-        acParam.command = "FAIL_OF_GET_DATE";
-      }
+      acParam.command = "SUCCESS_OF_GET_DATE";
+      acParam.content = golf_date;
     }
     if (ac) ac.message(JSON.stringify(acParam));
     LOGOUT();
@@ -102,12 +98,8 @@ function procGolfSchedule() {
     log("예약가능한 시간이 없습니다.");
     acParam.command = "NONE_OF_GET_SCHEDULE";
   } else {
-    if (json.resultCode == 200) {
-      acParam.command = "end of procGolfSchedule!";
-      acParam.content = golf_schedule;
-    } else {
-      acParam.command = "FAIL_OF_GET_SCHEDULE";
-    }
+    acParam.command = "end of procGolfSchedule!";
+    acParam.content = golf_schedule;
   }
   if (ac) ac.message(JSON.stringify(acParam));
   LOGOUT();
