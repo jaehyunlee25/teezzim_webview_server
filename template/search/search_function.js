@@ -92,6 +92,7 @@ function procGolfSchedule() {
     if (obj.time.indexOf(":") == -1)
       obj.time = obj.time.gh(2) + ":" + obj.time.gt(2);
   });
+  console.log("golf_schedule");
   console.log(golf_schedule);
   const acParam = {};
   if (golf_schedule.length == 0) {
