@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.gold-9.co.kr/member/login.asp","funcLogin"],
+    ["search_url","https://www.gold-9.co.kr/reserve/calendar.asp","funcReserve"]
+]
