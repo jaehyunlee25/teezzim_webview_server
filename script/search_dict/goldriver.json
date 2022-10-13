@@ -1,0 +1,4 @@
+[
+    ["login_url","http://www.goldrivercc.com/new/ezs_member/login.php","funcLogin"],
+    ["search_url","http://www.goldrivercc.com/new/sub4/menu1.php","funcReserve"]
+]
