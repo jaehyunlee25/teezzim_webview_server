@@ -39,7 +39,7 @@ function procDate() {
       acParam.content = golf_date;
     }
     if (ac) ac.message(JSON.stringify(acParam));
-    //LOGOUT();
+    /* LOGOUT(); */
 
     return;
   }
@@ -104,7 +104,7 @@ function procGolfSchedule() {
     acParam.content = golf_schedule;
   }
   if (ac) ac.message(JSON.stringify(acParam));
-  //LOGOUT();
+  /* LOGOUT(); */
   /* const param = {
     golf_schedule,
     device_id: "${deviceId}",
