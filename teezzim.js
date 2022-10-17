@@ -1272,7 +1272,7 @@ function searchbotTimeAdmin(data) {
     searchScript,
   });
   objResp = {
-    url: loginUrl,
+    url: searchUrl,
     script,
   };
 
@@ -1321,7 +1321,7 @@ function searchbotDateAdmin(data) {
     searchScript,
   });
   objResp = {
-    url: loginUrl,
+    url: searchUrl,
     script,
   };
 

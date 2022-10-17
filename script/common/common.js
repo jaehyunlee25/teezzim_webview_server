@@ -251,6 +251,13 @@ HTMLElement.prototype.gtn = function (str) {
 HTMLElement.prototype.str = function (str) {
   return this.innerText;
 };
+HTMLElement.prototype.trav = function (fnc) {
+  fnc(this);
+  var a = this.children.length;
+  for (var i = 0; i < a; i++) {
+    this.children[i].trav(fnc);
+  }
+};
 document.gcn = function (str) {
   const els = this.getElementsByClassName(str);
   return Array.from(els);
