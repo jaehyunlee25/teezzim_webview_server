@@ -3,4 +3,7 @@ ${common}
 logParam.sub_type = "login";
 logParam.message = "start login";
 TZLOG(logParam, (data) => {}); 
-${loginScript}
+main();
+function main() {
+    ${loginScript}
+};
