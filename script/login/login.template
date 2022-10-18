@@ -9,3 +9,4 @@ function main() {
     if (precheck()) return;
     ${loginScript}
 };
+function precheck() {};
