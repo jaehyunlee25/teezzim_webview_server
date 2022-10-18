@@ -248,6 +248,10 @@ HTMLElement.prototype.gtn = function (str) {
   const els = this.getElementsByTagName(str);
   return Array.from(els);
 };
+HTMLElement.prototype.gbn = function (str) {
+  const els = this.getElementsByName(str);
+  return Array.from(els);
+};
 HTMLElement.prototype.str = function (str) {
   return this.innerText;
 };
@@ -264,6 +268,10 @@ document.gcn = function (str) {
 };
 document.gtn = function (str) {
   const els = this.getElementsByTagName(str);
+  return Array.from(els);
+};
+document.gbn = function (str) {
+  const els = this.getElementsByName(str);
   return Array.from(els);
 };
 document.clm = function (str) {

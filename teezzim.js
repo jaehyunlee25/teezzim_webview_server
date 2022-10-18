@@ -1642,14 +1642,14 @@ function getLoginScriptAdmin(engName) {
 }
 function getLoginScript(engName, noCover) {
   const golfClubId = golfClubIds[engName];
-  const cover = fs.readFileSync("script/login/cover.template", "utf-8");
-  const template = fs.readFileSync("script/login/login.template", "utf-8");
-  const common = fs.readFileSync("script/search/common.js", "utf-8");
+  const cover = "script/login/cover.template".gf();
+  const template = "script/login/login.template".gf();
+  const common = "script/search/common.js".gf();
   let loginScript;
   let loginContent;
   try {
-    loginScript = fs
-      .readFileSync("script/login/" + engName + ".js", "utf-8")
+    loginScript = ("script/login/" + engName + ".js")
+      .gf()
       .split("\r\n")
       .join("\r\n    ");
     loginContent = template.dp({ common, loginScript, golfClubId });
