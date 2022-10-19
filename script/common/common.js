@@ -1,5 +1,3 @@
-const e = require("express");
-
 /* test */
 const log = console.log;
 const dir = console.dir;
