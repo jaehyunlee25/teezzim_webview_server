@@ -1,3 +1,5 @@
+const e = require("express");
+
 /* test */
 const log = console.log;
 const dir = console.dir;
@@ -261,6 +263,15 @@ HTMLElement.prototype.trav = function (fnc) {
   for (var i = 0; i < a; i++) {
     this.children[i].trav(fnc);
   }
+};
+HTMLElement.prototype.gba = function (attr, val) {
+  /* getElementsByAttribute */
+  const res = [];
+  this.trav((el) => {
+    const str = el.attr(attr);
+    if (str == val) res.push(el);
+  });
+  return res;
 };
 document.gcn = function (str) {
   const els = this.getElementsByClassName(str);
