@@ -74,6 +74,7 @@ const golfClubReserveUrl = {};
 const golfClubAccounts = {};
 const golfCourseByEngId = {};
 const golfCourseByUUID = {};
+const golfClubLoginProc = {};
 const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 /* connection.connect();
@@ -99,7 +100,18 @@ connection.end(); */
 "sql/getSearchUrl.sql".gf().query(getSearchUrl);
 "sql/getAccount.sql".gf().query(getAccounts);
 "sql/golf_course.sql".gf().query(getGolfCourses);
+"sql/proc_login.sql".gf().query(getProcLogins);
 
+function getProcLogins(err, rows, fields) {
+  rows.forEach((row) => {
+    golfClubLoginProc[row.id] = {
+      result: row.result,
+      proc: row.proc,
+      message: row.message,
+      landingLink: row.landing_link,
+    };
+  });
+}
 function getGolfCourses(err, rows, fields) {
   rows.forEach((row) => {
     if (!golfCourseByEngId[row.golf_club_english_name])
@@ -693,9 +705,11 @@ function procPost(request, response, data) {
     const engName = golfClubIdToEng[uuid];
     url = golfClubLoginUrl[engName];
     script = getLoginScript(engName);
+    proc = golfClubLoginProc[uuid];
     objResp = {
       url,
       script,
+      proc,
     };
   } else {
     const engName = reqUrl.substring(1);
