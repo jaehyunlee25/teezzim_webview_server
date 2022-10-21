@@ -709,7 +709,10 @@ function procPost(request, response, data) {
     objResp = {
       url,
       script,
-      proc,
+      procProc: proc.proc,
+      procResult: proc.result,
+      procMessage: proc.message,
+      procLandingLink: proc.landingLink,
     };
   } else {
     const engName = reqUrl.substring(1);
