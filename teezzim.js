@@ -98,6 +98,7 @@ connection.end(); */
 "sql/golfClubNames.sql".gf().query(getClubNames);
 "sql/getLoginUrl.sql".gf().query(getLoginUrl);
 "sql/getSearchUrl.sql".gf().query(getSearchUrl);
+"sql/getReserveUrl.sql".gf().query(getReserveUrl);
 "sql/getAccount.sql".gf().query(getAccounts);
 "sql/golf_course.sql".gf().query(getGolfCourses);
 "sql/proc_login.sql".gf().query(getProcLogins);
