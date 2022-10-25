@@ -1,8 +1,9 @@
 function mneCall(strdate, callback) {
   const param = {};
-  const els = document.getElementsByClassName("booking-calendar")[0].getElementsByTagName("a");
+  const els = doc.gcn("booking-calendar")[0].gtn("a");
   Array.from(els).forEach((el) => {
-    const date = el.getAttribute("data-date");
+    if(el.children[1].str().trim() != "예약") return;
+    const date = el.attr("data-date");
     dates.push([date, ""]);
   });
   callback();

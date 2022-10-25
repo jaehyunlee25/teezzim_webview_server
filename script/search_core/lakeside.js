@@ -47,8 +47,16 @@ function mneCallDetail(arrDate) {
     cssncourseum: "",
     inputType: "",
   };
+const dictCourse = {
+      동IN: "동In",
+      남IN: "남In",
+      서IN: "서In",
+      동OUT: "동Out",
+      남OUT: "남Out",
+      서OUT: "서Out",
+    };
   post("/reservation/list/ajax_real_timeinfo_list.do", param, {}, (data) => {
-    callbackNumber++;
+    /*callbackNumber++;*/
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
@@ -57,7 +65,7 @@ function mneCallDetail(arrDate) {
       if (i === 0) return;
       const tds = tr.children;
       const time = tds[1].innerHTML;
-      const course = tds[2].innerHTML.gh(1);
+      const course = dictCourse[tds[2].innerHTML.trim()];
       const inOut = tds[2].innerHTML;
       const fee_normal = tds[4].innerText.replace(/\,/g, "") * 1;
       const fee_discount = tds[5].innerText.replace(/\,/g, "") * 1;

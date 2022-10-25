@@ -58,14 +58,18 @@ function mneCallDetail(arrDate) {
 function funcLogin() {
   log("funcLogin");
 
-  if (doc.gcn("atag_flex")[0].str() == "로그아웃")
-    location.href = "${searchUrl}";
   
-  const chk = LSCHK("TZ_SEARCH_LOGIN", 5);
+  const chk = LSCHK("TZ_SEARCH_LOGIN" + clubId, 5);
   if(!chk) {
     location.href = "${searchUrl}";
     return;
   }
+
+  if (doc.gcn("atag_flex")[0].str() == "로그아웃") {
+    location.href = "${searchUrl}";
+    return;
+}
+  
 
   ${loginScript}
 

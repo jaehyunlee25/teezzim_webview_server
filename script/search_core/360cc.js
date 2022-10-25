@@ -40,7 +40,7 @@ function mneCallDetail(arrDate) {
 
     const obTeams = {};
     Array.from(els).forEach((el, i) => {
-      if (i === 0) return;
+      /*if (i === 0) return;*/
       const course = courseDict[el.children[1].innerText];
       const time = el.children[2].innerText;
       const fee_discount = el.children[4].innerText.split(",").join("") * 1;

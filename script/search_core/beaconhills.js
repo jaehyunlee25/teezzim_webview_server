@@ -69,7 +69,6 @@ function mneCallDetail(arrDate) {
 /* <============line_div==========> */
 
 /* <============line_div==========> */
-let global_param = {};
 mneCall(thisdate, () => {
   mneCall(nextdate, () => {
     const param = { SelDate: thisdate + "01" };

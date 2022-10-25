@@ -71,7 +71,6 @@ function mneCallDetail(arrDate) {
     procDate();
   });
 }
-
 /* <============line_div==========> */
 
 /* <============line_div==========> */
