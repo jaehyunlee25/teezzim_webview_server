@@ -1,0 +1,1 @@
+[["login_url","https://www.cypress.co.kr/member/login","funcLogin"],["search_url","https://www.cypress.co.kr/reservation/resList","funcReserve"],["main_url","https://www.cypress.co.kr/","funcMain"],["logout_url","https://www.cypress.co.kr/member/logout","funcOut"]]
