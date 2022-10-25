@@ -1133,7 +1133,7 @@ function reserveSearchbotAdmin(data) {
     reserveUrl,
     loginScript,
   });
-  return { url: loginUrl, script };
+  return { url: reserveUrl, script };
 }
 function reservebotAdmin(data) {
   const { club: engName, year, month, date, course, time } = data;
