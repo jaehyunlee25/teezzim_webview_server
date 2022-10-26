@@ -40,6 +40,7 @@ function procDate() {
     }
     if (ac) {
       ac.message(JSON.stringify(acParam));
+      lsc();
     }
     /* LOGOUT(); */
 
@@ -105,7 +106,10 @@ function procGolfSchedule() {
     acParam.command = "end of procGolfSchedule!";
     acParam.content = golf_schedule;
   }
-  if (ac) ac.message(JSON.stringify(acParam));
+  if (ac) {
+    ac.message(JSON.stringify(acParam));
+    lsc();
+  }
   /* LOGOUT(); */
   /* const param = {
     golf_schedule,
