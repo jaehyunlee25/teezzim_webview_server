@@ -1,5 +1,5 @@
 const loginT = setInterval(() => {
-  if (!window["memberId"]) return;
+  if (!window["memberID"]) return;
 
   clearInterval(loginT);
   memberID.value = "${login_id}";
