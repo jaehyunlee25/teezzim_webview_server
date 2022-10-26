@@ -151,7 +151,11 @@ function lsr(str) {
   return localStorage.removeItem(str);
 }
 function lsc() {
-  return localStorage.clear();
+  const keys = Object.keys(localStorage);
+  keys.forEach((key) => {
+    if (key.indexOf("TZ_") == -1) return;
+    lsr(key);
+  });
 }
 String.prototype.gt = function (num) {
   return this.substring(this.length - num, this.length);

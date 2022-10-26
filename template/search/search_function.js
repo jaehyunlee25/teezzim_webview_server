@@ -38,7 +38,9 @@ function procDate() {
       acParam.command = "SUCCESS_OF_GET_DATE";
       acParam.content = golf_date;
     }
-    if (ac) ac.message(JSON.stringify(acParam));
+    if (ac) {
+      ac.message(JSON.stringify(acParam));
+    }
     /* LOGOUT(); */
 
     return;

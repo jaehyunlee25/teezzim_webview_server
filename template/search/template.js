@@ -2,11 +2,11 @@ javascript:(() => {
   
     ${commonScript}
  
-    const dict = ${address_mapping};   
+    const dict = ${address_mapping};
 
     function funcLogin() {
       log("funcLogin");
-      
+
       const chk = LSCHK("TZ_SEARCH_LOGIN" + clubId, 5);
       if (!chk) {
         log("funcLogin Timein ERROR");
@@ -15,12 +15,12 @@ javascript:(() => {
       }
 
       ${loginScript}
-    
+
       return;
     }
-    
+
     ${searchCommonScript}
-    
+
     function main() {
       log("main");
 
@@ -68,11 +68,11 @@ javascript:(() => {
         log("funcOther Timein ERROR");
         return;
       }
-        
+
       location.href = "${searchUrl}";
 
       return;
-    }    
+    }
     function funcReserve() {
       log("funcSearch");
 
