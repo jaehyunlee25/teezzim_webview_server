@@ -56,11 +56,8 @@ function getDetail(param, fnc) {
     param,
     { "Content-Type": "application/json" },
     (data) => {
-      log("JK message");
-      log(data);
       const json = JSON.parse(data);
-
-		  fnc(data.message);
+		  fnc(json.message);
     }
   );
 }
