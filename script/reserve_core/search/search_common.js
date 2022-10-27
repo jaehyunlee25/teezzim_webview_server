@@ -50,6 +50,7 @@ if (!func) funcOther();
 else func();
 
 function getDetail(param, fnc) {
+  log("getDetail");
   post(
     OUTER_ADDR_HEADER + "/api/crawler/getScheduleDetail",
     param,
