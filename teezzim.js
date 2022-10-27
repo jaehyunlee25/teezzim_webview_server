@@ -117,7 +117,6 @@ function getGolfCourse(err, rows, fields) {
     if (!golfCourses[row.golf_club_id]) golfCourses[row.golf_club_id] = {};
     golfCourses[row.golf_club_id][row.name] = row;
   });
-  dir(golfCourses);
 }
 function getProcLogins(err, rows, fields) {
   rows.forEach((row) => {
@@ -267,22 +266,21 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/getScheduleDetail") {
-    "sql/getScheduleDetail.sql".gfdp(data).query((err, rows, fields) => {
-      if (err) {
-        console.log(err);
-        objResp = {
-          type: "error",
-          data: err,
-        };
-      } else {
-        objResp = {
-          type: "okay",
-          message: rows,
-        };
-      }
-      response.write(JSON.stringify(objResp));
-      response.end();
+    const message = [];
+    data.result.forEach((el) => {
+      message.push({
+        game_date: data.date,
+        game_time: data.time,
+        GolfClub: golfClubs[data.golf_club_id],
+        GolfCourse: golfCourses[data.golf_club_id][el.course],
+      });
     });
+    objResp = {
+      type: "okay",
+      message,
+    };
+    response.write(JSON.stringify(objResp));
+    response.end();
   } else if (reqUrl == "/question") {
     "sql/setQuestion.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
