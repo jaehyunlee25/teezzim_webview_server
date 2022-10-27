@@ -20,16 +20,13 @@ files.forEach((file, i) => {
   const funcName = funcs.funcSearch ? "funcSearch" : "funcReserve";
   const lines = funcs[funcName].split("\r\n");
 
-  log(lines);
-  return;
-
   let flg = false;
   let chk = false;
   const before = [];
   const param = [];
   const after = [];
   lines.forEach((ln) => {
-    if (ln.indexOf("if(ac)") != -1) {
+    if (ln.indexOf("}):") != -1) {
       log(cnt, file, funcName);
       flg = true;
       chk = true;
@@ -41,17 +38,10 @@ files.forEach((file, i) => {
       else before.push(ln);
     }
 
-    if (flg && ln.indexOf("));") != -1) flg = false;
+    if (flg && ln.indexOf("}):") != -1) flg = false;
   });
-
-  const prm = [];
-  param.forEach((ln) => {
-    prm.push("    getDetail(param, (exParam) => {");
-    prm.push("    " + ln.replace("param", "exParam"));
-    prm.push("    }):");
-  });
-
-  funcs[funcName] = [...before, ...prm, ...after].join("\r\n");
+  param[0] = param[0].replace(":", ";");
+  funcs[funcName] = [...before, ...param, ...after].join("\r\n");
   log(funcs[funcName]);
 
   fs.writeFileSync(addr, JSON.stringify(funcs), "utf-8");
