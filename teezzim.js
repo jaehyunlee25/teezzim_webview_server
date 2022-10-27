@@ -266,7 +266,7 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/getScheduleDetail") {
-    log(data.result.length);
+    log("test", data.result.length);
     const message = {
       GolfClub: golfClubs[data.golf_club_id],
       Game: [],
