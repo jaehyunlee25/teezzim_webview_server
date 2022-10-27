@@ -20,16 +20,13 @@ files.forEach((file, i) => {
   const funcName = funcs.funcSearch ? "funcSearch" : "funcReserve";
   const lines = funcs[funcName].split("\r\n");
 
-  log(funcs[funcName]);
-  return;
-
   let flg = false;
   let chk = false;
   const before = [];
   const param = [];
   const after = [];
   lines.forEach((ln) => {
-    if (ln.indexOf("const addr = OUTER_ADDR_HEADER") != -1) {
+    if (ln.indexOf("if(ac)") != -1) {
       log(cnt, file, funcName);
       flg = true;
       chk = true;
@@ -41,18 +38,21 @@ files.forEach((file, i) => {
       else before.push(ln);
     }
 
-    if (flg && ln.trim() == "});") flg = false;
+    if (flg && ln.indexOf("));") != -1) flg = false;
   });
 
-  if (param[0].indexOf("/*") == -1) {
-    param.unshift("    /*");
-    param.push("    */");
-    param.unshift("    if(ac) ac.message(JSON.stringify(param));");
-  } else {
-  }
+  param.forEach((ln) => {
+    log("    getDetail(param, (exParam) => {");
+    log("    " + ln.replace("param", "exParam"));
+    log("    }):");
 
-  funcs[funcName] = [...before, ...param, ...after].join("\r\n");
-  log(funcs[funcName]);
+    /* const regex = /{.+}/g;
+    const str = regex.exec(ln)[0];
+    log("      const objEl = " + str + ";");
+    log(ln.replace(str, "objEl")); */
+  });
+  //funcs[funcName] = [...before, ...param, ...after].join("\r\n");
+  //log(funcs[funcName]);
 
   //fs.writeFileSync(addr, JSON.stringify(funcs), "utf-8");
 });
