@@ -89,10 +89,5 @@ javascript: (() => {
   function LOGOUT() {
     log("LOGOUT");
     return;
-  }
-  function getDetail(param, fnc) {
-	post("", param, { "Content-Type": "application/json" }, (data) => {
-		fnc(data.message);
-	});
-  }
+  }  
 })();

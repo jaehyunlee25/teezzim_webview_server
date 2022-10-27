@@ -37,14 +37,6 @@ lss("TZ_ADMIN_BLOCK_IC", visitNumber);
 log("TZ_ADMIN_BLOCK_IC", lsg("TZ_ADMIN_BLOCK_IC"), lsg("TZ_ADMIN_BLOCK_IC_TIME"));
 /* end blocking infinite call */
 
-/* const splitter = location.href.indexOf("?") == -1 ? "#" : "?";
-const aDDr = location.href.split(splitter)[0];
-const suffix = location.href.split(splitter)[1];
-const dictSplitter = {"#": "?", "?": "#"};
-let addr = aDDr;
-if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
-    addr = aDDr.split(dictSplitter[splitter])[0]; */
-
 log("raw addr :: ", location.href);
 log("aDDr :: ", aDDr);
 log("addr :: ", addr);
@@ -56,4 +48,10 @@ const dictCourse = ${reserve_course_mapping};
 
 if (!func) funcOther();
 else func();
+
+function getDetail(param, fnc) {
+	post("", param, { "Content-Type": "application/json" }, (data) => {
+		fnc(data.message);
+	});
+}
 
