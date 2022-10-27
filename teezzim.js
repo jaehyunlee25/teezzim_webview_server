@@ -250,6 +250,23 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/getScheduleDetail") {
+    "sql/getScheduleDetail.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          message: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (reqUrl == "/question") {
     "sql/setQuestion.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {

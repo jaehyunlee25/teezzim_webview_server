@@ -40,7 +40,7 @@ log("TZ_ADMIN_BLOCK_IC", lsg("TZ_ADMIN_BLOCK_IC"), lsg("TZ_ADMIN_BLOCK_IC_TIME")
 log("raw addr :: ", location.href);
 log("aDDr :: ", aDDr);
 log("addr :: ", addr);
-    
+
 const dict = ${address_mapping};
 
 const func = dict[addr];
@@ -50,8 +50,12 @@ if (!func) funcOther();
 else func();
 
 function getDetail(param, fnc) {
-	post("", param, { "Content-Type": "application/json" }, (data) => {
-		fnc(data.message);
-	});
+  post(
+    OUTER_ADDR_HEADER + "/api/crawler/getScheduleDetail",
+    param,
+    { "Content-Type": "application/json" },
+    (data) => {
+		  fnc(data.message);
+    }
+  );
 }
-
