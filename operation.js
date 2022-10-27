@@ -20,6 +20,9 @@ files.forEach((file, i) => {
   const funcName = funcs.funcSearch ? "funcSearch" : "funcReserve";
   const lines = funcs[funcName].split("\r\n");
 
+  log(lines);
+  return;
+
   let flg = false;
   let chk = false;
   const before = [];
@@ -41,18 +44,15 @@ files.forEach((file, i) => {
     if (flg && ln.indexOf("));") != -1) flg = false;
   });
 
+  const prm = [];
   param.forEach((ln) => {
-    log("    getDetail(param, (exParam) => {");
-    log("    " + ln.replace("param", "exParam"));
-    log("    }):");
-
-    /* const regex = /{.+}/g;
-    const str = regex.exec(ln)[0];
-    log("      const objEl = " + str + ";");
-    log(ln.replace(str, "objEl")); */
+    prm.push("    getDetail(param, (exParam) => {");
+    prm.push("    " + ln.replace("param", "exParam"));
+    prm.push("    }):");
   });
-  //funcs[funcName] = [...before, ...param, ...after].join("\r\n");
-  //log(funcs[funcName]);
 
-  //fs.writeFileSync(addr, JSON.stringify(funcs), "utf-8");
+  funcs[funcName] = [...before, ...prm, ...after].join("\r\n");
+  log(funcs[funcName]);
+
+  fs.writeFileSync(addr, JSON.stringify(funcs), "utf-8");
 });

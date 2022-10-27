@@ -1,1 +1,0 @@
-[["login_url","https://www.tanicc.co.kr/Mobile/member/login.asp","funcLogin"],["search_url","https://www.tanicc.co.kr/Mobile/Reservation/ReservationList.asp","funcReserve"],["main_url","https://www.tanicc.co.kr/Mobile/index.asp","funcMain"],["logout_url","https://www.tanicc.co.kr/Mobile/member/LogOut.asp","funcOut"]]

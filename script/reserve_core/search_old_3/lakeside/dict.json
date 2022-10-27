@@ -1,1 +1,0 @@
-[["login_url","https://www.lakeside.kr/mobile/login/login.do","funcLogin"],["search_url","https://www.lakeside.kr/mobile/reservation/my_golfreslist.do","funcReserve"],["main_url","https://www.lakeside.kr/mobile/main/mainPage.do","funcMain"],["logout_url","https://www.lakeside.kr/mobile/user/sign/Logout.do","funcOut"]]
