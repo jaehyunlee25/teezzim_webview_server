@@ -56,6 +56,7 @@ function getDetail(param, fnc) {
     param,
     { "Content-Type": "application/json" },
     (data) => {
+      const json = JSON.parse(data);
 		  fnc(data.message);
     }
   );
