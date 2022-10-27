@@ -267,12 +267,14 @@ function procPost(request, response, data) {
     objResp = 0;
   } else if (reqUrl == "/getScheduleDetail") {
     log(data.result.length);
-    const message = [];
+    const message = {
+      GolfClub: golfClubs[data.golf_club_id],
+      Game: [],
+    };
     data.result.forEach((el) => {
-      message.push({
+      message.Game.push({
         game_date: el.date,
         game_time: el.time,
-        GolfClub: golfClubs[data.golf_club_id],
         GolfCourse: golfCourses[data.golf_club_id][el.course],
       });
     });
