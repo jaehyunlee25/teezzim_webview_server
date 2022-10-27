@@ -57,6 +57,8 @@ function getDetail(param, fnc) {
     { "Content-Type": "application/json" },
     (data) => {
       const json = JSON.parse(data);
+      json.message.command = param.command;
+      json.message.golf_club_id = param.golf_club_id;
 		  fnc(json.message);
     }
   );
