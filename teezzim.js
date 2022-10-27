@@ -117,7 +117,7 @@ function getGolfCourse(err, rows, fields) {
     if (!golfCourses[row.golf_club_id]) golfCourses[row.golf_club_id] = {};
     golfCourses[row.golf_club_id][row.name] = row;
   });
-  log(golfCourses);
+  dir(golfCourses);
 }
 function getProcLogins(err, rows, fields) {
   rows.forEach((row) => {
