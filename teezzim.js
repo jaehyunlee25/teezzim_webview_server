@@ -266,6 +266,7 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/getScheduleDetail") {
+    log(data.result.length);
     const message = [];
     data.result.forEach((el) => {
       message.push({
