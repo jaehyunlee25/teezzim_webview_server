@@ -280,8 +280,6 @@ function procPost(request, response, data) {
       type: "okay",
       message,
     };
-    response.write(JSON.stringify(objResp));
-    response.end();
   } else if (reqUrl == "/question") {
     "sql/setQuestion.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
