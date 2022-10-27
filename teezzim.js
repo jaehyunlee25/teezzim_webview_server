@@ -269,8 +269,8 @@ function procPost(request, response, data) {
     const message = [];
     data.result.forEach((el) => {
       message.push({
-        game_date: data.date,
-        game_time: data.time,
+        game_date: el.date,
+        game_time: el.time,
         GolfClub: golfClubs[data.golf_club_id],
         GolfCourse: golfCourses[data.golf_club_id][el.course],
       });
