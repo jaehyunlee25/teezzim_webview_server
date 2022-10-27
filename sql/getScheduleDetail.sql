@@ -1,6 +1,5 @@
 select 
-    golf_club.id club_id,
-    golf_club.name club_name,
+    golf_club.*,
     golf_course.id course_id,
     golf_course.name course_name,
     golf_course.description

@@ -75,6 +75,8 @@ const golfClubAccounts = {};
 const golfCourseByEngId = {};
 const golfCourseByUUID = {};
 const golfClubLoginProc = {};
+const golfClubs = {};
+const golfCourses = {};
 const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 /* connection.connect();
@@ -95,6 +97,8 @@ connection.query(
 );
 connection.end(); */
 
+"sql/getGolfClub.sql".gf().query(getGolfClub);
+"sql/getGolfCourse.sql".gf().query(getGolfCourse);
 "sql/golfClubNames.sql".gf().query(getClubNames);
 "sql/getLoginUrl.sql".gf().query(getLoginUrl);
 "sql/getSearchUrl.sql".gf().query(getSearchUrl);
@@ -103,6 +107,18 @@ connection.end(); */
 "sql/golf_course.sql".gf().query(getGolfCourses);
 "sql/proc_login.sql".gf().query(getProcLogins);
 
+function getGolfClub(err, rows, fields) {
+  rows.forEach((row) => {
+    golfClubs[row.id] = row;
+  });
+}
+function getGolfCourse(err, rows, fields) {
+  rows.forEach((row) => {
+    if (!golfCourses[row.golf_club_id]) golfCourses[row.golf_club_id] = {};
+    golfCourses[row.golf_club_id][row.name] = row;
+  });
+  log(golfCourses);
+}
 function getProcLogins(err, rows, fields) {
   rows.forEach((row) => {
     golfClubLoginProc[row.id] = {
