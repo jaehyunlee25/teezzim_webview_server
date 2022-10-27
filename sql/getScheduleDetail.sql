@@ -3,7 +3,7 @@ select
     golf_club.name club_name,
     golf_course.id course_id,
     golf_course.name course_name,
-    '1234' number
+    golf_course.description
 from golf_club
 join golf_course on golf_club.id = golf_course.golf_club_id;
 /* where golf_club.id = '${golf_club_id}'
