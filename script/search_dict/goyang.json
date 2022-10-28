@@ -1,0 +1,4 @@
+[
+    ["login_url","https://m.goyangcc.com/Mobile/member/login.aspx","funcLogin"],
+    ["search_url","https://m.goyangcc.com/Mobile/res/Reservation.aspx","funcReserve"]
+]
