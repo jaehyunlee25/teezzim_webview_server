@@ -1,0 +1,4 @@
+[
+    ["login_url","http://gosungcc.com/mobile/05member/login.asp","funcLogin"],
+    ["search_url","http://gosungcc.com/mobile/01reservation/reservation.asp","funcReserve"]
+]
