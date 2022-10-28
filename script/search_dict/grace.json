@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.grace-cc.co.kr/mobile/members/login.asp","funcLogin"],
+    ["search_url","https://www.grace-cc.co.kr/mobile/index.asp","funcReserve"]
+]
