@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.golfclubq.com/mobile/login.asp","funcLogin"],
+    ["search_url","https://www.golfclubq.com/mobile/reservation_date.asp","funcReserve"]
+]
