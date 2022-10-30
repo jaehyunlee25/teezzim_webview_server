@@ -1,3 +1,1 @@
-{
-    "LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    location.href=\"/Member/logout.asp\"\r\n  }"
-}
+{"LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    location.href=\"javascript:()=>{}\";\r\n  }"}

@@ -1,1 +1,1 @@
-{"LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    location.href=\"https://www.gumicc.com/Mobile/Member/LogOut.aspx\"\r\n  }"}
+{"LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    location.href=\"javascript:()=>{}\";\r\n  }"}
