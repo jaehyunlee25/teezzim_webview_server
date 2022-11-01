@@ -77,6 +77,8 @@ const golfCourseByUUID = {};
 const golfClubLoginProc = {};
 const golfClubs = {};
 const golfCourses = {};
+const golfClubGroups = {};
+const groupClubs = {};
 const LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 /* connection.connect();
@@ -106,7 +108,15 @@ connection.end(); */
 "sql/getAccount.sql".gf().query(getAccounts);
 "sql/golf_course.sql".gf().query(getGolfCourses);
 "sql/proc_login.sql".gf().query(getProcLogins);
+"sql/getGolfClubGroup.sql".gf().query(getGolfClubGroup);
 
+function getGolfClubGroup(err, rows, fields) {
+  rows.forEach((row) => {
+    groupClubs[row.golf_club_id] = row.name;
+    if (!golfClubGroups[row.name]) golfClubGroups[row.name] = [];
+    golfClubGroups[row.name].push(row);
+  });
+}
 function getGolfClub(err, rows, fields) {
   rows.forEach((row) => {
     golfClubs[row.id] = row;
@@ -265,6 +275,16 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/clubGroup") {
+    const club = data.club_id;
+    const groupName = groupClubs[club];
+    let result = [];
+    if (groupName) result = golfClubGroups[groupName];
+    objResp = {
+      resultCode: 1,
+      message: "OK",
+      data: result,
+    };
   } else if (reqUrl == "/getScheduleDetail") {
     log("test", data.result.length);
     const message = {
