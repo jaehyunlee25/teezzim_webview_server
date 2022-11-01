@@ -1,4 +1,4 @@
 [
     ["login_url","https://m.golfzoncounty.com/member/login?gfsReturn=/reserve/main%3Fgc_no%3D459%26area_code%3D0","funcLogin"],
-    ["search_url","https://m.golfzoncounty.com/reserve/main","funcReserve"]
+    ["search_url","https://www.golfzoncounty.com/reserve/main","funcReserve"]
 ]
