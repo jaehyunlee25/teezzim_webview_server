@@ -1,1 +1,4 @@
-[["login_url","https://www.happinesscc.com/mobile/login.asp","funcLogin"],["search_url","https://www.happinesscc.com/mobile/reserve01.asp?index=24172","funcReserve"]]
+[
+    ["login_url","https://www.happinesscc.com/mobile/login.asp","funcLogin"],
+    ["search_url","https://www.happinesscc.com/mobile/reserve01.asp","funcReserve"]
+]
