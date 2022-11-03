@@ -1,1 +1,4 @@
-[["login_url","http://www.iwishcc.com/mobile/member/login.asp","funcLogin"],["search_url","http://www.iwishcc.com/mobile/reservation/reservation.asp","funcReserve"]]
+[
+    ["login_url","https://www.iwishcc.com/mobile/member/login.asp","funcLogin"],
+    ["search_url","https://www.iwishcc.com/mobile/reservation/reservation.asp","funcReserve"]
+]
