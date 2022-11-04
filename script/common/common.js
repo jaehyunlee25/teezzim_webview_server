@@ -280,6 +280,23 @@ HTMLElement.prototype.gba = function (attr, val, opt) {
   });
   return res;
 };
+HTMLElement.prototype.nm = function () {
+  /* node move */
+  const args = Array.from(arguments);
+  const up = args.shift();
+  let el = this;
+  for (let i = 0; i < up; i++) {
+    const p = el.parentNode;
+    if (p) el = p;
+  }
+
+  args.forEach((num) => {
+    const p = el.children[num];
+    if (p) el = p;
+  });
+
+  return el;
+};
 document.gcn = function (str) {
   const els = this.getElementsByClassName(str);
   return Array.from(els);
