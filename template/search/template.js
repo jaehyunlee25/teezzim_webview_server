@@ -76,11 +76,13 @@ javascript:(() => {
     function funcReserve() {
       log("funcSearch");
 
-      const chk = LSCHK("TZ_SEARCH_RESERVE" + clubId, 5);
-      log("timeout chk", chk);
-      if (!chk) {
-        log("funcSearch Timein ERROR");
-        return;
+      if (location.href == addr) {
+        const chk = LSCHK("TZ_SEARCH_RESERVE" + clubId, 5);
+        log("timeout chk", chk);
+        if (!chk) {
+          log("funcSearch Timein ERROR");
+          return;
+        }
       }
 
       ${searchScript}
