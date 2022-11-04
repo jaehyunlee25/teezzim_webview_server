@@ -233,6 +233,9 @@ String.prototype.fillzero = function (sep) {
 
   return result.join("");
 };
+String.prototype.jp = function () {
+  return JSON.parse(this);
+};
 HTMLElement.prototype.str = function () {
   return this.innerText;
 };
