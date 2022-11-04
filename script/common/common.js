@@ -271,6 +271,7 @@ HTMLElement.prototype.gba = function (attr, val, opt) {
   const res = [];
   this.trav((el) => {
     const str = el.attr(attr);
+    if (!str) return;
     if (opt) {
       if (str.indexOf(val) != -1) res.push(el);
     } else {
