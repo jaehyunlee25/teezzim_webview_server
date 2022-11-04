@@ -266,12 +266,16 @@ HTMLElement.prototype.trav = function (fnc) {
     this.children[i].trav(fnc);
   }
 };
-HTMLElement.prototype.gba = function (attr, val) {
+HTMLElement.prototype.gba = function (attr, val, opt) {
   /* getElementsByAttribute */
   const res = [];
   this.trav((el) => {
     const str = el.attr(attr);
-    if (str == val) res.push(el);
+    if (opt) {
+      if (str.indexOf(val) != -1) res.push(el);
+    } else {
+      if (str == val) res.push(el);
+    }
   });
   return res;
 };
