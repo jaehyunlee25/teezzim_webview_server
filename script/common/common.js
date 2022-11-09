@@ -173,18 +173,37 @@ String.prototype.addzero = function () {
   if (this.length == 1) return "0" + this;
   return this;
 };
-String.prototype.inparen = function () {
+String.prototype.inparen = function (opt) {
   const regex = /.+?\((.+)\)/;
   const str = this.toString();
   const result = [];
-  regex
-    .exec(str)[1]
-    .split("'")
-    .join("")
-    .split(",")
-    .forEach((str) => {
-      result.push(str.trim());
+  const org = regex.exec(str)[1];
+  if (opt) {
+    let ar = [];
+    Array.from(org).forEach((chr) => {
+      if (chr == "'") {
+        if (flg) {
+          flg = false;
+        } else {
+          result.push(ar.join(""));
+          ar = [];
+          flg = true;
+        }
+      } else if (chr == ",") {
+        if (flg) ar.push(chr);
+      } else {
+        ar.push(chr);
+      }
     });
+  } else {
+    org
+      .split("'")
+      .join("")
+      .split(",")
+      .forEach((str) => {
+        result.push(str.trim());
+      });
+  }
   return result;
 };
 String.prototype.datify = function (sign) {
