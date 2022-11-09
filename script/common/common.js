@@ -180,6 +180,7 @@ String.prototype.inparen = function (opt) {
   const org = regex.exec(str)[1];
   if (opt) {
     let ar = [];
+    let flg = false;
     Array.from(org).forEach((chr) => {
       if (chr == "'") {
         if (flg) {
