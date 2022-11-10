@@ -1,0 +1,4 @@
+[
+    ["login_url","http://www.samsamcc.co.kr/mobile/login.asp","funcLogin"],
+    ["search_url","http://www.samsamcc.co.kr/mobile/reserve01.asp","funcReserve"]
+]
