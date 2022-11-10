@@ -1,1 +1,4 @@
-[["login_url","https://www.pineridge.co.kr/page/membership/login.asp","funcLogin"],["search_url","https://www.pineridge.co.kr/page/booking/golf.asp","funcReserve"]]
+[
+    ["login_url","http://m.pineridge.co.kr/main/login.asp","funcLogin"],
+    ["search_url","http://m.pineridge.co.kr/booking/booking_golf.asp","funcReserve"]
+]
