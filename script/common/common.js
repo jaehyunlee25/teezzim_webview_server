@@ -184,10 +184,10 @@ String.prototype.inparen = function (opt) {
     Array.from(org).forEach((chr) => {
       if (chr == "'") {
         if (flg) {
-          flg = false;
-        } else {
           result.push(ar.join(""));
           ar = [];
+          flg = false;
+        } else {
           flg = true;
         }
       } else if (chr == ",") {
