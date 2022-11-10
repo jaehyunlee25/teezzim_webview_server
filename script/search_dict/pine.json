@@ -1,1 +1,3 @@
-[["login_url","https://www.pineresort.com/Mobile/Member/Login.aspx","funcLogin"],["search_url","https://www.pineresort.com/Mobile/Reservation/Reservation.aspx","funcReserve"]]
+[
+    ["login_url","https://www.pineresort.com/Member/LogIn.aspx","funcLogin"],
+    ["search_url","https://www.pineresort.com/Reservation/Reservation.aspx","funcReserve"]]
