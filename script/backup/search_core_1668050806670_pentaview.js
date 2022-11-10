@@ -52,7 +52,7 @@ function mneCallDetail(arrDate) {
 
     const els = ifr.gba("onclick", "golfConfirm", true);
     Array.from(els).forEach((el) => {
-      let [date, time, sign, , , hole, fee_normal, fee_discount] = el
+      let [, date, time, sign, , , hole, fee_normal, fee_discount] = el
         .attr("onclick")
         .inparen(true);
       course = dictCourse[11];

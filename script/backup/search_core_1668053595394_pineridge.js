@@ -1,7 +1,7 @@
 function mneCall(date, callback) {
   const els = doc.body.gba(
     "href",
-    "./booking_golf_reservation_sh.asp",
+    "/page/booking/golf_reservation_sh.asp",
     true
   );
   Array.from(els).forEach((el, i) => {

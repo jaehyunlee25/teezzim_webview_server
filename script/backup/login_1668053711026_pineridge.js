@@ -5,8 +5,8 @@
     /* begin: precheck content */
     function precheck() {
       const strLogout = "LOGOUT";
-      const str = doc.body.gba("src", "../../img/common/menu_logout.gif");
-      if (str.length > 0) {
+      const str = doc.gcn("login")[0].str();
+      if (str == strLogout) {
         if (ac) ac.message("ALREADY_LOGIN");
         return true;
       }
