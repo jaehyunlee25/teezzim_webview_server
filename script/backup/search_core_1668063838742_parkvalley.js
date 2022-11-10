@@ -1,8 +1,8 @@
 function mneCall(date, callback) {
-  const els = doc.gcn("reserve");
-  Array.from(els).forEach((el, i) => {
+  const as = Array.from(document.getElementsByClassName("reserve"));
+  as.forEach((a, i) => {
     if (i == 0) return;
-    const obj = procHref(el.attr("href"));
+    const obj = procHref(a.getAttribute("href"));
     dates.push([obj.date, obj.param]);
   });
   callback();

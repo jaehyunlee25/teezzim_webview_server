@@ -16,11 +16,13 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign] = arrDate;
-  const addr = "/booking/booking_golf_reservation_sh.asp";
+  const addr = "/page/booking/golf_reservation_sh.asp";
   const method = "post";
   const param = {
-    book_date: date,
+    book_date: date.datify(),
     book_crs: "%",
+    book_chapt: "%",
+    sbook_chapt: "%",
   };
   const dictCourse = {
     파인: "PINE",
@@ -32,10 +34,10 @@ function mneCallDetail(arrDate) {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("onclick", "JavaScript:Time_Select", true);
+    const els = ifr.gba("onClick", "JavaScript:Time_Select", true);
     Array.from(els).forEach((el) => {
       let [date, sign, time, , , , hole, course, fee] = el
-        .attr("onclick")
+        .attr("onClick")
         .inparen(true);
       course = dictCourse[course];
       hole = hole.ct(1);

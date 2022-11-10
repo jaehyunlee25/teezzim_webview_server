@@ -1,13 +1,9 @@
 function mneCall(date, callback) {
-  const els = doc.body.gba(
-    "href",
-    "./booking_golf_reservation_sh.asp",
-    true
-  );
+  const res = {};
+  const els = doc.body.gba("onclick", "Date_Click", true);
   Array.from(els).forEach((el, i) => {
-    const href = el.attr("href");
-    const date = href.split("?")[1].split("&")[0].split("=")[1];
-    dates.push([date, ""]);
+    const [year, month, date] = el.attr("onclick").inparen();
+    dates.push([[year, month, date].join(""), ""]);
   });
   callback();
 }
@@ -16,31 +12,27 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign] = arrDate;
-  const addr = "/booking/booking_golf_reservation_sh.asp";
+  const addr = "/mobile/reserve01_step1.asp";
   const method = "post";
   const param = {
     book_date: date,
-    book_crs: "%",
   };
   const dictCourse = {
-    파인: "PINE",
-    리즈: "RIDGE",
-    레이크: "LAKE",
+    11: "단일",
   };
 
   fCall[method](addr, param, {}, (data) => {
-    const ifr = doc.clm("div");
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("onclick", "JavaScript:Time_Select", true);
+    const els = ifr.gba("onClick", "JavaScript:Book_Confirm", true);
     Array.from(els).forEach((el) => {
-      let [date, sign, time, , , , hole, course, fee] = el
-        .attr("onclick")
-        .inparen(true);
-      course = dictCourse[course];
-      hole = hole.ct(1);
-      fee_normal = fee.rm(",") * 1;
-      fee_discount = fee.rm(",") * 1;
+      let [date, , , , time] = el.attr("onClick").inparen(true);
+      date = date.rm(".");
+      course = dictCourse[11];
+      const hole = 18;
+      fee_normal = 70000;
+      fee_discount = 70000;
 
       golf_schedule.push({
         golf_club_id: clubId,
