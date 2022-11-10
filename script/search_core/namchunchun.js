@@ -4,23 +4,21 @@ function mneCall(date, callback) {
     { book_date_bd: date },
     {},
     (data) => {
-      const ifr = document.createElement("div");
+      const ifr = doc.clm("div");
       ifr.innerHTML = data;
 
-      const date = ifr
-        .getElementsByClassName("plan-month2")[0]
-        .getElementsByTagName("span")[0];
-      const year = date.children[0].innerHTML;
-      const month = date.children[1].innerHTML;
+      const date = ifr.gcn("plan-month2")[0].gtn("span")[0];
+      const year = date.children[0].str();
+      const month = date.children[1].str();
 
-      const tables = ifr.getElementsByTagName("table");
+      const tables = ifr.gtn("table");
       const tblOverView = tables[0];
       const tblDetail = tables[2];
 
-      const tdDays = tblOverView.getElementsByClassName("gray");
+      const tdDays = tblOverView.gcn("gray");
       Array.from(tdDays).forEach((td) => {
-        const text = td.innerText.trim().gh(2);
-        const team = td.innerText.trim().ch(2).ct(1);
+        const text = td.str().trim().gh(2);
+        const team = td.str().trim().ch(2).ct(1);
         dates.push([year + month + text, team]);
       });
       callback();
@@ -36,23 +34,19 @@ function mneCallDetail(arrDate) {
     { book_date_bd: date },
     {},
     (data) => {
-      const ifr = document.createElement("div");
+      const ifr = doc.clm("div");
       ifr.innerHTML = data;
 
-      const tds = ifr
-        .getElementsByClassName("course_list_table")[1]
-        .getElementsByTagName("tbody")[0].children[0].children;
+      const tds = ifr.gcn("course_list_table")[1].gtn("tbody")[0]
+        .children[0].children;
       const [victory, challenge] = tds;
       const obTeams = { victory: {}, challenge: {} };
-      
 
       Array.from(victory.children).forEach((div) => {
         const str = div.innerText;
         const time = str.gh(2);
-        const fee_discount =
-          div.children[1].innerText.ch(1).replace(/,/g, "") * 1;
-        const fee_normal =
-          div.children[0].innerText.ch(1).replace(/,/g, "") * 1;
+        const fee_discount = div.children[1].str().ch(1).replace(/,/g, "") * 1;
+        const fee_normal = div.children[0].str().ch(1).replace(/,/g, "") * 1;
 
         golf_schedule.push({
           golf_club_id: clubId,
@@ -69,10 +63,8 @@ function mneCallDetail(arrDate) {
       Array.from(challenge.children).forEach((div) => {
         const str = div.innerText;
         const time = str.gh(2);
-        const fee_discount =
-          div.children[1].innerText.ch(1).replace(/,/g, "") * 1;
-        const fee_normal =
-          div.children[0].innerText.ch(1).replace(/,/g, "") * 1;
+        const fee_discount = div.children[1].str().ch(1).replace(/,/g, "") * 1;
+        const fee_normal = div.children[0].str().ch(1).replace(/,/g, "") * 1;
         golf_schedule.push({
           golf_club_id: clubId,
           golf_course_id: "Challenge",
