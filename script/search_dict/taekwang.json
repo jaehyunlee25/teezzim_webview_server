@@ -1,1 +1,4 @@
-[["login_url","https://www.taekwangcc.co.kr/Mobile/Member/Login.aspx","funcLogin"],["search_url","https://www.taekwangcc.co.kr/Mobile/Reservation/Reservation.aspx?rcode=p","funcReserve"]]
+[
+    ["login_url","https://www.taekwangcc.co.kr/Mobile/Member/Login.aspx","funcLogin"],
+    ["search_url","https://www.taekwangcc.co.kr/Mobile/Reservation/Reservation.aspx","funcReserve"]
+]
