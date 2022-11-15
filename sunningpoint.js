@@ -355,7 +355,6 @@ javascript: (() => {
   /* 이 부분 자리 옮기지 마시오.*/
   console.clear();
 
-  /*
   const dict = {
     "https://www.sunningpoint.com/_mobile/login/login.asp": funcLogin,
     "https://www.sunningpoint.com/_mobile/golfRes/real_calendar.asp":
@@ -414,7 +413,6 @@ javascript: (() => {
     lsg("TZ_ADMIN_BLOCK_IC"),
     lsg("TZ_ADMIN_BLOCK_IC_TIME")
   );
-
 
   let global_param = {};
   const COMMAND = "GET_DATE";
@@ -671,5 +669,4 @@ javascript: (() => {
   }
 
   main();
-  */
 })();
