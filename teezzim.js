@@ -1398,7 +1398,7 @@ function searchbotDateAdmin(data) {
     club,
     command
   );
-  const script = templateScript.dp({
+  let script = templateScript.dp({
     commonScript,
     searchCommonScript,
     address_mapping,
