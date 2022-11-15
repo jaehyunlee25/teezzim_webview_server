@@ -419,16 +419,16 @@ javascript: (() => {
   /* end blocking infinite call */
 
   /* var splitter = location.href.indexOf("?") == -1 ? "#" : "?";
-  var aDDr = location.href.split(splitter)[0];
-  var suffix = location.href.split(splitter)[1];
-  var dictSplitter = {"#": "?", "?": "#"};
-  var addr = aDDr;
-  if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
-      addr = aDDr.split(dictSplitter[splitter])[0];
-  
-  log("raw addr :: ", location.href);
-  log("aDDr :: ", aDDr);
-  log("addr :: ", addr); */
+    var aDDr = location.href.split(splitter)[0];
+    var suffix = location.href.split(splitter)[1];
+    var dictSplitter = {"#": "?", "?": "#"};
+    var addr = aDDr;
+    if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
+        addr = aDDr.split(dictSplitter[splitter])[0];
+    
+    log("raw addr :: ", location.href);
+    log("aDDr :: ", aDDr);
+    log("addr :: ", addr); */
 
   let global_param = {};
   const COMMAND = "GET_DATE";
@@ -477,20 +477,20 @@ javascript: (() => {
         golf_date.push(date.datify("-"));
       });
       /* const param = {
-        golf_date,
-        golf_club_id: clubId,
-        device_id: "${deviceId}",
-      };
-      log("golf_date", golf_date);
-      post(
-        OUTER_ADDR_HEADER + "/api/reservation/golfDate",
-        param,
-        header,
-        (data) => {
-          const json = JSON.parse(data);
-          log(json.message);
-        }
-      ); */
+          golf_date,
+          golf_club_id: clubId,
+          device_id: "${deviceId}",
+        };
+        log("golf_date", golf_date);
+        post(
+          OUTER_ADDR_HEADER + "/api/reservation/golfDate",
+          param,
+          header,
+          (data) => {
+            const json = JSON.parse(data);
+            log(json.message);
+          }
+        ); */
       const acParam = {};
       if (golf_date.length == 0) {
         acParam.command = "NONE_OF_GET_DATE";
@@ -572,46 +572,46 @@ javascript: (() => {
     }
     /* LOGOUT(); */
     /* const param = {
-      golf_schedule,
-      device_id: "${deviceId}",
-      golf_club_id: clubId,
-    };
-    post(addrOuter, param, header, (data) => {});
-    const json = JSON.parse(data);
-    log(json.message); */
+        golf_schedule,
+        device_id: "${deviceId}",
+        golf_club_id: clubId,
+      };
+      post(addrOuter, param, header, (data) => {});
+      const json = JSON.parse(data);
+      log(json.message); */
   }
   /* 
-  [
-    {
-      club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
-      club: "delphino",
-      content: [
-        {
-          date: "2022-09-28",
-          fee_discount: 210000,
-          fee_normal: 210000,
-          golf_club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
-          golf_course_id: "b81cbf25-cd86-11ec-a93e-0242ac11000a",
-          in_out: "",
-          others: "OUT",
-          persons: "",
-          time: "07:07",
-        },
-        {
-          date: "2022-09-28",
-          fee_discount: 210000,
-          fee_normal: 210000,
-          golf_club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
-          golf_course_id: "b81cc15a-cd86-11ec-a93e-0242ac11000a",
-          in_out: "",
-          others: "IN",
-          persons: "",
-          time: "07:07",
-        },
-      ],
-    },
-  ];
-   */
+    [
+      {
+        club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
+        club: "delphino",
+        content: [
+          {
+            date: "2022-09-28",
+            fee_discount: 210000,
+            fee_normal: 210000,
+            golf_club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
+            golf_course_id: "b81cbf25-cd86-11ec-a93e-0242ac11000a",
+            in_out: "",
+            others: "OUT",
+            persons: "",
+            time: "07:07",
+          },
+          {
+            date: "2022-09-28",
+            fee_discount: 210000,
+            fee_normal: 210000,
+            golf_club_id: "5d8163d1-cd85-11ec-a93e-0242ac11000a",
+            golf_course_id: "b81cc15a-cd86-11ec-a93e-0242ac11000a",
+            in_out: "",
+            others: "IN",
+            persons: "",
+            time: "07:07",
+          },
+        ],
+      },
+    ];
+     */
   function mneCall(date, callback) {
     const els = doc.body.gba("onclick", "goSend", true);
     Array.from(els).forEach((el) => {
