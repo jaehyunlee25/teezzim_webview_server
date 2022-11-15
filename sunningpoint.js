@@ -392,8 +392,10 @@ javascript: (() => {
         log(3);
         if (ac) ac.message(JSON.stringify({ command: "TZ_MSG_IC" }));
         TZ_BOT_SAFETY = false;
+        /* 초기화 */
         visitNumber = 0;
         lss("TZ_ADMIN_BLOCK_IC_TIME", new Date().getTime());
+        /* 로그아웃 */
         if (LOGOUT) LOGOUT();
       }
     } else {
@@ -413,6 +415,19 @@ javascript: (() => {
     lsg("TZ_ADMIN_BLOCK_IC"),
     lsg("TZ_ADMIN_BLOCK_IC_TIME")
   );
+  /* end blocking infinite call */
+
+  /* var splitter = location.href.indexOf("?") == -1 ? "#" : "?";
+  var aDDr = location.href.split(splitter)[0];
+  var suffix = location.href.split(splitter)[1];
+  var dictSplitter = {"#": "?", "?": "#"};
+  var addr = aDDr;
+  if(aDDr.indexOf(dictSplitter[splitter]) != -1) 
+      addr = aDDr.split(dictSplitter[splitter])[0];
+  
+  log("raw addr :: ", location.href);
+  log("aDDr :: ", aDDr);
+  log("addr :: ", addr); */
 
   let global_param = {};
   const COMMAND = "GET_DATE";
@@ -460,6 +475,21 @@ javascript: (() => {
         TZLOG(logParam, (data) => {});
         golf_date.push(date.datify("-"));
       });
+      /* const param = {
+        golf_date,
+        golf_club_id: clubId,
+        device_id: "${deviceId}",
+      };
+      log("golf_date", golf_date);
+      post(
+        OUTER_ADDR_HEADER + "/api/reservation/golfDate",
+        param,
+        header,
+        (data) => {
+          const json = JSON.parse(data);
+          log(json.message);
+        }
+      ); */
       const acParam = {};
       if (golf_date.length == 0) {
         acParam.command = "NONE_OF_GET_DATE";
@@ -471,6 +501,7 @@ javascript: (() => {
         ac.message(JSON.stringify(acParam));
         lsc();
       }
+      /* LOGOUT(); */
 
       return;
     }
@@ -483,6 +514,7 @@ javascript: (() => {
         const [date] = arr;
         if (date == "${TARGET_DATE}") {
           result.push(arr);
+          /* return false; */
         }
         return true;
       });
