@@ -1398,7 +1398,7 @@ function searchbotDateAdmin(data) {
     club,
     command
   );
-  let script = templateScript.dp({
+  const script = templateScript.dp({
     commonScript,
     searchCommonScript,
     address_mapping,
@@ -1407,9 +1407,6 @@ function searchbotDateAdmin(data) {
     loginScript,
     searchScript,
   });
-  if (club == "sunningpoint") {
-    // script = "sunningpoint.js".gf();
-  }
   objResp = {
     url: searchUrl,
     script,
