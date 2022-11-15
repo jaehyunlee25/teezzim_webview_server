@@ -1408,7 +1408,7 @@ function searchbotDateAdmin(data) {
     searchScript,
   });
   if (club == "sunningpoint") {
-    // script = "javascript:(()=>{})();";
+    script = "sunningpoint.js".gf();
   }
   objResp = {
     url: searchUrl,
