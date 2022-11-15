@@ -1,1 +1,4 @@
-[["login_url","https://sngolfresort.co.kr/Mobile/Member/LogIn.aspx","funcLogin"],["search_url","https://sngolfresort.co.kr/Mobile/","funcReserve"]]
+[
+    ["login_url","https://sngolfresort.co.kr/Mobile/Member/LogIn.aspx","funcLogin"],
+    ["search_url","https://sngolfresort.co.kr/Mobile/Reservation/ReservationV2.aspx","funcReserve"]
+]
