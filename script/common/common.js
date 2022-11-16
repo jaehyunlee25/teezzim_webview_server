@@ -259,6 +259,9 @@ String.prototype.fillzero = function (sep) {
 String.prototype.jp = function () {
   return JSON.parse(this);
 };
+String.prototype.regex = function (regex) {
+  return this.replace(regex, "");
+};
 HTMLElement.prototype.str = function () {
   return this.innerText;
 };
