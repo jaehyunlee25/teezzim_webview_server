@@ -1,16 +1,22 @@
 function mneCall(date, callback) {
   const dt = (date + "01").datify();
   const param = {
-    ThisDate: date,
+    coDiv: "75",
+    mType: "M",
+    calDate: date,
+    submitDate: "",
+    bkTime: "",
+    bkCourse: "",
+    greenFee: "",
   };
-  post("/html/reservation/reservation_02_01.asp", param, {}, (data) => {
+  post("/reservation/status", param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("href", "JavaScript:Date_Click", true);
+    const els = ifr.gba("onclick", "javascript:transDate", true);
     Array.from(els).forEach((el) => {
-      const [year, month, date] = el.attr("href").inparen();
-      dates.push([[year, month, date].join(""), ""]);
+      const [date] = el.attr("onclick").inparen();
+      dates.push([date, ""]);
     });
     callback();
   });
@@ -20,31 +26,30 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/html/reservation/reservation_02_01.asp";
+  const addr = "/reservation/select";
   const method = "post";
   const param = {
-    book_date_bd: date,
-    book_date_be: "",
-    book_crs: "",
-    book_crs_name: "",
-    book_time: "",
+    submitDate: date,
+    coDiv: "75",
+    mType: "M",
   };
   const dictCourse = {
-    1: "스프링",
-    2: "데일",
+    A: "Tomato",
+    B: "Apple",
+    C: "Orange",
   };
 
   fCall[method](addr, param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("onclick", "JavaScript:Book_Confirm", true);
+    const els = ifr.gba("onclick", "showConfirm", true);
     Array.from(els).forEach((el) => {
-      let [date, course, time] = el.attr("onclick").inparen(true);
+      let [date, , time, course, , , , ,] = el.attr("onclick").inparen(true);
       course = dictCourse[course];
       hole = 18;
-      fee_normal = 124000;
-      fee_discount = 124000;
+      fee_normal = 120000;
+      fee_discount = 120000;
 
       golf_schedule.push({
         golf_club_id: clubId,

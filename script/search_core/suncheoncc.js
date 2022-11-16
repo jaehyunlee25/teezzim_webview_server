@@ -1,9 +1,7 @@
 function mneCall(date, callback) {
   const dt = (date + "01").datify();
-  const param = {
-    ThisDate: date,
-  };
-  post("/html/reservation/reservation_02_01.asp", param, {}, (data) => {
+  const param = {};
+  get("/mobile/reservation_01.asp", param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
@@ -20,7 +18,7 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/html/reservation/reservation_02_01.asp";
+  const addr = "/mobile/reservation_02.asp";
   const method = "post";
   const param = {
     book_date_bd: date,
@@ -30,8 +28,7 @@ function mneCallDetail(arrDate) {
     book_time: "",
   };
   const dictCourse = {
-    1: "스프링",
-    2: "데일",
+    1: "단일",
   };
 
   fCall[method](addr, param, {}, (data) => {
@@ -43,8 +40,9 @@ function mneCallDetail(arrDate) {
       let [date, course, time] = el.attr("onclick").inparen(true);
       course = dictCourse[course];
       hole = 18;
-      fee_normal = 124000;
-      fee_discount = 124000;
+      const fee = el.nm(2, 1).str().ct(1).rm(",") * 1;
+      fee_normal = fee;
+      fee_discount = fee;
 
       golf_schedule.push({
         golf_club_id: clubId,

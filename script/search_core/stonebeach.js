@@ -1,16 +1,17 @@
 function mneCall(date, callback) {
   const dt = (date + "01").datify();
   const param = {
-    ThisDate: date,
+    today_date: dt,
+    calendar_size: "small",
   };
-  post("/html/reservation/reservation_02_01.asp", param, {}, (data) => {
+  post("/reservation/get_calendar", param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("href", "JavaScript:Date_Click", true);
+    const els = ifr.gcn("reserve");
     Array.from(els).forEach((el) => {
-      const [year, month, date] = el.attr("href").inparen();
-      dates.push([[year, month, date].join(""), ""]);
+      const date = el.attr("id").rm("-");
+      dates.push([date, ""]);
     });
     callback();
   });
@@ -20,31 +21,32 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/html/reservation/reservation_02_01.asp";
+  const addr = "/reservation/get_teetime_data_price2";
   const method = "post";
   const param = {
-    book_date_bd: date,
-    book_date_be: "",
-    book_crs: "",
-    book_crs_name: "",
-    book_time: "",
+    this_day: date.datify(),
+    course: "all",
   };
   const dictCourse = {
-    1: "스프링",
-    2: "데일",
+    1: "스톤",
+    2: "비치",
   };
 
   fCall[method](addr, param, {}, (data) => {
-    const ifr = doc.clm("div");
-    ifr.innerHTML = data;
-
-    const els = ifr.gba("onclick", "JavaScript:Book_Confirm", true);
+    const json = data.jp();
+    const els = json.list;
     Array.from(els).forEach((el) => {
-      let [date, course, time] = el.attr("onclick").inparen(true);
+      let {
+        CH_DATE: date,
+        CH_TIME: time,
+        CH_COURSE: course,
+        RP_PRICE: fee,
+      } = el;
+      date = date.rm("-");
       course = dictCourse[course];
       hole = 18;
-      fee_normal = 124000;
-      fee_discount = 124000;
+      fee_normal = fee * 1;
+      fee_discount = fee * 1;
 
       golf_schedule.push({
         golf_club_id: clubId,
