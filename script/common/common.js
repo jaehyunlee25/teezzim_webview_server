@@ -292,7 +292,7 @@ HTMLElement.prototype.trav = function (fnc) {
   fnc(this);
   var a = this.children.length;
   for (var i = 0; i < a; i++) {
-    this.children[i].trav(fnc);
+    if (this.children[i].trav) this.children[i].trav(fnc);
   }
 };
 HTMLElement.prototype.gba = function (attr, val, opt) {
