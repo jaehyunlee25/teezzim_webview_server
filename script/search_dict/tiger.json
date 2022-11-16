@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.tigercc.co.kr/mobile/join/login.asp","funcLogin"],
+    ["search_url","https://www.tigercc.co.kr/mobile/reservation/reservation.asp","funcReserve"]
+]
