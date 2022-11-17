@@ -1,1 +1,2 @@
-[["login_url","http://www.tpcgolf.co.kr/Member/Login.html","funcLogin"],["search_url","http://www.tpcgolf.co.kr/Reservation/Reservation.asp","funcReserve"]]
+[["login_url","http://www.tpcgolf.co.kr/Member/Login.html","funcLogin"],
+["search_url","http://www.tpcgolf.co.kr/Reservation/Reservation.asp","funcReserve"]]
