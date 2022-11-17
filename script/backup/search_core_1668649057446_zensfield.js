@@ -20,7 +20,7 @@ function mneCall(date, callback) {
       Array.from(els).forEach((el) => {
         const [date, sign, gb, , , opt] = el.attr("href").inparen();
         if (opt != "T") return;
-        dates.push([date, sign, gb]);
+        dates.push([date, ""]);
       });
       callback();
     }

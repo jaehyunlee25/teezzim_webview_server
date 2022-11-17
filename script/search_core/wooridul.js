@@ -1,62 +1,60 @@
 function mneCall(date, callback) {
   const dt = date + "01";
   const param = {
-    golfrestype: "real",
-    resetcode: "H73",
-    schDate: date,
-    usrmemcd: "80",
-    toDay: dt,
-    calnum: "1",
+    clickTdId: "",
+    clickTdClass: "",
+    workMonth: date,
+    workDate: dt,
+    bookgDate: "",
+    bookgTime: "",
+    bookgCourse: "ALL",
+    searchTime: "",
+    agreeYn: "Y",
   };
-  post(
-    "/_mobile/GolfRes/onepage/real_calendar_ajax_view.asp",
-    param,
-    {},
-    (data) => {
-      const ifr = doc.clm("div");
-      ifr.innerHTML = data;
+  post("/reservation/ajax/golfCalendar", param, {}, (data) => {
+    const ifr = doc.clm("div");
+    ifr.innerHTML = data;
 
-      const els = ifr.gba("href", "javascript:timefrom_change", true);
-      Array.from(els).forEach((el) => {
-        const [date, sign, gb, , , opt] = el.attr("href").inparen();
-        if (opt != "T") return;
-        dates.push([date, sign, gb]);
-      });
-      callback();
-    }
-  );
+    const els = ifr.gba("onclick", "clickCal", true);
+    Array.from(els).forEach((el) => {
+      const [, , date, opt] = el.attr("onclick").inparen();
+      if (opt != "OPEN") return;
+      dates.push([date, ""]);
+    });
+    callback();
+  });
 }
 
 /* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/_mobile/GolfRes/onepage/real_timelist_ajax_list.asp";
+  const addr = "/reservation/ajax/golfTimeList";
   const method = "post";
   const param = {
-    golfrestype: "real",
-    courseid: "0",
-    usrmemcd: "80",
-    pointdate: date,
-    openyn: sign,
-    dategbn: gb,
-    choice_time: "%",
-    cssncourseum: "",
-    inputtype: "I",
+    clickTdId: "A" + date,
+    clickTdClass: "",
+    workMonth: date.ct(2),
+    workDate: date,
+    bookgDate: "",
+    bookgTime: "",
+    bookgCourse: "ALL",
+    searchTime: "",
+    agreeYn: "Y",
   };
   const dictCourse = {
-    1: "드래곤",
-    2: "힐",
+    1: "North",
+    2: "South",
   };
 
   fCall[method](addr, param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("onClick", "javascript:subcmd", true);
+    const els = ifr.gba("onclick", "golfConfirm", true);
     Array.from(els).forEach((el) => {
-      let [, course, time, , , hole, , , fee_normal, fee_discount] = el
-        .attr("onClick")
+      let [date, time, course, , , hole, fee_normal, fee_discount] = el
+        .attr("onclick")
         .inparen(true);
       course = dictCourse[course];
       hole = hole.ct(1);

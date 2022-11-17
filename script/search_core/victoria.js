@@ -1,17 +1,15 @@
 function mneCall(date, callback) {
   const dt = (date + "01").datify();
   const param = {
-    method: "getCalendarHome",
-    coDiv: "818",
-    selYm: date,
+    cal_month: thisdate == date ? 0 : 1,
   };
-  post("/controller/ReservationController.asp", param, {}, (data) => {
-    const json = data.jp();
-    const els = json.rows;
+  get("/Mobile/01reservation/reservation.asp", param, {}, (data) => {
+    const ifr = doc.clm("div");
+    ifr.innerHTML = data;
+    const els = ifr.gba("onclick", "javascript:transDate", true);
     Array.from(els).forEach((el) => {
-      if (el.BK_TEAM == "0") return;
-      const { CL_SOLAR: date, CL_BUSINESS: sign, CL_DAYDIV: gb } = el;
-      dates.push([date, sign, gb]);
+      const [date] = el.attr("onclick").inparen();
+      dates.push([date, ""]);
     });
     callback();
   });
@@ -21,35 +19,26 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/controller/ReservationController.asp";
+  const addr = "/Mobile/01reservation/reservation_time.asp";
   const method = "post";
   const param = {
-    method: "getTeeList",
-    coDiv: "818",
-    date: date,
-    cos: "All",
+    submitDate: date,
   };
   const dictCourse = {
-    A: "Gaon",
-    B: "Nury",
+    A: "단일",
   };
 
   fCall[method](addr, param, {}, (data) => {
-    const json = data.jp();
-    const els = json.rows;
+    const ifr = doc.clm("div");
+    ifr.innerHTML = data;
+
+    const els = ifr.gba("href", "javascript:bookProsecc", true);
     Array.from(els).forEach((el) => {
-      let {
-        BK_DAY: date,
-        BK_TIME: time,
-        BK_S_CHARGE_NM: fee,
-        BK_COS: course,
-        BK_ROUNDF_NM: hole,
-      } = el;
+      let [date, time, course] = el.attr("href").inparen();
       course = dictCourse[course];
-      hole = hole.ct(1);
-      fee = fee.rm(",") * 1;
-      fee_normal = fee;
-      fee_discount = fee;
+      const hole = 9;
+      fee_normal = 0;
+      fee_discount = 0;
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -70,4 +59,6 @@ function mneCallDetail(arrDate) {
 /* <============line_div==========> */
 
 /* <============line_div==========> */
-mneCall(thisdate, procDate);
+mneCall(thisdate, () => {
+  mneCall(nextdate, procDate);
+});

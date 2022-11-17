@@ -1,30 +1,11 @@
 function mneCall(date, callback) {
-  const dt = date + "01";
-  const param = {
-    golfrestype: "real",
-    resetcode: "H73",
-    schDate: date,
-    usrmemcd: "80",
-    toDay: dt,
-    calnum: "1",
-  };
-  post(
-    "/_mobile/GolfRes/onepage/real_calendar_ajax_view.asp",
-    param,
-    {},
-    (data) => {
-      const ifr = doc.clm("div");
-      ifr.innerHTML = data;
-
-      const els = ifr.gba("href", "javascript:timefrom_change", true);
-      Array.from(els).forEach((el) => {
-        const [date, sign, gb, , , opt] = el.attr("href").inparen();
-        if (opt != "T") return;
-        dates.push([date, sign, gb]);
-      });
-      callback();
-    }
-  );
+  const els = doc.body.gba("href", "javascript:timefrom_change", true);
+  Array.from(els).forEach((el) => {
+    const [date, sign, gb, , , opt] = el.attr("href").inparen();
+    if (opt != "T") return;
+    dates.push([date, sign, gb]);
+  });
+  callback();
 }
 
 /* <============line_div==========> */
@@ -36,27 +17,28 @@ function mneCallDetail(arrDate) {
   const param = {
     golfrestype: "real",
     courseid: "0",
-    usrmemcd: "80",
+    usrmemcd: "70",
     pointdate: date,
     openyn: sign,
     dategbn: gb,
-    choice_time: "%",
+    choice_time: "00",
     cssncourseum: "",
     inputtype: "I",
   };
   const dictCourse = {
-    1: "드래곤",
-    2: "힐",
+    1: "누리",
+    2: "가온",
+    3: "마루",
   };
 
   fCall[method](addr, param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("onClick", "javascript:subcmd", true);
+    const els = ifr.gba("href", "javascript:subcmd", true);
     Array.from(els).forEach((el) => {
       let [, course, time, , , hole, , , fee_normal, fee_discount] = el
-        .attr("onClick")
+        .attr("href")
         .inparen(true);
       course = dictCourse[course];
       hole = hole.ct(1);
@@ -82,6 +64,4 @@ function mneCallDetail(arrDate) {
 /* <============line_div==========> */
 
 /* <============line_div==========> */
-mneCall(thisdate, () => {
-  mneCall(nextdate, procDate);
-});
+mneCall(thisdate, procDate);

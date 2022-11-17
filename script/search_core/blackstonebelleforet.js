@@ -1,15 +1,14 @@
 function mneCall(date, callback) {
-  const dt = date + "01";
   const param = {
-    golfrestype: "real",
-    resetcode: "H73",
+    golfResType: "real",
     schDate: date,
-    usrmemcd: "80",
-    toDay: dt,
-    calnum: "1",
+    usrMemCd: "90",
+    toDay: (date + "01").datify(),
+    calNum: 1,
+    inputType: "M",
   };
   post(
-    "/_mobile/GolfRes/onepage/real_calendar_ajax_view.asp",
+    "/reservation/calendar/ajax_realtime_calendar_view.do",
     param,
     {},
     (data) => {
@@ -31,38 +30,37 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/_mobile/GolfRes/onepage/real_timelist_ajax_list.asp";
+  const addr = "/mobile/reservation/list/ajax_real_timeinfo_list.do";
   const method = "post";
   const param = {
-    golfrestype: "real",
-    courseid: "0",
-    usrmemcd: "80",
-    pointdate: date,
-    openyn: sign,
-    dategbn: gb,
-    choice_time: "%",
+    golfResType: "real",
+    courseId: 0,
+    usrMemCd: 21,
+    pointDate: date,
+    openYn: sign,
+    dateGbn: gb,
+    choiceTime: "00",
     cssncourseum: "",
-    inputtype: "I",
+    inputType: "I",
   };
   const dictCourse = {
-    1: "드래곤",
-    2: "힐",
+    1: "Lake",
+    2: "Mountain",
   };
-
   fCall[method](addr, param, {}, (data) => {
-    const ifr = doc.clm("div");
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("onClick", "javascript:subcmd", true);
-    Array.from(els).forEach((el) => {
-      let [, course, time, , , hole, , , fee_normal, fee_discount] = el
-        .attr("onClick")
+    const els = ifr.gba("onclick", "javascript:timeapply_subcmd", true);
+    Array.from(els).forEach((el, i) => {
+      let [, course, time, , , , , , , , , hole, fee] = el
+        .attr("onclick")
         .inparen(true);
       course = dictCourse[course];
       hole = hole.ct(1);
-      fee_normal = fee_normal.rm(",") * 1;
-      fee_discount = fee_discount.rm(",") * 1;
-
+      fee = fee.rm(",") * 1;
+      const fee_normal = fee;
+      const fee_discount = fee;
       golf_schedule.push({
         golf_club_id: clubId,
         golf_course_id: course,

@@ -1,17 +1,15 @@
 function mneCall(date, callback) {
-  const dt = (date + "01").datify();
+  const dt = (date + "" + new Date().getDate()).datify();
   const param = {
-    method: "getCalendarHome",
-    coDiv: "818",
-    selYm: date,
+    match_day: dt,
+    gubun: 1,
   };
-  post("/controller/ReservationController.asp", param, {}, (data) => {
+  post("/adm/cop/adb/openingrestselect.do", param, {}, (data) => {
     const json = data.jp();
-    const els = json.rows;
+    const els = json.res[0].opening.split(",");
     Array.from(els).forEach((el) => {
-      if (el.BK_TEAM == "0") return;
-      const { CL_SOLAR: date, CL_BUSINESS: sign, CL_DAYDIV: gb } = el;
-      dates.push([date, sign, gb]);
+      const [date, team] = el.split("/");
+      dates.push([date.rm("-"), ""]);
     });
     callback();
   });
@@ -21,32 +19,25 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/controller/ReservationController.asp";
+  const addr = "/adm/cop/adb/select.do";
   const method = "post";
   const param = {
-    method: "getTeeList",
-    coDiv: "818",
-    date: date,
-    cos: "All",
+    match_day: date.datify(),
+    gubun: "1",
   };
   const dictCourse = {
-    A: "Gaon",
-    B: "Nury",
+    11: "단일",
   };
 
   fCall[method](addr, param, {}, (data) => {
     const json = data.jp();
-    const els = json.rows;
+    const els = json.res;
     Array.from(els).forEach((el) => {
-      let {
-        BK_DAY: date,
-        BK_TIME: time,
-        BK_S_CHARGE_NM: fee,
-        BK_COS: course,
-        BK_ROUNDF_NM: hole,
-      } = el;
-      course = dictCourse[course];
-      hole = hole.ct(1);
+      let { matchDay: date, matchTime: time, price: fee } = el;
+      date = date.rm("-");
+      time = time.rm(":");
+      course = dictCourse[11];
+      const hole = 9;
       fee = fee.rm(",") * 1;
       fee_normal = fee;
       fee_discount = fee;
@@ -70,4 +61,6 @@ function mneCallDetail(arrDate) {
 /* <============line_div==========> */
 
 /* <============line_div==========> */
-mneCall(thisdate, procDate);
+mneCall(thisdate, () => {
+  mneCall(nextdate, procDate);
+});
