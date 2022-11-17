@@ -1,1 +1,6 @@
-[["login_url","https://www.blackcc.co.kr/Mobile/member/Login.aspx","funcLogin"],["search_url","https://www.blackcc.co.kr/Mobile/Reservation/Reservation.aspx","funcReserve"],["main_url","https://www.blackcc.co.kr/Mobile/","funcMain"],["logout_url","https://www.blackcc.co.kr/Mobile/Member/LogOut.aspx","funcOut"],["reserve_url","https://www.blackcc.co.kr/Mobile/Reservation/ReservationList.aspx","funcList"],["time_url","https://www.blackcc.co.kr/Mobile/Reservation/ReservationTimeList.aspx","funcTime"],["exec_url","https://www.blackcc.co.kr/Mobile/Reservation/ReservationCheck.aspx","funcExec"]]
+[["login_url","https://www.blackcc.co.kr/Mobile/member/Login.aspx","funcLogin"],
+["search_url","https://www.blackcc.co.kr/Mobile/Reservation/Reservation.aspx","funcReserve"],
+["main_url","https://www.blackcc.co.kr/Mobile/","funcMain"],
+["logout_url","https://www.blackcc.co.kr/Mobile/Member/LogOut.aspx","funcOut"],
+["reserve_url","https://www.blackcc.co.kr/Mobile/Reservation/ReservationList.aspx","funcList"],
+["time_url","https://www.blackcc.co.kr/Mobile/Reservation/ReservationTimeList.aspx","funcTime"],["exec_url","https://www.blackcc.co.kr/Mobile/Reservation/ReservationCheck.aspx","funcExec"]]

@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.blackstonebelleforet.com/mobile/login/login.do","funcLogin"],
+    ["search_url","https://www.blackstonebelleforet.com/mobile/reservation/real_reservation.do","funcReserve"]    
+]

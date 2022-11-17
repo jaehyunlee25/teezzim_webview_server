@@ -1,5 +1,4 @@
 function mneCall(date, callback) {
-  console.log(date);
   const param = {
     golfResType: "real",
     schDate: date,
@@ -47,14 +46,14 @@ function mneCallDetail(arrDate) {
     cssncourseum: "",
     inputType: "",
   };
-const dictCourse = {
-      동IN: "동In",
-      남IN: "남In",
-      서IN: "서In",
-      동OUT: "동Out",
-      남OUT: "남Out",
-      서OUT: "서Out",
-    };
+  const dictCourse = {
+    동IN: "동In",
+    남IN: "남In",
+    서IN: "서In",
+    동OUT: "동Out",
+    남OUT: "남Out",
+    서OUT: "서Out",
+  };
   post("/reservation/list/ajax_real_timeinfo_list.do", param, {}, (data) => {
     /*callbackNumber++;*/
     const ifr = document.createElement("div");
