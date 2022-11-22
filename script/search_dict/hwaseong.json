@@ -1,0 +1,4 @@
+[
+    ["login_url","http://www.hwaseonggc.com/mobile/login.asp","funcLogin"],
+    ["search_url","http://www.hwaseonggc.com/mobile/reser.asp","funcReserve"]
+]
