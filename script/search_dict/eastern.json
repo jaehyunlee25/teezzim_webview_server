@@ -1,0 +1,4 @@
+[
+    ["login_url","http://www.easterncc.co.kr/mobile/member/login.asp","funcLogin"],
+    ["search_url","http://www.easterncc.co.kr/mobile/index.asp","funcReserve"]
+]
