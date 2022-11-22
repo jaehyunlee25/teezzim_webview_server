@@ -1,1 +1,4 @@
-[["login_url","https://m.dreamparkcc.or.kr/login.asp","funcLogin"],["search_url","https://www.dreamparkcc.or.kr/02internet/reservation01.asp","funcReserve"]]
+[
+    ["login_url","https://m.dreamparkcc.or.kr/login.asp","funcLogin"],
+    ["search_url","https://m.dreamparkcc.or.kr/A1.asp","funcReserve"]
+]
