@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.jisanresort.co.kr/m/member/login.asp","funcLogin"],
+    ["search_url","https://www.jisanresort.co.kr/w/reservation/golfResv/public_reserv01.asp","funcReserve"]
+]
