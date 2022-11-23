@@ -1,0 +1,4 @@
+[
+    ["login_url","http://m.msclub.co.kr/login.asp","funcLogin"],
+    ["search_url","http://m.msclub.co.kr/Reservation/calendar.asp","funcReserve"]
+]
