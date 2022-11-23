@@ -1,0 +1,4 @@
+[
+    ["login_url","https://user.maplebeach.co.kr/new/reservation/inc/mem_login.asp","funcLogin"],
+    ["search_url","https://user.maplebeach.co.kr/new/reservation/member/golf_reservation_list.asp","funcReserve"]
+]
