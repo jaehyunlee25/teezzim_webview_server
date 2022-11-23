@@ -1,0 +1,4 @@
+[
+    ["login_url","https://jhj.kolongolf.com/front/member/logIn.do","funcLogin"],
+    ["search_url","https://jhj.kolongolf.com/front/booking/bookingStep1.do","funcReserve"]
+]
