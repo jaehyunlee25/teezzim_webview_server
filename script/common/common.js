@@ -244,9 +244,6 @@ String.prototype.dayKor = function () {
 String.prototype.rm = function (str) {
   return this.split(str).join("");
 };
-String.prototype.regex = function (regex) {
-  return this.replace(regex, "");
-};
 String.prototype.fillzero = function (sep) {
   const ar = this.split(sep);
   const result = [];
@@ -260,7 +257,7 @@ String.prototype.jp = function () {
   return JSON.parse(this);
 };
 String.prototype.regex = function (regex) {
-  return this.replace(regex, "");
+  return re.exec(this);
 };
 HTMLElement.prototype.str = function () {
   return this.innerText;
