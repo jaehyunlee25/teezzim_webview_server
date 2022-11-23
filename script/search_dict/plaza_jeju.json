@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.plazacc.co.kr/plzcc/irsweb/golf2/member/login.do","funcLogin"],
+    ["search_url","https://booking.hanwharesort.co.kr/pzc/pnr/0010/serviceM00.mvc","funcReserve"]
+]
