@@ -256,7 +256,7 @@ String.prototype.fillzero = function (sep) {
 String.prototype.jp = function () {
   return JSON.parse(this);
 };
-String.prototype.regex = function (regex) {
+String.prototype.regex = function (re) {
   return re.exec(this);
 };
 HTMLElement.prototype.str = function () {
