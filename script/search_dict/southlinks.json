@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.southlinks.co.kr/Mobile/Member/Login","funcLogin"],
+    ["search_url","https://www.southlinks.co.kr/Mobile/Reservation/Reservation","funcReserve"]
+]
