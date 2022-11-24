@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.spahillscc.co.kr/?r=home&amp;system=iframe.login&amp;iframe=Y","funcLogin"],
+    ["search_url","https://www.spahillscc.co.kr/","funcReserve"]
+]
