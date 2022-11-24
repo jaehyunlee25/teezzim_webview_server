@@ -1,1 +1,4 @@
-[["login_url","https://theoceanresort.co.kr/main/login.do?PID=9901","funcLogin"],["search_url","https://theoceanresort.co.kr/main/golfReserve.do?PID=0903#noback","funcReserve"]]
+[
+    ["login_url","https://theoceanresort.co.kr/main/login.do?PID=9901","funcLogin"],
+    ["search_url","https://theoceanresort.co.kr/main/golfReserve.do","funcReserve"]
+]
