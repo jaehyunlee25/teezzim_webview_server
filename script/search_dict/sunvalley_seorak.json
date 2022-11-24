@@ -1,1 +1,4 @@
-[["login_url","https://www.sunvalley.co.kr/member/login","funcLogin"],["search_url","https://www.sunvalley.co.kr/reservation/golf?sel=J21","funcReserve"]]
+[
+    ["login_url","https://www.sunvalley.co.kr/member/login","funcLogin"],
+    ["search_url","https://www.sunvalley.co.kr/reservation/golf","funcReserve"]
+]
