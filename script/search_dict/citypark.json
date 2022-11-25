@@ -1,1 +1,4 @@
-[["login_url","http://www.citypark.co.kr/rpm.php?rpm=mobile&mode=login&ExLayout=N","funcLogin"],["search_url","http://www.citypark.co.kr/rpm.php?rpm=citypark&mode=login","funcReserve"]]
+[
+    ["login_url","http://golf.citypark.co.kr:8090/golfreservation_new/mobile/login.asp","funcLogin"],
+    ["search_url","http://golf.citypark.co.kr:8090/golfreservation_new/mobile/revDo1.asp","funcReserve"]
+]
