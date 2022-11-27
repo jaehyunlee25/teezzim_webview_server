@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.kccgolf.co.kr/index.php/member/login","funcLogin"],
+    ["search_url","https://www.kccgolf.co.kr/index.php/res/reserve","funcReserve"]
+]
