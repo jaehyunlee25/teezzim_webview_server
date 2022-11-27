@@ -259,6 +259,17 @@ String.prototype.jp = function () {
 String.prototype.regex = function (re) {
   return re.exec(this);
 };
+String.prototype.gup = function () {
+  // get url param
+  const param = {};
+  this.split("?")[1]
+    .split("&")
+    .forEach((str) => {
+      const [key, val] = str.split("=");
+      param[key] = val;
+    });
+  return param;
+};
 HTMLElement.prototype.str = function () {
   return this.innerText;
 };
