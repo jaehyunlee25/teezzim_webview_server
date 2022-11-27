@@ -260,7 +260,7 @@ String.prototype.regex = function (re) {
   return re.exec(this);
 };
 String.prototype.gup = function () {
-  // get url param
+  /*get url param*/
   const param = {};
   this.split("?")[1]
     .split("&")
