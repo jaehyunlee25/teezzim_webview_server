@@ -1,0 +1,4 @@
+[
+    ["login_url","https://www.rockgarden.kr:8444/member/login","funcLogin"],
+    ["search_url","https://www.rockgarden.kr:8444/reservation/golf","funcReserve"]
+]
