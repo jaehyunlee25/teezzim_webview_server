@@ -183,11 +183,7 @@ String.prototype.inparen = function (opt) {
     let flg = false;
     Array.from(org).forEach((chr) => {
       if (chr == "'") {
-        if (flg) {
-          flg = false;
-        } else {
-          flg = true;
-        }
+        flg = !flg;
       } else if (chr == ",") {
         if (flg) {
           ar.push(chr);
@@ -199,6 +195,10 @@ String.prototype.inparen = function (opt) {
         ar.push(chr);
       }
     });
+    if (ar.length > 0) {
+      result.push(ar.join(""));
+      ar = [];
+    }
   } else {
     org
       .split("'")
