@@ -275,6 +275,8 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/dbSetGolfClub") {
+    log(data);
   } else if (reqUrl == "/dbGetGolfClub") {
     objResp = {
       type: "okay",
