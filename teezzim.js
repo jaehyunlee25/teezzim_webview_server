@@ -78,7 +78,7 @@ const golfClubAccounts = {};
 const golfCourseByEngId = {};
 const golfCourseByUUID = {};
 const golfClubLoginProc = {};
-const golfClubs = {};
+let golfClubs = {};
 const golfCourses = {};
 const golfClubGroups = {};
 const groupClubs = {};
@@ -293,6 +293,12 @@ function procPost(request, response, data) {
       }
       response.write(JSON.stringify(objResp));
       response.end();
+      "sql/getGolfClub.sql".gf().query((err, rows, fields) => {
+        golfClubs = {};
+        rows.forEach((row) => {
+          golfClubs[row.id] = row;
+        });
+      });
     });
   } else if (reqUrl == "/dbSetGolfClub") {
     "sql/setDbGolfClub.sql".gfdp(data).query((err, rows, fields) => {
@@ -309,8 +315,20 @@ function procPost(request, response, data) {
       }
       response.write(JSON.stringify(objResp));
       response.end();
+      "sql/getGolfClub.sql".gf().query((err, rows, fields) => {
+        golfClubs = {};
+        rows.forEach((row) => {
+          golfClubs[row.id] = row;
+        });
+      });
     });
   } else if (reqUrl == "/dbGetGolfClub") {
+    "sql/getGolfClub.sql".gf().query((err, rows, fields) => {
+      golfClubs = {};
+      rows.forEach((row) => {
+        golfClubs[row.id] = row;
+      });
+    });
     objResp = {
       type: "okay",
       golfClubs,
