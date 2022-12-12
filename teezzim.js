@@ -278,6 +278,22 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/dbNewGolfClub") {
+    "sql/newDbGolfClub.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (reqUrl == "/dbSetGolfClub") {
     "sql/setDbGolfClub.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
