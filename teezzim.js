@@ -14,7 +14,10 @@ const log = function () {
   console.log("\n\n>> new log :: ", new Date());
   console.log(Array.from(arguments).join(", "));
 };
-const dir = console.dir;
+const dir = function (arg) {
+  console.log("\n\n>> new dir :: ", new Date());
+  console.dir(arg);
+};
 String.prototype.dp = function (param) {
   let self = this;
   const keys = Object.keys(param);
@@ -276,7 +279,7 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/dbSetGolfClub") {
-    log(data);
+    dir(data);
   } else if (reqUrl == "/dbGetGolfClub") {
     objResp = {
       type: "okay",
