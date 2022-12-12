@@ -279,7 +279,21 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/dbSetGolfClub") {
-    dir(data);
+    "sql/getOuterInfo.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (reqUrl == "/dbGetGolfClub") {
     objResp = {
       type: "okay",
