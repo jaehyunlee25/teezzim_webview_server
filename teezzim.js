@@ -275,6 +275,11 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/dbGetGolfClub") {
+    objResp = {
+      type: "okay",
+      golfClubs,
+    };
   } else if (reqUrl == "/clubGroup") {
     const club = data.club_id;
     const groupName = groupClubs[club];
