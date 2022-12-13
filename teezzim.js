@@ -278,6 +278,40 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/dbCheckGolfClubName") {
+    "sql/getDbCheckGolfClubName.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+  } else if (reqUrl == "/dbCheckGolfClubEngName") {
+    "sql/getDbCheckGolfClubEngName.sql"
+      .gfdp(data)
+      .query((err, rows, fields) => {
+        if (err) {
+          objResp = {
+            type: "error",
+            data: err,
+          };
+        } else {
+          objResp = {
+            type: "okay",
+            data: rows,
+          };
+        }
+        response.write(JSON.stringify(objResp));
+        response.end();
+      });
   } else if (reqUrl == "/dbNewGolfClub") {
     "sql/newDbGolfClub.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
@@ -327,12 +361,15 @@ function procPost(request, response, data) {
       golfClubs = {};
       rows.forEach((row) => {
         golfClubs[row.id] = row;
+        golfClubs[row.id].eng_id = golfClubIdToEng[row.id];
       });
+      objResp = {
+        type: "okay",
+        golfClubs,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
     });
-    objResp = {
-      type: "okay",
-      golfClubs,
-    };
   } else if (reqUrl == "/clubGroup") {
     const club = data.club_id;
     const groupName = groupClubs[club];
