@@ -281,6 +281,7 @@ function procPost(request, response, data) {
   } else if (reqUrl == "/dbCheckGolfClubName") {
     "sql/getDbCheckGolfClubName.sql".gfjp(data).query((err, rows, fields) => {
       if (err) {
+        log(err);
         objResp = {
           type: "error",
           data: err,
