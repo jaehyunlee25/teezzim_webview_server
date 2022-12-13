@@ -327,12 +327,15 @@ function procPost(request, response, data) {
       golfClubs = {};
       rows.forEach((row) => {
         golfClubs[row.id] = row;
+        golfClubs[row.id].eng_id = golfClubIdToEng[row.id];
       });
+      objResp = {
+        type: "okay",
+        golfClubs,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
     });
-    objResp = {
-      type: "okay",
-      golfClubs,
-    };
   } else if (reqUrl == "/clubGroup") {
     const club = data.club_id;
     const groupName = groupClubs[club];
