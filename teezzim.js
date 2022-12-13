@@ -279,7 +279,7 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/dbCheckGolfClubName") {
-    "sql/getDbCheckGolfClubName".gfjp(data).query((err, rows, fields) => {
+    "sql/getDbCheckGolfClubName.sql".gfjp(data).query((err, rows, fields) => {
       if (err) {
         objResp = {
           type: "error",
