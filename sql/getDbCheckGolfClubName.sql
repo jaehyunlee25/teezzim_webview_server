@@ -1,1 +1,1 @@
-select * from golf_club where name like '%${name}%';
+select name from golf_club where name like '%${name}%';

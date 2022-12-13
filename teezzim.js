@@ -295,9 +295,9 @@ function procPost(request, response, data) {
       response.end();
     });
   } else if (reqUrl == "/dbCheckGolfClubEngName") {
-    'select * from golf_club_eng where eng_id like "%' +
-      data.name +
-      '%";'.query((err, rows, fields) => {
+    "sql/getDbCheckGolfClubEngName.sql"
+      .gfdp(data)
+      .query((err, rows, fields) => {
         if (err) {
           objResp = {
             type: "error",
