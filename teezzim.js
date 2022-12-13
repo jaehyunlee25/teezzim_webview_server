@@ -279,9 +279,9 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/dbCheckGolfClubName") {
-    "select * from golf_club where name like '%" +
+    'select * from golf_club where name like "%' +
       data.name +
-      "%';".query((err, rows, fields) => {
+      '%";'.query((err, rows, fields) => {
         if (err) {
           objResp = {
             type: "error",
@@ -297,9 +297,9 @@ function procPost(request, response, data) {
         response.end();
       });
   } else if (reqUrl == "/dbCheckGolfClubEngName") {
-    "select * from golf_club_eng where eng_id like '%" +
+    'select * from golf_club_eng where eng_id like "%' +
       data.name +
-      "%';".query((err, rows, fields) => {
+      '%";'.query((err, rows, fields) => {
         if (err) {
           objResp = {
             type: "error",
