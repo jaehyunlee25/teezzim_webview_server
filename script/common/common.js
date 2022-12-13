@@ -270,6 +270,65 @@ String.prototype.gup = function () {
     });
   return param;
 };
+String.prototype.sort = function () {
+  return Array.from(this).sort().join("");
+};
+String.prototype.vector = function () {
+  /* 정렬한 뒤, 겹치는 글자는 뺀다. */
+  const res = {};
+  Array.from(this)
+    .sort()
+    .forEach((chr) => (res[chr] = true));
+  return Object.keys(res).join("");
+};
+String.prototype.comp = function (str) {
+  let a = Array.from(this);
+  let b = Array.from(str);
+  let c;
+  if (b.length > a.length) {
+    c = a;
+    a = b;
+    b = c;
+    c = undefined;
+  }
+
+  const res = [];
+
+  exec();
+
+  function exec() {
+    let flg = false;
+    let cur = b.shift();
+    let tmp = [];
+    a.forEach((chr) => {
+      if (chr == cur) {
+        flg = true;
+        tmp.push(cur);
+        cur = b.shift();
+      } else {
+        if (flg) {
+          flg = false;
+          if (tmp.length > 0) {
+            res.push(tmp);
+            tmp = [];
+          }
+          if (cur != undefined) {
+            b.unshift(cur);
+            exec();
+          }
+        }
+      }
+    });
+    if (tmp.length > 0) {
+      res.push(tmp);
+      if (cur != undefined) {
+        b.unshift(cur);
+        exec();
+      }
+    }
+  }
+  return res;
+};
 HTMLElement.prototype.str = function () {
   return this.innerText;
 };
