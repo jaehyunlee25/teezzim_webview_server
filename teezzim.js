@@ -433,9 +433,9 @@ function procPost(request, response, data) {
       rows.forEach((row) => {
         golfClubs[row.id] = row;
         golfClubs[row.id].eng_id = golfClubIdToEng[row.id];
-        golfClubs[row.id].course_name = Object.keys(golfCourses[row.id]).join(
-          ","
-        );
+        golfClubs[row.id].course_name = golfCourses[row.id]
+          ? Object.keys(golfCourses[row.id]).join(",")
+          : "";
       });
       objResp = {
         type: "okay",
