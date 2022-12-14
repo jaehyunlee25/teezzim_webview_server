@@ -371,19 +371,21 @@ function procPost(request, response, data) {
           type: "error",
           data: err,
         };
-      } else {
-        objResp = {
-          type: "okay",
-          data: rows,
-        };
+        response.write(JSON.stringify(objResp));
+        response.end();
+        return;
       }
-      response.write(JSON.stringify(objResp));
-      response.end();
       "sql/getGolfClub.sql".gf().query((err, rows, fields) => {
         golfClubs = {};
         rows.forEach((row) => {
           golfClubs[row.id] = row;
         });
+        objResp = {
+          type: "okay",
+          data: golfClubs,
+        };
+        response.write(JSON.stringify(objResp));
+        response.end();
       });
     });
   } else if (reqUrl == "/dbSetGolfClub") {
