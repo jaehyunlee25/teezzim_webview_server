@@ -66,23 +66,23 @@ Array.prototype.lo = function () {
   const idx = this.length - 1;
   return this[idx];
 };
-const golfClubEngNames = [];
-const golfClubIdToEng = {};
-const golfClubEngToKor = {};
-const golfClubIds = {};
-const golfClubLoginUrl = {};
-const golfClubLoginUrlByUUID = {};
-const golfClubSearchUrl = {};
-const golfClubReserveUrl = {};
-const golfClubAccounts = {};
-const golfCourseByEngId = {};
-const golfCourseByUUID = {};
-const golfClubLoginProc = {};
+let golfClubEngNames = [];
+let golfClubIdToEng = {};
+let golfClubEngToKor = {};
+let golfClubIds = {};
+let golfClubLoginUrl = {};
+let golfClubLoginUrlByUUID = {};
+let golfClubSearchUrl = {};
+let golfClubReserveUrl = {};
+let golfClubAccounts = {};
+let golfCourseByEngId = {};
+let golfCourseByUUID = {};
+let golfClubLoginProc = {};
 let golfClubs = {};
-const golfCourses = {};
-const golfClubGroups = {};
-const groupClubs = {};
-const LINE_DIVISION = "\n/* <============line_div==========> */\n";
+let golfCourses = {};
+let golfClubGroups = {};
+let groupClubs = {};
+let LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
 /* connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
@@ -312,6 +312,58 @@ function procPost(request, response, data) {
         response.write(JSON.stringify(objResp));
         response.end();
       });
+  } else if (reqUrl == "/dbNewGolfCourse") {
+    "sql/newDbGolfCourse.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+      "sql/getGolfCourse.sql".gf().query((err, rows, fields) => {
+        golfCourses = {};
+        rows.forEach((row) => {
+          if (!golfCourses[row.golf_club_id])
+            golfCourses[row.golf_club_id] = {};
+          golfCourses[row.golf_club_id][row.name] = row;
+        });
+      });
+    });
+  } else if (reqUrl == "/dbNewGolfClubEng") {
+    "sql/newDbGolfClubEng.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+      "sql/golfClubNames.sql".gf().query((err, rows, fields) => {
+        golfClubEngNames = [];
+        golfClubIds = {};
+        golfClubIdToEng = {};
+        golfClubEngToKor = {};
+        rows.forEach((row) => {
+          golfClubEngNames.push(row.eng_id);
+          golfClubIds[row.eng_id] = row.golf_club_id;
+          golfClubIdToEng[row.golf_club_id] = row.eng_id;
+          golfClubEngToKor[row.eng_id] = row.name;
+        });
+      });
+    });
   } else if (reqUrl == "/dbNewGolfClub") {
     "sql/newDbGolfClub.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
