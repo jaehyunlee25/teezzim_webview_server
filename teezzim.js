@@ -280,6 +280,7 @@ function procPost(request, response, data) {
     objResp = 0;
   } else if (reqUrl == "/dbNewGroup") {
     const { clubIds, engIds, groupName } = data;
+    const res = [];
     clubIds.forEach((id, i) => {
       let value = [
         "'" + groupName + "'",
