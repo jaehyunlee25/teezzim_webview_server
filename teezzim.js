@@ -290,7 +290,7 @@ function procPost(request, response, data) {
       res.push("(" + value + ")");
     });
     const group_values = res.join(",");
-    "sql/newGroup.sql".gfdp({ group_values }).query((err, rows, fields) => {
+    "sql/newDbGroup.sql".gfdp({ group_values }).query((err, rows, fields) => {
       if (err) {
         objResp = {
           type: "error",
