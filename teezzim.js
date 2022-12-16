@@ -278,6 +278,11 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/dbGetGroup") {
+    objResp = {
+      type: "okay",
+      data: groupClubs,
+    };
   } else if (reqUrl == "/dbCheckGolfClubName") {
     "sql/getDbCheckGolfClubName.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
