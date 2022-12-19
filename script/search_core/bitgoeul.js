@@ -34,15 +34,22 @@ function mneCallDetail(arrDate) {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    /* const els = ifr.gba("onclick", "golfConfirm", true);
+    const els = ifr.gba("onclick", "pf_selectMember", true);
     Array.from(els).forEach((el) => {
-      let [date, time, course, , , hole, fee_normal, fee_discount] = el
-        .attr("onclick")
-        .inparen(true);
-      course = dictCourse[course];
+      let [, , , date, time, hole] = el.attr("onclick").inparen(true);
+      date = date.rm("-");
+      time = time.replace(/\s/g, "").rm(":");
       hole = hole.ct(1);
-      fee_normal = fee_normal.rm(",") * 1;
-      fee_discount = fee_discount.rm(",") * 1;
+      course = dictCourse[1];
+      const fee = el.nm(2, 2).str().replace(/\s/g, "").ct(1).rm(",") * 1;
+      fee_normal = fee;
+      fee_discount = fee;
+
+      let flg = true;
+      golf_schedule.forEach((ob) => {
+        if (ob.date == date && ob.time == time) flg = false;
+      });
+      if (!flg) return;
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -56,7 +63,7 @@ function mneCallDetail(arrDate) {
         others: hole + "홀",
       });
     });
-    procDate(); */
+    procDate();
   });
 }
 

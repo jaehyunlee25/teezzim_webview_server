@@ -4,13 +4,12 @@ function mneCall(date, callback) {
     site_gbn: "KC",
   };
   post("/reservation/golf_calendar.asp", param, {}, (data) => {
-    const ifr = document.createElement("div");
+    const ifr = doc.clm("div");
     ifr.innerHTML = data;
-    const els = ifr.getElementsByClassName("reserv_posi");
+    const els = ifr.gcn("reserv_posi");
     Array.from(els).forEach((el) => {
-      const param = el.getAttribute("onclick").inparen();
-      const fulldate = param[1].split("-").join("");
-      dates.push([fulldate, param]);
+      const [, date] = el.attr("onclick").inparen();
+      dates.push([date.rm("-"), ""]);
     });
     callback();
   });

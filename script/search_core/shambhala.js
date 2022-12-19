@@ -59,7 +59,6 @@ function mneCallDetail(arrDate) {
         others: hole + "홀",
       });
     });
-log("GS::", golf_schedule.length);
     procDate();
   });
 }
