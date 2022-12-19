@@ -422,6 +422,42 @@ function procPost(request, response, data) {
         });
       });
     });
+  } else if (reqUrl == "/dbNewGolfClubUsability") {
+    "sql/newDbGolfClubUsability.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+        response.write(JSON.stringify(objResp));
+        response.end();
+        return;
+      }
+      objResp = {
+        type: "okay",
+        data: row,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+  } else if (reqUrl == "/dbNewGolfClubOrder") {
+    "sql/newDbGolfClubOrder.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+        response.write(JSON.stringify(objResp));
+        response.end();
+        return;
+      }
+      objResp = {
+        type: "okay",
+        data: row,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (reqUrl == "/dbNewGolfClubDetail") {
     "sql/newDbGolfClubDetail.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
@@ -433,6 +469,12 @@ function procPost(request, response, data) {
         response.end();
         return;
       }
+      objResp = {
+        type: "okay",
+        data: row,
+      };
+      response.write(JSON.stringify(objResp));
+      response.end();
     });
   } else if (reqUrl == "/dbNewGolfClub") {
     "sql/newDbGolfClub.sql".gfdp(data).query((err, rows, fields) => {
