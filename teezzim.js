@@ -278,6 +278,14 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/dbCheckServerfile") {
+    const eng = data.eng_id;
+    objResp = {
+      type: "okay",
+      data: false,
+    };
+    if (fs.existsSync("/script/search_dict/" + eng + ".json"))
+      objResp.data = true;
   } else if (reqUrl == "/dbNewGroup") {
     const { clubIds, engIds, groupName } = data;
     const res = [];
