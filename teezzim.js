@@ -305,10 +305,10 @@ function procPost(request, response, data) {
     const eng = data.eng_id;
     objResp = {
       type: "okay",
-      data: false,
+      data: { check: false },
     };
     if (fs.existsSync("script/search_dict/" + eng + ".json"))
-      objResp.data = true;
+      objResp.data.check = true;
   } else if (reqUrl == "/dbNewGroup") {
     const { clubIds, engIds, groupName } = data;
     const res = [];
