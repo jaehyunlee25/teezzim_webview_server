@@ -307,7 +307,7 @@ function procPost(request, response, data) {
       type: "okay",
       data: false,
     };
-    if (fs.existsSync("/script/search_dict/" + eng + ".json"))
+    if (fs.existsSync("script/search_dict/" + eng + ".json"))
       objResp.data = true;
   } else if (reqUrl == "/dbNewGroup") {
     const { clubIds, engIds, groupName } = data;
