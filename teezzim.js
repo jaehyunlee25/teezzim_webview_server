@@ -298,6 +298,9 @@ function procPost(request, response, data) {
       JSON.stringify(arObj),
       "utf-8"
     );
+    objResp = {
+      type: "okay",
+    };
   } else if (reqUrl == "/dbCheckServerfile") {
     const eng = data.eng_id;
     objResp = {
