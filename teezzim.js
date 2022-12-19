@@ -422,6 +422,18 @@ function procPost(request, response, data) {
         });
       });
     });
+  } else if (reqUrl == "/dbNewGolfClubDetail") {
+    "sql/newDbGolfClubDetail.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+        response.write(JSON.stringify(objResp));
+        response.end();
+        return;
+      }
+    });
   } else if (reqUrl == "/dbNewGolfClub") {
     "sql/newDbGolfClub.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
