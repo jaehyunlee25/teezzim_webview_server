@@ -278,7 +278,7 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
-  } else if (reqUrl == "/dbCheckServerfile") {
+  } else if (reqUrl == "/dbNewServerfile") {
     const { eng_id: eng } = data;
     const arRes = [
       ["login_url", golfClubLoginUrl[eng], "funcLogin"],
