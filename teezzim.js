@@ -1043,10 +1043,10 @@ function procPost(request, response, data) {
     objResp = {
       url,
       script,
-      procProc: proc.proc,
-      procResult: proc.result,
-      procMessage: proc.message,
-      procLandingLink: proc.landingLink,
+      procProc: proc ? proc.proc : "",
+      procResult: proc ? proc.result : "",
+      procMessage: proc ? proc.message : "",
+      procLandingLink: proc ? proc.landingLink : "",
     };
   } else {
     const engName = reqUrl.substring(1);
