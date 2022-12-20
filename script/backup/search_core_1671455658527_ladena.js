@@ -40,7 +40,6 @@ function mneCallDetail(arrDate) {
       course = dictCourse[course];
       const fee_discount = 220000;
       const fee_normal = 220000;
-
 log(JSON.stringify({
         golf_club_id: clubId,
         golf_course_id: course,
@@ -51,8 +50,8 @@ log(JSON.stringify({
         fee_normal,
         fee_discount,
         others: "18홀",
-      }));
-
+      });
+    }))
       golf_schedule.push({
         golf_club_id: clubId,
         golf_course_id: course,

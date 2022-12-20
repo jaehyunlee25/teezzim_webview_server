@@ -2,23 +2,23 @@ function mneCall(strdate, callback) {
   const param = {};
   const els = doc.gba("href", "javascript:timefrom_change", true);
   Array.from(els).forEach((el) => {
-    const [date,sign,gb,,,opt] = el.attr("href").inparen();
+    const [date,,,,,opt] = el.attr("href").inparen();
     if(opt != "T") return;
-    dates.push([date, sign, gb]);
+    dates.push([date, ""]);
   });
   callback();
 }
 
 /* <============line_div==========> */
 function mneCallDetail(arrDate) {
-  const [date, sign, gb] = arrDate;
+  const [date, strParam] = arrDate;
   const param = {
     golfrestype: "real",
     courseid: "0",
     usrmemcd: "31",
     pointdate: date,
-    openyn: sign,
-    dategbn: gb,
+    openyn: "1",
+    dategbn: "3",
     choice_time: "00",
     cssncourseum: "",
     inputtype: "I",
@@ -40,18 +40,6 @@ function mneCallDetail(arrDate) {
       course = dictCourse[course];
       const fee_discount = 220000;
       const fee_normal = 220000;
-
-log(JSON.stringify({
-        golf_club_id: clubId,
-        golf_course_id: course,
-        date,
-        time,
-        in_out: "",
-        persons: "",
-        fee_normal,
-        fee_discount,
-        others: "18홀",
-      }));
 
       golf_schedule.push({
         golf_club_id: clubId,
