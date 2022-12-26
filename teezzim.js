@@ -1092,10 +1092,10 @@ function procPost(request, response, data) {
       urls[uuid] = golfClubLoginUrl[engName];
       scripts[uuid] = getLoginScript(engName);
       proc = golfClubLoginProc[uuid];
-      procProcs[uuid] = proc ? proc.proc : "";
-      procLandingLinks[uuid] = proc ? proc.landingLink : "";
-      procMessages[uuid] = proc ? proc.message : "";
-      procResults[uuid] = proc ? proc.result : "";
+      procProcs[uuid] = proc ? proc.proc : {};
+      procLandingLinks[uuid] = proc ? proc.landingLink : {};
+      procMessages[uuid] = proc ? proc.message : {};
+      procResults[uuid] = proc ? proc.result : {};
     });
 
     objResp = {
