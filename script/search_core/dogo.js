@@ -1,18 +1,16 @@
 function mneCall(date, callback) {
-  const dt = date + "01";
   const param = {
-    query: "list",
-    smonth: dt,
+    day: (date + "01").datify("/"),
+    type: "",
   };
-  get("/2019/mobile/reservation/reservation.php", param, {}, (data) => {
+  post("/Mobile/Booking/AjaxCalendar", param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
-
-    const els = ifr.gba("onclick", "dateReload", true);
+    const attr = "onclick";
+    const els = ifr.gba(attr, "reservation", true);
     Array.from(els).forEach((el) => {
-      let dt = el.str().replace(/\s/g, "");
-      const fulldate = date + dt.addzero();
-      dates.push([fulldate, ""]);
+      const [date] = el.attr(attr).inparen();
+      dates.push([date, ""]);
     });
     callback();
   });
@@ -22,28 +20,35 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/2019/mobile/reservation/daylist.php";
-  const method = "get";
+  const addr = "/Mobile/Booking/SelectTime";
+  const method = "post";
   const param = {
-    year: date.gh(4),
-    month: date.ch(4).gh(2),
-    day: date.gt(2),
+    day: date,
+    change_trbm_date: "",
+    change_trbm_seq: "",
   };
   const dictCourse = {
-    1: "단일",
+    11: "Out",
+    22: "In",
   };
 
   fCall[method](addr, param, {}, (data) => {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("href", "reservation2.php?", true);
+    const attr = "onclick";
+    const els = ifr.gba(attr, "ReservationForm", true);
     Array.from(els).forEach((el) => {
-      let val = el.attr("href").split("&")[1].split("=")[1];
-      const time = val.gt(4);
-      course = dictCourse[1];
-      hole = el.nm(2, 1).str().replace(/\s/g, "").ct(1);
-      const fee = 60000;
+      let [, date, , course, time] = el.attr(attr).inparen();
+      course = dictCourse[course];
+      hole = 18;
+      const fee =
+        el
+          .nm(2, 0)
+          .str()
+          .regex(/[0-9,]+원/)[0]
+          .ct(1)
+          .rm(",") * 1;
       fee_normal = fee;
       fee_discount = fee;
 

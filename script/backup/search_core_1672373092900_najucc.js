@@ -11,8 +11,8 @@ function mneCall(date, callback) {
     const els = ifr.gba("onclick", "dateReload", true);
     Array.from(els).forEach((el) => {
       let dt = el.str().replace(/\s/g, "");
-      const fulldate = date + dt.addzero();
-      dates.push([fulldate, ""]);
+      date = date + dt.addzero();
+      dates.push([date, ""]);
     });
     callback();
   });

@@ -1,18 +1,15 @@
 function mneCall(date, callback) {
-  const dt = date + "01";
   const param = {
-    query: "list",
-    smonth: dt,
+    method: "getCalendar",
+    coDiv: "202",
+    selYm: date,
   };
-  get("/2019/mobile/reservation/reservation.php", param, {}, (data) => {
-    const ifr = doc.clm("div");
-    ifr.innerHTML = data;
-
-    const els = ifr.gba("onclick", "dateReload", true);
+  post("/controller/ReservationController.asp", param, {}, (data) => {
+    const json = data.jp();
+    const { rows: els } = json;
     Array.from(els).forEach((el) => {
-      let dt = el.str().replace(/\s/g, "");
-      const fulldate = date + dt.addzero();
-      dates.push([fulldate, ""]);
+      if (el.BK_TEAM == "0") return;
+      dates.push([el.CL_SOLAR, el.CL_BUSINESS, el.CL_DAYDIV]);
     });
     callback();
   });
@@ -22,28 +19,29 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign, gb] = arrDate;
-  const addr = "/2019/mobile/reservation/daylist.php";
-  const method = "get";
+  const addr = "/controller/ReservationController.asp";
+  const method = "post";
   const param = {
-    year: date.gh(4),
-    month: date.ch(4).gh(2),
-    day: date.gt(2),
+    method: "getTeeList",
+    coDiv: "202",
+    date: date,
   };
   const dictCourse = {
-    1: "단일",
+    A: "Out",
+    B: "In",
   };
 
   fCall[method](addr, param, {}, (data) => {
-    const ifr = doc.clm("div");
-    ifr.innerHTML = data;
-
-    const els = ifr.gba("href", "reservation2.php?", true);
+    const { rows: els } = data.jp();
     Array.from(els).forEach((el) => {
-      let val = el.attr("href").split("&")[1].split("=")[1];
-      const time = val.gt(4);
-      course = dictCourse[1];
-      hole = el.nm(2, 1).str().replace(/\s/g, "").ct(1);
-      const fee = 60000;
+      let {
+        BK_AMT: fee,
+        BK_COS: course,
+        BK_DAY: date,
+        BK_ROUNDF_NM: hole,
+        BK_TIME: time,
+      } = el;
+      course = dictCourse[course];
       fee_normal = fee;
       fee_discount = fee;
 
