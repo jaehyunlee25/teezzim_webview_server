@@ -1,6 +1,8 @@
 var tLoginCount = 0;
 log("tLoginCount", tLoginCount);
-const tLogin = setInterval(() => {
+timeraction();
+const tLogin = setInterval(timeraction, 1000);
+function timeraction() {
   if (!window["login_id"]) {
     tLoginCount++;
     log("tLoginCount", tLoginCount);
@@ -12,4 +14,4 @@ const tLogin = setInterval(() => {
   login_id.value = "${login_id}";
   login_pw.value = "${login_password}";
   chkLogValue("frmLogin", "in", "login_id", "login_pw");
-}, 1000);
+}

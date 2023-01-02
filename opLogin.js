@@ -55,7 +55,7 @@ files.forEach((file, i) => {
 
   const con = (path + file).gf();
   if (con.trim().length == 0) return;
-  if (con.has(tLoginCount)) return;
+  if (con.has("tLoginCount")) return;
   // log(i, file);
   let str;
   con.split("\n").forEach((ln, j) => {

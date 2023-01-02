@@ -1,6 +1,8 @@
 var tLoginCount = 0;
 log("tLoginCount", tLoginCount);
-const tLogin = setInterval(() => {
+timeraction();
+const tLogin = setInterval(timeraction, 1000);
+function timeraction() {
     if (${escapeCondition}) {
         tLoginCount++;
         log("tLoginCount", tLoginCount);
@@ -10,4 +12,4 @@ const tLogin = setInterval(() => {
     clearInterval(tLogin);
     if (precheck()) return;
     ${loginScript}
-}, 1000);
+}
