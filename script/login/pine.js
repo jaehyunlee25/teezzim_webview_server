@@ -1,7 +1,7 @@
 var tLoginCount = 0;
 log("tLoginCount", tLoginCount);
-timeraction();
 const tLogin = setInterval(timeraction, 1000);
+timeraction();
 function timeraction() {
   if (!window["contents_txtId"]) {
     tLoginCount++;
