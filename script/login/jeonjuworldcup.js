@@ -1,3 +1,17 @@
-loginId.value = '${login_id}';
-loginPassword.value = '${login_password}';
-fn_login();
+var tLoginCount = 0;
+log("tLoginCount", tLoginCount);
+timeraction();
+const tLogin = setInterval(timeraction, 1000);
+function timeraction() {
+  if (!window["loginId"]) {
+    tLoginCount++;
+    log("tLoginCount", tLoginCount);
+    if (tLoginCount > 4) clearInterval(tLogin);
+    return;
+  }
+  clearInterval(tLogin);
+  if (precheck()) return;
+  loginId.value = "${login_id}";
+  loginPassword.value = "${login_password}";
+  fn_login();
+}

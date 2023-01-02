@@ -1,3 +1,17 @@
-doc.gbn("t2")[0].value = '${login_id}';
-doc.gbn("t3")[0].value = '${login_password}';
-go1();
+var tLoginCount = 0;
+log("tLoginCount", tLoginCount);
+timeraction();
+const tLogin = setInterval(timeraction, 1000);
+function timeraction() {
+  if (undefined) {
+    tLoginCount++;
+    log("tLoginCount", tLoginCount);
+    if (tLoginCount > 4) clearInterval(tLogin);
+    return;
+  }
+  clearInterval(tLogin);
+  if (precheck()) return;
+  doc.gbn("t2")[0].value = "${login_id}";
+  doc.gbn("t3")[0].value = "${login_password}";
+  go1();
+}

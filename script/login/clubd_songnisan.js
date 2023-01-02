@@ -1,14 +1,28 @@
-msId.value = '${login_id}';
-msPw.value = '${login_password}';
-actionLogin();
+var tLoginCount = 0;
+log("tLoginCount", tLoginCount);
+timeraction();
+const tLogin = setInterval(timeraction, 1000);
+function timeraction() {
+  if (!window["msId"]) {
+    tLoginCount++;
+    log("tLoginCount", tLoginCount);
+    if (tLoginCount > 4) clearInterval(tLogin);
+    return;
+  }
+  clearInterval(tLogin);
+  if (precheck()) return;
+  msId.value = "${login_id}";
+  msPw.value = "${login_password}";
+  actionLogin();
 
-    /* begin: precheck content */
-    function precheck() {
-      if (doc.gcn("m_logout").length > 0) {
-        log("ALREADY_LOGIN");
-        if (ac) ac.message("ALREADY_LOGIN");
-        return true;
-      }
-      return false;
+  /* begin: precheck content */
+  function precheck() {
+    if (doc.gcn("m_logout").length > 0) {
+      log("ALREADY_LOGIN");
+      if (ac) ac.message("ALREADY_LOGIN");
+      return true;
     }
-    /* end: precheck content */
+    return false;
+  }
+  /* end: precheck content */
+}

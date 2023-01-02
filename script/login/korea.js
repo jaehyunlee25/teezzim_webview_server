@@ -1,3 +1,17 @@
-txtId.value = '${login_id}';
-txtPw.value = '${login_password}';
-doc.body.gba("href", "javascript:doLogin()")[0].click();
+var tLoginCount = 0;
+log("tLoginCount", tLoginCount);
+timeraction();
+const tLogin = setInterval(timeraction, 1000);
+function timeraction() {
+  if (!window["txtId"]) {
+    tLoginCount++;
+    log("tLoginCount", tLoginCount);
+    if (tLoginCount > 4) clearInterval(tLogin);
+    return;
+  }
+  clearInterval(tLogin);
+  if (precheck()) return;
+  txtId.value = "${login_id}";
+  txtPw.value = "${login_password}";
+  doc.body.gba("href", "javascript:doLogin()")[0].click();
+}

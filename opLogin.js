@@ -57,6 +57,11 @@ files.forEach((file, i) => {
   if (con.trim().length == 0) return;
   if (con.has("tLoginCount")) return;
   // log(i, file);
+  fs.writeFileSync(
+    "./script/backup/login_" + new Date().getTime() + "_" + file,
+    con,
+    "utf-8"
+  );
   let str;
   con.split("\n").forEach((ln, j) => {
     if (j > 0) return;
@@ -71,8 +76,5 @@ files.forEach((file, i) => {
     escapeCondition: str,
     loginScript: con,
   });
-  log(i, file);
-  log(templ);
-  log("");
+  fs.writeFileSync(path + file, templ, "utf-8");
 });
-// fs.writeFileSync("opLoginResult", res.join("\n"));
