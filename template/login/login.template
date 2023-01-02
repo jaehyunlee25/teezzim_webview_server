@@ -1,13 +1,12 @@
 ${common}
 
+logParam.sub_type = "login";
+logParam.message = "start login";
+TZLOG(logParam, (data) => {}); 
+
 main();
 function main() {
-    log("main");
-    const chk = LSCHK("TZ_LOGIN_MAIN", 10);
-    if(!chk) return;
-
-    logParam.sub_type = "login";
-    logParam.message = "start login";
-    TZLOG(logParam, (data) => {}); 
+    if (precheck()) return;
     ${loginScript}
-}
+};
+function precheck() {};

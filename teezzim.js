@@ -2017,8 +2017,8 @@ function getSearchScript(engName, command) {
 }
 function getPureLoginScript(engName) {
   const golfClubId = golfClubIds[engName];
-  const cover = fs.readFileSync("script/login/cover.template", "utf-8");
-  const template = fs.readFileSync("script/login/login.template", "utf-8");
+  const cover = fs.readFileSync("template/login/cover.template", "utf-8");
+  const template = fs.readFileSync("template/login/login.template", "utf-8");
   const common = "";
   let loginScript;
   let loginContent;
@@ -2051,8 +2051,8 @@ function getLoginScriptAdmin(engName) {
 }
 function getLoginScript(engName, noCover) {
   const golfClubId = golfClubIds[engName];
-  const cover = "script/login/cover.template".gf();
-  const template = "script/login/login.template".gf();
+  const cover = "template/login/cover.template".gf();
+  const template = "template/login/login.template".gf();
   const common = "script/common/common.js".gf();
   let loginScript;
   let loginContent;
