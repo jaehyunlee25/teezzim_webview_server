@@ -4,6 +4,7 @@ const tLogin = setInterval(() => {
   if (!window["login_id"]) {
     tLoginCount++;
     log("tLoginCount", tLoginCount);
+    if (tLoginCount > 4) clearInterval(tLogin);
     return;
   }
   clearInterval(tLogin);
