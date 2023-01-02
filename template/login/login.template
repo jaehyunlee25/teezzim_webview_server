@@ -6,7 +6,7 @@ TZLOG(logParam, (data) => {});
 
 main();
 function main() {
-    if (precheck()) return;
+    /*if (precheck()) return;*/
     ${loginScript}
 };
 function precheck() {};

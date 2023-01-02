@@ -1,9 +1,6 @@
-btn_login_t.click();
-setInterval(() => {
-  log_cd.value = "${login_id}";
-  log_pass.value = "${login_password}";
-  btn_login.click();
-}, 500);
+log_cd.value = "${login_id}";
+log_pass.value = "${login_password}";
+btn_login.click();
 
 /* begin: precheck content */
 function precheck() {
