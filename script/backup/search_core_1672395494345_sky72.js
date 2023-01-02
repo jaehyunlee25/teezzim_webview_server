@@ -6,7 +6,7 @@ function mneCall(callback) {
     const date = tr.getAttribute("dt1");
     Array.from(tr.children).forEach((td, i) => {
       if (i === 0) return;
-      if (i != 4) return;
+      if (i > 4) return;
       if (td.innerText === "") result.push([date, dict[i]]);
     });
   });
@@ -36,8 +36,11 @@ function mneCallDetail(arrDate) {
     enc: "",
     cmd: "",
   };
-  const dictCourse = {    
-    D: "단일",
+  const dictCourse = {
+    A: "하늘",
+    B: "레이크",
+    C: "클래식",
+    D: "오션",
   };
 
   post("real_step02.jsp", param, {}, (data) => {

@@ -1,0 +1,1 @@
+{"LOGOUT":"  function LOGOUT() {\r\n    log(\"LOGOUT\");\r\n    location.href=\"javascript:()=>{}\";\r\n  }"}

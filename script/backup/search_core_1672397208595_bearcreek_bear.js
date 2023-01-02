@@ -43,7 +43,7 @@ function mneCallDetail(arrDate) {
     "LIST|" + date.datify() + "|" + date.datify() + "|N|1|18|";
   param["__EVENTTARGET"] = "ctl00$ContentPlaceHolder1$btnUp";
   param["__ASYNCPOST"] = "true";
-  const dictCourse = {
+  const dictCourse = {    
     33: "크리크OUT",
     44: "크리크IN",
   };

@@ -37,7 +37,7 @@ function mneCallDetail(arrDate) {
     cmd: "",
   };
   const dictCourse = {    
-    D: "단일",
+    D: "오션",
   };
 
   post("real_step02.jsp", param, {}, (data) => {

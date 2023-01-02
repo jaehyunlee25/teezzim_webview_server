@@ -12,11 +12,12 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const [date, option] = arrDate;
   const dictCourse = {
-    A: "West",
-    B: "East",
+    A: "SOUTH",
+    B: "EAST",
+    C: "WEST",
   };
   const param = {
-    coDiv: "02",
+    coDiv: "01",
     date: date,
     _: new Date().getTime(),
   };

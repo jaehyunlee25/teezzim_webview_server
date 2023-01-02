@@ -17,7 +17,7 @@ function mneCallDetail(arrDate) {
     C: "WEST",
   };
   const param = {
-    coDiv: "01",
+    coDiv: "05",
     date: date,
     _: new Date().getTime(),
   };

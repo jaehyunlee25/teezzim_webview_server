@@ -44,6 +44,8 @@ function mneCallDetail(arrDate) {
   param["__EVENTTARGET"] = "ctl00$ContentPlaceHolder1$btnUp";
   param["__ASYNCPOST"] = "true";
   const dictCourse = {
+    11: "베어OUT",
+    22: "베어IN",
     33: "크리크OUT",
     44: "크리크IN",
   };
@@ -57,7 +59,6 @@ function mneCallDetail(arrDate) {
       const [str] = el.attr("onclick").inparen();
       let [, date, time, course, sign, , hole, , , , fee_normal, fee_discount] =
         str.split("|");
-      if(course != 33 && course != 44) return;
       date = date.rm("-");
       course = dictCourse[course];
       fee_normal = fee_normal.rm(",") * 1;
