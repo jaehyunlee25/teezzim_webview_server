@@ -1,4 +1,5 @@
 var tLoginCount = 0;
+log("tLoginCount", tLoginCount);
 const tLogin = setInterval(() => {
   if (!window["login_id"]) {
     tLoginCount++;
