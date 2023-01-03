@@ -278,6 +278,11 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/getSettings") {
+    objResp = {
+      type: "okay",
+      settings: "script/common/settings.json".gf(),
+    };
   } else if (reqUrl == "/dbNewServerfile") {
     const { eng_id: eng } = data;
     const arRes = [
