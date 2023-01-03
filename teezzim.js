@@ -279,9 +279,10 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/getSettings") {
+    const obj = "script/common/settings.json".gfjp();
     objResp = {
       type: "okay",
-      settings: "script/common/settings.json".gf(),
+      settings: obj,
     };
   } else if (reqUrl == "/dbNewServerfile") {
     const { eng_id: eng } = data;
