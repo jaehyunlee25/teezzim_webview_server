@@ -1,1 +1,4 @@
-[["login_url","https://www.gakorea.com/mobile/join/login.asp","funcLogin"],["search_url","\t https://www.gakorea.com/mobile/reservation/golf/reservation.asp","funcReserve"]]
+[
+    ["login_url","https://www.gakorea.com/mobile/join/login.asp","funcLogin"],
+    ["search_url","https://www.gakorea.com/mobile/reservation/golf/reservation.asp","funcReserve"]
+]
