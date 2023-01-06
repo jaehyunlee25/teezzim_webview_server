@@ -3,6 +3,7 @@ values(
     '${device_id}',
     ${gender},
     '${area}',
+    ${age},
     ${confirm},
     now(),
     now()
