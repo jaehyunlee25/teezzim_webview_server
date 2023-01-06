@@ -84,23 +84,12 @@ let golfClubGroups = {};
 let groupClubs = {};
 let LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
-/* connection.connect();
-connection.query("select * from golf_club_eng;", getClubNames);
-connection.query(fs.readFileSync("sql/getLoginUrl.sql", "utf-8"), getLoginUrl);
-connection.query(
-  fs.readFileSync("sql/getSearchUrl.sql", "utf-8"),
-  getSearchUrl
-);
-connection.query(
-  fs.readFileSync("sql/getReserveUrl.sql", "utf-8"),
-  getReserveUrl
-);
-connection.query(fs.readFileSync("sql/getAccount.sql", "utf-8"), getAccounts);
-connection.query(
-  fs.readFileSync("sql/golf_course.sql", "utf-8"),
-  getGolfCourses
-);
-connection.end(); */
+connection.connect();
+connection.query("select * from golf_club_eng;", (a,b,c) => {
+  log(b);
+});
+
+connection.end();
 
 "sql/getGolfClub.sql".gf().query(getGolfClub);
 "sql/getGolfCourse.sql".gf().query(getGolfCourse);
