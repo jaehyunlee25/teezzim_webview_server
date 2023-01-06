@@ -107,6 +107,7 @@ function getGolfClubGroup(err, rows, fields) {
   });
 }
 function getGolfClub(err, rows, fields) {
+  if(err) log(err);
   rows.forEach((row) => {
     golfClubs[row.id] = row;
   });
