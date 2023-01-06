@@ -48,6 +48,7 @@ String.prototype.query = function (callback) {
   try {
     const sql = this.toString();
     const dbconf = "db.json";
+    log(dbconf);
     const connection = mysql.createConnection(dbconf.gfjp());
     connection.connect();
     connection.query(sql, callback);
