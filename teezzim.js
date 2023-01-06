@@ -279,7 +279,6 @@ function procPost(request, response, data) {
     });
     objResp = 0;
   } else if (reqUrl == "/getWarning") {
-    log("getWarning");
     "sql/getWarning.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {
         objResp = {

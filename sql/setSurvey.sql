@@ -1,9 +1,9 @@
 insert into device_survey
 values(
     '${device_id}',
-    '${gender}',
+    ${gender},
     '${area}',
-    '${confirm}',
+    ${confirm},
     now(),
     now()
 );
