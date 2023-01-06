@@ -84,10 +84,6 @@ let golfClubGroups = {};
 let groupClubs = {};
 let LINE_DIVISION = "\n/* <============line_div==========> */\n";
 
-"select * from golf_club_eng;".query((a,b,c) => {
-  log(b);
-});
-
 "sql/getGolfClub.sql".gf().query(getGolfClub);
 "sql/getGolfCourse.sql".gf().query(getGolfCourse);
 "sql/golfClubNames.sql".gf().query(getClubNames);
