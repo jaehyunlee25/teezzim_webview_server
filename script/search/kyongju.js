@@ -4,7 +4,7 @@ const courses = {
   SEA: "0e87cce0-e3d5-11ec-a93e-0242ac11000a",
   MOON: "0e87cd20-e3d5-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

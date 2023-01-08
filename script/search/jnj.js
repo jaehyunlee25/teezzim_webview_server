@@ -4,7 +4,7 @@ const courses = {
   南: "fe582c6c-e3d6-11ec-a93e-0242ac11000a",
   津: "fe582caa-e3d6-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

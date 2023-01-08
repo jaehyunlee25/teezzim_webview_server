@@ -5,7 +5,7 @@ const courses = {
   주작: "e6eecf7c-e3e4-11ec-a93e-0242ac11000a",
   백호: "e6eecfaa-e3e4-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

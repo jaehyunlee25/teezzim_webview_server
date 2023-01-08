@@ -4,7 +4,7 @@ const courses = {
   민국: "9336b0ed-cdb2-11ec-a93e-0242ac11000a",
   통일: "9336b126-cdb2-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

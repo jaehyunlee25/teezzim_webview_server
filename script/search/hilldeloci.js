@@ -3,7 +3,7 @@ const courses = {
   Birch: "69da50c7-85b9-11ec-b15c-0242ac110005",
   Pine: "69da53b1-85b9-11ec-b15c-0242ac110005",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

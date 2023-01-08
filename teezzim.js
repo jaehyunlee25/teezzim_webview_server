@@ -83,6 +83,7 @@ let golfCourses = {};
 let golfClubGroups = {};
 let groupClubs = {};
 let LINE_DIVISION = "\n/* <============line_div==========> */\n";
+let ENV = ".env".gfjp();
 
 /* connection.connect();
 connection.query("select * from golf_club_eng;", getClubNames);
@@ -805,7 +806,7 @@ function procPost(request, response, data) {
   } else if (reqUrl == "/search") {
     console.log("url", reqUrl);
     const engName = data.club;
-    const common = fs.readFileSync("script/common/common.js", "utf-8");
+    const common = "script/common/common.js".gfdp(ENV);
     /* const clubscript = fs.readFileSync(
       "script/search/" + engName + ".js",
       "utf-8"
@@ -1315,7 +1316,7 @@ function setReserveReserve(data) {
 }
 function reserveCancelbotAdmin(data) {
   const { club: engName, year, month, date, course, time } = data;
-  const commonScript = fs.readFileSync("script/common/common.js", "utf-8");
+  const commonScript = "script/common/common.js".gfdp(ENV);
   const loginUrl = golfClubLoginUrl[engName];
   const reserveUrl = golfClubReserveUrl[engName];
   const loginScript = getPureLoginScript(engName);
@@ -1413,7 +1414,7 @@ function reserveCancelbotAdmin(data) {
 }
 function reserveSearchbotAdmin(data) {
   const { club: engName } = data;
-  const commonScript = fs.readFileSync("script/common/common.js", "utf-8");
+  const commonScript = "script/common/common.js".gfdp(ENV);
   const loginUrl = golfClubLoginUrl[engName];
   const reserveUrl = golfClubReserveUrl[engName];
   const loginScript = getPureLoginScript(engName);
@@ -1617,7 +1618,7 @@ function reservebotAdmin(data) {
 }
 function searchbotTime(data) {
   const { club: engName, command, date: TARGET_DATE } = data;
-  const commonScript = fs.readFileSync("script/common/common.js", "utf-8");
+  const commonScript = "script/common/common.js".gfdp(ENV);
   const loginUrl = golfClubLoginUrl[engName];
   const searchUrl = golfClubSearchUrl[engName];
   const loginScript = getLoginScript(engName, true);
@@ -1639,7 +1640,7 @@ function searchbotTime(data) {
 }
 function searchbotTimeAdmin(data) {
   const { club, command, date: TARGET_DATE } = data;
-  const commonScript = gf("script/common/common.js");
+  const commonScript = "script/common/common.js".gfdp(ENV);
   const loginUrl = golfClubLoginUrl[club];
   const searchUrl = golfClubSearchUrl[club];
   const loginScript = gf("script/login/" + club + ".js")
@@ -1689,7 +1690,7 @@ function searchbotTimeAdmin(data) {
 }
 function searchbotDateAdmin(data) {
   const { club, command } = data;
-  const commonScript = gf("script/common/common.js");
+  const commonScript = "script/common/common.js".gfdp(ENV);
   const loginUrl = golfClubLoginUrl[club];
   const searchUrl = golfClubSearchUrl[club];
   const loginScript = gf("script/login/" + club + ".js")
@@ -1739,7 +1740,7 @@ function searchbotDateAdmin(data) {
 function searchbotDate(data) {
   const engName = data.club;
   const command = data.command;
-  const commonScript = fs.readFileSync("script/common/common.js", "utf-8");
+  const commonScript = "script/common/common.js".gfdp(ENV);
   const loginUrl = golfClubLoginUrl[engName];
   const searchUrl = golfClubSearchUrl[engName];
   const loginScript = getLoginScript(engName, true);
@@ -1761,7 +1762,7 @@ function searchbotDate(data) {
 }
 function searchbot(data) {
   const engName = data.club;
-  const commonScript = fs.readFileSync("script/common/common.js", "utf-8");
+  const commonScript = "script/common/common.js".gfdp(ENV);
   const loginUrl = golfClubLoginUrl[engName];
   const searchUrl = golfClubSearchUrl[engName];
   const loginScript = getLoginScript(engName, true);
@@ -2038,7 +2039,7 @@ function getLoginScriptAdmin(engName) {
   const path = "template/login/";
   const cover = gf(path + "cover.template");
   const template = gf(path + "login.template");
-  const common = gf("script/common/common.js");
+  const common = "script/common/common.js".gfdp(ENV);
   const chk = fs.existsSync("script/login/" + engName + ".js");
   if (!chk) return "";
 
@@ -2053,7 +2054,7 @@ function getLoginScript(engName, noCover) {
   const golfClubId = golfClubIds[engName];
   const cover = "template/login/cover.template".gf();
   const template = "template/login/login.template".gf();
-  const common = "script/common/common.js".gf();
+  const common = "script/common/common.js".gfdp(ENV);
   let loginScript;
   let loginContent;
   try {

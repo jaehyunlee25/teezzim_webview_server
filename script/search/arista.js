@@ -3,7 +3,7 @@ const courses = {
   Lake: "6e96bec0-e3bc-11ec-a93e-0242ac11000a",
   Mountain: "6e96c0f3-e3bc-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

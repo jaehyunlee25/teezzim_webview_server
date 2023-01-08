@@ -5,7 +5,7 @@ var courseName = {
   C: "913cc8a5-60f5-11ec-a49a-0242ac11000b",
   D: "913cc8e3-60f5-11ec-a49a-0242ac11000b",
 };
-var OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+var OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 const golf_schedule = [];

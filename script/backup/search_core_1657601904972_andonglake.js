@@ -11,7 +11,7 @@ function mneCall(date, callback) {
 javascript: (() => {
   const log = console.log;
   const dir = console.dir;
-  const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+  const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
   function TZLOG(param, callback) {
     const addr = OUTER_ADDR_HEADER + "/api/reservation/newLog";
     post(addr, param, { "Content-Type": "application/json" }, (data) => {

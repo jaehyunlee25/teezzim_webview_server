@@ -5,7 +5,7 @@ const courses = {
   숲길: "f0f8bffa-864e-11ec-b15c-0242ac110005",
   산길: "f0f8c038-864e-11ec-b15c-0242ac110005",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 
