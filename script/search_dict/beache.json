@@ -1,1 +1,4 @@
-[["login_url","http://www.beachegolf.com/Mobile/Member/Login.aspx","funcLogin"],["search_url","http://www.beachegolf.com/Mobile/","funcReserve"],["logout_url","http://www.beachegolf.com/Mobile/Member/LogOut.aspx","funcOut"],["reserve_url","http://www.beachegolf.com/Mobile/Reservation/ReservationList.aspx","funcList"],["time_url","http://www.beachegolf.com/Mobile/Reservation/ReservationTimeList.aspx","funcTime"],["exec_url","http://www.beachegolf.com/Mobile/Reservation/ReservationCheck.aspx","funcExec"]]
+[
+    ["login_url","http://www.beachegolf.com/Mobile/Member/Login.aspx","funcLogin"],
+    ["search_url","http://www.beachegolf.com/html/reserve/reserve01.asp","funcReserve"]
+]

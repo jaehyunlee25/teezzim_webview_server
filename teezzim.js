@@ -85,24 +85,6 @@ let groupClubs = {};
 let LINE_DIVISION = "\n/* <============line_div==========> */\n";
 let ENV = ".env".gfjp();
 
-/* connection.connect();
-connection.query("select * from golf_club_eng;", getClubNames);
-connection.query(fs.readFileSync("sql/getLoginUrl.sql", "utf-8"), getLoginUrl);
-connection.query(
-  fs.readFileSync("sql/getSearchUrl.sql", "utf-8"),
-  getSearchUrl
-);
-connection.query(
-  fs.readFileSync("sql/getReserveUrl.sql", "utf-8"),
-  getReserveUrl
-);
-connection.query(fs.readFileSync("sql/getAccount.sql", "utf-8"), getAccounts);
-connection.query(
-  fs.readFileSync("sql/golf_course.sql", "utf-8"),
-  getGolfCourses
-);
-connection.end(); */
-
 "sql/getGolfClub.sql".gf().query(getGolfClub);
 "sql/getGolfCourse.sql".gf().query(getGolfCourse);
 "sql/golfClubNames.sql".gf().query(getClubNames);
@@ -279,6 +261,44 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/getWarning") {
+    "sql/getWarning.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+  } else if (reqUrl == "/setSurvey") {
+    "sql/setSurvey.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
+  } else if (reqUrl == "/getSettings") {
+    const obj = "script/common/settings.json".gfjp();
+    objResp = {
+      type: "okay",
+      settings: obj,
+    };
   } else if (reqUrl == "/dbNewServerfile") {
     const { eng_id: eng } = data;
     const arRes = [
