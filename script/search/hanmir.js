@@ -2,7 +2,7 @@ const clubId = "45d852b4-e3d8-11ec-a93e-0242ac11000a";
 const courses = {
   미르: "7377e629-e3d8-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

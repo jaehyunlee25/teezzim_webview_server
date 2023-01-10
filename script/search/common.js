@@ -3,7 +3,7 @@ const log = console.log;
 const dir = console.dir;
 const doc = document;
 const ls = localStorage;
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const logParam = {
   type: "command",
   sub_type: "start",
@@ -13,12 +13,13 @@ const logParam = {
   message: "start reserve/reserve",
   parameter: JSON.stringify({}),
 };
-let ac = false; 
+let ac = false;
 try {
-	ac = window.AndroidController || window.webkit.messageHandlers.iosController;
-	ac.message = ac.message || window.webkit.messageHandlers.iosController.postMessage;
-} catch(e) {
-	ac = false;
+  ac = window.AndroidController || window.webkit.messageHandlers.iosController;
+  ac.message =
+    ac.message || window.webkit.messageHandlers.iosController.postMessage;
+} catch (e) {
+  ac = false;
 }
 
 function TZLOG(param, callback) {

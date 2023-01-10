@@ -4,7 +4,7 @@ const courses = {
   Europe: "90675f42-7c51-11ec-b15c-0242ac110005",
   USA: "90675fb1-7c51-11ec-b15c-0242ac110005",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

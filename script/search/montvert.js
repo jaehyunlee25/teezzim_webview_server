@@ -5,7 +5,7 @@ const courses = {
   브렝땅: "b239ab3d-cdb1-11ec-a93e-0242ac11000a",
   에떼: "b239aba3-cdb1-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

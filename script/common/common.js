@@ -3,7 +3,7 @@ const log = console.log;
 const dir = console.dir;
 const doc = document;
 const ls = localStorage;
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "${apiHeader}";
 const logParam = {
   type: "command",
   sub_type: "",

@@ -3,7 +3,7 @@ const courses = {
   스톤: "ed77d27c-e3ef-11ec-a93e-0242ac11000a",
   게이트: "ed77d4ff-e3ef-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

@@ -5,7 +5,7 @@ setTimeout(() => {
     OX: "7c40978c-c00a-11ec-a93e-0242ac11000a" /* 'OX 코스',  */,
     Field: "7c409a95-c00a-11ec-a93e-0242ac11000a" /* 'Field 코스',  */,
   };
-  const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+  const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
   const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
   const header = { "Content-Type": "application/json" };
 

@@ -1,7 +1,7 @@
 function mneCall(date, callback) {
   const dt = (date + "01").datify("/");
   const param = {
-    coDiv: "03",
+    coDiv: "01",
     selYM: date,
     _: new Date().getTime(),
   };
@@ -10,7 +10,7 @@ function mneCall(date, callback) {
     Array.from(els).forEach((el) => {
       if (el.BK_TEAM == "0") return;
       const { CL_SOLAR: date, CL_BUSINESS: sign, CL_DAYDIV: gb } = el;
-      dates.push([date, sign, gb]);
+      dates.push(date, sign, gb);
     });
     callback();
   });
@@ -20,11 +20,11 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const [date, option] = arrDate;
   const dictCourse = {
-    A: "West",
-    B: "East",
+    A: "East",
+    B: "West",
   };
   const param = {
-    coDiv: "03",
+    coDiv: "01",
     date: date,
     _: new Date().getTime(),
   };
@@ -32,6 +32,7 @@ function mneCallDetail(arrDate) {
     const els = JSON.parse(data).rows;
     els.forEach((el, i) => {
       const course = dictCourse[el.BK_COS];
+log(course);
       const time = el.BK_TIME;
       let fee_normal = el.BK_BASIC_CHARGE * 1;
       let fee_discount = el.BK_CHARGE.split(",")[1] * 1;

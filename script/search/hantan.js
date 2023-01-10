@@ -3,7 +3,7 @@ const courses = {
   밸리: "1a6b7cd7-cdba-11ec-a93e-0242ac11000a",
   마운틴: "1a6b7ec5-cdba-11ec-a93e-0242ac11000a",
 };
-const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
 const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
 const header = { "Content-Type": "application/json" };
 

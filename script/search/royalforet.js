@@ -5,7 +5,7 @@ setTimeout(() => {
     Royal: "d567085c-c00f-11ec-a93e-0242ac11000a",
     Foret: "d5670b4d-c00f-11ec-a93e-0242ac11000a",
   };
-  const OUTER_ADDR_HEADER = "https://dev.mnemosyne.co.kr";
+  const OUTER_ADDR_HEADER = "https://op.mnemosyne.co.kr";
   const addrOuter = OUTER_ADDR_HEADER + "/api/reservation/golfSchedule";
   const header = { "Content-Type": "application/json" };
 
