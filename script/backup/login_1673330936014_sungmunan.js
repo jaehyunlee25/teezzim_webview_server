@@ -16,8 +16,10 @@ function timeraction() {
   btnAjax.click();
 
   /* begin: precheck content */
-  function precheck() {    
-    if (window["logout"]) {
+  function precheck() {
+    const strLogout = "로그아웃";
+    const str = doc.gcn("member")[0].gtn("a")[1].str();
+    if (str == strLogout) {
       if (ac) ac.message("ALREADY_LOGIN");
       return true;
     }
