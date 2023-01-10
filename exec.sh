@@ -1,3 +1,3 @@
 git pull origin main
-forever restart JWvx
-tail -f /root/.forever/JWvx.log
+forever restart Ber6
+tail -f /root/.forever/Ber6.log

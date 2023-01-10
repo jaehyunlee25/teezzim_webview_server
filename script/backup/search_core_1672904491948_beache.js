@@ -25,31 +25,26 @@ function mneCall(date, callback) {
 function mneCallDetail(arrDate) {
   const [date, option] = arrDate;
   const param = {
-    book_date_bd: date,
-    book_date_be: "",
-    book_crs: "",
-    book_crs_name: "",
-    book_time: "",
+    SelDate: date.datify(),
   };
-  const dictCourse = {
-    1: "다산",
-    2: "베아채",
-    3: "장보고",
-  };
-  post("/html/reserve/reserve01.asp", param, {}, (data) => {
-    const ifr = doc.clm("div");
+  const dictCourse = {};
+  get("/Mobile/Reservation/ReservationTimeList.aspx", param, {}, (data) => {
+    const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const attr = "onclick";
-    const els = ifr.gba(attr, "JavaScript:Book_Confirm1", true);
-    Array.from(els).forEach((el, i) => {
-      let [date, course, time] = el.attr(attr).inparen();
-      const fee = el.nm(2, 4).str().rm(",") * 1;
-      const hole = el.nm(2, 3).str().ct(1);
-      course = dictCourse[course];
+    const els = ifr
+      .getElementsByClassName("timeTbl")[0]
+      .getElementsByTagName("tbody")[0]
+      .getElementsByTagName("tr");
 
-      let fee_normal = fee * 1;
-      let fee_discount = fee * 1;
+    Array.from(els).forEach((el, i) => {
+      const course = el.children[0].innerText;
+      const time = el.children[1].innerText;
+      let fee_normal = el.children[2].innerText.ct(1).split(",").join("") * 1;
+      let fee_discount = el.children[2].innerText.ct(1).split(",").join("") * 1;
+
+      if (isNaN(fee_normal)) fee_normal = -1;
+      if (isNaN(fee_discount)) fee_discount = -1;
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -60,7 +55,7 @@ function mneCallDetail(arrDate) {
         persons: "",
         fee_normal,
         fee_discount,
-        others: hole + "홀",
+        others: "18홀",
       });
     });
     procDate();
