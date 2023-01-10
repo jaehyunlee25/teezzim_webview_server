@@ -1,7 +1,7 @@
 function mneCall(date, callback) {
   const dt = (date + "01").datify("/");
   const param = {
-    coDiv: "03",
+    coDiv: "02",
     selYM: date,
     _: new Date().getTime(),
   };
@@ -10,7 +10,7 @@ function mneCall(date, callback) {
     Array.from(els).forEach((el) => {
       if (el.BK_TEAM == "0") return;
       const { CL_SOLAR: date, CL_BUSINESS: sign, CL_DAYDIV: gb } = el;
-      dates.push([date, sign, gb]);
+      dates.push(date, sign, gb);
     });
     callback();
   });

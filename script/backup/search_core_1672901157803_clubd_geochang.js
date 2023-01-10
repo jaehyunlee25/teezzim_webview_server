@@ -1,30 +1,23 @@
 function mneCall(date, callback) {
-  const dt = (date + "01").datify("/");
-  const param = {
-    coDiv: "03",
-    selYM: date,
-    _: new Date().getTime(),
-  };
-  get("/clubd/reservation/getCalendar.do", param, {}, (data) => {
-    const { rows: els } = data.jp();
-    Array.from(els).forEach((el) => {
-      if (el.BK_TEAM == "0") return;
-      const { CL_SOLAR: date, CL_BUSINESS: sign, CL_DAYDIV: gb } = el;
-      dates.push([date, sign, gb]);
-    });
-    callback();
+  const els = document.getElementsByClassName("MReser");
+  Array.from(els).forEach((el) => {
+    const param = el.getAttribute("href").inparen();
+    if (param[0] === "0") return;
+    dates.push([param[0], param]);
   });
+  callback();
 }
 
 /* <============line_div==========> */
 function mneCallDetail(arrDate) {
   const [date, option] = arrDate;
   const dictCourse = {
-    A: "West",
-    B: "East",
+    A: "SOUTH",
+    B: "EAST",
+    C: "WEST",
   };
   const param = {
-    coDiv: "03",
+    coDiv: "05",
     date: date,
     _: new Date().getTime(),
   };

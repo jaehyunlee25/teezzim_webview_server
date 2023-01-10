@@ -1,0 +1,7 @@
+{
+    "host": "dev.mnemosyne.co.kr",
+    "user": "root",
+    "port": "23306",
+    "password": "mnemosyne!2#4",
+    "database": "golf"
+}

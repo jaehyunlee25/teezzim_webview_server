@@ -1,11 +1,19 @@
 function mneCall(date, callback) {
-  const els = document.getElementsByClassName("MReser");
-  Array.from(els).forEach((el) => {
-    const param = el.getAttribute("href").inparen();
-    if (param[0] === "0") return;
-    dates.push([param[0], param]);
+  const dt = (date + "01").datify("/");
+  const param = {
+    coDiv: "02",
+    selYM: date,
+    _: new Date().getTime(),
+  };
+  get("/clubd/reservation/getCalendar.do", param, {}, (data) => {
+    const { rows: els } = data.jp();
+    Array.from(els).forEach((el) => {
+      if (el.BK_TEAM == "0") return;
+      const { CL_SOLAR: date, CL_BUSINESS: sign, CL_DAYDIV: gb } = el;
+      dates.push([date, sign, gb]);
+    });
+    callback();
   });
-  callback();
 }
 
 /* <============line_div==========> */

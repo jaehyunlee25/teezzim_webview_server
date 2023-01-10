@@ -10,7 +10,7 @@ function mneCall(date, callback) {
     Array.from(els).forEach((el) => {
       if (el.BK_TEAM == "0") return;
       const { CL_SOLAR: date, CL_BUSINESS: sign, CL_DAYDIV: gb } = el;
-      dates.push([date, sign, gb]);
+      dates.push(date, sign, gb);
     });
     callback();
   });
