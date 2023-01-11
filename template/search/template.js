@@ -4,6 +4,7 @@ javascript:(() => {
  
     const dict = ${address_mapping};
 
+    function precheck() {};
     function funcLogin() {
       log("funcLogin");
 
