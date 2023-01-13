@@ -3,6 +3,6 @@ select
 from
     LOG
 where
-    DATE(created_at) = '${date}'
+    DATE(CONVERT_TZ(created_at, '+00:00', '+09:00')) = '${date}'
     and device_id != '${deviceId}'
 order by created_at asc;
