@@ -1,6 +1,6 @@
 select 
     *,
-    UNIX_TIMESTAMP(created_at) timestamp
+    MICROSECOND(created_at) timestamp
 from LOG 
 where 
     DATE(CONVERT_TZ(created_at, '+00:00', '+09:00')) = '${date}'
