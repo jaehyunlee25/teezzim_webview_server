@@ -1,4 +1,17 @@
 [
-    ["login_url","https://ananti.kr/ko/login","funcLogin"],
-    ["search_url","https://ananti.kr/ko/reservation/namhae/golf","funcReserve"]
+    [
+        "login_url",
+        "https://ananti.kr/ko/login",
+        "funcLogin"
+    ],
+    [
+        "login_url",
+        "https://ananti.kr/ko/reservation",
+        "funcSearch"
+    ],
+    [
+        "search_url",
+        "https://ananti.kr/ko/reservation/namhae/golf",
+        "funcReserve"
+    ]
 ]

@@ -7,14 +7,6 @@ function mneCall(date, callback) {
   });
   callback();
 }
-function funcSearch() {
-  log(
-    "funcSearch",
-    "/ko/reservation/namhae/golf?memNo=" + custm.cmMateCno + "&date="
-  );
-  location.href =
-    "/ko/reservation/namhae/golf?memNo=" + custm.cmMateCno + "&date=";
-}
 
 /* <============line_div==========> */
 function mneCallDetail(arrDate) {
@@ -62,5 +54,6 @@ function mneCallDetail(arrDate) {
 }
 
 /* <============line_div==========> */
+
 /* <============line_div==========> */
 mneCall(thisdate, procDate);
