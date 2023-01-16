@@ -54,13 +54,13 @@ function mneCallDetail(arrDate) {
 }
 
 /* <============line_div==========> */
-function funcSearch() {    
-    log(
-      "funcSearch",
-      "/ko/reservation/namhae/golf?memNo=" + custm.cmMateCno + "&date="
-    );
-    location.href =
-      "/ko/reservation/namhae/golf?memNo=" + custm.cmMateCno + "&date=";
-  }
+function funcSearch() {
+  log(
+    "funcSearch",
+    "/ko/reservation/namhae/golf?memNo=" + custm.cmMateCno + "&date="
+  );
+  location.href =
+    "/ko/reservation/namhae/golf?memNo=" + custm.cmMateCno + "&date=";
+}
 /* <============line_div==========> */
 mneCall(thisdate, procDate);
