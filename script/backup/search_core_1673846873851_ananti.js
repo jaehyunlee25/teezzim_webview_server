@@ -46,7 +46,7 @@ function mneCallDetail(arrDate) {
     method: "post",
     type: "json",
     contentType: "application/json",
-    data: JSON.stringify(param),
+    data: JSON.stringify(searchGolf),
     success: function (result) {
       if (result.code === 200) {
         result.data.forEach((datum) => {

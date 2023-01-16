@@ -1,24 +1,11 @@
 function mneCall(date, callback) {
-  let mneCnt = 0;
-  const mneT = setInterval(() => {
-    mneCnt++;
-    if (mneCnt > 5) {
-      log("ananti count", mneCnt);
-      clearInterval(mneT);
-      callback();
-      return;
-    }
-    const els = doc.gcn("ggYnSp icon-dot icon-warning");
-    if (els.length == 0) return;
-    clearInterval(mneT);
-    Array.from(els).forEach((el) => {
-      const fulldate = el.nm(1).attr("data-day");
-      dates.push([fulldate, 0]);
-    });
-    callback();
-  }, 500);
+  const els = doc.gcn("ggYnSp icon-dot icon-warning");
+  Array.from(els).forEach((el) => {
+    const fulldate = el.nm(1).attr("data-day");
+    dates.push([fulldate, 0]);
+  });
+  callback();
 }
-
 function funcSearch() {    
   log(
     "funcSearch",
@@ -46,7 +33,7 @@ function mneCallDetail(arrDate) {
     method: "post",
     type: "json",
     contentType: "application/json",
-    data: JSON.stringify(param),
+    data: JSON.stringify(searchGolf),
     success: function (result) {
       if (result.code === 200) {
         result.data.forEach((datum) => {
