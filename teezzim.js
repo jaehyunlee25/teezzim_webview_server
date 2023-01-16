@@ -1787,6 +1787,7 @@ function searchbotDateAdmin(data) {
     if (
       [
         "funcLogin",
+        "funcSearch",
         "funcReserve",
         "funcCalendar",
         "funcOut",
