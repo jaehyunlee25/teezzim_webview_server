@@ -5,11 +5,8 @@ let lastVistTime = lsg("TZ_ADMIN_BLOCK_IC_TIME") * 1;
 let curTimeforVisit = new Date().getTime();
 log(visitNumber, visitNumber == null);
 if(lsg("TZ_ADMIN_BLOCK_IC") != null) {
-	log(1);
 	if (curTimeforVisit - lastVistTime < 1000 * 15) {
-		log(2);
 		if (visitNumber > 9) {
-			log(3);
 			if (ac) ac.message(JSON.stringify({command: "TZ_MSG_IC"}));
 			TZ_BOT_SAFETY = false;
 			/* 초기화 */
@@ -39,4 +36,5 @@ const clubId = '${golf_club_id}';
 const courses = { 
 	${golf_course}
 };
+log("start search", COMMAND);
 log("step::", 1);
