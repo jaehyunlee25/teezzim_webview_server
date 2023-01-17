@@ -16,21 +16,6 @@ function procDate() {
       TZLOG(logParam, (data) => {});
       golf_date.push(date.datify("-"));
     });
-    /* const param = {
-      golf_date,
-      golf_club_id: clubId,
-      device_id: "${deviceId}",
-    };
-    log("golf_date", golf_date);
-    post(
-      OUTER_ADDR_HEADER + "/api/reservation/golfDate",
-      param,
-      header,
-      (data) => {
-        const json = JSON.parse(data);
-        log(json.message);
-      }
-    ); */
     const acParam = {};
     if (golf_date.length == 0) {
       acParam.command = "NONE_OF_GET_DATE";
@@ -42,8 +27,6 @@ function procDate() {
       ac.message(JSON.stringify(acParam));
       lsc();
     }
-    /* LOGOUT(); */
-
     return;
   }
 
