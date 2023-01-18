@@ -42,6 +42,7 @@ String.prototype.gfjp = function () {
   return this.toString().gf().jp();
 };
 String.prototype.gfdp = function (param) {
+  log(this.toString().gf().dp(param));
   return this.toString().gf().dp(param);
 };
 String.prototype.query = function (callback) {
