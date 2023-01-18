@@ -46,5 +46,4 @@ const clubId = "${golf_club_id}";
 const courses = {
   ${golf_course}
 };
-EXTZLOG("search", ["start search", COMMAND], { LOGID, step: "IC_CHK" });
-EXTZLOG("search", ["step::", 1].join(", "), { LOGID, step: "IC_CHK" });
+EXTZLOG("search", ["start search", COMMAND].join(", "), { LOGID, step: "IC_CHK" });

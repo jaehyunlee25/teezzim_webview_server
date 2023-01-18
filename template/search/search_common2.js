@@ -12,7 +12,10 @@ const nextyear = now.getFullYear() + "";
 const nextmonth = ("0" + (1 + now.getMonth())).slice(-2);
 const nextdate = nextyear + nextmonth;
 
-log(thisdate, nextdate);
+EXTZLOG("search", [thisdate, nextdate].join(", "), {
+  LOGID,
+  step: "EXEC",
+});
 
 let dates = [];
 const result = [];
