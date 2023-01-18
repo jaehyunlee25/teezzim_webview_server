@@ -5,5 +5,5 @@ from
 where
     DATE(created_at) = '${date}'
     and device_id != '${deviceId}'
-    and (golf_club_id like '%${clubId}%' or golf_club_id like '%_log%')
+    and golf_club_id like '%${clubId}%'
 order by created_at asc;
