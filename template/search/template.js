@@ -1,96 +1,95 @@
-javascript:(() => {   
-  
-    ${commonScript}
- 
-    const dict = ${address_mapping};
+javascript: (() => {
+  ${commonScript}
 
-    function precheck() {};
-    function funcLogin() {
-      log("funcLogin");
+  const dict = ${address_mapping};
 
-      const chk = LSCHK("TZ_SEARCH_LOGIN" + clubId, 5);
-      if (!chk) {
-        log("funcLogin Timein ERROR");
-        location.href = "${searchUrl}";
-        return;
-      }
+  function precheck() {}
+  function funcLogin() {
+    EXTZLOG("search", "funcLogin");
 
-      ${loginScript}
-
-      return;
-    }
-
-    ${searchCommonScript}
-
-    function main() {
-      log("main");
-
-      if (!TZ_BOT_SAFETY) {
-        log("stopped by Infinite Call");
-        return;
-      }
-
-      const func = dict[addr];
-      if (!func) funcOther();
-      else func();
-    }
-
-    function funcList() {
-      log("funcList");
+    const chk = LSCHK("TZ_SEARCH_LOGIN" + clubId, 5);
+    if (!chk) {
+      EXTZLOG("search", "funcLogin Timein ERROR");
       location.href = "${searchUrl}";
       return;
     }
-    function funcMain() {
-      log("funcMain");
 
-      const chk = LSCHK("TZ_SEARCH_MAIN" + clubId, 10);
-      log("timeout chk", chk);
+    ${loginScript}
+
+    return;
+  }
+
+  ${searchCommonScript}
+
+  function main() {
+    EXTZLOG("search", "main");
+
+    if (!TZ_BOT_SAFETY) {
+      EXTZLOG("search", "stopped by Infinite Call");
+      return;
+    }
+
+    const func = dict[addr];
+    if (!func) funcOther();
+    else func();
+  }
+
+  function funcList() {
+    EXTZLOG("search", "funcList");
+    location.href = "${searchUrl}";
+    return;
+  }
+  function funcMain() {
+    EXTZLOG("search", "funcMain");
+
+    const chk = LSCHK("TZ_SEARCH_MAIN" + clubId, 10);
+    EXTZLOG("search", ["timeout chk", chk].join(", "));
+
+    if (!chk) {
+      EXTZLOG("search", "funcMain Timein ERROR");
+      return;
+    }
+
+    location.href = "${searchUrl}";
+    return;
+  }
+  function funcOut() {
+    EXTZLOG("search", "funcOut");
+
+    funcEnd();
+
+    return;
+  }
+  function funcOther() {
+    EXTZLOG("search", "funcOther");
+
+    const chk = LSCHK("TZ_SEARCH_OTHER" + clubId, 10);
+    EXTZLOG("search", ["timeout chk", chk]);
+    if (!chk) {
+      log("funcOther Timein ERROR");
+      return;
+    }
+
+    location.href = "${searchUrl}";
+
+    return;
+  }
+  function funcReserve() {
+    EXTZLOG("search", "funcSearch");
+
+    if (location.href == addr) {
+      const chk = LSCHK("TZ_SEARCH_RESERVE" + clubId, 5);
+      EXTZLOG("search", ["timeout chk", chk]);
       if (!chk) {
-        log("funcMain Timein ERROR");
+        EXTZLOG("search", "funcSearch Timein ERROR");
         return;
       }
-
-      location.href = "${searchUrl}";
-      return;
-    }
-    function funcOut() {
-      log("funcOut");
-
-      funcEnd();
-
-      return;
-    }
-    function funcOther() {
-      log("funcOther");
-
-      const chk = LSCHK("TZ_SEARCH_OTHER" + clubId, 10);
-      log("timeout chk", chk);
-      if (!chk) {
-        log("funcOther Timein ERROR");
-        return;
-      }
-
-      location.href = "${searchUrl}";
-
-      return;
-    }
-    function funcReserve() {
-      log("funcSearch");
-
-      if (location.href == addr) {
-        const chk = LSCHK("TZ_SEARCH_RESERVE" + clubId, 5);
-        log("timeout chk", chk);
-        if (!chk) {
-          log("funcSearch Timein ERROR");
-          return;
-        }
-      }
-
-      ${searchScript}
-
-      return;
     }
 
-    main();
+    ${searchScript}
+
+    return;
+  }
+
+  main();
 })();
-    

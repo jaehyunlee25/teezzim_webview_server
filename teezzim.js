@@ -42,6 +42,7 @@ String.prototype.gfjp = function () {
   return this.toString().gf().jp();
 };
 String.prototype.gfdp = function (param) {
+  log(this.toString().gf().dp(param));
   return this.toString().gf().dp(param);
 };
 String.prototype.query = function (callback) {
@@ -261,6 +262,22 @@ function procPost(request, response, data) {
       response.end();
     });
     objResp = 0;
+  } else if (reqUrl == "/getDeviceRound") {
+    "sql/getDeviceRound.sql".gfdp(data).query((err, rows, fields) => {
+      if (err) {
+        objResp = {
+          type: "error",
+          data: err,
+        };
+      } else {
+        objResp = {
+          type: "okay",
+          data: rows,
+        };
+      }
+      response.write(JSON.stringify(objResp));
+      response.end();
+    });
   } else if (reqUrl == "/getLogClubList") {
     "sql/getLogClubList.sql".gfdp(data).query((err, rows, fields) => {
       if (err) {

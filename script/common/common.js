@@ -1,9 +1,9 @@
-/* test */
 const log = console.log;
 const dir = console.dir;
 const doc = document;
 const ls = localStorage;
 const OUTER_ADDR_HEADER = "${apiHeader}";
+const LOGID = new Date().getTime();
 const logParam = {
   type: "command",
   sub_type: "",
@@ -11,7 +11,7 @@ const logParam = {
   device_token: "${deviceToken}",
   golf_club_id: "${golfClubId}",
   message: "",
-  parameter: JSON.stringify({}),
+  parameter: JSON.stringify({ LOGID }),
 };
 let ac = false;
 try {
@@ -30,14 +30,9 @@ let addr = aDDr;
 if (aDDr.indexOf(dictSplitter[splitter]) != -1)
   addr = aDDr.split(dictSplitter[splitter])[0];
 
-logParam.sub_type = "url";
-logParam.message = "raw addr :: " + location.href;
-TZLOG(logParam);
-logParam.message = "aDDr :: " + aDDr;
-TZLOG(logParam);
-logParam.message = "addr :: " + addr;
-TZLOG(logParam);
-log("addr", addr);
+EXTZLOG("url", "raw addr :: " + location.href);
+EXTZLOG("url", "aDDr :: " + aDDr);
+EXTZLOG("url", "addr :: " + addr);
 
 function LSCHK(str, sec) {
   const tag = lsg(str);
@@ -51,6 +46,12 @@ function TZLOG(param, callback) {
   post(addr, param, { "Content-Type": "application/json" }, (data) => {
     if (callback) callback(data);
   });
+}
+function EXTZLOG(subtype, message, param) {
+  logParam.sub_type = subtype;
+  logParam.message = message;
+  if (param) logParam.parameter = JSON.stringify(param);
+  TZLOG(logParam);
 }
 function post(addr, param, header, callback) {
   var a = new ajaxcallforgeneral(),
