@@ -6,7 +6,7 @@ function mneCall(date, callback) {
     const time = el.attr("time") * 1;
     const day = new Date(time);
     const year = day.getFullYear();
-    const month = ((day.getMonth() + 1) + "").addzero();
+    const month = day.getMonth() + 1;
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
@@ -17,21 +17,7 @@ function mneCall(date, callback) {
     const time = el.attr("time") * 1;
     const day = new Date(time);
     const year = day.getFullYear();
-    const month = ((day.getMonth() + 1) + "").addzero();
-    const dt = (day.getDate() + "").addzero();
-    res[[year, month, dt].join("")] = true;
-  });
-  Object.keys(res).forEach((date) => {
-    dates.push([date, ""]);
-  });
-  doc.gcn("btn_calendar_next")[0].click();
-  els = doc.gcn("valid");
-  Array.from(els).forEach((el, i) => {
-    if (el.children.length == 0) return;
-    const time = el.attr("time") * 1;
-    const day = new Date(time);
-    const year = day.getFullYear();
-    const month = ((day.getMonth() + 1) + "").addzero();
+    const month = day.getMonth() + 1;
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
@@ -103,7 +89,6 @@ function mneCallDetail(arrDate) {
     const els = ifr.gba("onclick", "golfTimeSelect", true);
     Array.from(els).forEach((el) => {
       let [date, , time, fee, course] = el.attr("onclick").inparen(true);
-      time = time.trim();
       date = date.rm(".");
       course = dictCourse[course.trim()];
       const hole = 18;

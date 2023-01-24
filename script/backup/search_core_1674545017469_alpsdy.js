@@ -35,13 +35,24 @@ function mneCallDetail(arrDate) {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("href", "javascript:Reserve", true);
+    const trs1 = ifr
+      .getElementsByClassName("tbl02")[0]
+      .children[1].getElementsByTagName("tbody")[0].children;
+    const trs2 = ifr
+      .getElementsByClassName("tbl02")[0]
+      .children[1].getElementsByTagName("tbody")[1].children;
+    const els = Array.from(trs1).concat(Array.from(trs2));
+
     els.forEach((el, i) => {
-      let [date, time, course, , , hole] = el.attr("href").inparen();
-      date = date.rm("-");
-      course = courseDict[course];
-      const fee_discount = el.nm(2, 2).str().split(",").join("") * 1;
-      const fee_normal = el.nm(2, 2).str().split(",").join("") * 1;
+      if (i === 0) return;
+      const td = el.children[0];
+      const courseCode = td.children[3].children[0]
+        .getAttribute("href")
+        .inparen()[2];
+      const course = courseDict[courseCode];
+      const time = td.children[0].innerText;
+      const fee_discount = td.children[2].innerText.split(",").join("") * 1;
+      const fee_normal = td.children[2].innerText.split(",").join("") * 1;
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -52,7 +63,7 @@ function mneCallDetail(arrDate) {
         persons: "",
         fee_normal,
         fee_discount,
-        others: hole + "홀",
+        others: "18홀",
       });
     });
     procDate();

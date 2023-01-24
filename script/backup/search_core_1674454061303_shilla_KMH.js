@@ -56,8 +56,8 @@ function mneCallDetail(arrDate) {
 
 /* <============line_div==========> */
 mneCall(thisdate, () => {
-  Update("CALENDAR|" + (nextdate + "01").datify() + "|");
+  Update("CALENDAR|" + nextyear + "-" + nextmonth + "|");
   setTimeout(() => {
     mneCall(nextdate, procDate);
-  }, 1500);
+  }, 1000);
 });

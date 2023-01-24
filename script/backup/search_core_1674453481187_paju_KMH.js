@@ -1,11 +1,11 @@
-function mneCall(date, callback) {
+function mneCall(thisdate, callback) {
   const param = {};
-  const els = doc.gcn("can");
+  const els = document.getElementsByClassName("can");
   Array.from(els).forEach((el) => {
-    const href = el.attr("href");
+    const href = el.getAttribute("href");
     if (href === "#") return;
-    const fulldate = date+ el.str().addzero();
-    dates.push([fulldate , ""]);
+    const date = thisdate + el.innerText.addzero();
+    dates.push([date, ""]);
   });
   callback();
 }
@@ -15,26 +15,24 @@ function mneCallDetail(arrDate) {
   const [date, strParam] = arrDate;
   const param = {
     strReserveDate: date.gh(4) + "-" + date.ch(4).gh(2) + "-" + date.gt(2),
-    strGolfLgubun: 160,
+    strGolfLgubun: 109,
   };
 
   get("/Mobile/Reservation/ReservationTimeList.aspx", param, {}, (data) => {
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gcn("cosTable")[0].gtn("tr");
+    const els = ifr.gcn("can");
     Array.from(els).forEach((el, i) => {
-      if (i === 0) return;
-      const param = el.gtn("a")[0].attr("href").inparen();
-        const dictCourse = {
-          11: "서",
-          22: "남",
-          33: "동",
+      const dictCourse = {
+          11: "동",
+          22: "서",
         };
+        const param = el.attr("href").inparen();
         let [, time, course, , , , , , , fee_discount] = param;
         course = dictCourse[course];
         fee_discount *= 1;
-        const fee_normal = fee_discount;
+        fee_normal = fee_discount;
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -56,8 +54,8 @@ function mneCallDetail(arrDate) {
 
 /* <============line_div==========> */
 mneCall(thisdate, () => {
-  Update("CALENDAR|" + (nextdate + "01").datify() + "|");
+  Update("CALENDAR|" + nextyear + "-" + nextmonth + "|");
   setTimeout(() => {
     mneCall(nextdate, procDate);
-  }, 1500);
+  }, 1000);
 });
