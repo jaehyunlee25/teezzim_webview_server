@@ -48,7 +48,6 @@ function mneCall(date, callback) {
 }
 
 /* <============line_div==========> */
-const distinct = {};
 function mneCallDetail(arrDate) {
   EXTZLOG("mneCall", "start");
   const fCall = { post, get };
@@ -110,6 +109,7 @@ function mneCallDetail(arrDate) {
     ifr.innerHTML = data;
 
     const els = ifr.gba("onclick", "golfTimeSelect", true);
+
     Array.from(els).forEach((el) => {
       let [date, , time, fee, course] = el.attr("onclick").inparen(true);
       time = time.trim();
@@ -118,9 +118,6 @@ function mneCallDetail(arrDate) {
       const hole = 18;
       fee_normal = fee.rm(",") * 1;
       fee_discount = fee.rm(",") * 1;
-
-      if (distinct[date + time + course]) return;
-      distinct[date + time + course] = true;
 
       golf_schedule.push({
         golf_club_id: clubId,

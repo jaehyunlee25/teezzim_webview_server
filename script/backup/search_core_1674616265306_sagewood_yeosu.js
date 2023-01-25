@@ -110,6 +110,7 @@ function mneCallDetail(arrDate) {
     ifr.innerHTML = data;
 
     const els = ifr.gba("onclick", "golfTimeSelect", true);
+
     Array.from(els).forEach((el) => {
       let [date, , time, fee, course] = el.attr("onclick").inparen(true);
       time = time.trim();

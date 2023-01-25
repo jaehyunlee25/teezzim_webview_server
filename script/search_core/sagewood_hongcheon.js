@@ -1,4 +1,5 @@
 function mneCall(date, callback) {
+  EXTZLOG("search", "mneCall");
   const res = {};
   let els = doc.gcn("valid");
   Array.from(els).forEach((el, i) => {
@@ -35,13 +36,19 @@ function mneCall(date, callback) {
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
+  EXTZLOG("search", Object.keys(res).length);
+  const distinct = {};
   Object.keys(res).forEach((date) => {
+    if (distinct[date]) return;
+    distinct[date] = true;
+    EXTZLOG("search", date);
     dates.push([date, ""]);
   });
   callback();
 }
 
 /* <============line_div==========> */
+const distinct = {};
 function mneCallDetail(arrDate) {
   const fCall = { post, get };
   const [date, sign] = arrDate;
@@ -97,6 +104,7 @@ function mneCallDetail(arrDate) {
   };
 
   fCall[method](addr, param, {}, (data) => {
+    EXTZLOG("mneCall", "ajax callback");
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
@@ -110,6 +118,9 @@ function mneCallDetail(arrDate) {
       fee_normal = fee.rm(",") * 1;
       fee_discount = fee.rm(",") * 1;
 
+      if (distinct[date + time + course]) return;
+      distinct[date + time + course] = true;
+
       golf_schedule.push({
         golf_club_id: clubId,
         golf_course_id: course,
@@ -122,6 +133,7 @@ function mneCallDetail(arrDate) {
         others: hole + "홀",
       });
     });
+    EXTZLOG("mneCall", "golf_schedule count : " + golf_schedule.length);
     procDate();
   });
 }
