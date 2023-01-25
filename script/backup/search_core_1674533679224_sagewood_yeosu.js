@@ -1,5 +1,4 @@
 function mneCall(date, callback) {
-  EXTZLOG("search", "mneCall");
   const res = {};
   let els = doc.gcn("valid");
   Array.from(els).forEach((el, i) => {
@@ -7,7 +6,7 @@ function mneCall(date, callback) {
     const time = el.attr("time") * 1;
     const day = new Date(time);
     const year = day.getFullYear();
-    const month = (day.getMonth() + 1 + "").addzero();
+    const month = day.getMonth() + 1;
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
@@ -18,39 +17,18 @@ function mneCall(date, callback) {
     const time = el.attr("time") * 1;
     const day = new Date(time);
     const year = day.getFullYear();
-    const month = (day.getMonth() + 1 + "").addzero();
+    const month = day.getMonth() + 1;
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
   Object.keys(res).forEach((date) => {
-    dates.push([date, ""]);
-  });
-  doc.gcn("btn_calendar_next")[0].click();
-  els = doc.gcn("valid");
-  Array.from(els).forEach((el, i) => {
-    if (el.children.length == 0) return;
-    const time = el.attr("time") * 1;
-    const day = new Date(time);
-    const year = day.getFullYear();
-    const month = (day.getMonth() + 1 + "").addzero();
-    const dt = (day.getDate() + "").addzero();
-    res[[year, month, dt].join("")] = true;
-  });
-  EXTZLOG("search", Object.keys(res).length);
-  const distinct = {};
-  Object.keys(res).forEach((date) => {
-    if (distinct[date]) return;
-    distinct[date] = true;
-    EXTZLOG("search", date);
     dates.push([date, ""]);
   });
   callback();
 }
 
 /* <============line_div==========> */
-const distinct = {};
 function mneCallDetail(arrDate) {
-  EXTZLOG("mneCall", "start");
   const fCall = { post, get };
   const [date, sign] = arrDate;
   const addr = "/global/reservation/ajax/ajax_real_timeinfo_list";
@@ -105,22 +83,17 @@ function mneCallDetail(arrDate) {
   };
 
   fCall[method](addr, param, {}, (data) => {
-    EXTZLOG("mneCall", "ajax callback");
     const ifr = document.createElement("div");
     ifr.innerHTML = data;
 
     const els = ifr.gba("onclick", "golfTimeSelect", true);
     Array.from(els).forEach((el) => {
       let [date, , time, fee, course] = el.attr("onclick").inparen(true);
-      time = time.trim();
       date = date.rm(".");
       course = dictCourse[course.trim()];
       const hole = 18;
       fee_normal = fee.rm(",") * 1;
       fee_discount = fee.rm(",") * 1;
-
-      if (distinct[date + time + course]) return;
-      distinct[date + time + course] = true;
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -134,7 +107,6 @@ function mneCallDetail(arrDate) {
         others: hole + "홀",
       });
     });
-    EXTZLOG("mneCall", "golf_schedule count : " + golf_schedule.length);
     procDate();
   });
 }

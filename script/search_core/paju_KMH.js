@@ -1,10 +1,10 @@
 function mneCall(thisdate, callback) {
   const param = {};
-  const els = document.getElementsByClassName("can");
+  const els = doc.gcn("can");
   Array.from(els).forEach((el) => {
-    const href = el.getAttribute("href");
+    const href = el.attr("href");
     if (href === "#") return;
-    const date = thisdate + el.innerText.addzero();
+    const date = thisdate + el.str().addzero();
     dates.push([date, ""]);
   });
   callback();
@@ -54,8 +54,8 @@ function mneCallDetail(arrDate) {
 
 /* <============line_div==========> */
 mneCall(thisdate, () => {
-  Update("CALENDAR|" + nextyear + "-" + nextmonth + "|");
+  Update("CALENDAR|" + (nextdate + "01").datify() + "|");
   setTimeout(() => {
     mneCall(nextdate, procDate);
-  }, 1000);
+  }, 1500);
 });

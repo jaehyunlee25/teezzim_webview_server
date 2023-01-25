@@ -1,18 +1,30 @@
 function mneCall(date, callback) {
-  const atds = document.getElementsByTagName("td");
-  const tds = [];
-  Array.from(atds).forEach((td) => {
-    const tee = td.getAttribute("data-cnt");
-    if (!tee || tee == 0) return;
-    tds.push(td);
-  });
+  let count = 0;
+  const mneT = setInterval(() => {
+    if (!window["golf_calendar"]) {
+      count++;
+      if (count > 10) {
+        clearInterval(mneT);
+        callback();
+      }
+      return;
+    }
+    clearInterval(mneT);
+    const atds = doc.gtn("td");
+    const tds = [];
+    Array.from(atds).forEach((td) => {
+      const tee = td.getAttribute("data-cnt");
+      if (!tee || tee == 0) return;
+      tds.push(td);
+    });
 
-  tds.forEach((td) => {
-    const strDate = td.getAttribute("data-day");
-    dates.push([strDate, 0]);
-  });
+    tds.forEach((td) => {
+      const strDate = td.getAttribute("data-day");
+      dates.push([strDate, 0]);
+    });
 
-  callback();
+    callback();
+  }, 500);
 }
 
 /* <============line_div==========> */

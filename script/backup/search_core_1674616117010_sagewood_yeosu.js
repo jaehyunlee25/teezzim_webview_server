@@ -7,7 +7,7 @@ function mneCall(date, callback) {
     const time = el.attr("time") * 1;
     const day = new Date(time);
     const year = day.getFullYear();
-    const month = (day.getMonth() + 1 + "").addzero();
+    const month = ((day.getMonth() + 1) + "").addzero();
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
@@ -18,7 +18,7 @@ function mneCall(date, callback) {
     const time = el.attr("time") * 1;
     const day = new Date(time);
     const year = day.getFullYear();
-    const month = (day.getMonth() + 1 + "").addzero();
+    const month = ((day.getMonth() + 1) + "").addzero();
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
@@ -32,15 +32,12 @@ function mneCall(date, callback) {
     const time = el.attr("time") * 1;
     const day = new Date(time);
     const year = day.getFullYear();
-    const month = (day.getMonth() + 1 + "").addzero();
+    const month = ((day.getMonth() + 1) + "").addzero();
     const dt = (day.getDate() + "").addzero();
     res[[year, month, dt].join("")] = true;
   });
   EXTZLOG("search", Object.keys(res).length);
-  const distinct = {};
   Object.keys(res).forEach((date) => {
-    if (distinct[date]) return;
-    distinct[date] = true;
     EXTZLOG("search", date);
     dates.push([date, ""]);
   });
@@ -48,7 +45,6 @@ function mneCall(date, callback) {
 }
 
 /* <============line_div==========> */
-const distinct = {};
 function mneCallDetail(arrDate) {
   EXTZLOG("mneCall", "start");
   const fCall = { post, get };
@@ -110,6 +106,7 @@ function mneCallDetail(arrDate) {
     ifr.innerHTML = data;
 
     const els = ifr.gba("onclick", "golfTimeSelect", true);
+    const distinct = {};
     Array.from(els).forEach((el) => {
       let [date, , time, fee, course] = el.attr("onclick").inparen(true);
       time = time.trim();
@@ -119,6 +116,8 @@ function mneCallDetail(arrDate) {
       fee_normal = fee.rm(",") * 1;
       fee_discount = fee.rm(",") * 1;
 
+      EXTZLOG("mneCall", date + time + course);
+      EXTZLOG("mneCall", distinct[date + time + course]);
       if (distinct[date + time + course]) return;
       distinct[date + time + course] = true;
 
