@@ -3,7 +3,6 @@ function mneCall(strdate, callback) {
   const els = doc.gcn("booking-calendar")[0].gtn("a");
   Array.from(els).forEach((el) => {
     if(el.children[1].str().trim() != "예약") return;
-    if(el.attr("class").indexOf("day-work-9") != -1) return;
     const date = el.attr("data-date");
     dates.push([date, ""]);
   });

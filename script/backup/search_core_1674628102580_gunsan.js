@@ -16,7 +16,7 @@ function mneCallDetail(arrDate) {
   const param = {};
   Array.from(aspnetForm.elements).forEach((el) => (param[el.name] = el.value));
   param["SelectedDate"] = date.datify();
-  param["Day_Gubun"] = sign;
+  param["Day_Gubun"] = num;
   param["ctl00$ContentPlaceHolder1$htbArgs"] = str;
 
   const dictCourse = {
@@ -35,14 +35,13 @@ function mneCallDetail(arrDate) {
     const ifr = doc.clm("div");
     ifr.innerHTML = data;
 
-    const els = ifr.gba("href", "javascript:Reserve", true);
+    const els = ifr.gcn("reserv_btn");
     Array.from(els).forEach((el) => {
-      let [date, time, course] = el.attr("href").inparen();
-      date = date.rm("-");
-      const hole = 18;
+      let [date, course, , time, , , hole] = el.attr("href").inparen();
       course = dictCourse[course];
       const fee_discount = 140000;
       const fee_normal = 140000;
+      hole = hole + "홀";
 
       golf_schedule.push({
         golf_club_id: clubId,
@@ -53,7 +52,7 @@ function mneCallDetail(arrDate) {
         persons: "",
         fee_normal,
         fee_discount,
-        others: hole + "홀",
+        others: hole,
       });
     });
     procDate();
