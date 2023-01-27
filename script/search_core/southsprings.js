@@ -17,45 +17,48 @@ function mneCall(date, callback) {
 
 /* <============line_div==========> */
 function mneCallDetail(arrDate) {
-  procDate();
-  /* const [date] = arrDate;
-    const param = {
-      golfrestype: "real",
-      courseid: "0",
-      usrmemcd: "11",
-      pointdate: date,
-      openyn: "1",
-      dategbn: "3",
-      choice_time: "00",
-      cssncourseum: "",
-      inputtype: "I",
-    };
-    post("real_timelist_ajax_list.asp", param, {}, (data) => {
-      const ifr = document.createElement("div");
-      ifr.innerHTML = data;
-      const trs = ifr.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-      const obTeams = {};
-      Array.from(trs).forEach((tr, i) => {
-        const course = tr.children[1].innerHTML;
-        const time = tr.children[2].innerHTML;
-        const fee_normal = tr.children[4].innerHTML.replace(/\,/g, "") * 1;
-        const fee_discount = tr.children[4].innerHTML.replace(/\,/g, "") * 1;
-  
-        golf_schedule.push({
-          golf_club_id: clubId,
-          golf_course_id: course,
-          date,
-          time,
-          in_out: "",
-          persons: "",
-          fee_normal,
-          fee_discount,
-          others: "18홀",
-        });
+  const fCall = { post, get };
+  const [date, sign, gb] = arrDate;
+  const addr = "/mobile/reservation_time.asp";
+  const method = "post";
+  const param = {
+    submitDate: date,
+  };
+  const dictCourse = {
+    A: "Lake",
+    B: "Mountain",
+  };
+
+  fCall[method](addr, param, {}, (data) => {
+    const ifr = doc.clm("div");
+    ifr.innerHTML = data;
+
+    const attr = "href";
+    const els = ifr.gba(attr, "JavaScript:onclick=bookProsecc", true);
+    Array.from(els).forEach((el) => {
+      let [date, time, course, hole] = el.attr(attr).inparen();
+      course = dictCourse[course];
+      hole = hole.ct(1);
+      const fee = el.nm(2, 2).str().split("\n");
+      const fee_normal = el.nm(2, 2).innerHTML.split("<br>")[0].rm(",") * 1;
+      const fee_discount = el.nm(2, 2, 1, 0).str().rm(",") * 1;
+
+      golf_schedule.push({
+        golf_club_id: clubId,
+        golf_course_id: course,
+        date,
+        time,
+        in_out: "",
+        persons: "",
+        fee_normal,
+        fee_discount,
+        others: hole + "홀",
       });
-      procDate();
-    }); */
+    });
+    procDate();
+  });
 }
+
 /* <============line_div==========> */
 
 /* <============line_div==========> */
