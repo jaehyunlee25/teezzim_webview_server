@@ -5,19 +5,20 @@ EXTZLOG("search", "mneCall");
     if (el.nm(1).className.indexOf("possible") == -1) return;
     const [str] = el.attr("href").inparen();
     const [, , date, sign] = str.split("|");
-    dates.push([date.rm("-"), sign, str]);
+    dates.push([date.rm("-"), sign]);
   });
   callback();
 }
 
 /* <============line_div==========> */
 function mneCallDetail(arrDate) {
-  const [date, sign, str] = arrDate;
+  const [date, num] = arrDate;
   const param = {};
   Array.from(aspnetForm.elements).forEach((el) => (param[el.name] = el.value));
   param["SelectedDate"] = date.datify();
-  param["Day_Gubun"] = sign;
-  param["ctl00$ContentPlaceHolder1$htbArgs"] = str;
+  param["Day_Gubun"] = num;
+  param["ctl00$ContentPlaceHolder1$htbArgs"] =
+    "PREV|" + date.datify() + "|" + date.datify() + "|date";
 
   const dictCourse = {
     11: "전주",
@@ -31,33 +32,37 @@ function mneCallDetail(arrDate) {
     99: "REED",
   };
 
-  post("/Mobile/Reservation/Reservation.aspx", param, {}, (data) => {
-    const ifr = doc.clm("div");
-    ifr.innerHTML = data;
+  post(
+    "/Mobile/Reservation/ReservationTimeList.aspx?typecode=date",
+    param,
+    {},
+    (data) => {
+      const ifr = doc.clm("div");
+      ifr.innerHTML = data;
 
-    const els = ifr.gba("href", "javascript:Reserve", true);
-    Array.from(els).forEach((el) => {
-      let [date, time, course] = el.attr("href").inparen();
-      date = date.rm("-");
-      const hole = 18;
-      course = dictCourse[course];
-      const fee_discount = 140000;
-      const fee_normal = 140000;
+      const els = ifr.gcn("reserv_btn");
+      Array.from(els).forEach((el) => {
+        let [date, course, , time, , , hole] = el.attr("href").inparen();
+        course = dictCourse[course];
+        const fee_discount = 140000;
+        const fee_normal = 140000;
+        hole = hole + "홀";
 
-      golf_schedule.push({
-        golf_club_id: clubId,
-        golf_course_id: course,
-        date,
-        time,
-        in_out: "",
-        persons: "",
-        fee_normal,
-        fee_discount,
-        others: hole + "홀",
+        golf_schedule.push({
+          golf_club_id: clubId,
+          golf_course_id: course,
+          date,
+          time,
+          in_out: "",
+          persons: "",
+          fee_normal,
+          fee_discount,
+          others: hole,
+        });
       });
-    });
-    procDate();
-  });
+      procDate();
+    }
+  );
 }
 
 /* <============line_div==========> */

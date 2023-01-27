@@ -16,7 +16,7 @@ function mneCallDetail(arrDate) {
   const param = {};
   Array.from(aspnetForm.elements).forEach((el) => (param[el.name] = el.value));
   param["SelectedDate"] = date.datify();
-  param["Day_Gubun"] = sign;
+  param["Day_Gubun"] = num;
   param["ctl00$ContentPlaceHolder1$htbArgs"] = str;
 
   const dictCourse = {
