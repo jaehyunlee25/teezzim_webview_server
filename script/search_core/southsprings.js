@@ -15,6 +15,7 @@ function mneCall(date, callback) {
   });
 }
 
+/* <============line_div==========> */
 function mneCallDetail(arrDate) {
   procDate();
   /* const [date] = arrDate;
@@ -55,7 +56,9 @@ function mneCallDetail(arrDate) {
       procDate();
     }); */
 }
+/* <============line_div==========> */
 
+/* <============line_div==========> */
 mneCall(thisdate, () => {
   mneCall(nextdate, procDate);
 });
