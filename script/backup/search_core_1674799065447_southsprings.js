@@ -25,8 +25,8 @@ function mneCallDetail(arrDate) {
     submitDate: date,
   };
   const dictCourse = {
-    레이크: "Lake",
-    마운틴: "Mountain",
+    A: "Lake",
+    B: "Mountain",
   };
 
   fCall[method](addr, param, {}, (data) => {
@@ -34,11 +34,11 @@ function mneCallDetail(arrDate) {
     ifr.innerHTML = data;
 
     const attr = "href";
-    const els = ifr.gba(attr, "JavaScript:onclick=diChk", true);
+    const els = ifr.gba(attr, "JavaScript:onclick=bookProsecc", true);
     Array.from(els).forEach((el) => {
-      const time = el.nm(2, 0).innerHTML.split("<br>")[0].rm(":");
-      const hole = el.nm(2, 0, 1, 0).str().ct(1);
-      const course = dictCourse[el.nm(2, 1).str()];
+      let [date, time, course, hole] = el.attr(attr).inparen();
+      course = dictCourse[course];
+      hole = hole.ct(1);
       const fee = el.nm(2, 2).str().split("\n");
       const fee_normal = el.nm(2, 2).innerHTML.split("<br>")[0].rm(",") * 1;
       const fee_discount = el.nm(2, 2, 1, 0).str().rm(",") * 1;
