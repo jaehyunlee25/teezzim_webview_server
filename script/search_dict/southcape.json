@@ -1,1 +1,17 @@
-[["login_url","https://www.southcape.co.kr/m/login.asp","funcLogin"],["search_url","https://www.southcape.co.kr/m/pubReserveType.asp","funcReserve"]]
+[
+    [
+        "login_url",
+        "https://www.southcape.co.kr/m/login.asp",
+        "funcLogin"
+    ],
+    [
+        "main_url",
+        "https://www.southcape.co.kr/m/pubReserveType.asp",
+        "funcMove"
+    ],
+    [
+        "search_url",
+        "https://www.southcape.co.kr/m/pub_go_s1p.asp",
+        "funcReserve"
+    ]
+]
